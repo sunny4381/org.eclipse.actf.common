@@ -1,0 +1,37 @@
+/*******************************************************************************
+* Copyright (c) 2004, 2007 IBM Corporation.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+*  Randy Horwitz - initial API and implementation
+*******************************************************************************/ 
+
+package com.ibm.haac.raven.core.config;
+
+/**
+ * This class is used to report errors with ACTF's configuration
+ * @author Randy Horwitz
+ *
+ */
+public class ConfigurationException extends Exception
+{
+
+	public ConfigurationException () {
+		super();
+	}
+
+	public ConfigurationException (String message) {
+		super(message);
+	}
+
+	public ConfigurationException (Throwable cause) {
+		super(cause);
+	}
+
+	public ConfigurationException (String message, Throwable cause) {
+		super(message, cause);
+	}
+}

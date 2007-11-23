@@ -1,0 +1,25 @@
+com.ibm.haac.raven.core/debug = true
+com.ibm.haac.raven.core/debug/trace = true
+com.ibm.haac.raven.core/debug/trace/stream = c:/actfcore.out
+com.ibm.haac.raven.core/debug/trace/level = 0
+
+com.ibm.haac.raven.accessibility/debug = true
+com.ibm.haac.raven.accessibility/debug/trace = true
+com.ibm.haac.raven.accessibility/debug/trace/stream = c:/actfacc.out
+com.ibm.haac.raven.accessibility/debug/trace/level = 0
+
+com.ibm.haac.raven.validation.core/debug = true
+com.ibm.haac.raven.validation.core/debug/trace = true
+com.ibm.haac.raven.validation.core/debug/trace/stream = c:/actfval.out
+com.ibm.haac.raven.validation.core/debug/trace/level = 0
+
+com.ibm.haac.raven.model.java.core/debug = true
+com.ibm.haac.raven.model.java.core/debug/trace = true
+com.ibm.haac.raven.model.java.core/debug/trace/stream = c:/actfjava.out
+com.ibm.haac.raven.model.java.core/debug/trace/level = 0
+
+com.ibm.haac.raven.model.web.core/debug = true
+com.ibm.haac.raven.model.web.core/debug/trace = true
+com.ibm.haac.raven.model.web.core/debug/trace/stream = c:/actfweb.out
+com.ibm.haac.raven.model.web.core/debug/trace/level = 0
+
