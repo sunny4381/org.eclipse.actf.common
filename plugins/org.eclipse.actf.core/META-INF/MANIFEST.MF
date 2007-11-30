@@ -25,3 +25,4 @@ Export-Package: com.ibm.haac.raven.core,
  com.ibm.haac.util.command,
  com.ibm.haac.util.jar,
  com.ibm.haac.util.thread
+

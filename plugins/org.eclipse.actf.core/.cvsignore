@@ -1,5 +1,4 @@
-bin
-temp.folder
-log.folder
-build.xml
 *.jar
+bin
+log.folder
+temp.folder
