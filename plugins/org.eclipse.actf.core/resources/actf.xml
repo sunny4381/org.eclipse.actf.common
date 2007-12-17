@@ -20,7 +20,7 @@
         description="factory for generating models"
         type="java.lang.Class"
       >
-        com.ibm.haac.raven.core.model.DefaultModelFactory
+        org.eclipse.actf.model.DefaultModelFactory
       </model>
     </factory>
     
@@ -31,7 +31,7 @@
       description="W3C DOM architecture implementation"
       type="java.lang.Class"
     >
-      com.ibm.haac.raven.core.model.DomModel
+      org.eclipse.actf.model.DomModel
     </dom>
   </pool>
 

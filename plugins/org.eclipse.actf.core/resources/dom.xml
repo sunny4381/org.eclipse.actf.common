@@ -55,7 +55,7 @@
   	<property
   		name = "org.w3c.dom"
 	>
-		com.ibm.haac.raven.core.arch.format.DomElementFormatter
+		org.eclipse.actf.model.format.DomElementFormatter
   	</property>	
   	-->
   	</pool>
