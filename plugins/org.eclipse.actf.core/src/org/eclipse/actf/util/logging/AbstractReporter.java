@@ -58,9 +58,9 @@ public abstract class AbstractReporter implements IReporter
 	 * <p>The category formatter can be changed using the <code>setCategoryFormatter(messageFormat)</code> method.
 	 * 
 	 * @see #setCategoryFormatter(MessageFormat)
-	 * @see org.eclipse.actf.core.model.IModel#getNodeName(Object)
-	 * @see org.eclipse.actf.core.model.IModel#getNodeId(Object)
-	 * @see org.eclipse.actf.core.locate.INodeLocator#describe(Object)
+	 * @see org.eclipse.actf.model.IModel#getNodeName(Object)
+	 * @see org.eclipse.actf.model.IModel#getNodeId(Object)
+	 * @see org.eclipse.actf.model.locate.INodeLocator#describe(Object)
 	 */
 	public static final MessageFormat CATEGORY_FORMATTER = new MessageFormat("{0}[{1}][@id={2}]");
 	

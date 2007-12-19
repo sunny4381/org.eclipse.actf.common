@@ -104,7 +104,7 @@ public class ActfCorePlugin extends Plugin
 		runtimeContext = RuntimeContextFactory.getInstance().getRuntimeContext();
 		EclipseResourceLocator locator = (EclipseResourceLocator) runtimeContext.getResourceLocator();
 
-		// provide a way for retreaving classes and resources from all bundles
+		// provide a way for retrieving classes and resources from all bundles
 		locator.registerBundleName(getPluginId());
 		clCache.put(getPluginId(), getClass().getClassLoader());
 		
@@ -121,10 +121,13 @@ public class ActfCorePlugin extends Plugin
 			throw new CoreException(new Status(IStatus.ERROR, getPluginId(), 0, "Error initializing configuration object", e));
 		}
 		
-		String debug = Platform.getDebugOption(getDebugOptionId());
+		/*String debug = Platform.getDebugOption(getDebugOptionId());
 		setDebugging(debug != null && debug.equalsIgnoreCase("true"));
 		if (isDebugging()) {
 			prepareTraceFacility();
+			if (configuration.getSymbolPoolContents(IConfiguration.ACTF_ID) == null){
+				
+			} 
 			configuration.setSymbolPool(IConfiguration.ACTF_ID);
 			configuration.setParameter(
 				IConfiguration.TRACE_STREAM_KEY, traceStream);
@@ -133,7 +136,7 @@ public class ActfCorePlugin extends Plugin
 		}
 		
 		trace(getClass().getName() + " started");
-		trace("configuration:" + configuration);
+		trace("configuration:" + configuration); */
 	}
 
 	protected IReporter getTracer () {
