@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF Vocab Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.util.vocab;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: org.eclipse.actf.util.vocab.VocabPlugin
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.actf.util.vocab,
+ org.eclipse.actf.util.vocab.preferences
