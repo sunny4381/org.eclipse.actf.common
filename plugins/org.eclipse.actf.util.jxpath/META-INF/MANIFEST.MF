@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF Jxpath Fragment (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.util.jxpath;singleton:=true
+Bundle-Version: 0.0.1
+Fragment-Host: org.eclipse.actf.common
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime
+Eclipse-LazyStart: true
+Bundle-ClassPath: lib/commons-jxpath-1.2.jar,
+ .
+Export-Package: org.eclipse.actf.util.jxpath
+Bundle-Vendor: Eclipse.org
