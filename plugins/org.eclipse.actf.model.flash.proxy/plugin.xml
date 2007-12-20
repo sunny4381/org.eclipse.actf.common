@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.ui.startup">
+      <startup class="org.eclipse.actf.model.flash.proxy.ProxyStartup"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferencePage"
+               id="org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferencePage"
+            name="%ProxyPreferencePage.name"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferenceInitializer"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="org.eclipse.actf.model.flash.proxy.views.ProxyLogView"
+            icon="icons/view16/proxylogview.gif"
+            id="org.eclipse.actf.model.flash.proxy.views.ProxyLogView"
+            name="%ProxyLogView.name"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.eclipse.actf.model.flash.proxy.actionSet"
+            label="Proxy Action Sets">
+         <action
+               class="org.eclipse.actf.model.flash.proxy.actions.DeleteCacheAction"
+               id="org.eclipse.actf.model.flash.proxy.actions.DeleteCacheAction"
+               label="%DeleteAction.name"
+               menubarPath="file/cacheGroup"
+               tooltip="%DeleteAction.tip"/>
+      </actionSet>
+   </extension>
+      
+ <extension point="org.eclipse.ui.viewActions">
+    <viewContribution
+          id="org.eclipse.actf.model.flash.viewerContribution1"
+          targetID="com.ibm.accessibility.adesigner.flash.views.FlashDOMView">
+       <action
+             class="org.eclipse.actf.model.flash.proxy.actions.OpenPreferencesAction"
+             id="org.eclipse.actf.model.flash.proxy.action1"
+             label="%ProxyPreferences"
+             menubarPath="additions"/>
+    </viewContribution>
+    <viewContribution
+          id="org.eclipse.actf.model.flash.viewerContribution2"
+          targetID="org.eclipse.actf.model.flash.views.ProxyLogView">
+       <action
+             class="org.eclipse.actf.model.flash.proxy.actions.OpenPreferencesAction"
+             id="org.eclipse.actf.model.flash.proxy.action2"
+             label="%Preferences"
+             menubarPath="additions"/>
+    </viewContribution>
+ </extension>
+   
+
+</plugin>
