@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.actf.util.Utils;
+import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 
 
@@ -226,6 +228,7 @@ public class AbstractConfiguration implements IConfiguration
 			try {
 				res = ClassLoaderCache.getDefault().classForName((String) o);
 			}catch (Exception e) {
+				Utils.println(IReporter.SYSTEM_FATAL,e);
 			}
 		}
 		
