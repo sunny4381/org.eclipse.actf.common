@@ -175,10 +175,26 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 	 * @param isWhole
 	 * @return (browserSizeX, browserSizeY, pageSizeX, pageSizeY)
 	 */
-	protected ModelServiceSizeInfo getBrowserSize(boolean isWhole,
-			boolean doAlert) {
+	protected ModelServiceSizeInfo getBrowserSize(boolean isWhole) {
 		int[] size = new int[] { 1, 1, 1, 1 };
-		// TODO impl
+		int width = browserComposite.getWidth()-4;
+		int height = browserComposite.getHeight()-4;
+		size[0] = width-scrollbarWidth;
+		size[1] = height;
+		size[2] = width-scrollbarWidth;
+		size[3] = height;			
+		if(isWhole){
+			int[] tmpSize = browserComposite.getWholeSize();
+			if(tmpSize.length==2&&tmpSize[0]>-1&&tmpSize[1]>-1){
+				size[2] = tmpSize[0];
+				size[3] = tmpSize[1];
+				if(tmpSize[0]>size[0]){
+					size[1] -=scrollbarWidth;
+				}
+			}
+		}
+		
+		
 		return (new ModelServiceSizeInfo(size[0], size[1], size[2], size[3]));
 	}
 
@@ -346,9 +362,9 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 		return browserComposite;
 	}
 
-	public File saveDocumentAsHTMLFile(String file) {		
+	public File saveDocumentAsHTMLFile(String file) {
 		if (null != file) {
-			//TODO replace with DomByCOM (need write as XML support)
+			// TODO replace with DomByCOM (need write as XML support)
 			boolean saveLiveDOM = (browserComposite.saveLiveDom(file));
 			if (!saveLiveDOM) {
 				return new File(file);

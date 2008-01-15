@@ -92,7 +92,7 @@ public class WebBrowserIEScrollManager implements IModelServiceScrollManager {
     }
 
     public ModelServiceSizeInfo getSize(boolean isWhole) {
-        return browserIE.getBrowserSize(isWhole, false);
+        return browserIE.getBrowserSize(isWhole);
     }
 
     public void setScrollBarWidth(int width) {

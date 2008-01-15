@@ -418,20 +418,23 @@ public class WebBrowserIEComposite extends Composite implements
 								.getIDsOfNames(new String[] { "outerHTML" });
 						Variant varOuterHTML = docEle
 								.getProperty(outerHTML_id[0]);
-						if(null!= varOuterHTML){
-							try{
-								//for bug
-								//replace "alt=\u3000" with "alt=\" \""
-								//replace "alt=* " with "alt=\"*\" "
-								
-								PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName), "UTF-8"));
+						if (null != varOuterHTML) {
+							try {
+								// for bug
+								// replace "alt=\u3000" with "alt=\" \""
+								// replace "alt=* " with "alt=\"*\" "
+
+								PrintWriter pw = new PrintWriter(
+										new OutputStreamWriter(
+												new FileOutputStream(fileName),
+												"UTF-8"));
 								pw.println(varOuterHTML.getString());
 								pw.flush();
 								pw.close();
 								return true;
-							}catch (Exception e3){
+							} catch (Exception e3) {
 								e3.printStackTrace();
-							}finally{
+							} finally {
 								varOuterHTML.dispose();
 							}
 						}
@@ -468,6 +471,69 @@ public class WebBrowserIEComposite extends Composite implements
 		Variant variant = new Variant(auto);
 		IDispatch iDispatch = variant.getDispatch();
 		return iDispatch.getAddress();
+	}
+
+	public int[] getWholeSize() {
+		int[] result = new int[] { -1, -1 };
+		Variant varDocument = getBrowserVariant("Document"); //$NON-NLS-1$
+		if (null != varDocument) {
+			try {
+				OleAutomation document = varDocument.getAutomation();
+				int[] idDocumentElement = (document
+						.getIDsOfNames((new String[] { "documentElement" })));
+				if (null != idDocumentElement) {
+					Variant varDocEle = document
+							.getProperty(idDocumentElement[0]);
+					if (null != varDocEle) {
+						try {
+							OleAutomation docEle = varDocEle.getAutomation();
+							int[] idScrollWidth = docEle
+									.getIDsOfNames(new String[] { "scrollWidth" });
+							if (null != idScrollWidth) {
+								Variant varWidth = docEle
+										.getProperty(idScrollWidth[0]);
+								if (null != varWidth) {
+									try {
+										result[0] = varWidth.getInt();
+									} catch (Exception e2) {
+										e2.printStackTrace();
+									} finally {
+										varWidth.dispose();
+									}
+								}
+							}
+							int[] idScrollHeight = docEle
+									.getIDsOfNames(new String[] { "scrollHeight" });
+							if (null != idScrollHeight) {
+								Variant varHeight = docEle
+										.getProperty(idScrollHeight[0]);
+								if (null != varHeight) {
+									try {
+										result[1] = varHeight.getInt();
+									} catch (Exception e2) {
+										e2.printStackTrace();
+									} finally {
+										varHeight.dispose();
+									}
+								}
+							}
+							
+							//TODO consider Document.body.(scrollWidth/offsetLeft, scrollHeight/offsetTop)
+							
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						} finally {
+							varDocEle.dispose();
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				varDocument.dispose();
+			}
+		}
+		return (result);
 	}
 
 	public boolean scroll(int x, int y, int type) {
