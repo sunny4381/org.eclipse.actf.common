@@ -479,52 +479,28 @@ public class WebBrowserIEComposite extends Composite implements
 		if (null != varDocument) {
 			try {
 				OleAutomation document = varDocument.getAutomation();
-				int[] idDocumentElement = (document
-						.getIDsOfNames((new String[] { "documentElement" })));
-				if (null != idDocumentElement) {
-					Variant varDocEle = document
-							.getProperty(idDocumentElement[0]);
-					if (null != varDocEle) {
-						try {
-							OleAutomation docEle = varDocEle.getAutomation();
-							int[] idScrollWidth = docEle
-									.getIDsOfNames(new String[] { "scrollWidth" });
-							if (null != idScrollWidth) {
-								Variant varWidth = docEle
-										.getProperty(idScrollWidth[0]);
-								if (null != varWidth) {
-									try {
-										result[0] = varWidth.getInt();
-									} catch (Exception e2) {
-										e2.printStackTrace();
-									} finally {
-										varWidth.dispose();
-									}
-								}
-							}
-							int[] idScrollHeight = docEle
-									.getIDsOfNames(new String[] { "scrollHeight" });
-							if (null != idScrollHeight) {
-								Variant varHeight = docEle
-										.getProperty(idScrollHeight[0]);
-								if (null != varHeight) {
-									try {
-										result[1] = varHeight.getInt();
-									} catch (Exception e2) {
-										e2.printStackTrace();
-									} finally {
-										varHeight.dispose();
-									}
-								}
-							}
-							
-							//TODO consider Document.body.(scrollWidth/offsetLeft, scrollHeight/offsetTop)
-							
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						} finally {
-							varDocEle.dispose();
+				Variant varDocEle = getVariant(document, "documentElement");
+				if (null != varDocEle) {
+					try {
+						OleAutomation docEle = varDocEle.getAutomation();
+						result[0] = getIntFromVariant(docEle, "scrollWidth");
+						result[1] = getIntFromVariant(docEle, "scrollHeight");
+
+						int bodySize[] = getBodySize(document);
+						
+						//System.out.println(result[0]+" "+result[1]+" : "+bodySize[0]+" "+bodySize[1]);
+
+						if(result[0]<bodySize[0]){
+							result[0]=bodySize[0];
 						}
+						if(result[1]<bodySize[1]){
+							result[1]=bodySize[1];
+						}
+						
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					} finally {
+						varDocEle.dispose();
 					}
 				}
 			} catch (Exception e) {
@@ -542,35 +518,28 @@ public class WebBrowserIEComposite extends Composite implements
 			if (null != varDocument) {
 				try {
 					OleAutomation document = varDocument.getAutomation();
-					int[] idParentWindow = (document
-							.getIDsOfNames((new String[] { "parentWindow" })));
-					if (null != idParentWindow) {
-						Variant varWindow = document
-								.getProperty(idParentWindow[0]);
-						if (null != varWindow) {
-							try {
-								OleAutomation window = varWindow
-										.getAutomation();
-								String scrollType = "scrollBy";
-								if (type == 1) {
-									scrollType = "scrollTo";
-								}
-
-								int[] idScroll = window
-										.getIDsOfNames(new String[] { scrollType });
-								if (null != idScroll) {
-									window.invoke(idScroll[0], new Variant[] {
-											new Variant(x), new Variant(y) });
-									return true;
-								}
-							} catch (Exception e1) {
-								e1.printStackTrace();
-							} finally {
-								varWindow.dispose();
+					Variant varWindow = getVariant(document, "parentWindow");
+					if (null != varWindow) {
+						try {
+							OleAutomation window = varWindow.getAutomation();
+							String scrollType = "scrollBy";
+							if (type == 1) {
+								scrollType = "scrollTo";
 							}
+							int[] idScroll = window
+									.getIDsOfNames(new String[] { scrollType });
+							if (null != idScroll) {
+								window.invoke(idScroll[0], new Variant[] {
+										new Variant(x), new Variant(y) });
+								return true;
+							}
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						} finally {
+							varWindow.dispose();
 						}
-
 					}
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
@@ -777,6 +746,53 @@ public class WebBrowserIEComposite extends Composite implements
 
 	private boolean setBrowserBoolean(String name, boolean value) {
 		return setBrowserVariant(name, new Variant(value));
+	}
+
+	private int[] getBodySize(OleAutomation document) {
+		int[] result = { -1, -1 };
+		Variant varBody = getVariant(document, "body");
+		if (null != varBody) {
+			try {
+				OleAutomation body = varBody.getAutomation();
+				int scrollWidth = getIntFromVariant(body, "scrollWidth");
+				int offsetLeft = getIntFromVariant(body, "offsetLeft");
+				int scrollHeight = getIntFromVariant(body, "scrollHeight");
+				int offsetTop = getIntFromVariant(body, "offsetTop");
+
+				//System.out.println(scrollWidth+" "+offsetLeft+" "+scrollHeight+" "+offsetTop);
+				
+				result[0]=scrollWidth + offsetLeft*2;
+				result[1]=scrollHeight + offsetTop*2;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				varBody.dispose();
+			}
+		}
+		return result;
+	}
+
+	private Variant getVariant(OleAutomation target, String name) {
+		if (null != target) {
+			int[] pIdName = target.getIDsOfNames(new String[] { name });
+			if (null != pIdName) {
+				return target.getProperty(pIdName[0]);
+			}
+		}
+		return null;
+	}
+	
+	private int getIntFromVariant(OleAutomation target, String name){
+		Variant varResult = getVariant(target, name);
+		if (null != varResult) {
+			try {
+				return varResult.getInt();
+			} finally {
+				varResult.dispose();
+			}
+		}
+		return -1;//TODO		
 	}
 
 	/**
