@@ -11,6 +11,9 @@
 
 package org.eclipse.actf.model.ui.editors.ie.impl;
 
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -400,6 +403,53 @@ public class WebBrowserIEComposite extends Composite implements
 		return -1;
 	}
 
+	public boolean saveLiveDom(String fileName) {
+		Variant varDocument = getBrowserVariant("Document"); //$NON-NLS-1$
+		if (null != varDocument) {
+			try {
+				OleAutomation document = varDocument.getAutomation();
+				int[] docEleId = document
+						.getIDsOfNames(new String[] { "documentElement" });
+				Variant varDocEle = document.getProperty(docEleId[0]);
+				if (null != varDocEle) {
+					try {
+						OleAutomation docEle = varDocEle.getAutomation();
+						int[] outerHTML_id = docEle
+								.getIDsOfNames(new String[] { "outerHTML" });
+						Variant varOuterHTML = docEle
+								.getProperty(outerHTML_id[0]);
+						if(null!= varOuterHTML){
+							try{
+								//for bug
+								//replace "alt=\u3000" with "alt=\" \""
+								//replace "alt=* " with "alt=\"*\" "
+								
+								PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName), "UTF-8"));
+								pw.println(varOuterHTML.getString());
+								pw.flush();
+								pw.close();
+								return true;
+							}catch (Exception e3){
+								e3.printStackTrace();
+							}finally{
+								varOuterHTML.dispose();
+							}
+						}
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					} finally {
+						varDocEle.dispose();
+					}
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			} finally {
+				varDocument.dispose();
+			}
+		}
+		return false;
+	}
+
 	public boolean save(String fileName) {
 		Variant varDocument = getBrowserVariant("Document"); //$NON-NLS-1$
 		if (null != varDocument) {
@@ -443,9 +493,8 @@ public class WebBrowserIEComposite extends Composite implements
 								int[] idScroll = window
 										.getIDsOfNames(new String[] { scrollType });
 								if (null != idScroll) {
-									window.invoke(idScroll[0],
-											new Variant[] { new Variant(x),
-													new Variant(y) });
+									window.invoke(idScroll[0], new Variant[] {
+											new Variant(x), new Variant(y) });
 									return true;
 								}
 							} catch (Exception e1) {

@@ -314,10 +314,6 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 		return browserComposite.getBrowserAddress();
 	}
 
-	// public Point computeSize() {
-	// return this.oleControlSite.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-	// }
-
 	public String[] getSupportMIMETypes() {
 		return MIMETYPES_HTML;
 	}
@@ -350,12 +346,25 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 		return browserComposite;
 	}
 
-	public File saveDocumentAsHTMLFile(String file) {
-		if (null == file)
-			return null;
-		// TODO file check
-		saveOrigHtmlSource(file);
-		return new File(file);
+	public File saveDocumentAsHTMLFile(String file) {		
+		if (null != file) {
+			//TODO replace with DomByCOM (need write as XML support)
+			boolean saveLiveDOM = (browserComposite.saveLiveDom(file));
+			if (!saveLiveDOM) {
+				return new File(file);
+			}
+		}
+		return null;
+	}
+
+	public File saveOriginalDocument(String file) {
+		if (null != file) {
+			boolean saveOrigHtmlSource = (browserComposite.save(file));
+			if (!saveOrigHtmlSource) {
+				return new File(file);
+			}
+		}
+		return null;
 	}
 
 	public void jumpToNode(Node target) {
@@ -365,14 +374,6 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 	public String getCurrentMIMEType() {
 		// TODO get info from browser
 		return MIMETYPES_HTML[0];
-	}
-
-	private void saveHtmlSource(String target) {
-		// TODO save inner HTML
-	}
-
-	private boolean saveOrigHtmlSource(String target) {
-		return (browserComposite.save(target));
 	}
 
 	public void setScrollbarWidth(int width) {
