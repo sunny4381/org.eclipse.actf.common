@@ -17,6 +17,7 @@ import org.eclipse.actf.model.IModelServiceScrollManager;
 import org.eclipse.actf.model.IWebBrowserACTF;
 import org.eclipse.actf.model.ModelServiceSizeInfo;
 import org.eclipse.actf.model.dom.dombycom.DomByCom;
+import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserIEConstants;
 import org.eclipse.actf.model.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
@@ -547,6 +548,10 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 	public void setWindowClosedEventListener(
 			IWindowClosedEventListener windowClosingEventListener) {
 		this.windowClosedEventListener = windowClosingEventListener;
+	}
+
+	public ImagePositionInfo[] getAllImagePosition() {
+		return browserComposite.getAllImagePosition();
 	}
 
 }

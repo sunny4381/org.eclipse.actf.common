@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.ui.editors.ie.impl;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserIEConstants;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.BeforeNavigate2Parameters;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.BrowserEventListener;
@@ -408,16 +410,13 @@ public class WebBrowserIEComposite extends Composite implements
 		if (null != varDocument) {
 			try {
 				OleAutomation document = varDocument.getAutomation();
-				int[] docEleId = document
-						.getIDsOfNames(new String[] { "documentElement" });
-				Variant varDocEle = document.getProperty(docEleId[0]);
+				Variant varDocEle = getVariant(document, "documentElement");
+				document.dispose();
 				if (null != varDocEle) {
 					try {
 						OleAutomation docEle = varDocEle.getAutomation();
-						int[] outerHTML_id = docEle
-								.getIDsOfNames(new String[] { "outerHTML" });
-						Variant varOuterHTML = docEle
-								.getProperty(outerHTML_id[0]);
+						Variant varOuterHTML = getVariant(docEle, "outerHTML");
+						docEle.dispose();
 						if (null != varOuterHTML) {
 							try {
 								// for bug
@@ -483,26 +482,29 @@ public class WebBrowserIEComposite extends Composite implements
 				if (null != varDocEle) {
 					try {
 						OleAutomation docEle = varDocEle.getAutomation();
-						result[0] = getIntFromVariant(docEle, "scrollWidth");
-						result[1] = getIntFromVariant(docEle, "scrollHeight");
+						result[0] = getIntFromOleAutomation(docEle, "scrollWidth");
+						result[1] = getIntFromOleAutomation(docEle, "scrollHeight");
+						docEle.dispose();
 
 						int bodySize[] = getBodySize(document);
-						
-						//System.out.println(result[0]+" "+result[1]+" : "+bodySize[0]+" "+bodySize[1]);
 
-						if(result[0]<bodySize[0]){
-							result[0]=bodySize[0];
+						// System.out.println(result[0]+" "+result[1]+" :
+						// "+bodySize[0]+" "+bodySize[1]);
+
+						if (result[0] < bodySize[0]) {
+							result[0] = bodySize[0];
 						}
-						if(result[1]<bodySize[1]){
-							result[1]=bodySize[1];
+						if (result[1] < bodySize[1]) {
+							result[1] = bodySize[1];
 						}
-						
+
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					} finally {
 						varDocEle.dispose();
 					}
 				}
+				document.dispose();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -512,6 +514,34 @@ public class WebBrowserIEComposite extends Composite implements
 		return (result);
 	}
 
+	public ImagePositionInfo[] getAllImagePosition() {
+		ImagePositionInfo[] result = new ImagePositionInfo[0];
+		Variant varDocument = getBrowserVariant("Document");
+		if (null != varDocument) {
+			try {
+				OleAutomation document = varDocument.getAutomation();
+				Variant varImages = getVariant(document, "images");
+				document.dispose();
+				if (null != varImages) {
+					try {
+						OleAutomation images = varImages.getAutomation();
+						result =  getAllImagePosition(images);
+						images.dispose();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					} finally {
+						varImages.dispose();
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				varDocument.dispose();
+			}
+		}
+		return result;
+	}
+
 	public boolean scroll(int x, int y, int type) {
 		if (type == 0 || type == 1) {
 			Variant varDocument = getBrowserVariant("Document"); //$NON-NLS-1$
@@ -519,6 +549,7 @@ public class WebBrowserIEComposite extends Composite implements
 				try {
 					OleAutomation document = varDocument.getAutomation();
 					Variant varWindow = getVariant(document, "parentWindow");
+					document.dispose();
 					if (null != varWindow) {
 						try {
 							OleAutomation window = varWindow.getAutomation();
@@ -531,8 +562,10 @@ public class WebBrowserIEComposite extends Composite implements
 							if (null != idScroll) {
 								window.invoke(idScroll[0], new Variant[] {
 										new Variant(x), new Variant(y) });
+								window.dispose();
 								return true;
 							}
+							window.dispose();
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						} finally {
@@ -579,16 +612,6 @@ public class WebBrowserIEComposite extends Composite implements
 	}
 
 	protected void onNewWindow2(NewWindow2Parameters param) {
-		// int[] pIdState = auto2.getIDsOfNames(new String[] {"ReadyState"});
-		// //$NON-NLS-1$
-		// if (pIdState != null) {
-		// System.out.println("Browser2
-		// readyState="+auto.getProperty(pIdState[0])); //$NON-NLS-1$
-		// // event.setCancel(cancel);
-		// }
-		// int browser2Address = new Variant(auto2).getDispatch().getAddress();
-		// param.setBrowserAddress(browser2Address);
-		//        
 		for (int i = 0; i < eventListeners.length; i++) {
 			eventListeners[i].newWindow2(param);
 		}
@@ -625,14 +648,6 @@ public class WebBrowserIEComposite extends Composite implements
 			eventListeners[i].progressChange(param);
 		}
 	}
-
-	// /*
-	// * Sub browser event handlers
-	// */
-	// protected void subBrowser_onBeforeNavigate2(BeforeNavigate2Parameters
-	// param) {
-	// System.out.println("[Sub browser BeforeNavigate2]"); //$NON-NLS-1$
-	// }
 
 	/*
 	 * Private methods
@@ -754,16 +769,18 @@ public class WebBrowserIEComposite extends Composite implements
 		if (null != varBody) {
 			try {
 				OleAutomation body = varBody.getAutomation();
-				int scrollWidth = getIntFromVariant(body, "scrollWidth");
-				int offsetLeft = getIntFromVariant(body, "offsetLeft");
-				int scrollHeight = getIntFromVariant(body, "scrollHeight");
-				int offsetTop = getIntFromVariant(body, "offsetTop");
+				int scrollWidth = getIntFromOleAutomation(body, "scrollWidth");
+				int offsetLeft = getIntFromOleAutomation(body, "offsetLeft");
+				int scrollHeight = getIntFromOleAutomation(body, "scrollHeight");
+				int offsetTop = getIntFromOleAutomation(body, "offsetTop");
 
-				//System.out.println(scrollWidth+" "+offsetLeft+" "+scrollHeight+" "+offsetTop);
-				
-				result[0]=scrollWidth + offsetLeft*2;
-				result[1]=scrollHeight + offsetTop*2;
-				
+				// System.out.println(scrollWidth+" "+offsetLeft+"
+				// "+scrollHeight+" "+offsetTop);
+
+				result[0] = scrollWidth + offsetLeft * 2;
+				result[1] = scrollHeight + offsetTop * 2;
+
+				body.dispose();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -771,6 +788,65 @@ public class WebBrowserIEComposite extends Composite implements
 			}
 		}
 		return result;
+	}
+
+	private ImagePositionInfo[] getAllImagePosition(OleAutomation images) {
+		ImagePositionInfo[] result = new ImagePositionInfo[0];
+		int size = getIntFromOleAutomation(images, "length");
+		if (size > -1) {
+			ImagePositionInfo[] tmp = new ImagePositionInfo[size];
+			int[] idItem = images.getIDsOfNames(new String[] { "Item" });
+			for (int i = 0; i < size; i++) {
+				Variant varImage = images.invoke(idItem[0],
+						new Variant[] { new Variant(i) });
+				if (null != varImage) {
+					try {
+						OleAutomation image = varImage.getAutomation();
+						int[] bcr = getBoundingClientRect(image);
+						int width = getIntFromOleAutomation(image, "Width");
+						int height = getIntFromOleAutomation(image, "Height");
+						String url = getStringFromOleAutomation(image, "src");
+						image.dispose();
+
+						//System.out.println(bcr[0]+" "+bcr[1]+" "+bcr[2]+" "+bcr[3]+" "+width+" "+height+" "+url);
+						
+						tmp[i] = new ImagePositionInfo(bcr[0],bcr[1],width,height,url);
+						
+					} catch (Exception e2) {
+						e2.printStackTrace();
+						return result;
+					} finally {
+						varImage.dispose();
+					}
+				}
+			}
+			result = tmp;
+		}
+		return result;
+	}
+
+	private int[] getBoundingClientRect(OleAutomation image) {
+		int[] result = new int[] { 0, 0};//Left, Top
+		if (null != image) {
+			int[] idBCR = image.getIDsOfNames(new String[] {"getBoundingClientRect"});
+			Variant varBCR = image.invoke(idBCR[0]);
+			if (null != varBCR) {
+				try {
+					OleAutomation bcr = varBCR.getAutomation();
+					result = new int[] { getIntFromOleAutomation(bcr, "Left"),
+							getIntFromOleAutomation(bcr, "Top"),
+							//getIntFromOleAutomation(bcr, "Right"),
+							//getIntFromOleAutomation(bcr, "Bottom")
+							};
+					bcr.dispose();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					varBCR.dispose();
+				}
+			}
+		}
+		return result;//
 	}
 
 	private Variant getVariant(OleAutomation target, String name) {
@@ -782,8 +858,8 @@ public class WebBrowserIEComposite extends Composite implements
 		}
 		return null;
 	}
-	
-	private int getIntFromVariant(OleAutomation target, String name){
+
+	private int getIntFromOleAutomation(OleAutomation target, String name) {
 		Variant varResult = getVariant(target, name);
 		if (null != varResult) {
 			try {
@@ -792,7 +868,19 @@ public class WebBrowserIEComposite extends Composite implements
 				varResult.dispose();
 			}
 		}
-		return -1;//TODO		
+		return -1;// TODO
+	}
+
+	private String getStringFromOleAutomation(OleAutomation target, String name) {
+		Variant varResult = getVariant(target, name);
+		if (null != varResult) {
+			try {
+				return varResult.getString();
+			} finally {
+				varResult.dispose();
+			}
+		}
+		return "";// TODO
 	}
 
 	/**
