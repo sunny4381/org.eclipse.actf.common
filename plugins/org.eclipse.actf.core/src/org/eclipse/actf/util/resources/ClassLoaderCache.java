@@ -245,7 +245,6 @@ public class ClassLoaderCache
 				|| classname.startsWith("EDU.oswego.cs.dl.util.concurrent.")
 				|| classname.startsWith("org.apache.crimson")
 				|| classname.startsWith("org.apache.bsf")
-				|| classname.startsWith("org.python")
 				|| classname.startsWith("org.apache.xalan")
 				|| classname.startsWith("org.apache.xml")
 				|| classname.startsWith("org.apache.xpath")
