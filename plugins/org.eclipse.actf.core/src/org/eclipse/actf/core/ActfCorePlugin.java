@@ -35,7 +35,6 @@ public class ActfCorePlugin extends Plugin
 {
 
 	public static final String ACTF_CORE_JAR =  "actf-core.jar";
-	
 	public static final String ACTFCORE_PLUGIN_ID = "org.eclipse.actf.core";
 	public static final String DEBUG_OPTION_ID = "debug";
 	public static final String LOG_OPTION_ID = "log";
