@@ -86,6 +86,7 @@ public class WebBrowserIEComposite extends Composite implements
 
 	// Event IDs
 	// TODO in capital
+	@SuppressWarnings("unused")
 	private static final int EventID_BEFORENAVIGATE = 100,
 			EventID_NAVIGATECOMPLETE = 101, EventID_STATUSTEXTCHANGE = 102,
 			EventID_QUIT = 103, EventID_DOWNLOADCOMPLETE = 104,
