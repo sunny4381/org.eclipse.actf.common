@@ -14,10 +14,6 @@ package org.eclipse.actf.model.ui.editors.ie.internal.events.impl;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.BeforeNavigate2Parameters;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.ole.win32.OleEvent;
-import org.eclipse.swt.ole.win32.Variant;
-
-
-
 
 public class BeforeNavigate2ParametersImpl extends AbstractEventParameters implements BeforeNavigate2Parameters {
     
