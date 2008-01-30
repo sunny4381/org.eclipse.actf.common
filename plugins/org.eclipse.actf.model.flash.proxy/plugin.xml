@@ -44,7 +44,7 @@
  <extension point="org.eclipse.ui.viewActions">
     <viewContribution
           id="org.eclipse.actf.model.flash.viewerContribution1"
-          targetID="com.ibm.accessibility.adesigner.flash.views.FlashDOMView">
+          targetID="org.eclipse.actf.visualization.flash.ui.views.FlashDOMView">
        <action
              class="org.eclipse.actf.model.flash.proxy.actions.OpenPreferencesAction"
              id="org.eclipse.actf.model.flash.proxy.action1"
@@ -53,7 +53,7 @@
     </viewContribution>
     <viewContribution
           id="org.eclipse.actf.model.flash.viewerContribution2"
-          targetID="org.eclipse.actf.model.flash.views.ProxyLogView">
+          targetID="org.eclipse.actf.model.flash.proxy.views.ProxyLogView">
        <action
              class="org.eclipse.actf.model.flash.proxy.actions.OpenPreferencesAction"
              id="org.eclipse.actf.model.flash.proxy.action2"
