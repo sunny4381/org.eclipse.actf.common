@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.actf.util.Utils;
-
 /**
  * cache for class loaders used during pre-instrumentation or transformation
  * processes. The ACTF AOP engine uses the bootstrap classpath to perform .class
