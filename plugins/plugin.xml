@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?eclipse version="3.2"?>
+<plugin>
+   
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.jdt.core.IJavaElement"
+            id="org.eclipse.actf.validation.javapp.ui.JavaPopupContribution">
+         <menu
+               label="Accessibility Tools"
+               path="additions"
+               id="org.eclipse.actf.ui.actfContextMenu">
+           <groupMarker name="actf"/>
+         </menu>
+         </objectContribution>
+    </extension>   
+ 
+   <extension point="org.eclipse.ui.preferencePages">
+      <page
+            name="ACTF"
+            class="org.eclipse.actf.ui.preferences.RootPreferencePage"
+            id="org.eclipse.actf.ui.preferences.RootPreferencePage">
+      </page>
+      <page
+            name="Models"
+            class="org.eclipse.actf.ui.preferences.ModelPreferencePage"
+            id="org.eclipse.actf.ui.preferences.ModelPreferencePage"
+            category="org.eclipse.actf.ui.preferences.RootPreferencePage">
+      </page>
+        
+    </extension>
+</plugin>
