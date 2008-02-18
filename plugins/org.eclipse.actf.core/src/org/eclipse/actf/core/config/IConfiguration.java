@@ -57,11 +57,6 @@ public interface IConfiguration extends Serializable
 	public static final String MODEL_ID = "model";
 
 	/**
-	 * model pool id for formatters - value is 'formatter'
-	 */
-	public static final String FORMATTER_ID = "formatter";
-
-	/**
 	 * pool id for main actf pool - value is 'actf'
 	 */
 	public static final String ACTF_ID = "actf";
@@ -71,14 +66,23 @@ public interface IConfiguration extends Serializable
 	public static final String TRACE_STREAM_KEY = "actf.trace.stream";
 
 	public static final String MODEL_LOCATORIDS_POOL = "locator";
+	public static final String MODEL_FACTORY = "model.factory";
 	public static final String MODEL_ADAPTOR_FACTORY = "adaptor.factory";
 	public static final String MODEL_IGNORENODENAMES = "ignore.names";
 	public static final String MODEL_IGNOREIDS = "ignore.ids";
 	public static final String MODEL_LOCATOR = "locator";
-	public static final String MODEL_BASE_TYPE = "baseType";
+	public static final String MODEL_BASE_TYPE = "basetype";
 
 	public static final String SHOW_INVISIBLE_KEY = "show.hidden";
 	public static final String SHOW_ITEMS_KEY = "show.items";
+
+	public static final String FILTER_ID = "filter";
+	public static final String FILTER_MODEL_ATTRIBUTE = "model";
+	public static final String FILTER_CLASSNAME_ATTRIBUTE ="class";
+	public static final String FILTER_NODENAMES_ATTRIBUTE ="nodenames";
+	public static final String FILTER_NODEIDS_ATTRIBUTE ="nodeids";
+
+	public static final String ALIASES_ID = "aliases";
 	
 	
 	
@@ -103,22 +107,9 @@ public interface IConfiguration extends Serializable
 	 * 
 	 * @param id -
 	 *            id of symbol pool
-	 *            @see #setModelSymbolPool(String, String)
+	 *            
 	 */
 	public void setSymbolPool (String id);
-
-	/**
-	 * set the current pool to a model-specific symbol pool. This should be equivalent to:
-	 * 
-	 * <p><pre>
-	 * setSymbolPool(modelType + MODEL_POOL_ID_DELIMITER + poolId);
-	 * </pre></p>
-	 * 
-	 * @param modelType - valid model type or name
-	 * @param poolId - model-specific pool id
-	 * @see #setSymbolPool(String)
-	 */
-	public void setModelSymbolPool (String modelType, String poolId);
 
 	/**
 	 * get the current symbol pool. The returned value is the id of the 
@@ -148,19 +139,6 @@ public interface IConfiguration extends Serializable
 	 *         @see #setSymbolPool(String)
 	 */
 	public Map getSymbolPoolContents (String poolID);
-
-	/**
-	 * get the contents of the model-specific symbol pool
-	 *
-	 * @param modelName -
-	 * name of model
-	 * @param poolID -
-	 *            id of symbol pool
-	 * @return map containing contents of pool or <code>null</code> if pool
-	 *         does not exist
-	 *         @see #setModelSymbolPool(String)
-	 */
-	public Map getModelSymbolPoolContents (String modelName, String poolID);
 
 	/**
 	 * retreave a string parameter from the current symbol pool
@@ -325,7 +303,7 @@ public interface IConfiguration extends Serializable
 	 * </ul>
 	 * 
 	 * <p>Models are always introduced in the main symbol pool, <code>ACTF_ID</code> and 
-	 * should be retreaved via the <code>MODEL_ID</code> symbol pool. Indeed, this method will usually be short-hand for:
+	 * should be retrieved via the <code>MODEL_ID</code> symbol pool. Indeed, this method will usually be short-hand for:
 	 * 
 	 * <p><pre>
 	 * setSymbolPool(MODEL_ID);
@@ -335,7 +313,6 @@ public interface IConfiguration extends Serializable
 	 * @return names of supported model
 	 * @see #getParameterNames()
 	 * @see #setSymbolPool(String)
-	 * @see #setModelSymbolPool(String, String)
 	 */
 	public String[] getModelTypes ();
 

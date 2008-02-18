@@ -57,11 +57,6 @@ public class AbstractConfiguration implements IConfiguration
 		return (Map) _configMap.get(poolID);
 	}
 
-	/** {@inheritDoc} */
-	public Map getModelSymbolPoolContents (String modelName, String poolId) {
-		return getSymbolPoolContents(modelName + MODEL_POOL_ID_DELIMITER
-				+ poolId);
-	}
 
 	/** {@inheritDoc} */
 	public void setSymbolPool (String id) {
@@ -79,20 +74,6 @@ public class AbstractConfiguration implements IConfiguration
 		setSymbolPool(id);
 	}
 
-	/** {@inheritDoc} */
-	public void setModelSymbolPool (String modelName, String poolId) {
-		String[] modelNames = getModelTypes();
-		boolean found = false;
-		for (int a = 0; !found & modelName != null && a < modelNames.length; ++a) {
-			found = modelNames[a].equals(modelName);
-		}
-		if (found) {
-			setSymbolPool(modelName + MODEL_POOL_ID_DELIMITER + poolId);
-		}else {
-			throw new IllegalArgumentException("No model type defined with name "
-					+ modelName);
-		}
-	}
 
 	/** {@inheritDoc} */
 	public String getSymbolPool () {

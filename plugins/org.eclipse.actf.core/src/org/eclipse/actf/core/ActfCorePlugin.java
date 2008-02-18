@@ -1,13 +1,13 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2007 IBM Corporation.
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*  Mike Squillace - initial API and implementation
-*******************************************************************************/ 
+ * Copyright (c) 2004, 2007 IBM Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *  Mike Squillace - initial API and implementation
+ *******************************************************************************/
 
 package org.eclipse.actf.core;
 
@@ -23,6 +23,9 @@ import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 import org.eclipse.actf.util.resources.EclipseResourceLocator;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
@@ -36,6 +39,7 @@ public class ActfCorePlugin extends Plugin
 
 	public static final String ACTF_CORE_JAR =  "actf-core.jar";
 	public static final String ACTFCORE_PLUGIN_ID = "org.eclipse.actf.core";
+	public static final String MODEL_PLUGIN_ID = "org.eclipse.actf.model";
 	public static final String DEBUG_OPTION_ID = "debug";
 	public static final String LOG_OPTION_ID = "log";
 	public static final String TRACE_OPTION_ID = "trace";
@@ -47,6 +51,10 @@ public class ActfCorePlugin extends Plugin
 	protected ClassLoaderCache clCache = ClassLoaderCache.getDefault();
 	protected String traceStream;
 	protected int traceLevel = IReporter.WARNING;
+
+	protected IExtensionRegistry registry;
+
+	private ActfRegistryChangeListener registryListener; 
 
 	protected String getPluginId () {
 		return ACTFCORE_PLUGIN_ID;
@@ -102,11 +110,18 @@ public class ActfCorePlugin extends Plugin
 		
 		runtimeContext = RuntimeContextFactory.getInstance().getRuntimeContext();
 		EclipseResourceLocator locator = (EclipseResourceLocator) runtimeContext.getResourceLocator();
+				
+		registry = Platform.getExtensionRegistry();
+		registryListener = new ActfRegistryChangeListener();
+		if (registry != null && (getPluginId().equals(ACTFCORE_PLUGIN_ID))) {
+			registry.addRegistryChangeListener(registryListener);
+		}
+		
 
 		// provide a way for retrieving classes and resources from all bundles
 		locator.registerBundleName(getPluginId());
 		clCache.put(getPluginId(), getClass().getClassLoader());
-		
+		//first add the config data provided by our own actf.xml files
 		try {
 			configuration = runtimeContext.getConfiguration();
 			if (!getPluginId().equals(ACTFCORE_PLUGIN_ID)) {
@@ -116,26 +131,39 @@ public class ActfCorePlugin extends Plugin
 				  configStream.close();
 				}		 
 			}
+		
+		//Not sure why this is necessary, but it is.
+		//The registry change listener is apparently set to late to catch all of the
+		//extension point additions so it seems common practice to set the listener
+		// and then add the extension points manually
+		// then add the data provided by extension points
+	
+		 IExtensionPoint [] exps = registry.getExtensionPoints(MODEL_PLUGIN_ID);
+		 for (int i=0;i<exps.length;i++){
+			 IExtension[] extensions = exps[i].getExtensions();
+			 for (int j=0; j< extensions.length; j++){
+				 configuration.addConfigurationData(extensions[j]);
+			 }
+			 
+		  }
 		} catch (Exception e) {
 			throw new CoreException(new Status(IStatus.ERROR, getPluginId(), 0, "Error initializing configuration object", e));
 		}
-		
-		/*String debug = Platform.getDebugOption(getDebugOptionId());
+		String debug = Platform.getDebugOption(getDebugOptionId());
 		setDebugging(debug != null && debug.equalsIgnoreCase("true"));
 		if (isDebugging()) {
 			prepareTraceFacility();
-			if (configuration.getSymbolPoolContents(IConfiguration.ACTF_ID) == null){
-				
-			} 
-			configuration.setSymbolPool(IConfiguration.ACTF_ID);
-			configuration.setParameter(
-				IConfiguration.TRACE_STREAM_KEY, traceStream);
-			configuration.setParameter(
-				IConfiguration.TRACE_LEVEL_KEY, traceLevel);
+			if (configuration.getSymbolPoolContents(IConfiguration.ACTF_ID) != null) {
+				configuration.setSymbolPool(IConfiguration.ACTF_ID);
+				configuration.setParameter(IConfiguration.TRACE_STREAM_KEY,
+						traceStream);
+				configuration.setParameter(IConfiguration.TRACE_LEVEL_KEY,
+						traceLevel);
+			}
 		}
 		
 		trace(getClass().getName() + " started");
-		trace("configuration:" + configuration); */
+		trace("configuration:" + configuration);
 	}
 
 	protected IReporter getTracer () {
@@ -175,6 +203,11 @@ public class ActfCorePlugin extends Plugin
 
 	public void stop (BundleContext context) throws Exception {
 		trace(getClass().getName() + " stopped");
+		if (getPluginId().equals(ACTFCORE_PLUGIN_ID)) {
+			if (registry != null && registryListener != null) {
+				registry.removeRegistryChangeListener(registryListener);
+			}
+		}
 		super.stop(context);
 	}
 

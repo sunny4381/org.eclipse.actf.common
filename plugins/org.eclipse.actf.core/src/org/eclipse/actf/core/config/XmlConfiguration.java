@@ -107,10 +107,19 @@ public class XmlConfiguration extends AbstractConfiguration
 				}
 			}
 			_currentXmlFilePrefix = null;
-			setSymbolPool(IConfiguration.ACTF_ID);
+			//Don't automatically set this 
+			//setSymbolPool(IConfiguration.ACTF_ID);
 		}else {
 			super.addConfigurationData(data);
 		}
+	}
+	
+	protected Map addConfigurationData(Object data, Map configMap)
+		throws ConfigurationException {
+		_configMap=configMap;
+		addConfigurationData(data);
+		return _configMap;
+		
 	}
 	/**
 	 * This method returns an attributes map, keyed by all of the elements in

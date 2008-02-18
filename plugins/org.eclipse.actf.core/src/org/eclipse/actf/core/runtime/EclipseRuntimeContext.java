@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.actf.core.config.ConfigurationException;
+import org.eclipse.actf.core.config.HybridConfiguraton;
 import org.eclipse.actf.core.config.IConfiguration;
-import org.eclipse.actf.core.config.XmlConfiguration;
 import org.eclipse.actf.util.logging.EclipseErrorLogger;
 import org.eclipse.actf.util.resources.EclipseResourceLocator;
 import org.eclipse.actf.util.resources.IResourceLocator;
@@ -35,15 +35,39 @@ public class EclipseRuntimeContext extends AbstractRuntimeContext
 		errorLogger = new EclipseErrorLogger();
 		resourceLocator = new EclipseResourceLocator();
 	}
-	
-	public IConfiguration getConfiguration () throws ConfigurationException {
+
+	public IConfiguration getConfiguration() throws ConfigurationException {
+		// Old XML based configuration
+		/*
+		 * if (configuration == null) { InputStream configFileStream =
+		 * resourceLocator.getResourceAsStream( IConfiguration.ACTF_ID,
+		 * IResourceLocator.DEFAULT_ACTF_RESOURCES_DIR, "xml", null );
+		 * 
+		 * configuration = new XmlConfiguration(); if (configFileStream != null) {
+		 * configuration.addConfigurationData(configFileStream); try {
+		 * configFileStream.close(); } catch (IOException e) {
+		 * e.printStackTrace(); } } }
+		 */
+
+		// New EclipseConfiguration based on extensions
+		/*
+		 * if (configuration == null) {
+		 * 
+		 * configuration = new EclipseConfiguration();
+		 * 
+		 * configuration.addConfigurationData(IExtension or
+		 * IConfigurationElement);
+		 * 
+		 *  }
+		 */
+		// temporary HybridConfiguration which handles both styles
 		if (configuration == null) {
 			InputStream configFileStream = resourceLocator.getResourceAsStream(
 					IConfiguration.ACTF_ID, IResourceLocator.DEFAULT_ACTF_RESOURCES_DIR,
 					"xml", null
 			);
 			
-			configuration = new XmlConfiguration();
+			configuration = new HybridConfiguraton();
 			if (configFileStream != null) {
 				configuration.addConfigurationData(configFileStream);
 				try {

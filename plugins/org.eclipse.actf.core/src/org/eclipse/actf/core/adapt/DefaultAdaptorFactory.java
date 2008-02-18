@@ -33,15 +33,24 @@ public class DefaultAdaptorFactory implements IAdaptorFactory
 
 	protected static final ClassLoaderCache _clCache = ClassLoaderCache.getDefault();
 
+	private static DefaultAdaptorFactory factoryInstance;
+
 	private Map _adaptorMap = new HashMap();
 
 	/**
 	 * create a default adaptor factory
 	 *
 	 */
-	public DefaultAdaptorFactory () {
+	protected DefaultAdaptorFactory () {
 	}
 
+	public static DefaultAdaptorFactory getInstance() {
+		if (factoryInstance == null) {
+			factoryInstance = new DefaultAdaptorFactory();
+		}
+		return factoryInstance;
+	}
+	
 	/** {@inheritDoc} */
 	public void registerAdaptor (Class type, IAdaptor adaptor) {
 		String typeName = type.getName();
