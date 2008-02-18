@@ -67,7 +67,6 @@ public class RootPreferencePage extends AbstractBasePreferencePage
 
 	public static boolean isListProperty (String p) {
 		return p.equals(AbstractUIPreferenceInitializer.P_MODELS)
-				|| p.equals(AbstractUIPreferenceInitializer.P_FORMATTERS)
 				|| p.endsWith(AbstractUIPreferenceInitializer.P_ALIASES);
 	}
 

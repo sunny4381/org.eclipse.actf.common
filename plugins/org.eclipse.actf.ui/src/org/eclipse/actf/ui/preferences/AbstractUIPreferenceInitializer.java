@@ -26,7 +26,6 @@ public abstract class AbstractUIPreferenceInitializer extends AbstractPreference
 	public static final String V_ALL = "DETAIL";
 	
 	public static final String P_MODELS = IConfiguration.MODEL_ID;
-	public static final String P_FORMATTERS = IConfiguration.FORMATTER_ID;
 	public static final String P_ALIASES = 	"aliases";
 
 	public static final int NONE = IReporter.SEVERE;
