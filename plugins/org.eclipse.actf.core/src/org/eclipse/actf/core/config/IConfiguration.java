@@ -66,7 +66,7 @@ public interface IConfiguration extends Serializable
 	public static final String TRACE_STREAM_KEY = "actf.trace.stream";
 
 	public static final String MODEL_LOCATORIDS_POOL = "locator";
-	public static final String MODEL_FACTORY = "model.factory";
+	public static final String MODEL_FACTORY = "modelFactory";
 	public static final String MODEL_ADAPTOR_FACTORY = "adaptor.factory";
 	public static final String MODEL_IGNORENODENAMES = "ignore.names";
 	public static final String MODEL_IGNOREIDS = "ignore.ids";
