@@ -66,7 +66,6 @@ public interface IConfiguration extends Serializable
 	public static final String TRACE_STREAM_KEY = "actf.trace.stream";
 
 	public static final String MODEL_LOCATORIDS_POOL = "locator";
-	public static final String MODEL_FACTORY = "modelFactory";
 	public static final String MODEL_ADAPTOR_FACTORY = "adaptor.factory";
 	public static final String MODEL_IGNORENODENAMES = "ignore.names";
 	public static final String MODEL_IGNOREIDS = "ignore.ids";
@@ -141,7 +140,7 @@ public interface IConfiguration extends Serializable
 	public Map getSymbolPoolContents (String poolID);
 
 	/**
-	 * retreave a string parameter from the current symbol pool
+	 * retrieve a string parameter from the current symbol pool
 	 * 
 	 * @param key -
 	 *            name or key of parameter
@@ -163,7 +162,7 @@ public interface IConfiguration extends Serializable
 	public void setParameter (String key, String val);
 
 	/**
-	 * retreave an int parameter from the current symbol pool
+	 * retrieve an int parameter from the current symbol pool
 	 * 
 	 * @param key -
 	 *            name or key of parameter
@@ -185,7 +184,7 @@ public interface IConfiguration extends Serializable
 	public void setParameter (String key, int val);
 
 	/**
-	 * retreave a double parameter from the current symbol pool
+	 * retrieve a double parameter from the current symbol pool
 	 * 
 	 * @param key -
 	 *            name or key of parameter
@@ -207,7 +206,7 @@ public interface IConfiguration extends Serializable
 	public void setParameter (String key, double val);
 
 	/**
-	 * retreave a boolean parameter from the current symbol pool
+	 * retrieve a boolean parameter from the current symbol pool
 	 * 
 	 * @param key -
 	 *            name or key of parameter
@@ -229,7 +228,7 @@ public interface IConfiguration extends Serializable
 	public void setParameter (String key, boolean val);
 
 	/**
-	 * retreave a class parameter from the current symbol pool
+	 * retrieve a class parameter from the current symbol pool
 	 * 
 	 * @param key -
 	 *            name or key of parameter
@@ -265,14 +264,14 @@ public interface IConfiguration extends Serializable
 	 * get a parameter of an undetermined type in the current symbol pool
 	 * 
 	 * @param key -
-	 *            name of parameter to retreave
+	 *            name of parameter to retrieve
 	 * @return desired parameter
 	 * @see #setSymbolPool(String)
 	 */
 	public Object getParameter (String key);
 
 	/**
-	 * retreave list of parameters from the current symbol pool 
+	 * retrieve list of parameters from the current symbol pool 
 	 * 
 	 * @return list of parameters or empty array if no
 	 *         parameters exist

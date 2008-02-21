@@ -153,17 +153,6 @@ public class EclipseConfiguration extends AbstractConfiguration {
 			String key = element.getAttribute("name");
 			String value = element.getAttribute("value");
 			setParameter(key, value);
-		} else if (elementName.equals(IConfiguration.MODEL_FACTORY)) {
-			if (_configMap.containsKey(pluginId)) {
-				setSymbolPool(pluginId);
-				pluginMap = (HashMap) _configMap.get(pluginId);
-			} else {
-				createSymbolPool(pluginId);
-				pluginMap = new HashMap();
-				_configMap.put(pluginId, pluginMap);
-			}
-			String classname = element.getAttribute("class");
-			setParameter(IConfiguration.MODEL_FACTORY, classname);
 		} else {
 			throw new ConfigurationException("addElement - unknown element "
 					+ elementName);
