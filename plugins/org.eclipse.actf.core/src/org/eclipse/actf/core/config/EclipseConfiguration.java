@@ -23,7 +23,7 @@ public class EclipseConfiguration extends AbstractConfiguration {
 	 * 
 	 */
 	static final long serialVersionUID = 7981371198710093969L;
-	public static final String MODEL_ID_ATTRIBUTE = "id";
+	public static final String MODEL_NAME_ATTRIBUTE = "name";
 	public static final String ALIAS_ID = "alias";
 
 	transient private HashMap modelMap;
@@ -95,13 +95,13 @@ public class EclipseConfiguration extends AbstractConfiguration {
 				String attrValue = element.getAttribute(attrNames[i]);
 				attributeMap.put(attrNames[i], attrValue);
 			}
-			String modelId = (String) attributeMap.get(MODEL_ID_ATTRIBUTE);
-			modelMap.put(modelId, attributeMap);
+			String modelName = (String) attributeMap.get(MODEL_NAME_ATTRIBUTE);
+			modelMap.put(modelName, attributeMap);
 
 			// then get all of its children and process them too
 			IConfigurationElement[] children = element.getChildren();
 			if (children.length > 0) {
-				elementStack.push(modelId);
+				elementStack.push(modelName);
 				for (int i = 0; i < children.length; i++) {
 					addElement(children[i]);
 				}
