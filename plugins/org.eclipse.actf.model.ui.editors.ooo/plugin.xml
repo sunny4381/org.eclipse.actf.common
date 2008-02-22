@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+      <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.eclipse.actf.model.ui.editors.ooo.editor.OOoEditor"
+            contributorClass="org.eclipse.actf.model.ui.editors.ooo.editor.OOoEditorContributor"
+            default="false"
+            extensions="odt, odp, ods"
+            icon="icons/exclawhite16.gif"
+            id="org.eclipse.actf.model.ui.editors.ooo.editor.OOoEditor"
+            name="%odf.editor.title"/>
+   </extension>
+</plugin>

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF ODF Browser Initializer Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.model.ui.editors.ooo.initializer;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Export-Package: org.eclipse.actf.model.ui.editors.ooo.initializer.kicker;x-friends:="org.eclipse.actf.model.ui.editors.ooo",
+ org.eclipse.actf.model.ui.editors.ooo.initializer.util
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Eclipse-LazyStart: true
+Bundle-Activator: org.eclipse.actf.model.ui.editors.ooo.initializer.OOoEditorInitPlugin
