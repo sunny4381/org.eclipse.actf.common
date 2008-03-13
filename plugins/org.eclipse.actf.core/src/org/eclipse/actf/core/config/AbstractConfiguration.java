@@ -66,7 +66,7 @@ public class AbstractConfiguration implements IConfiguration
 		_curPool = id;
 	}
 
-	protected void createSymbolPool (String id) {
+	public void createSymbolPool (String id) {
 		if (id == null || _configMap.containsKey(id)) {
 			throw new IllegalArgumentException("Pool with id " + id + " already exists");
 		}
@@ -231,7 +231,7 @@ public class AbstractConfiguration implements IConfiguration
 	public void addConfigurationData (Object data)
 		throws ConfigurationException {
 		if (data != null && data instanceof Map) {
-			_configMap.putAll((Map) data);
+			_configMap.put(getSymbolPool(), (Map) data);
 		}
 	}
 
