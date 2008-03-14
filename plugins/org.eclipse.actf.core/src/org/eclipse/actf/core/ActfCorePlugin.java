@@ -23,8 +23,6 @@ import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 import org.eclipse.actf.util.resources.EclipseResourceLocator;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -39,7 +37,6 @@ public class ActfCorePlugin extends Plugin
 
 	public static final String ACTF_CORE_JAR =  "actf-core.jar";
 	public static final String ACTFCORE_PLUGIN_ID = "org.eclipse.actf.core";
-	public static final String MODEL_PLUGIN_ID = "org.eclipse.actf.model";
 	public static final String DEBUG_OPTION_ID = "debug";
 	public static final String LOG_OPTION_ID = "log";
 	public static final String TRACE_OPTION_ID = "trace";
@@ -131,21 +128,6 @@ public class ActfCorePlugin extends Plugin
 				  configStream.close();
 				}		 
 			}
-		
-		//Not sure why this is necessary, but it is.
-		//The registry change listener is apparently set to late to catch all of the
-		//extension point additions so it seems common practice to set the listener
-		// and then add the extension points manually
-		// then add the data provided by extension points
-	
-		 IExtensionPoint [] exps = registry.getExtensionPoints(MODEL_PLUGIN_ID);
-		 for (int i=0;i<exps.length;i++){
-			 IExtension[] extensions = exps[i].getExtensions();
-			 for (int j=0; j< extensions.length; j++){
-				 configuration.addConfigurationData(extensions[j]);
-			 }
-			 
-		  }
 		} catch (Exception e) {
 			throw new CoreException(new Status(IStatus.ERROR, getPluginId(), 0, "Error initializing configuration object", e));
 		}
