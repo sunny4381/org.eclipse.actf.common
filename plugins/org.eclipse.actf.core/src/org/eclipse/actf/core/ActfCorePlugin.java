@@ -23,7 +23,6 @@ import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 import org.eclipse.actf.util.resources.EclipseResourceLocator;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
@@ -48,11 +47,7 @@ public class ActfCorePlugin extends Plugin
 	protected ClassLoaderCache clCache = ClassLoaderCache.getDefault();
 	protected String traceStream;
 	protected int traceLevel = IReporter.WARNING;
-
-	protected IExtensionRegistry registry;
-
-	private ActfRegistryChangeListener registryListener; 
-
+ 
 	protected String getPluginId () {
 		return ACTFCORE_PLUGIN_ID;
 	}
@@ -107,14 +102,7 @@ public class ActfCorePlugin extends Plugin
 		
 		runtimeContext = RuntimeContextFactory.getInstance().getRuntimeContext();
 		EclipseResourceLocator locator = (EclipseResourceLocator) runtimeContext.getResourceLocator();
-				
-		registry = Platform.getExtensionRegistry();
-		registryListener = new ActfRegistryChangeListener();
-		if (registry != null && (getPluginId().equals(ACTFCORE_PLUGIN_ID))) {
-			registry.addRegistryChangeListener(registryListener);
-		}
-		
-
+			
 		// provide a way for retrieving classes and resources from all bundles
 		locator.registerBundleName(getPluginId());
 		clCache.put(getPluginId(), getClass().getClassLoader());
@@ -185,11 +173,6 @@ public class ActfCorePlugin extends Plugin
 
 	public void stop (BundleContext context) throws Exception {
 		trace(getClass().getName() + " stopped");
-		if (getPluginId().equals(ACTFCORE_PLUGIN_ID)) {
-			if (registry != null && registryListener != null) {
-				registry.removeRegistryChangeListener(registryListener);
-			}
-		}
 		super.stop(context);
 	}
 
