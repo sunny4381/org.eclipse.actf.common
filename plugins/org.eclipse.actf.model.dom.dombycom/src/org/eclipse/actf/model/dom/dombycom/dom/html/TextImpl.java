@@ -12,12 +12,12 @@
 package org.eclipse.actf.model.dom.dombycom.dom.html;
 
 
-import org.eclipse.actf.ai.comclutch.win32.DispatchException;
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
 import org.eclipse.actf.model.dom.dombycom.IElementEx;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.dom.Helper;
 import org.eclipse.actf.model.dom.dombycom.dom.NodeImpl;
+import org.eclipse.actf.util.comclutch.win32.DispatchException;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.swt.graphics.Rectangle;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;

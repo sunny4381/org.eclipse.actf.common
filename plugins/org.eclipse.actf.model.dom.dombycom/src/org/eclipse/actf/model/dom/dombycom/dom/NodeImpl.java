@@ -11,11 +11,11 @@
 
 package org.eclipse.actf.model.dom.dombycom.dom;
 
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
 import org.eclipse.actf.model.dom.dombycom.AnalyzedResult;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.dom.html.HTMLElementFactory;
 import org.eclipse.actf.model.dom.dombycom.dom.object.ObjectElementFactory;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.vocab.IEvalTarget;
 import org.eclipse.actf.util.vocab.Vocabulary;
 import org.w3c.dom.DOMException;

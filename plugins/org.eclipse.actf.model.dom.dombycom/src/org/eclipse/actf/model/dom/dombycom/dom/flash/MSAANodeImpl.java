@@ -13,13 +13,13 @@ package org.eclipse.actf.model.dom.dombycom.dom.flash;
 
 import java.util.ArrayList;
 
-import org.eclipse.actf.ai.comclutch.win32.ComService;
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
 import org.eclipse.actf.model.dom.dombycom.IMSAANode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.dom.Helper;
 import org.eclipse.actf.model.dom.dombycom.dom.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.html.ElementImpl;
+import org.eclipse.actf.util.comclutch.win32.ComService;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.win32.COMUtil;
 import org.eclipse.swt.graphics.Rectangle;

@@ -13,8 +13,6 @@ package org.eclipse.actf.model.dom.dombycom.dom.html;
 
 import java.util.HashSet;
 
-import org.eclipse.actf.ai.comclutch.win32.DispatchException;
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
 import org.eclipse.actf.model.dom.dombycom.AnalyzedResult;
 import org.eclipse.actf.model.dom.dombycom.DomByCom;
 import org.eclipse.actf.model.dom.dombycom.IDocumentEx;
@@ -28,6 +26,8 @@ import org.eclipse.actf.model.dom.dombycom.dom.NamedNodeMapImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.NodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.StyleImpl;
+import org.eclipse.actf.util.comclutch.win32.DispatchException;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.vocab.Vocabulary;
 import org.eclipse.swt.graphics.Rectangle;

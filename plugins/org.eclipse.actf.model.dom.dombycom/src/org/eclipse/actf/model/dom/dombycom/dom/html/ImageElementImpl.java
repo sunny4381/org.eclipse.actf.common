@@ -11,10 +11,10 @@
 
 package org.eclipse.actf.model.dom.dombycom.dom.html;
 
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
 import org.eclipse.actf.model.dom.dombycom.IImageElement;
 import org.eclipse.actf.model.dom.dombycom.dom.Helper;
 import org.eclipse.actf.model.dom.dombycom.dom.NodeImpl;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

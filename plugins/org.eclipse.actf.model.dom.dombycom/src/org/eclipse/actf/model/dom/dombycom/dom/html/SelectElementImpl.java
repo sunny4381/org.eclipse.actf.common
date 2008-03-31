@@ -13,10 +13,10 @@ package org.eclipse.actf.model.dom.dombycom.dom.html;
 
 import java.util.ArrayList;
 
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
 import org.eclipse.actf.model.dom.dombycom.ISelectElement;
 import org.eclipse.actf.model.dom.dombycom.dom.Helper;
 import org.eclipse.actf.model.dom.dombycom.dom.NodeImpl;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
 
 
 

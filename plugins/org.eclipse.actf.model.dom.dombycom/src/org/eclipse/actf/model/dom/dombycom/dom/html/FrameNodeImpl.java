@@ -11,11 +11,6 @@
 
 package org.eclipse.actf.model.dom.dombycom.dom.html;
 
-import org.eclipse.actf.ai.comclutch.win32.DispatchException;
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
-import org.eclipse.actf.ai.comclutch.win32.IEnumUnknown;
-import org.eclipse.actf.ai.comclutch.win32.IOleContainer;
-import org.eclipse.actf.ai.comclutch.win32.IUnknown;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.dom.EmptyNodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.Helper;
@@ -23,6 +18,11 @@ import org.eclipse.actf.model.dom.dombycom.dom.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.NodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.SingletonNodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.StyleSheetImpl;
+import org.eclipse.actf.util.comclutch.win32.DispatchException;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.comclutch.win32.IEnumUnknown;
+import org.eclipse.actf.util.comclutch.win32.IOleContainer;
+import org.eclipse.actf.util.comclutch.win32.IUnknown;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

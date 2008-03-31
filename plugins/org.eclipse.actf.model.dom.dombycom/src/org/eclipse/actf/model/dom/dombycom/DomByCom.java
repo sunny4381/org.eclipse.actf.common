@@ -11,12 +11,12 @@
 
 package org.eclipse.actf.model.dom.dombycom;
 
-import org.eclipse.actf.ai.comclutch.win32.ComPlugin;
-import org.eclipse.actf.ai.comclutch.win32.ComService;
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
-import org.eclipse.actf.ai.comclutch.win32.ResourceManager;
 import org.eclipse.actf.model.dom.dombycom.dom.DocumentImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.StyleSheetImpl;
+import org.eclipse.actf.util.comclutch.win32.ComPlugin;
+import org.eclipse.actf.util.comclutch.win32.ComService;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.comclutch.win32.ResourceManager;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 

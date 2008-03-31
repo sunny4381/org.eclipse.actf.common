@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.dom.dombycom.dom;
 
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;

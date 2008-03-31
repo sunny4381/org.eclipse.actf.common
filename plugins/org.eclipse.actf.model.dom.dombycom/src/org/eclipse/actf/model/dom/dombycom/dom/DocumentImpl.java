@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.eclipse.actf.ai.comclutch.win32.DispatchException;
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
-import org.eclipse.actf.ai.comclutch.win32.IEnumUnknown;
-import org.eclipse.actf.ai.comclutch.win32.IOleContainer;
-import org.eclipse.actf.ai.comclutch.win32.IUnknown;
 import org.eclipse.actf.model.dom.dombycom.IDocumentEx;
 import org.eclipse.actf.model.dom.dombycom.dom.html.HTMLElementFactory;
+import org.eclipse.actf.util.comclutch.win32.DispatchException;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.comclutch.win32.IEnumUnknown;
+import org.eclipse.actf.util.comclutch.win32.IOleContainer;
+import org.eclipse.actf.util.comclutch.win32.IUnknown;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;

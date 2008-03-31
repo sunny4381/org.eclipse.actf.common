@@ -14,8 +14,6 @@ package org.eclipse.actf.model.dom.dombycom.dom.flash;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.ai.comclutch.win32.DispatchException;
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
 import org.eclipse.actf.model.dom.dombycom.AnalyzedResult;
 import org.eclipse.actf.model.dom.dombycom.IFlashNode;
 import org.eclipse.actf.model.dom.dombycom.IMSAANode;
@@ -31,6 +29,8 @@ import org.eclipse.actf.model.flash.bridge.WaXcodingPlugin;
 import org.eclipse.actf.util.as.ASDeserializer;
 import org.eclipse.actf.util.as.ASObject;
 import org.eclipse.actf.util.as.ASSerializer;
+import org.eclipse.actf.util.comclutch.win32.DispatchException;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.timer.Yield;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.w3c.dom.Node;

@@ -13,10 +13,10 @@ package org.eclipse.actf.model.dom.dombycom.dom.html;
 
 import java.util.HashSet;
 
-import org.eclipse.actf.ai.comclutch.win32.ComPlugin;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.dom.Helper;
 import org.eclipse.actf.model.dom.dombycom.dom.html.ElementImpl.InputType;
+import org.eclipse.actf.util.comclutch.win32.ComPlugin;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.vocab.IEvalTarget;
 import org.eclipse.actf.util.vocab.Vocabulary;

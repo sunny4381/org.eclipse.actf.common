@@ -11,13 +11,13 @@
 
 package org.eclipse.actf.model.dom.dombycom.dom.object;
 
-import org.eclipse.actf.ai.comclutch.win32.IDispatch;
 import org.eclipse.actf.model.dom.dombycom.AnalyzedResult;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.INodeExSound;
 import org.eclipse.actf.model.dom.dombycom.INodeExVideo;
 import org.eclipse.actf.model.dom.dombycom.dom.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.html.ElementImpl;
+import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 
 
