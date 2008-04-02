@@ -10,9 +10,11 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -50,14 +52,16 @@ public class ODFParser {
 		ZipEntry zipEntry = null;
 		try {
 			if (url != null) {
-				zipFile = new ZipFile(url.getPath());
+				zipFile = new ZipFile(new File(url.toURI()));
 			} else {
 				zipFile = new ZipFile(odfName);
 			}
 			String zipFileName = fileName.replaceAll("\\\\", "/");
 			zipEntry = zipFile.getEntry(zipFileName);
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
 		}
 
 		InputStream is = null;

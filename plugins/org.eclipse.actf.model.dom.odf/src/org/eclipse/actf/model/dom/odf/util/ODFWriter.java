@@ -16,6 +16,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -74,8 +77,19 @@ public class ODFWriter {
 		List<String> outputFileList = new ArrayList<String>();
 		ZipInputStream zis = null;
 		FileOutputStream fos = null;
+		
+		URL url = null;
 		try {
-			zis = new ZipInputStream(new FileInputStream(odfName));
+			url = new URL(odfName);
+		} catch (MalformedURLException e) {
+		}
+		
+		try {
+			if (url != null) {
+				zis = new ZipInputStream(new FileInputStream(new File(url.toURI())));
+			} else {			
+				zis = new ZipInputStream(new FileInputStream(odfName));
+			}
 			ZipEntry zent = null;
 			String fileName = null;
 			while ((zent = zis.getNextEntry()) != null) {
@@ -121,11 +135,22 @@ public class ODFWriter {
 	public void createODFFile(String inputDir, String outputODFName) {
 		File inputDirFile = new File(inputDir);
 		if (inputDirFile.isDirectory()) {
-			File zipFile = new File(outputODFName);
+			URL url = null;
 			try {
+				url = new URL(outputODFName);
+			} catch (MalformedURLException e) {
+			}
+						
+			try {
+				File zipFile = null;
+				if (url != null) {
+					zipFile = new File(url.toURI());
+				} else {
+					zipFile = new File(outputODFName);
+				}
+				
 				File[] fileList = inputDirFile.listFiles();
-				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
-						zipFile));
+				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(	zipFile));
 				for (int i = 0; i < fileList.length; i++) {
 					addFileToZip(zos, inputDir, fileList[i]);
 				}
@@ -133,6 +158,8 @@ public class ODFWriter {
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
