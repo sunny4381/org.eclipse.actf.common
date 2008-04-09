@@ -23,8 +23,8 @@ org.eclipse.actf.validation.javapp/debug/trace = true
 org.eclipse.actf.validation.javapp/debug/trace/stream = c:/actfjava.out
 org.eclipse.actf.validation.javapp/debug/trace/level = 0
 
-com.ibm.haac.raven.model.web.core/debug = true
-com.ibm.haac.raven.model.web.core/debug/trace = true
-com.ibm.haac.raven.model.web.core/debug/trace/stream = c:/actfweb.out
-com.ibm.haac.raven.model.web.core/debug/trace/level = 0
+org.eclipse.actf.validation.mozdom.staticweb/debug = true
+org.eclipse.actf.validation.mozdom.staticweb/debug/trace = true
+org.eclipse.actf.validation.mozdom.staticweb/debug/trace/stream = c:/actfweb.out
+org.eclipse.actf.validation.mozdom.staticweb/debug/trace/level = 0
 
