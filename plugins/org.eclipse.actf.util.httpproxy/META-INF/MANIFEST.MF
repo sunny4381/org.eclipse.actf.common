@@ -1,11 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse ACTF Httpproxy Plug-in (Incubation)
-Bundle-SymbolicName: org.eclipse.actf.util.httpproxy
+Bundle-SymbolicName: org.eclipse.actf.util.httpproxy;singleton:=true
 Bundle-Version: 0.0.1
-Bundle-Activator: org.eclipse.actf.util.httpproxy.Activator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime
-Eclipse-LazyStart: true
-Export-Package: org.eclipse.actf.util.httpproxy
+Eclipse-LazyStart: false
+Export-Package: org.eclipse.actf.util.httpproxy,
+ org.eclipse.actf.util.httpproxy.core,
+ org.eclipse.actf.util.httpproxy.proxy,
+ org.eclipse.actf.util.httpproxy.util
 Bundle-Vendor: Eclipse.org
