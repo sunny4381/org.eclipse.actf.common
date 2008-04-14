@@ -24,11 +24,11 @@ import org.eclipse.actf.model.dom.dombycom.dom.Helper;
 import org.eclipse.actf.model.dom.dombycom.dom.ListNodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.html.ElementImpl;
+import org.eclipse.actf.model.flash.FlashModelPlugin;
 import org.eclipse.actf.model.flash.bridge.IWaXcoding;
-import org.eclipse.actf.model.flash.bridge.WaXcodingPlugin;
-import org.eclipse.actf.util.as.ASDeserializer;
-import org.eclipse.actf.util.as.ASObject;
-import org.eclipse.actf.util.as.ASSerializer;
+import org.eclipse.actf.model.flash.util.ASDeserializer;
+import org.eclipse.actf.model.flash.util.ASObject;
+import org.eclipse.actf.model.flash.util.ASSerializer;
 import org.eclipse.actf.util.comclutch.win32.DispatchException;
 import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.timer.Yield;
@@ -205,7 +205,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
         try {
             String id = getVariable(rootPath + ".Eclipse_ACTF_SWF_CONTENT_ID");
             if ((id == null) || (id.length() == 0)) return;
-            IWaXcoding waxcoding = WaXcodingPlugin.getDefault().getIWaXcoding();
+            IWaXcoding waxcoding = FlashModelPlugin.getDefault().getIWaXcoding();
             this.secret = waxcoding.getSecret(id, false);
         } catch (DispatchException e) {
         }

@@ -22,7 +22,7 @@ import org.eclipse.actf.model.dom.dombycom.IMSAANode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.dom.DocumentImpl;
 import org.eclipse.actf.model.dom.dombycom.dom.EmptyNodeListImpl;
-import org.eclipse.actf.util.as.ASObject;
+import org.eclipse.actf.model.flash.util.ASObject;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.swt.graphics.Rectangle;
 import org.w3c.dom.DOMException;

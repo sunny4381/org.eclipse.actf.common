@@ -23,8 +23,8 @@ import java.text.MessageFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.actf.model.flash.FlashModelPlugin;
 import org.eclipse.actf.model.flash.bridge.IWaXcoding;
-import org.eclipse.actf.model.flash.bridge.WaXcodingPlugin;
 import org.eclipse.actf.model.flash.proxy.internal.INTERNET_PER_CONN_OPTION;
 import org.eclipse.actf.model.flash.proxy.internal.INTERNET_PER_CONN_OPTION_LIST;
 import org.eclipse.actf.model.flash.proxy.internal.WSTR;
@@ -222,7 +222,7 @@ public class ProxyManager {
     }
     
     private IWaXcoding getIWaXcoding() {
-        return WaXcodingPlugin.getDefault().getIWaXcoding();
+        return FlashModelPlugin.getDefault().getIWaXcoding();
     }
     
     private String getAutoConfigURL(boolean disableAutoProxy) {

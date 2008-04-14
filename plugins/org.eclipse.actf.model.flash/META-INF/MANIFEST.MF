@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF Flash Model Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.model.flash
+Bundle-Version: 0.0.1
+Bundle-Activator: org.eclipse.actf.model.flash.FlashModelPlugin
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.actf.accservice.swtbridge,
+ org.eclipse.actf.util.httpproxy
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.actf.model.flash,
+ org.eclipse.actf.model.flash.bridge,
+ org.eclipse.actf.model.flash.util
