@@ -15,12 +15,13 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 
 public interface IDocumentEx extends Document {
     String CSS1_COMPAT = "CSS1Compat";
     String BACK_COMPAT = "BackCompat";
-    List getElementsByIdInAllFrames(String id);
+    List<Node> getElementsByIdInAllFrames(String id);
     String getCompatMode();
     Element getTargetElement(String target);
 }
