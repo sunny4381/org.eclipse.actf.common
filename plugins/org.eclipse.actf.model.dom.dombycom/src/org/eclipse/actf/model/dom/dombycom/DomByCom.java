@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.model.dom.dombycom;
 
-import org.eclipse.actf.model.dom.dombycom.dom.DocumentImpl;
-import org.eclipse.actf.model.dom.dombycom.dom.StyleSheetImpl;
+import org.eclipse.actf.model.dom.dombycom.impl.DocumentImpl;
+import org.eclipse.actf.model.dom.dombycom.impl.StyleSheetImpl;
 import org.eclipse.actf.util.comclutch.win32.ComPlugin;
 import org.eclipse.actf.util.comclutch.win32.ComService;
 import org.eclipse.actf.util.comclutch.win32.IDispatch;

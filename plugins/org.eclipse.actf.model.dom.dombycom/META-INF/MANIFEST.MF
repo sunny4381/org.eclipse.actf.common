@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Eclipse ACTF Dombycom Plug-in (Incubation)
-Bundle-SymbolicName: org.eclipse.actf.model.dom.dombycom
+Bundle-Name: Eclipse ACTF DomByCom Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.model.dom.dombycom;singleton:=true
 Bundle-Version: 0.0.1
 Bundle-Activator: org.eclipse.actf.model.dom.dombycom.DombycomPlugin
 Bundle-Vendor: Eclipse.org
@@ -9,9 +9,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.swt,
  org.eclipse.core.runtime,
  org.eclipse.actf.ai.key.keyhook.win32,
- org.eclipse.actf.accservice.swtbridge,
  org.eclipse.actf.common,
- org.eclipse.actf.model.flash,
  org.eclipse.actf.util.vocab,
  org.eclipse.actf.util.comclutch.win32
 Eclipse-LazyStart: true
