@@ -55,7 +55,7 @@ public class ClassLoaderCache
 	/**
 	 * get a <code>java.net.URL</code> object representing the named resource
 	 * 
-	 * @param resourceName -
+	 * @param name -
 	 *            name of desired resource
 	 * @return <code>java.net.URL</code> object or <code>null</code> if
 	 *         name cannot be resolved
@@ -82,7 +82,7 @@ public class ClassLoaderCache
 	/**
 	 * get a <code>java.util.Enumeration</code> representing the named resources
 	 * 
-	 * @param resourceName -
+	 * @param name -
 	 *            name of desired resource
 	 * @return <code>java.util.Enumeration</code> object or <code>null</code> if
 	 *         name cannot be resolved

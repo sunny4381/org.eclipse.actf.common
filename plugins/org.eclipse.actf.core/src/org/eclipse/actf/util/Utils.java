@@ -163,7 +163,7 @@ public final class Utils
 	 * 
 	 * @param errorKey - error key as defined by public fields in <code>org.eclipse.actf.core.logging.Reporter</code>
 	 * @param msg - message
-	 * @see org.eclipse.actf.core.logging.IReporter#setSourceID(String)
+	 * @see org.eclipse.actf.util.logging.IReporter#setSourceID(String)
 	 */
 	public static void println (String errorKey, String msg) {
 		println(errorKey, msg, null);
@@ -175,7 +175,7 @@ public final class Utils
 	 * 
 	 * @param errorKey - error key as defined by public fields in <code>org.eclipse.actf.core.logging.Reporter</code>
 	 * @param t - Throwable
-	 * @see org.eclipse.actf.core.logging.IReporter#setSourceID(String)
+	 * @see org.eclipse.actf.util.logging.IReporter#setSourceID(String)
 	 */
 	public static void println (String errorKey, Throwable t) {
 		println(errorKey, null, t);
@@ -188,7 +188,7 @@ public final class Utils
 	 * @param errorKey - error key as defined by public fields in <code>org.eclipse.actf.core.logging.Reporter</code>
 	 * @param msg -message
 	 * @param t - Throwable
-	 * @see org.eclipse.actf.core.logging.IReporter#setSourceID(String)
+	 * @see org.eclipse.actf.util.logging.IReporter#setSourceID(String)
 	 */
 	public static void println (String errorKey, String msg, Throwable t) {
 		String oldSource = _tracer.getSourceID();

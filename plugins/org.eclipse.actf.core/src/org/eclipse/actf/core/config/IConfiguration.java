@@ -37,7 +37,7 @@ import java.util.Map;
  *
  *  @see AbstractConfiguration
  *  @see XmlConfiguration
- *  @see see org.eclipse.actf.core.runtime.RuntimeContextFactory
+ *  @see org.eclipse.actf.core.runtime.RuntimeContextFactory
  * @author Mike Squillace
  */
 public interface IConfiguration extends Serializable

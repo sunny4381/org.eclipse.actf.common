@@ -61,7 +61,6 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 	/**
 	 * {@inheritDoc}
 	 * Note that resources are located in the context of bundles in Eclipse.
-	 * @see #setBundle(String) 
 	 */
 	public InputStream getResourceAsStream (String id, ClassLoader loader) {
 		return getResourceAsStream(id, null, null, loader);

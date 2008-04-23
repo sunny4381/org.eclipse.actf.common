@@ -16,7 +16,6 @@ package org.eclipse.actf.util.logging;
  * <code>ErrorLoggerFactory</code> interface should be implemented to return instances of this interface appropriate to different
  * contexts.
  *
- * @see org.eclipse.actf.util.error.ErrorLoggerFactory 
  * @author Mike Squillace
  */
 public interface IErrorLogger

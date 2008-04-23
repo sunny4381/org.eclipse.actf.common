@@ -35,7 +35,7 @@ import org.eclipse.actf.core.runtime.RuntimeContextFactory;
  *<p><b>Note</b>: Clients should subclass this class rather than implementing <code>Reporter</code> to avoid 
  *API incompatibilities and to insure appropriate behavior.
  *
- * @see org.eclipse.actf.core.logging.IReporter 
+ * @see org.eclipse.actf.util.logging.IReporter 
  * @author Mike Squillace
  */
 public abstract class AbstractReporter implements IReporter
@@ -58,9 +58,7 @@ public abstract class AbstractReporter implements IReporter
 	 * <p>The category formatter can be changed using the <code>setCategoryFormatter(messageFormat)</code> method.
 	 * 
 	 * @see #setCategoryFormatter(MessageFormat)
-	 * @see org.eclipse.actf.model.IModel#getNodeName(Object)
-	 * @see org.eclipse.actf.model.IModel#getNodeId(Object)
-	 * @see org.eclipse.actf.model.locate.INodeLocator#describe(Object)
+	 * 
 	 */
 	public static final MessageFormat CATEGORY_FORMATTER = new MessageFormat("{0}[{1}][@id={2}]");
 	
@@ -126,7 +124,6 @@ public abstract class AbstractReporter implements IReporter
 		categoryFormatter = formatter;
 	}
 	
-	/** {@inheritDoc} */
 	public MessageFormat getCategoryFormatter () {
 		return categoryFormatter;
 	}

@@ -112,7 +112,6 @@ public class PrintWriterReporter extends AbstractReporter
 	 * create a new reporter using the given PrintWriter
 	 *
 	 * @param writer -- underlying PrintWriter
-	 * @param format -- message formatter
 	 * @param bundle
 	 */
 	public PrintWriterReporter (PrintWriter writer, ResourceBundle bundle) {
@@ -308,7 +307,6 @@ public class PrintWriterReporter extends AbstractReporter
 		return methodName;
 	}
 
-	/** {@inheritDoc} */
 	public void addReportRecords (List records) {
 		// TODO need to refactor this.
 		// This method is necessary because the Reporter interface requires it.
