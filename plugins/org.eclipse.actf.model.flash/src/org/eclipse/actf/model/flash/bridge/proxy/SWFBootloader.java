@@ -314,15 +314,17 @@ public class SWFBootloader implements IHTTPSessionOverrider {
     }
 
     private final void INFO(String msg) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(this.toString()).append(": ").append(msg);
-        LOGGER.info(sb.toString());
+//        StringBuffer sb = new StringBuffer();
+//        sb.append(this.toString()).append(": ").append(msg);
+//        LOGGER.info(sb.toString());
+    	LOGGER.info(msg);
     }
 
     private final void DEBUG(String msg) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(this.toString()).append(": ").append(msg);
-        LOGGER.debug(sb.toString());
+//        StringBuffer sb = new StringBuffer();
+//        sb.append(this.toString()).append(": ").append(msg);
+//        LOGGER.debug(sb.toString());
+    	LOGGER.debug(msg);
     }
 
 }
