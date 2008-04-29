@@ -21,13 +21,16 @@ public class PathGenerationUtil
 	 * @param bundleName
 	 * @return
 	 */
-	public String getJarPathesFromBundle (String bundleName) {
+	public String getJarPathsFromBundle (String bundleName) {
 		
 		StringBuffer buffer = new StringBuffer();
 		String platformLoc = Platform.getInstallLocation().getURL().getPath();
 		
 		
 		Bundle bundle = Platform.getBundle(bundleName);
+		if (bundle == null) {
+			return null;
+		}
 		Enumeration en = bundle.findEntries("/", "*.jar", true);
 		while (en != null && en.hasMoreElements()) {
 			try {
