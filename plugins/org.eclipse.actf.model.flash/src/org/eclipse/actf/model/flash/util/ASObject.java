@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Hisashi MIYASHITA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.flash.util;
@@ -16,38 +17,36 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-
-
 public class ASObject {
-    private final Map<String, Object> map;
+	private final Map<String, Object> map;
 
-    ASObject() {
-        this.map = new HashMap<String, Object>();
-    }
+	ASObject() {
+		this.map = new HashMap<String, Object>();
+	}
 
-    Object put(String prop, Object obj) {
-        return map.put(prop, obj);
-    }
+	Object put(String prop, Object obj) {
+		return map.put(prop, obj);
+	}
 
-    public Object get(String prop) {
-        return map.get(prop);
-    }
+	public Object get(String prop) {
+		return map.get(prop);
+	}
 
-    public Set getKeys() {
-        return map.keySet();
-    }
+	public Set<String> getKeys() {
+		return map.keySet();
+	}
 
-    @Override
-    public String toString() {
-        StringBuffer ret = new StringBuffer();
-        Iterator<String> it = map.keySet().iterator();
-        while (it.hasNext()) {
-            String prop = it.next();
-            ret.append(prop);
-            ret.append(":");
-            ret.append("" + map.get(prop));
-            ret.append(",");
-        }
-        return ret.toString();
-    }
+	@Override
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+		Iterator<String> it = map.keySet().iterator();
+		while (it.hasNext()) {
+			String prop = it.next();
+			ret.append(prop);
+			ret.append(":");
+			ret.append("" + map.get(prop));
+			ret.append(",");
+		}
+		return ret.toString();
+	}
 }
