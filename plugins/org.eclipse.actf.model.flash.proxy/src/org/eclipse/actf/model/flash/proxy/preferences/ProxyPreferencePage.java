@@ -86,7 +86,7 @@ public class ProxyPreferencePage extends FieldEditorPreferencePage implements IW
                     httpProxyGroup));
         }
 
-        IntegerFieldEditor port = new IntegerFieldEditor(ProxyPreferenceConstants.PROXY_PORT, "Port (1-65535, 0=Automatic)", httpProxyGroup);
+        IntegerFieldEditor port = new IntegerFieldEditor(ProxyPreferenceConstants.PROXY_PORT, Messages.getString("proxy.port"), httpProxyGroup);
         port.setValidRange(0, 65535);
         addField(port);
         

@@ -25,7 +25,7 @@ public class ProxyPreferenceInitializer extends AbstractPreferenceInitializer {
         store.setDefault(ProxyPreferenceConstants.P_PROXY_SWF_METHOD,ProxyPreferenceConstants.PROXY_SWF_METHOD_BOOTLOADER);
         store.setDefault(ProxyPreferenceConstants.P_SWF_MINIMUM_VERSION,5);
         store.setDefault(ProxyPreferenceConstants.P_TIMEOUT,30);
-        store.setDefault(ProxyPreferenceConstants.PROXY_PORT, 8080);
+        store.setDefault(ProxyPreferenceConstants.PROXY_PORT, 0); //automatic
         store.setDefault(ProxyPreferenceConstants.P_CACHE_CLEAR, ProxyPreferenceConstants.CONFIRM_WHEN_STARTUP);
     }
 
