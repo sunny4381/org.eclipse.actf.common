@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.flash.proxy.preferences;
@@ -18,6 +19,8 @@ public class ProxyPreferenceConstants {
     public static final String PROXY_NONE = "PROXY_NONE"; //$NON-NLS-1$
     public static final String PROXY_SESSION = "PROXY_SESSION"; //$NON-NLS-1$
     public static final String PROXY_GLOBAL = "PROXY_GLOBAL"; //$NON-NLS-1$
+    
+    public static final String PROXY_PORT = "PROXY_PORT"; //$NON-NLS-1$
 
     public static final String P_PROXY_SWF_METHOD = "ProxySWFMethod"; //$NON-NLS-1$
     

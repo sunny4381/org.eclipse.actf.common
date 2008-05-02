@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.flash.proxy.preferences;
@@ -30,7 +31,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 public class ProxyPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
-    private List groups = new ArrayList();
+    private List<Group> groups = new ArrayList<Group>();
     
     protected Group createFieldGroup(String name) {
         Group group = new Group(getFieldEditorParent(),SWT.NONE);
@@ -84,7 +85,10 @@ public class ProxyPreferencePage extends FieldEditorPreferencePage implements IW
                         {Messages.getString("proxy.swfmethod.transcoder"), ProxyPreferenceConstants.PROXY_SWF_METHOD_TRANSCODER}*/ }, //$NON-NLS-1$
                     httpProxyGroup));
         }
-        
+
+        IntegerFieldEditor port = new IntegerFieldEditor(ProxyPreferenceConstants.PROXY_PORT, "Port (1-65535, 0=Automatic)", httpProxyGroup);
+        port.setValidRange(0, 65535);
+        addField(port);
         
         IntegerFieldEditor timeout = new IntegerFieldEditor(ProxyPreferenceConstants.P_TIMEOUT,
                                     Messages.getString("proxy.timeout"),httpProxyGroup); //$NON-NLS-1$

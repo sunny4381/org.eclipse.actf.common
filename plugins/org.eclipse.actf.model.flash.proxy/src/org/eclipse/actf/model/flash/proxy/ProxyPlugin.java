@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.model.flash.proxy;
 
@@ -39,7 +40,7 @@ public class ProxyPlugin extends AbstractUIPlugin implements IPropertyChangeList
     private static ProxyManager proxyManager = new ProxyManager();
 
     // Preferences change listeners
-    private List listeners;
+    private List<IPropertyChangeListener> listeners;
 
     // Images
     public static final ImageDescriptor IMAGE_CLEAR = getImageDescriptor("icons/action16/clear.gif"); //$NON-NLS-1$
@@ -61,7 +62,8 @@ public class ProxyPlugin extends AbstractUIPlugin implements IPropertyChangeList
                 if (ProxyPreferenceConstants.P_PROXY_TYPE.equals(event.getProperty())
                         || ProxyPreferenceConstants.P_PROXY_SWF_METHOD.equals(event.getProperty())
                         || ProxyPreferenceConstants.P_SWF_MINIMUM_VERSION.equals(event.getProperty())
-                        || ProxyPreferenceConstants.P_TIMEOUT.equals(event.getProperty())) {
+                        || ProxyPreferenceConstants.P_TIMEOUT.equals(event.getProperty())
+                        || ProxyPreferenceConstants.PROXY_PORT.equals(event.getProperty())) {
                     setProxySettings();
                 }
             }
@@ -74,6 +76,7 @@ public class ProxyPlugin extends AbstractUIPlugin implements IPropertyChangeList
         String proxyType = getPreferenceStore().getString(ProxyPreferenceConstants.P_PROXY_TYPE);
         int swfVersion = getPreferenceStore().getInt(ProxyPreferenceConstants.P_SWF_MINIMUM_VERSION);
         int timeout = getPreferenceStore().getInt(ProxyPreferenceConstants.P_TIMEOUT);
+        int port = getPreferenceStore().getInt(ProxyPreferenceConstants.PROXY_PORT);
         if (!ProxyPreferenceConstants.PROXY_NONE.equals(proxyType)) {
             String proxySwfMethod = getPreferenceStore().getString(ProxyPreferenceConstants.P_PROXY_SWF_METHOD);
             boolean swfBootLoader = false;
@@ -83,7 +86,7 @@ public class ProxyPlugin extends AbstractUIPlugin implements IPropertyChangeList
             } else if (ProxyPreferenceConstants.PROXY_SWF_METHOD_TRANSCODER.equals(proxySwfMethod)) {
                 swfTranscoder = true;
             }
-            proxyManager.startProxy(0, swfVersion, timeout * 1000, swfBootLoader, swfTranscoder);
+            proxyManager.startProxy(port, swfVersion, timeout * 1000, swfBootLoader, swfTranscoder);
 
         }
         proxyManager.setInternetOptions(ProxyPreferenceConstants.PROXY_GLOBAL.equals(proxyType));
@@ -126,7 +129,7 @@ public class ProxyPlugin extends AbstractUIPlugin implements IPropertyChangeList
 
     public void addPropertyChangeListener(IPropertyChangeListener listener) {
         if (null == listeners) {
-            listeners = new ArrayList();
+            listeners = new ArrayList<IPropertyChangeListener>();
             getPreferenceStore().addPropertyChangeListener(this);
         }
         listeners.add(listener);
@@ -152,7 +155,8 @@ public class ProxyPlugin extends AbstractUIPlugin implements IPropertyChangeList
 
             dialog = new CacheClearDialog(shell, Platform.getProduct().getName());
             try {
-                int result = dialog.open();
+                //int result = 
+                dialog.open();
             } catch (Exception e) {
                 e.printStackTrace();
             }
