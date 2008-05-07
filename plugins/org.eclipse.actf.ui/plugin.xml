@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?eclipse version="3.2"?>
+
 <plugin>
-   
-   <extension point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.jdt.core.IJavaElement"
-            id="org.eclipse.actf.validation.javapp.ui.JavaPopupContribution">
+
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <menu
                label="Accessibility Tools"
-               path="additions"
+               mnemonic="A"
                id="org.eclipse.actf.ui.actfContextMenu">
-           <groupMarker name="actf"/>
          </menu>
-         </objectContribution>
-    </extension>   
+      </menuContribution>
+   </extension>
+
    <extension point="org.eclipse.ui.preferencePages">
       <page
             name="ACTF"
