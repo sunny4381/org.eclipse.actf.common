@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,14 +7,13 @@
  *
  * Contributors:
  *    Hisashi MIYASHITA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.core.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Iterator;
-import java.util.List;
 
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPMessage;
@@ -57,10 +56,7 @@ public class HTTPResponseInMemoryMessage extends HTTPResponseMessage implements 
     }
 
     protected void setBaseHeaders(IHTTPMessage base) {
-        List l = base.getHeaders();
-        Iterator it = l.iterator();
-        while (it.hasNext()) {
-            IHTTPHeader h = (IHTTPHeader) it.next();
+        for (IHTTPHeader h : base.getHeaders()) {
             if (!h.isFieldNameEqualsTo(IHTTPHeader.CONTENT_LENGTH_A)) {
                 setHeader(h.getName(), h.getValue());
             }

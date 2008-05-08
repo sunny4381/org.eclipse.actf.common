@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Hideki TAI - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.core;
 
@@ -33,7 +34,7 @@ public interface IHTTPMessage {
 
 	public abstract IMessageBody getMessageBody();
 
-	public abstract List getHeaders();
+	public abstract List<IHTTPHeader> getHeaders();
 
 	public abstract IHTTPHeader removeHeader(byte[] name);
 

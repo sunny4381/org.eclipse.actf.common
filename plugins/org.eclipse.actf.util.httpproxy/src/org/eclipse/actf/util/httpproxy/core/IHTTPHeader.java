@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Hideki TAI - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.core;
 
@@ -58,6 +59,7 @@ public interface IHTTPHeader {
 	public static final String TRANSFER_ENCODING = "Transfer-Encoding";
 	public static final String UPGRADE = "Upgrade";
 	public static final String USER_AGENT = "User-Agent";
+	public static final byte[] USER_AGENT_A = USER_AGENT.getBytes();
 	public static final String VARY = "Vary";
 	public static final String VIA = "Via";
 	public static final String WWW_AUTHENTICATE = "WWW-Authenticate";

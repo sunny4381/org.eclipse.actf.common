@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Hideki TAI - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.core.impl;
 
@@ -18,6 +19,7 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.util.Logger;
 import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
@@ -136,15 +138,15 @@ public abstract class HTTPReader {
 
     public static final int INIT_NUM_TRAILERS = 2;
 
-    protected List readChunkedMessageTrailers(long timeout, HTTPMessageBuffer buf) throws IOException, TimeoutException {
-        List trailers = null;
+    protected List<IHTTPHeader> readChunkedMessageTrailers(long timeout, HTTPMessageBuffer buf) throws IOException, TimeoutException {
+        List<IHTTPHeader> trailers = null;
         while (true) {
             HeaderInBuffer header = readHeader(timeout, buf);
             if (header == null) {
                 break;
             }
             if (trailers == null) {
-                trailers = new ArrayList(INIT_NUM_TRAILERS);
+                trailers = new ArrayList<IHTTPHeader>(INIT_NUM_TRAILERS);
             }
             trailers.add(header);
         }
