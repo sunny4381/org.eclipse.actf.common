@@ -11,7 +11,13 @@
 
 package org.eclipse.actf.util.vocab;
 
-
+/**
+ * IEvalTarget interface should be implemented by the element or node to be
+ * checked through the Vocabulary.
+ */
 public interface IEvalTarget {
-    AbstractTerms getTerms();
+	/**
+	 * @return the associated term.
+	 */
+	AbstractTerms getTerms();
 }

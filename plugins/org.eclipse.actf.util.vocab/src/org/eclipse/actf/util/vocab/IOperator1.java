@@ -12,7 +12,19 @@
 package org.eclipse.actf.util.vocab;
 
 
+/**
+ * IOperator1 interface defines the methods to be implemented by the operator
+ * which has an argument. For example, "not operator".
+ */
 public interface IOperator1 extends IProposition{
+    /**
+     * @return the proposition to be used for argument of the operator.
+     */
     IProposition getProposition();
+    
+    
+    /**
+     * @param prop the proposition to be used for argument of the operator.
+     */
     void setProposition(IProposition prop);
 }

@@ -11,9 +11,28 @@
 
 package org.eclipse.actf.util.vocab;
 
+/**
+ * IOperator interface defines the methods to be implemented by the operator
+ * between propositions. For example, "and operator" and "or operator".
+ */
+public interface IOperator extends IProposition {
+	/**
+	 * @return the size of the arguments for the operator.
+	 */
+	int size();
 
-public interface IOperator extends IProposition{
-    int size();
-    IProposition get(int index);
-    void add(IProposition prop);
+	/**
+	 * @param index
+	 *            the index of the proposition.
+	 * @return the instance specified by the index.
+	 */
+	IProposition get(int index);
+
+	/**
+	 * Add a proposition to the arguments of this operator.
+	 * 
+	 * @param prop
+	 *            the proposition to be added.
+	 */
+	void add(IProposition prop);
 }

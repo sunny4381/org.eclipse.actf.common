@@ -11,10 +11,20 @@
 
 package org.eclipse.actf.util.vocab;
 
-
-
-
+/**
+ * IProposition interface the methods to be implemented by the representation of
+ * a proposition. It returns true or false in evaluating.
+ */
 public interface IProposition {
-    String getName();
-    boolean eval(IEvalTarget node);
+	/**
+	 * @return the name of the proposition.
+	 */
+	String getName();
+
+	/**
+	 * @param target
+	 *            the target to be evaluated.
+	 * @return whether the target is matched with the proposition.
+	 */
+	boolean eval(IEvalTarget target);
 }
