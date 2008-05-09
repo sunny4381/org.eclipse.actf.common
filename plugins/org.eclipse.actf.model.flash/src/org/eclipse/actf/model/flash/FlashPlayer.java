@@ -20,20 +20,20 @@ import org.eclipse.actf.model.flash.util.ASObject;
 import org.eclipse.actf.util.win32.HTMLElementUtil;
 import org.eclipse.actf.util.win32.IAccessibleObject;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
-import org.eclipse.swt.ole.win32.OLE;
-import org.eclipse.swt.ole.win32.OleAutomation;
-import org.eclipse.swt.ole.win32.Variant;
 
 public class FlashPlayer {
 
-	private OleAutomation automation;
-	private Variant varMarker;
-	private int idGetAttribute;
-	private int idSetAttribute;
-	private int idWMode;
-	private int idGetVariable;
-	private int idSetVariable;
+	private IDispatch idispFlash;
+	private IDispatch idispMarker;
+
+	private final String WMODE = "wmode";
+	private final String GET_VARIABLE = "GetVariable";
+	private final String SET_VARIABLE = "SetVariable";
+	private final String GET_ATTRIBUTE = "getAttribute";
+	private final String SET_ATTRIBUTE = "setAttribute";
+
 	public boolean isVisible = true;
+
 	private static final String sidGetRootNode = "getRootNode", //$NON-NLS-1$
 			sidGetNumDebugChildren = "getNumSuccessorNodes", //$NON-NLS-1$
 			sidGetDebugChildren = "getSuccessorNodes", //$NON-NLS-1$
@@ -47,23 +47,24 @@ public class FlashPlayer {
 
 	private ASBridge bridge;
 
-	public FlashPlayer(Variant flash) {
-		automation = flash.getAutomation();
-		idWMode = getIDsOfNames("wmode"); //$NON-NLS-1$
-		idGetVariable = getIDsOfNames("GetVariable"); //$NON-NLS-1$
-		idSetVariable = getIDsOfNames("SetVariable"); //$NON-NLS-1$
-		idGetAttribute = getIDsOfNames("getAttribute"); //$NON-NLS-1$
-		idSetAttribute = getIDsOfNames("setAttribute"); //$NON-NLS-1$
+	public FlashPlayer(IDispatch idispFlash) {
+		this.idispFlash = idispFlash;
+		idispFlash.cacheDispIDs(new String[] { WMODE, GET_VARIABLE,
+				SET_VARIABLE, GET_ATTRIBUTE, SET_ATTRIBUTE });
 		bridge = ASBridge.getInstance(this);
 	}
 
 	public static FlashPlayer getPlayerFromObject(IAccessibleObject accObject) {
-		IDispatch idisp = HTMLElementUtil.getHtmlElementFromObject(accObject);
-		Variant varFlash = new Variant(new org.eclipse.swt.internal.ole.win32.IDispatch((int) idisp.getPtr()));
-		if (null != varFlash) {
-			return new FlashPlayer(varFlash);
+		IDispatch idispFlash = HTMLElementUtil
+				.getHtmlElementFromObject(accObject);
+		if (idispFlash != null) {
+			return new FlashPlayer(idispFlash);
 		}
 		return null;
+	}
+	
+	public IDispatch getIDispatch() {
+		return idispFlash;
 	}
 
 	public FlashNode getRootNode() {
@@ -141,53 +142,32 @@ public class FlashPlayer {
 
 	public void setMarker(Object objX, Object objY, Object objW, Object objH) {
 		if (null != objX && null != objY && null != objW && null != objH) {
-			if (null == varMarker) {
-				varMarker = automation.invoke(idGetAttribute,
-						new Variant[] { new Variant("marker") }); //$NON-NLS-1$
-				if (null == varMarker || OLE.VT_I4 != varMarker.getType()) {
+			if (idispMarker == null) {
+				idispMarker = (IDispatch) idispFlash.invoke1(GET_ATTRIBUTE,
+						"marker");
+				if (idispMarker != null) {
 					Object objMarker = invoke(sidNewMarker);
 					if (!(objMarker instanceof Integer)) {
 						return;
 					}
-					varMarker = new Variant(((Integer) objMarker).intValue());
-					automation.invoke(idSetAttribute, new Variant[] {
-							new Variant("marker"), varMarker }); //$NON-NLS-1$
+					int idispMarker = (Integer) objMarker;
+					idispFlash.invoke(SET_ATTRIBUTE, new Object[] { "marker",
+							idispMarker });
 				}
 			}
-			if (null != bridge && null != varMarker) {
-				bridge
-						.invoke(new Object[] { sidSetMarker,
-								new Integer(varMarker.getInt()), objX, objY,
-								objW, objH });
+
+			if (null != bridge && null != idispMarker) {
+				bridge.invoke(new Object[] { sidSetMarker, idispMarker, objX,
+						objY, objW, objH });
 			}
 		}
 	}
 
-	public Variant callMethod(String target, String method, Variant arg1) {
-		if (null != bridge) {
-			Object result = null;
-			switch (arg1.getType()) {
-			case OLE.VT_I4:
-				result = callMethod(target, method, new Integer(arg1.getInt()));
-				break;
-			case OLE.VT_BSTR:
-				result = callMethod(target, method, arg1.getString());
-				break;
-			}
-			if (result instanceof Integer) {
-				return new Variant(((Integer) result).intValue());
-			} else if (result instanceof Double) {
-				return new Variant(((Double) result).doubleValue());
-			} else if (result instanceof String) {
-				return new Variant(result.toString());
-			}
-		}
-		return null;
-	}
-
-	private Object callMethod(String target, String method, Object arg1) {
-		return bridge
-				.invoke(new Object[] { sidCallMethod, target, method, arg1 });
+	public Object callMethod(String target, String method, Object arg) {
+		Object ret = bridge.invoke(new Object[]{sidCallMethod, target, method, arg});
+		if (ret == null)
+			return null;
+		return ret;
 	}
 
 	private Object invoke(String method) {
@@ -198,23 +178,11 @@ public class FlashPlayer {
 		return bridge.invoke(new Object[] { method, arg1 });
 	}
 
-	private int getIDsOfNames(String name) {
-		try {
-			int dispid[] = automation.getIDsOfNames(new String[] { name });
-			if (null != dispid) {
-				return dispid[0];
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
 	public String getErrorText() {
-		Variant varError = automation.invoke(idGetAttribute,
-				new Variant[] { new Variant("aDesignerError") }); //$NON-NLS-1$
-		if (null != varError && OLE.VT_BSTR == varError.getType()) {
-			String strError = varError.getString();
+		Object objError = idispFlash.invoke1(GET_ATTRIBUTE, "aDesignerError");
+		if (objError != null) {
+			String strError = (String) objError;
+
 			if (strError.startsWith(FlashAdjust.ERROR_WAIT)) {
 				return Messages.getString("flash.player_loading"); //$NON-NLS-1$
 			}
@@ -225,22 +193,17 @@ public class FlashPlayer {
 				return Messages.getString("flash.player_no_xcode"); //$NON-NLS-1$
 			}
 		}
-		// return Messages.getString("flash.player_unknown"); //$NON-NLS-1$
 		return Messages.getString("flash.player_no_xcode"); //$NON-NLS-1$
 	}
 
-	public OleAutomation getAutomation() {
-		return automation;
-	}
-
 	public void dispose() {
-		if (null != varMarker) {
-			varMarker.dispose();
-			varMarker = null;
+		if (idispFlash != null) {
+			idispFlash.release();
+			idispFlash = null;
 		}
-		if (null != automation) {
-			automation.dispose();
-			automation = null;
+		if (null != idispMarker) {
+			idispMarker.release();
+			idispMarker = null;
 		}
 	}
 
@@ -250,28 +213,26 @@ public class FlashPlayer {
 	}
 
 	public String getWMode() {
-		if (0 != idWMode) {
-			Variant varWMode = automation.getProperty(idWMode);
-			if (null != varWMode && OLE.VT_BSTR == varWMode.getType()) {
-				return varWMode.getString();
+		if (idispFlash != null) {
+			Object ret = idispFlash.get(WMODE);
+			if (ret != null) {
+				return (String) ret;
 			}
 		}
 		return null;
 	}
-
+	
 	public void setVariable(String name, String value) {
-		if (0 != idSetVariable) {
-			automation.invoke(idSetVariable, new Variant[] { new Variant(name),
-					new Variant(value) });
+		if (idispFlash != null) {
+			idispFlash.invoke(SET_VARIABLE, new Object[] { name, value });
 		}
 	}
 
 	public String getVariable(String name) {
-		if (0 != idGetVariable) {
-			Variant varValue = automation.invoke(idGetVariable,
-					new Variant[] { new Variant(name) });
-			if (null != varValue) {
-				return varValue.getString();
+		if (idispFlash != null) {
+			Object ret = idispFlash.invoke1(GET_VARIABLE, name);
+			if (ret != null) {
+				return (String) ret;
 			}
 		}
 		return null;

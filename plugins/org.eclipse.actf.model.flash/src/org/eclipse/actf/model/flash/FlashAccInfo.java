@@ -11,8 +11,6 @@
 
 package org.eclipse.actf.model.flash;
 
-import org.eclipse.swt.ole.win32.OLE;
-import org.eclipse.swt.ole.win32.Variant;
 
 
 public class FlashAccInfo {
@@ -46,15 +44,11 @@ public class FlashAccInfo {
     
     public int getAccRole() {
         if( null == accRole ) {
-            Variant varRole = parent.getPlayer().callMethod(parent.getTarget()+"._accImpl","get_accRole",new Variant(0)); //$NON-NLS-1$ //$NON-NLS-2$
-            if( null != varRole && OLE.VT_I4==varRole.getType() ) {
-                accRole = new Integer(varRole.getInt());
-            }
-            else {
-                accRole = new Integer(-1);
-            }
+        	Object objRole = parent.getPlayer().callMethod(parent.getTarget()+"._accImpl","get_accRole", 0); //$NON-NLS-1$ //$NON-NLS-2$
+        	if (objRole != null)
+        		return (Integer) objRole;
         }
-        return accRole.intValue();
+        return -1;
     }
     
     public boolean isSilent() {
@@ -72,10 +66,10 @@ public class FlashAccInfo {
     }
     
     public String getAccName() {
-        Variant varName = parent.getPlayer().callMethod(parent.getTarget()+"._accImpl","get_accName", new Variant(0)); //$NON-NLS-1$ //$NON-NLS-2$
-        if( null != varName && OLE.VT_BSTR==varName.getType() ) {
-            return varName.getString();
-        }
+    	Object objName = parent.getPlayer().callMethod(parent.getTarget()+"._accImpl","get_accName", 0); //$NON-NLS-1$ //$NON-NLS-2$
+    	if (objName != null)
+    		return (String) objName;
+
         FlashNode accNameNode = parent.getNode("_accProps.name"); //$NON-NLS-1$
         if( null != accNameNode ) {
             try {
