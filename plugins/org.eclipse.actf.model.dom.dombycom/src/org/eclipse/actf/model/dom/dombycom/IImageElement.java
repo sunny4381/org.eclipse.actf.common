@@ -13,9 +13,18 @@ package org.eclipse.actf.model.dom.dombycom;
 
 import org.w3c.dom.Element;
 
-
-
+/**
+ * The IImageElement interface defines the methods to be implemented by the
+ * image element.
+ */
 public interface IImageElement extends INodeEx {
-    public Element getMap();
-    public boolean hasUsemap();
+	/**
+	 * @return the map element specified in the image element as a attribute.
+	 */
+	public Element getMap();
+
+	/**
+	 * @return whether the element has usemap attribute or not.
+	 */
+	public boolean hasUsemap();
 }

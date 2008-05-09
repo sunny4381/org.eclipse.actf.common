@@ -18,10 +18,38 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 
+/**
+ * The extended interface of the {@link Document}.
+ */
 public interface IDocumentEx extends Document {
+    /**
+     * CSS compatible mode (IE)
+     */
     String CSS1_COMPAT = "CSS1Compat";
+    
+    /**
+     * Back compatible mode (IE)
+     */
     String BACK_COMPAT = "BackCompat";
+    
+    /**
+     * getElementById will return a node, but actual content sometimes
+     * has more than one objects having save ID and it can't search in the
+     * document of iframes in the top document. 
+     * 
+     * @param id to be used for the search
+     * @return the objects which has <i>id</i> as its id attribute.
+     */
     List<Node> getElementsByIdInAllFrames(String id);
+    
+    /**
+     * @return the CSS compatible mode (IE)
+     */
     String getCompatMode();
+    
+    /**
+     * @param target the anchor name to be searched.
+     * @return the first element whose name is <i>target</i>.
+     */
     Element getTargetElement(String target);
 }

@@ -13,8 +13,8 @@ package org.eclipse.actf.model.dom.dombycom.impl;
 
 import java.util.HashMap;
 
-import org.eclipse.actf.util.comclutch.win32.DispatchException;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.win32.comclutch.DispatchException;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

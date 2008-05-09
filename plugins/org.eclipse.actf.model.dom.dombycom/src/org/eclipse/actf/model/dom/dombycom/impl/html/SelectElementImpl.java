@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import org.eclipse.actf.model.dom.dombycom.ISelectElement;
 import org.eclipse.actf.model.dom.dombycom.impl.Helper;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 
 

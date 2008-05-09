@@ -14,25 +14,98 @@ import org.eclipse.actf.util.vocab.IEvalTarget;
 import org.eclipse.swt.graphics.Rectangle;
 import org.w3c.dom.Node;
 
+/**
+ * The INodeEx interface defines the methods to be implemented by the node
+ * objects that are used in the application. These methods are basic functions
+ * for alternative interface.
+ */
+public interface INodeEx extends Node, IEvalTarget {
+	/**
+	 * @return the text representation of the node.
+	 */
+	String extractString();
 
-public interface INodeEx extends Node, IEvalTarget{
-    String extractString();
-    short getHeadingLevel();
-    String getLinkURI();
-    char getAccessKey();
-    // maybe heavy task
-    int getNth();
-    
-    boolean doClick();
-    boolean highlight();
-    boolean unhighlight();
-    boolean setFocus();
-    boolean setText(String text);
-    String getText();
+	/**
+	 * @return the heading level of the node. If the node is not heading then
+	 *         "0" will be returned.
+	 */
+	short getHeadingLevel();
 
-    //!FN!
-    String[] getStillPictureData();
+	/**
+	 * @return the link URI if the node is a link.
+	 */
+	String getLinkURI();
 
-    AnalyzedResult analyze(AnalyzedResult ar);
-    Rectangle getLocation();
+	/**
+	 * @return the access key of the node.
+	 */
+	char getAccessKey();
+
+	/**
+	 * This maybe a heavy task.
+	 * 
+	 * @return the nth position of the node in the siblings.
+	 */
+	int getNth();
+
+	/**
+	 * The click operation for the element will be simulated.
+	 * 
+	 * @return whether the click is succeeded or not.
+	 */
+	boolean doClick();
+
+	/**
+	 * Highlight the node.
+	 * 
+	 * @return whether the highlight is succeeded or not
+	 */
+	boolean highlight();
+
+	/**
+	 * Unhighlight the node.
+	 * 
+	 * @return whether the unhighlight is succeeded or not
+	 */
+	boolean unhighlight();
+
+	/**
+	 * Set the Focus to the node.
+	 * 
+	 * @return whether the focusing is succeeded or not.
+	 */
+	boolean setFocus();
+
+	/**
+	 * @param text
+	 *            the text to be set.
+	 * @return the set is succeeded or not.
+	 */
+	boolean setText(String text);
+
+	/**
+	 * @return the text of the form element. It is NOT the text representation
+	 *         of the node.
+	 */
+	String getText();
+
+	// !FN!
+	/**
+	 * @return the string array of the information about the image. The array
+	 *         length is 3. Index 0 is the MIMETYPE of the image, Index 1 is the
+	 *         src attribute of the image, Index 2 is an empty string.
+	 */
+	String[] getStillPictureData();
+
+	/**
+	 * @param ar
+	 *            the instance of the AnalyzedResult for store the nodes.
+	 * @return it is the same as <i>ar</i>
+	 */
+	AnalyzedResult analyze(AnalyzedResult ar);
+
+	/**
+	 * @return the location of the node on the client window.
+	 */
+	Rectangle getLocation();
 }

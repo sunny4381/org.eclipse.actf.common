@@ -11,16 +11,42 @@
 
 package org.eclipse.actf.model.dom.dombycom;
 
-
+/**
+ * INodeExSound interface defines the methods to be implemented by the sound
+ * object.
+ */
 public interface INodeExSound {
-    int VOLUME_MIN = 0;
-    int VOLUME_MAX = 1000;
+	/**
+	 * The minimum volume value. Each implementation convert the 0-1090 scale to
+	 * the original scale.
+	 */
+	int VOLUME_MIN = 0;
+	/**
+	 * The maximum volume value. Each implementation convert the 0-1000 scale to
+	 * the original scale.
+	 */
+	int VOLUME_MAX = 1000;
 
-    boolean getMuteState();
-    boolean muteMedia(boolean flag);
+	/**
+	 * @return whether the sound object is muted or not.
+	 */
+	boolean getMuteState();
 
-    // 0 -- 1000
-    int getVolume();
+	/**
+	 * @param flag whether the sound object will be muted or not.
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean muteMedia(boolean flag);
 
-    boolean setVolume(int val);
+	// 0 -- 1000
+	/**
+	 * @return the volume.
+	 */
+	int getVolume();
+
+	/**
+	 * @param val the volume
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean setVolume(int val);
 }

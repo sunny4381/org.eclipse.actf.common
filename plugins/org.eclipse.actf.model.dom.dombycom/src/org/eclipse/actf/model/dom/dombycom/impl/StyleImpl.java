@@ -12,7 +12,7 @@
 package org.eclipse.actf.model.dom.dombycom.impl;
 
 import org.eclipse.actf.model.dom.dombycom.IStyle;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 
 

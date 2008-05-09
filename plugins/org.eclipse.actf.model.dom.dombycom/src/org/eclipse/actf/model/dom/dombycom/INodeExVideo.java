@@ -11,38 +11,76 @@
 
 package org.eclipse.actf.model.dom.dombycom;
 
-
-
+/**
+ * INodeExVideo interface defines the methods to be implemented by the video
+ * object.
+ */
 public interface INodeExVideo {
-    public enum VideoState {
-        STATE_UNKNOWN,
-        STATE_PLAY,
-        STATE_STOP,
-        STATE_PAUSE,
-        STATE_FASTFORWARD,
-        STATE_FASTREVERSE,
-        STATE_WAITING
-    };
+	/**
+	 * The enumeration of the state of the video.
+	 */
+	public enum VideoState {
+		STATE_UNKNOWN, //
+		STATE_PLAY, //
+		STATE_STOP, //
+		STATE_PAUSE, //
+		STATE_FASTFORWARD, //
+		STATE_FASTREVERSE, //
+		STATE_WAITING
+	};
 
-    VideoState getCurrentState();
+	/**
+	 * @return the current state.
+	 */
+	VideoState getCurrentState();
 
-    boolean previousTrack();
+	/**
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean previousTrack();
 
-    boolean nextTrack();
+	/**
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean nextTrack();
 
-    boolean stopMedia();
+	/**
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean stopMedia();
 
-    boolean playMedia();
+	/**
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean playMedia();
 
-    boolean pauseMedia();
+	/**
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean pauseMedia();
 
-    boolean fastReverse();
+	/**
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean fastReverse();
 
-    boolean fastForward();
+	/**
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean fastForward();
 
-    double getCurrentPosition();
+	/**
+	 * @return the current playing position in seconds.
+	 */
+	double getCurrentPosition();
 
-    double getTotalLength();
+	/**
+	 * @return the total media length in seconds.
+	 */
+	double getTotalLength();
 
-    INodeEx getReferenceNode();
+	/**
+	 * @return the HTML element corresponding to the video object.
+	 */
+	INodeEx getReferenceNode();
 }

@@ -17,11 +17,11 @@ import java.util.List;
 
 import org.eclipse.actf.model.dom.dombycom.IDocumentEx;
 import org.eclipse.actf.model.dom.dombycom.impl.html.HTMLElementFactory;
-import org.eclipse.actf.util.comclutch.win32.DispatchException;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
-import org.eclipse.actf.util.comclutch.win32.IEnumUnknown;
-import org.eclipse.actf.util.comclutch.win32.IOleContainer;
-import org.eclipse.actf.util.comclutch.win32.IUnknown;
+import org.eclipse.actf.util.win32.comclutch.DispatchException;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
+import org.eclipse.actf.util.win32.comclutch.IEnumUnknown;
+import org.eclipse.actf.util.win32.comclutch.IOleContainer;
+import org.eclipse.actf.util.win32.comclutch.IUnknown;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;

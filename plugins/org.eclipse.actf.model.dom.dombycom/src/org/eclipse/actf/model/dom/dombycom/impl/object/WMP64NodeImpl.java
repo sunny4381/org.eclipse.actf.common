@@ -14,8 +14,8 @@ package org.eclipse.actf.model.dom.dombycom.impl.object;
 import org.eclipse.actf.model.dom.dombycom.INodeExSound;
 import org.eclipse.actf.model.dom.dombycom.impl.Helper;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
-import org.eclipse.actf.util.comclutch.win32.DispatchException;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.win32.comclutch.DispatchException;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 
 

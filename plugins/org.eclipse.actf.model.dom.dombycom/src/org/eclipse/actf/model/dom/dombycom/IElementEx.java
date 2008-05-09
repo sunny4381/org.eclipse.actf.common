@@ -13,17 +13,40 @@ package org.eclipse.actf.model.dom.dombycom;
 
 import org.w3c.dom.Element;
 
-
-
-
+/**
+ * The extended interface of the {@link Element}
+ */
 public interface IElementEx {
-    public class Position {
-        public int index;
-        public int total;
-    }
-    public IStyle getStyle();
-    
-    public Position getRadioPosition();
-    public Position getListPosition();
-    public Element getFormLabel();
+	/**
+	 * An instance of Position represents a nth position of a element in a radio
+	 * button group and list group.
+	 */
+	public class Position {
+		public int index;
+		public int total;
+	}
+
+	/**
+	 * @return the CSS style object.
+	 */
+	public IStyle getStyle();
+
+	/**
+	 * @return the position of the element in the radio group. This is valid if
+	 *         the element is a radio button in the radio group.
+	 */
+	public Position getRadioPosition();
+
+	/**
+	 * @return the position of the element in the list. This is valid if the
+	 *         element is an item of the list.
+	 */
+	public Position getListPosition();
+
+	/**
+	 * @return the label object annotating the element. This is valid if the
+	 *         element is a form element and a label element for the element is
+	 *         existing.
+	 */
+	public Element getFormLabel();
 }

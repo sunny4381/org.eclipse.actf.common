@@ -11,8 +11,21 @@
 
 package org.eclipse.actf.model.dom.dombycom;
 
-
+/**
+ * IStyle interface defines the simplest methods to be implemented by HTML Style
+ * object.
+ */
 public interface IStyle {
-    boolean put(String name, String value);
-    Object get(String name);
+	/**
+	 * @param name the style name.
+	 * @param value the style value.
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean put(String name, String value);
+
+	/**
+	 * @param name the style name to be obtained.
+	 * @return the value of the style. It might be a String, a Number, or a Object.
+	 */
+	Object get(String name);
 }

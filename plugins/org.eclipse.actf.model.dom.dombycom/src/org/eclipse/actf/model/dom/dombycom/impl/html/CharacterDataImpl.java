@@ -13,8 +13,8 @@ package org.eclipse.actf.model.dom.dombycom.impl.html;
 
 import org.eclipse.actf.model.dom.dombycom.impl.Helper;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.vocab.AbstractTerms;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.DOMException;
 

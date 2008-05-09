@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.model.dom.dombycom.impl;
 
-import org.eclipse.actf.util.comclutch.win32.DispatchException;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.win32.comclutch.DispatchException;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.swt.graphics.Rectangle;
 import org.w3c.dom.DOMException;
 

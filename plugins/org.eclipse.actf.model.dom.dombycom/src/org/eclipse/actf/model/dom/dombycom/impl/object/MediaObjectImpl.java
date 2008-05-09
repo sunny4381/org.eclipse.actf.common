@@ -17,8 +17,8 @@ import org.eclipse.actf.model.dom.dombycom.INodeExSound;
 import org.eclipse.actf.model.dom.dombycom.INodeExVideo;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.html.ElementImpl;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.vocab.AbstractTerms;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 
 

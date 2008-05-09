@@ -10,11 +10,24 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.dombycom;
 
+/**
+ * The IFlashMSAANode interface defines the methods to be implemented by the MSAA
+ * object.
+ */
+public interface IFlashMSAANode extends INodeEx {
+	/**
+	 * @return the unique ID of the node. A node should return an id.
+	 */
+	String getID();
 
-public interface IMSAANode extends INodeEx {
-    String getID();
+	/**
+	 * @param id the id to be used for the search
+	 * @return the MSAA node specified by the <i>id<i>.
+	 */
+	IFlashMSAANode searchByID(String id);
 
-    IMSAANode searchByID(String id);
-
-    INodeEx getBaseNode();
+	/**
+	 * @return the base node. It might be an object element of the Flash object.
+	 */
+	INodeEx getBaseNode();
 }
