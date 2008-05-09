@@ -14,11 +14,12 @@ package org.eclipse.actf.model.flash;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
-import org.eclipse.actf.accservice.swtbridge.util.HTMLElementUtil;
 import org.eclipse.actf.model.flash.internal.ASBridge;
 import org.eclipse.actf.model.flash.internal.Messages;
 import org.eclipse.actf.model.flash.util.ASObject;
+import org.eclipse.actf.util.win32.HTMLElementUtil;
+import org.eclipse.actf.util.win32.IAccessibleObject;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.swt.ole.win32.OLE;
 import org.eclipse.swt.ole.win32.OleAutomation;
 import org.eclipse.swt.ole.win32.Variant;
@@ -56,8 +57,9 @@ public class FlashPlayer {
 		bridge = ASBridge.getInstance(this);
 	}
 
-	public static FlashPlayer getPlayerFromObject(AccessibleObject accObject) {
-		Variant varFlash = HTMLElementUtil.getHtmlElementFromObject(accObject);
+	public static FlashPlayer getPlayerFromObject(IAccessibleObject accObject) {
+		IDispatch idisp = HTMLElementUtil.getHtmlElementFromObject(accObject);
+		Variant varFlash = new Variant(new org.eclipse.swt.internal.ole.win32.IDispatch((int) idisp.getPtr()));
 		if (null != varFlash) {
 			return new FlashPlayer(varFlash);
 		}

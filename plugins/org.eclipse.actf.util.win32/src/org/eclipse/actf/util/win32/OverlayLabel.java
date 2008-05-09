@@ -96,14 +96,14 @@ public class OverlayLabel extends CLabel {
     }
     
     public static OverlayLabel[] getLabelsAtPosition(Point position) {
-        List labelList = new ArrayList();
+        List<OverlayLabel> labelList = new ArrayList<OverlayLabel>();
         Composite composite = getOverlayComposite(false);
         if( null != composite ) {
             Control[] controls = composite.getChildren();
             for( int i=0; i<controls.length; i++ ) {
                 if( controls[i] instanceof OverlayLabel ) {
                     if( controls[i].getBounds().contains(position) ) {
-                        labelList.add(controls[i]);
+                        labelList.add((OverlayLabel) controls[i]);
                     }
                 }
             }

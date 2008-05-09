@@ -14,16 +14,16 @@ package org.eclipse.actf.model.dom.dombycom.impl.flash;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
-import org.eclipse.actf.ai.key.keyhook.win32.ISendEvent;
-import org.eclipse.actf.ai.key.keyhook.win32.KeyHookWin32Plugin;
 import org.eclipse.actf.model.dom.dombycom.AnalyzedResult;
 import org.eclipse.actf.model.dom.dombycom.IFlashNode;
-import org.eclipse.actf.model.dom.dombycom.IMSAANode;
+import org.eclipse.actf.model.dom.dombycom.IFlashMSAANode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.impl.DocumentImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.EmptyNodeListImpl;
 import org.eclipse.actf.model.flash.util.ASObject;
 import org.eclipse.actf.util.vocab.AbstractTerms;
+import org.eclipse.actf.util.win32.comclutch.ComPlugin;
+import org.eclipse.actf.util.win32.keyhook.ISendEvent;
 import org.eclipse.swt.graphics.Rectangle;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -93,7 +93,7 @@ class FlashNodeImpl implements IFlashNode {
     private static ISendEvent sendEvent;
     private ISendEvent getSendEvent() {
         if (sendEvent == null) {
-            sendEvent = KeyHookWin32Plugin.getDefault().newSendEvent();
+            sendEvent = ComPlugin.getDefault().newSendEvent();
         }
         return sendEvent;
     }
@@ -506,7 +506,7 @@ class FlashNodeImpl implements IFlashNode {
     //--------------------------------------------------------------------------------
     // Dummy
     //--------------------------------------------------------------------------------
-    public IMSAANode getMSAA(){
+    public IFlashMSAANode getMSAA(){
         return null;
     }
 

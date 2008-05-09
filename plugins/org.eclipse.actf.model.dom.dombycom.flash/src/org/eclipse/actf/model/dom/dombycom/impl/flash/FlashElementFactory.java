@@ -14,7 +14,7 @@ package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import org.eclipse.actf.model.dom.dombycom.IObjectElementFactory;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 public class FlashElementFactory implements IObjectElementFactory {
 

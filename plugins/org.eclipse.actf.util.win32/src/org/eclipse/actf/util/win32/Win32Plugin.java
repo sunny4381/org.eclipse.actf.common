@@ -61,4 +61,5 @@ public class Win32Plugin extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.actf.util.win32", path); //$NON-NLS-1$
 	}
+	
 }

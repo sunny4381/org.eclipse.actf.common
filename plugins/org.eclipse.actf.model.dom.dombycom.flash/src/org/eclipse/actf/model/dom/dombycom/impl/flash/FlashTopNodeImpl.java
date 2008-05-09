@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.eclipse.actf.model.dom.dombycom.AnalyzedResult;
 import org.eclipse.actf.model.dom.dombycom.IFlashNode;
-import org.eclipse.actf.model.dom.dombycom.IMSAANode;
+import org.eclipse.actf.model.dom.dombycom.IFlashMSAANode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.INodeExSound;
 import org.eclipse.actf.model.dom.dombycom.INodeExVideo;
@@ -29,10 +29,10 @@ import org.eclipse.actf.model.flash.bridge.IWaXcoding;
 import org.eclipse.actf.model.flash.util.ASDeserializer;
 import org.eclipse.actf.model.flash.util.ASObject;
 import org.eclipse.actf.model.flash.util.ASSerializer;
-import org.eclipse.actf.util.comclutch.win32.DispatchException;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.timer.Yield;
 import org.eclipse.actf.util.vocab.AbstractTerms;
+import org.eclipse.actf.util.win32.comclutch.DispatchException;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -51,7 +51,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     private final String rootPath;
     private final String requestArgsPath;
     private final String responseValuePath;
-    private MSAANodeImpl cachedMSAA;
+    private FlashMSAANodeImpl cachedMSAA;
 
     private String secret;
 
@@ -423,9 +423,9 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
         }
     }
     
-    public IMSAANode getMSAA() {
+    public IFlashMSAANode getMSAA() {
         if (cachedMSAA == null)
-            cachedMSAA = MSAANodeImpl.newMSAANode(this, inode);
+            cachedMSAA = FlashMSAANodeImpl.newMSAANode(this, inode);
         if ((cachedMSAA == null) || (cachedMSAA.getWindow() == 0)) return null;
         // repairFlash();
         updateTarget();
@@ -433,7 +433,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     }
 
     public long getHWND() {
-        return MSAANodeImpl.getHWNDFromObject((int) super.getINode().getPtr());
+        return FlashMSAANodeImpl.getHWNDFromObject(super.getINode());
     }
 
     @Override

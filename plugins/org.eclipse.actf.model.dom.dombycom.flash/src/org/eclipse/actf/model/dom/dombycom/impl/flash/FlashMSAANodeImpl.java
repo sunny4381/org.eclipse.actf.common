@@ -13,32 +13,28 @@ package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import java.util.ArrayList;
 
-import org.eclipse.actf.model.dom.dombycom.IMSAANode;
+import org.eclipse.actf.model.dom.dombycom.IFlashMSAANode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.impl.Helper;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.html.ElementImpl;
-import org.eclipse.actf.util.comclutch.win32.ComService;
-import org.eclipse.actf.util.comclutch.win32.IDispatch;
 import org.eclipse.actf.util.vocab.AbstractTerms;
-import org.eclipse.actf.util.win32.COMUtil;
+import org.eclipse.actf.util.win32.AccessibleObject;
+import org.eclipse.actf.util.win32.FlashUtil;
+import org.eclipse.actf.util.win32.HTMLElementUtil;
+import org.eclipse.actf.util.win32.IAccessibleObject;
+import org.eclipse.actf.util.win32.comclutch.ComService;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
+import org.eclipse.actf.util.win32.comclutch.IServiceProvider;
+import org.eclipse.actf.util.win32.comclutch.IUnknown;
+import org.eclipse.actf.util.win32.msaa.MSAA;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.internal.ole.win32.GUID;
-import org.eclipse.swt.internal.ole.win32.IUnknown;
-import org.eclipse.swt.ole.win32.OLE;
-import org.eclipse.swt.ole.win32.OleAutomation;
-import org.eclipse.swt.ole.win32.Variant;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
-import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
-import org.eclipse.actf.accservice.swtbridge.IServiceProvider;
-import org.eclipse.actf.accservice.swtbridge.MSAA;
 
 
-
-public class MSAANodeImpl extends ElementImpl implements IMSAANode {
+public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
     public String getID() {
         return aObject.getAccKeyboardShortcut();
     }
@@ -53,9 +49,9 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
     
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof IMSAANode))
+        if (!(o instanceof IFlashMSAANode))
             return super.equals(o);
-        IMSAANode msaa = (IMSAANode) o;
+        IFlashMSAANode msaa = (IFlashMSAANode) o;
         String id1 = this.getID();
         String id2 = msaa.getID();
         if (id1 == null || id2 == null)
@@ -63,11 +59,11 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
         return id1.equals(id2);
     }
    
-    AccessibleObject aObject;
+    IAccessibleObject aObject;
     
     private final boolean isTop;
     
-    private final MSAANodeImpl topNode;
+    private final FlashMSAANodeImpl topNode;
 
     protected ElementImpl base;
 
@@ -75,7 +71,7 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
 
     private int number;
 
-    private MSAANodeImpl(ElementImpl impl, IDispatch inode, AccessibleObject aObject) {
+    private FlashMSAANodeImpl(ElementImpl impl, IDispatch inode, IAccessibleObject aObject) {
         super(impl, inode);
         this.base = impl;
         this.parent = null;
@@ -84,7 +80,7 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
         this.isTop = true;
     }
 
-    private AccessibleObject searchFlash(AccessibleObject top) {
+    private IAccessibleObject searchFlash(IAccessibleObject top) {
         try {
             return searchFlash(top, 100);
         } catch (Exception e) {
@@ -93,20 +89,19 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
         return null;
     }
 
-    private AccessibleObject searchFlash(AccessibleObject top, int n) {
+    private IAccessibleObject searchFlash(IAccessibleObject top, int n) {
         if (top == null)
             return null;
-        AccessibleObject[] children = top.getChildren();
+        IAccessibleObject[] children = top.getChildren();
+        //System.out.println(children.length);
         for (int i = 0; i < children.length; i++) {
             if (children[i] == null)
                 continue;
-            if (isFlash(children[i])) {
-                Variant v = getHTMLElementFromObject(children[i]);
+            if (FlashUtil.isFlash(children[i])) {
+                IDispatch htmlElem = HTMLElementUtil.getHtmlElementFromObject(children[i]);
 
-                if (v != null) {
-                    int ptr = v.getDispatch().getAddress();
-                    IDispatch id = ComService.newIDispatch(inode.getResourceManager(), ptr, false);
-                    String targetUniqueID = (String) Helper.get(id, "uniqueID");
+                if (htmlElem != null) {
+                    String targetUniqueID = (String) Helper.get(htmlElem, "uniqueID");
                     String myUniqueID = (String) base.getUniqueID();
                     if (myUniqueID.equals(targetUniqueID)) {
                         return children[i];
@@ -116,15 +111,15 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
         }
         for (int i = 0; i < children.length; i++) {
             if (n > 0) {
-                AccessibleObject ao = searchFlash(children[i], n - 1);
-                if(ao != null)
-	                return ao;
+                IAccessibleObject iacc = searchFlash(children[i], n - 1);
+                if(iacc != null)
+	                return iacc;
             }
         }
         return null;
     }
 
-    private MSAANodeImpl(ElementImpl msaaBase, NodeImpl parent, MSAANodeImpl topNode, AccessibleObject aObject) {
+    private FlashMSAANodeImpl(ElementImpl msaaBase, NodeImpl parent, FlashMSAANodeImpl topNode, IAccessibleObject aObject) {
         super(msaaBase, null);
         this.base = msaaBase;
         this.aObject = aObject;
@@ -133,113 +128,39 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
         this.isTop = false;
     }
 
-    public static MSAANodeImpl newMSAANode(ElementImpl impl, IDispatch inode) {
-        Variant v = getMSAAFromObject((int) inode.getPtr());
-        if (null != v && OLE.VT_DISPATCH == v.getType()) {
-            try {
-                AccessibleObject aObject = AccessibleObjectFactory.getAccessibleObjectFromVariant(v);
-                MSAANodeImpl ret = new MSAANodeImpl(impl, inode, aObject);
-                if (ret.aObject == null)
-                    return null;
-                return ret;
-            } finally {
-                v.dispose();
-            }
-        }
+    public static FlashMSAANodeImpl newMSAANode(ElementImpl impl, IDispatch inode) {
+    	AccessibleObject iacc = getMSAAFromObject(inode);
+    	
+    	if (iacc != null) {
+            FlashMSAANodeImpl ret = new FlashMSAANodeImpl(impl, inode, iacc);
+            if (ret.aObject == null)
+            	return null;
+            return ret;
+    	}
 
         return null;
     }
 
-    public static final GUID IID_IHTMLElement = COMUtil.IIDFromString("{3050f1ff-98b5-11cf-bb82-00aa00bdce0b}"); //$NON-NLS-1$
-
-    public static final GUID IID_IAccessible = COMUtil.IIDFromString("{618736E0-3C3D-11CF-810C-00AA00389B71}"); // $NON-NLS-1$
-
-    public static Variant getMSAAFromObject(int unknown) {
-        IUnknown objUnknown = new IUnknown(unknown);
-        int[] ppvServiceProvider = new int[1];
-        if (OLE.S_OK == ((IUnknown) objUnknown).QueryInterface(IServiceProvider.IID, ppvServiceProvider)) {
-            IServiceProvider sp = new IServiceProvider(ppvServiceProvider[0]);
-            try {
-                int[] ppvObject = new int[1];
-                if (OLE.S_OK == sp.QueryService(IID_IAccessible, IID_IAccessible, ppvObject)) {
-                    return new Variant(new org.eclipse.swt.internal.ole.win32.IDispatch(ppvObject[0]));
-                }
-                return null;
-            } finally {
-                sp.Release();
-            }
-        }
-        return null;
+    public static AccessibleObject getMSAAFromObject(IUnknown iunk) {
+    	IServiceProvider isp = (IServiceProvider) iunk.queryInterface(IUnknown.IID_IServiceProvider);
+    	if (isp != null) {
+    		IUnknown iacc = isp.queryService(IUnknown.IID_IAccessible, IUnknown.IID_IAccessible);
+    		if (iunk != null) {
+    			return new AccessibleObject(ComService.newIAccessible(iacc));
+    		}
+    	}
+    	return null;
     }
 
-    public static long getHWNDFromObject(int unknown) {
-        Variant v = getMSAAFromObject(unknown);
-        if ((v == null) || (v.getType() != OLE.VT_DISPATCH))
-            return 0;
-        AccessibleObject aObject = AccessibleObjectFactory.getAccessibleObjectFromVariant(v);
-        return aObject.getWindow();
+    public static long getHWNDFromObject(IUnknown unknown) {
+    	AccessibleObject iacc = getMSAAFromObject(unknown);
+
+    	if (iacc == null)
+    		return 0;
+    	
+    	return iacc.getWindow();
     }
 
-    public static Variant getHTMLElementFromObject(Object objUnknown) {
-        if (objUnknown instanceof AccessibleObject) {
-            objUnknown = ((AccessibleObject) objUnknown).getIAccessible();
-        }
-        if (objUnknown instanceof IUnknown) {
-            int[] ppvServiceProvider = new int[1];
-            if (OLE.S_OK == ((IUnknown) objUnknown).QueryInterface(IServiceProvider.IID, ppvServiceProvider)) {
-                IServiceProvider sp = new IServiceProvider(ppvServiceProvider[0]);
-                try {
-                    int[] ppvObject = new int[1];
-                    if (OLE.S_OK == sp.QueryService(IID_IHTMLElement, IID_IHTMLElement, ppvObject)) {
-                        return new Variant(new org.eclipse.swt.internal.ole.win32.IDispatch(ppvObject[0]));
-                    }
-                    return null;
-                } finally {
-                    sp.Release();
-                }
-            }
-        }
-        return null;
-    }
-
-    public static boolean isFlash(AccessibleObject accObject) {
-        return isFlashClass(accObject.getClassName()) || isInvisibleFlash(accObject);
-    }
-
-    private static boolean isInvisibleFlash(AccessibleObject accObject) {
-        if (MSAA.ROLE_SYSTEM_CLIENT == accObject.getAccRole()) {
-            String description = accObject.getAccDescription();
-            if (null != description && description.startsWith("PLUGIN: type=")) { //$NON-NLS-1$
-                return null != getHtmlAttribute(accObject, "WMode"); //$NON-NLS-1$
-            }
-        }
-        return false;
-    }
-
-    public static String getHtmlAttribute(Object objUnknown, String name) {
-        Variant varElement = getHTMLElementFromObject(objUnknown);
-        if (null != varElement && OLE.VT_DISPATCH == varElement.getType()) {
-            try {
-                OleAutomation automation = varElement.getAutomation();
-                int[] idAttr = automation.getIDsOfNames(new String[] { name });
-                if (null != idAttr) {
-                    Variant varAttr = automation.getProperty(idAttr[0]);
-                    if (null != varAttr) {
-                        if (null != varAttr && OLE.VT_BSTR == varAttr.getType()) {
-                            return varAttr.getString();
-                        }
-                    }
-                }
-            } finally {
-                varElement.dispose();
-            }
-        }
-        return null;
-    }
-
-    private static boolean isFlashClass(String className) {
-        return "MacromediaFlashPlayerActiveX".equals(className); //$NON-NLS-1$
-    }
 
     @Override
     public Node getParentNode() {
@@ -251,21 +172,21 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
     public static class NodeListImpl implements NodeList {
         ArrayList<Node> list;
 
-        MSAANodeImpl parent;
+        FlashMSAANodeImpl parent;
 
         private boolean showOffscreen = true;
 
-        private NodeListImpl(AccessibleObject[] aObjects, MSAANodeImpl parent, boolean isTop, int total) {
+        private NodeListImpl(IAccessibleObject[] aObjects, FlashMSAANodeImpl parent, boolean isTop, int total) {
             this.parent = parent;
             list = new ArrayList<Node>();
             for (int i = 0; i < aObjects.length; i++) {
                 if (aObjects[i] != null) {
                     int accState = aObjects[i].getAccState();
-                    MSAANodeImpl node = null;
+                    FlashMSAANodeImpl node = null;
                     if (0 == (accState & MSAA.STATE_INVISIBLE)) {
-                        node = new MSAANodeImpl(parent.base, parent, parent.topNode, aObjects[i]);
+                        node = new FlashMSAANodeImpl(parent.base, parent, parent.topNode, aObjects[i]);
                     } else if (showOffscreen && 0 != (accState & MSAA.STATE_OFFSCREEN)) {
-                        node = new MSAANodeImpl(parent.base, parent, parent.topNode, aObjects[i]);
+                        node = new FlashMSAANodeImpl(parent.base, parent, parent.topNode, aObjects[i]);
                     }
                     if (node != null) {
                         node.number = total++;
@@ -298,7 +219,7 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
     @Override
     public NodeList getChildNodes() {
         if (aObject == null) {
-            return new NodeListImpl(new AccessibleObject[0], this, isTop, 0);
+            return new NodeListImpl(new IAccessibleObject[0], this, isTop, 0);
         }
         return new NodeListImpl(aObject.getChildren(), this, isTop, 0);
     }
@@ -416,29 +337,29 @@ public class MSAANodeImpl extends ElementImpl implements IMSAANode {
         return "";
     }
 
-    public int getWindow() {
+    public long getWindow() {
         return aObject.getWindow();
     }
     
     @Override
     public AbstractTerms getTerms(){
-        return MSAATerms.getInstance();
+        return FlashMSAATerms.getInstance();
     }
     
-    private IMSAANode searchByIDInternal(String id) {
+    private IFlashMSAANode searchByIDInternal(String id) {
         String target = aObject.getAccKeyboardShortcut();
         if (id.equals(target)) return this;
         NodeList nl = getChildNodes();
         int len = nl.getLength();
         for (int i = 0; i < len; i++) {
-            MSAANodeImpl n = (MSAANodeImpl) nl.item(i);
-            IMSAANode ret = n.searchByIDInternal(id);
+            FlashMSAANodeImpl n = (FlashMSAANodeImpl) nl.item(i);
+            IFlashMSAANode ret = n.searchByIDInternal(id);
             if (ret != null) return ret;
         }
         return null;
     }
 
-    public IMSAANode searchByID(String id) {
+    public IFlashMSAANode searchByID(String id) {
         return topNode.searchByIDInternal(id);
     }
 

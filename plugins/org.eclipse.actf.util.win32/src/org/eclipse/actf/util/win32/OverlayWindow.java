@@ -11,12 +11,14 @@
 
 package org.eclipse.actf.util.win32;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
-import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -58,7 +60,10 @@ public class OverlayWindow implements Runnable {
 
         // Init the shell
         shell.setLayout(new GridLayout());
-        shell.setBounds(0, 0, OS.GetSystemMetrics(OS.SM_CXSCREEN), OS.GetSystemMetrics(OS.SM_CYSCREEN));
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle rect = env.getDefaultScreenDevice().getDefaultConfiguration().getBounds();
+        shell.setBounds(0, 0, rect.width, rect.height);
+    	//shell.setBounds(0, 0, OS.GetSystemMetrics(OS.SM_CXSCREEN), OS.GetSystemMetrics(OS.SM_CYSCREEN));
         shell.setVisible(visible);
 
         //

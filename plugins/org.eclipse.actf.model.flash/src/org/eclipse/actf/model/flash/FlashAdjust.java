@@ -11,8 +11,9 @@
 
 package org.eclipse.actf.model.flash;
 
-import org.eclipse.actf.accservice.swtbridge.util.HTMLElementUtil;
 import org.eclipse.actf.model.flash.internal.ASBridge;
+import org.eclipse.actf.util.win32.HTMLElementUtil;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.swt.ole.win32.OLE;
 import org.eclipse.swt.ole.win32.OleAutomation;
 import org.eclipse.swt.ole.win32.Variant;
@@ -30,7 +31,8 @@ public class FlashAdjust {
     private OleAutomation flashAutomation = null;
     
     public FlashAdjust(Object flashObject/*, int validate*/) {
-        varFlash = HTMLElementUtil.getHtmlElementFromObject(flashObject);
+    	IDispatch idisp = HTMLElementUtil.getHtmlElementFromObject(flashObject);
+    	varFlash = new Variant(new org.eclipse.swt.internal.ole.win32.IDispatch((int) idisp.getPtr()));
         if( null != varFlash && OLE.VT_DISPATCH==varFlash.getType() ) {
             flashAutomation = varFlash.getAutomation();
         }

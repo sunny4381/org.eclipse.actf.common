@@ -13,25 +13,24 @@ package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.vocab.IEvalTarget;
-
-import org.eclipse.actf.accservice.swtbridge.MSAA;
-
+import org.eclipse.actf.util.win32.msaa.MSAA;
 
 
-public class MSAATerms extends AbstractTerms {
-    private static MSAATerms instance;
 
-    public static MSAATerms getInstance() {
+public class FlashMSAATerms extends AbstractTerms {
+    private static FlashMSAATerms instance;
+
+    public static FlashMSAATerms getInstance() {
         if (instance == null) {
-            instance = new MSAATerms();
+            instance = new FlashMSAATerms();
         }
         return instance;
     }
 
     @Override
     public boolean isClickable(IEvalTarget target) {
-        if (target instanceof MSAANodeImpl) {
-            MSAANodeImpl node = (MSAANodeImpl) target;
+        if (target instanceof FlashMSAANodeImpl) {
+            FlashMSAANodeImpl node = (FlashMSAANodeImpl) target;
 
             int role = node.aObject.getAccRole();
 
@@ -48,8 +47,8 @@ public class MSAATerms extends AbstractTerms {
 
     @Override
     public boolean isInputable(IEvalTarget target) {
-        if (target instanceof MSAANodeImpl) {
-            MSAANodeImpl node = (MSAANodeImpl) target;
+        if (target instanceof FlashMSAANodeImpl) {
+            FlashMSAANodeImpl node = (FlashMSAANodeImpl) target;
             
             int role = node.aObject.getAccRole();
             int state = node.aObject.getAccState();
@@ -71,8 +70,8 @@ public class MSAATerms extends AbstractTerms {
 
     @Override
     public boolean isButton(IEvalTarget target) {
-        if (target instanceof MSAANodeImpl) {
-            MSAANodeImpl node = (MSAANodeImpl) target;
+        if (target instanceof FlashMSAANodeImpl) {
+            FlashMSAANodeImpl node = (FlashMSAANodeImpl) target;
 
             int role = node.aObject.getAccRole();
             
@@ -84,9 +83,9 @@ public class MSAATerms extends AbstractTerms {
 
     @Override
     public boolean isAlterable(IEvalTarget target) {
-        if (!(target instanceof MSAANodeImpl)) return false;
+        if (!(target instanceof FlashMSAANodeImpl)) return false;
         if (!isClickable(target)) return false;
-        MSAANodeImpl mn = (MSAANodeImpl) target;
+        FlashMSAANodeImpl mn = (FlashMSAANodeImpl) target;
         String id = mn.getID();
         if (id == null) return false;
         if (id.length() == 0) return false;

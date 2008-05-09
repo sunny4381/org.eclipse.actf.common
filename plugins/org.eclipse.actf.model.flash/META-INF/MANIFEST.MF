@@ -7,8 +7,9 @@ Bundle-Activator: org.eclipse.actf.model.flash.FlashModelPlugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.actf.accservice.swtbridge,
- org.eclipse.actf.util.httpproxy
+ org.eclipse.actf.util.httpproxy,
+ org.eclipse.actf.util.win32,
+ org.eclipse.actf.util.comclutch.win32
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.model.flash,
  org.eclipse.actf.model.flash.bridge,
