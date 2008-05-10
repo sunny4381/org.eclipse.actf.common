@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Daisuke SATO
  *******************************************************************************/
 package org.eclipse.actf.model.flash;
 

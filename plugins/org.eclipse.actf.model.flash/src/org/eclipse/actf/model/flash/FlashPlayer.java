@@ -8,6 +8,7 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
+ *    Daisuke SATO
  *******************************************************************************/
 package org.eclipse.actf.model.flash;
 
@@ -24,16 +25,9 @@ import org.eclipse.actf.util.win32.comclutch.IDispatch;
 public class FlashPlayer {
 
 	private IDispatch idispFlash;
-	private IDispatch idispMarker;
-
-	private final String WMODE = "wmode";
-	private final String GET_VARIABLE = "GetVariable";
-	private final String SET_VARIABLE = "SetVariable";
-	private final String GET_ATTRIBUTE = "getAttribute";
-	private final String SET_ATTRIBUTE = "setAttribute";
+	private Object objMarker;
 
 	public boolean isVisible = true;
-
 	private static final String sidGetRootNode = "getRootNode", //$NON-NLS-1$
 			sidGetNumDebugChildren = "getNumSuccessorNodes", //$NON-NLS-1$
 			sidGetDebugChildren = "getSuccessorNodes", //$NON-NLS-1$
@@ -47,24 +41,17 @@ public class FlashPlayer {
 
 	private ASBridge bridge;
 
-	public FlashPlayer(IDispatch idispFlash) {
-		this.idispFlash = idispFlash;
-		idispFlash.cacheDispIDs(new String[] { WMODE, GET_VARIABLE,
-				SET_VARIABLE, GET_ATTRIBUTE, SET_ATTRIBUTE });
+	public FlashPlayer(IDispatch idisp) {
+		idispFlash = idisp;
 		bridge = ASBridge.getInstance(this);
 	}
 
 	public static FlashPlayer getPlayerFromObject(IAccessibleObject accObject) {
-		IDispatch idispFlash = HTMLElementUtil
-				.getHtmlElementFromObject(accObject);
-		if (idispFlash != null) {
-			return new FlashPlayer(idispFlash);
+		IDispatch idisp = HTMLElementUtil.getHtmlElementFromObject(accObject);
+		if (null != idisp) {
+			return new FlashPlayer(idisp);
 		}
 		return null;
-	}
-	
-	public IDispatch getIDispatch() {
-		return idispFlash;
 	}
 
 	public FlashNode getRootNode() {
@@ -142,32 +129,28 @@ public class FlashPlayer {
 
 	public void setMarker(Object objX, Object objY, Object objW, Object objH) {
 		if (null != objX && null != objY && null != objW && null != objH) {
-			if (idispMarker == null) {
-				idispMarker = (IDispatch) idispFlash.invoke1(GET_ATTRIBUTE,
-						"marker");
-				if (idispMarker != null) {
-					Object objMarker = invoke(sidNewMarker);
+			if (null == objMarker) {
+
+				Object objMarker = idispFlash.invoke1("GetAttribute", "marker");
+				if (null == objMarker) {
+					objMarker = invoke(sidNewMarker);
 					if (!(objMarker instanceof Integer)) {
 						return;
 					}
-					int idispMarker = (Integer) objMarker;
-					idispFlash.invoke(SET_ATTRIBUTE, new Object[] { "marker",
-							idispMarker });
+					idispFlash.invoke("SetAttribute", new Object[] { "marker",
+							objMarker });
 				}
 			}
-
-			if (null != bridge && null != idispMarker) {
-				bridge.invoke(new Object[] { sidSetMarker, idispMarker, objX,
+			if (null != bridge && null != objMarker) {
+				bridge.invoke(new Object[] { sidSetMarker, objMarker, objX,
 						objY, objW, objH });
 			}
 		}
 	}
 
-	public Object callMethod(String target, String method, Object arg) {
-		Object ret = bridge.invoke(new Object[]{sidCallMethod, target, method, arg});
-		if (ret == null)
-			return null;
-		return ret;
+	public Object callMethod(String target, String method, Object arg1) {
+		return bridge
+				.invoke(new Object[] { sidCallMethod, target, method, arg1 });
 	}
 
 	private Object invoke(String method) {
@@ -179,10 +162,14 @@ public class FlashPlayer {
 	}
 
 	public String getErrorText() {
-		Object objError = idispFlash.invoke1(GET_ATTRIBUTE, "aDesignerError");
+
+		Object objError = null;
+		try {
+			objError = idispFlash.invoke1("GetAttribute", "aDesignerError");
+		} catch (Exception e) {
+		}
 		if (objError != null) {
 			String strError = (String) objError;
-
 			if (strError.startsWith(FlashAdjust.ERROR_WAIT)) {
 				return Messages.getString("flash.player_loading"); //$NON-NLS-1$
 			}
@@ -193,18 +180,11 @@ public class FlashPlayer {
 				return Messages.getString("flash.player_no_xcode"); //$NON-NLS-1$
 			}
 		}
+		// return Messages.getString("flash.player_unknown"); //$NON-NLS-1$
 		return Messages.getString("flash.player_no_xcode"); //$NON-NLS-1$
 	}
 
 	public void dispose() {
-		if (idispFlash != null) {
-			idispFlash.release();
-			idispFlash = null;
-		}
-		if (null != idispMarker) {
-			idispMarker.release();
-			idispMarker = null;
-		}
 	}
 
 	protected void finalize() throws Throwable {
@@ -213,28 +193,36 @@ public class FlashPlayer {
 	}
 
 	public String getWMode() {
-		if (idispFlash != null) {
-			Object ret = idispFlash.get(WMODE);
-			if (ret != null) {
-				return (String) ret;
-			}
+		try {
+			Object objWMode = idispFlash.get("WMode");
+			return (String) objWMode;
+		} catch (Exception e) {
+			return null;
 		}
-		return null;
 	}
-	
+
 	public void setVariable(String name, String value) {
-		if (idispFlash != null) {
-			idispFlash.invoke(SET_VARIABLE, new Object[] { name, value });
+		try {
+			idispFlash.invoke("SetVariable", new Object[] { name, value });
+		} catch (Exception e) {
 		}
 	}
 
 	public String getVariable(String name) {
-		if (idispFlash != null) {
-			Object ret = idispFlash.invoke1(GET_VARIABLE, name);
-			if (ret != null) {
-				return (String) ret;
-			}
+		try {
+			Object obj = idispFlash.invoke1("GetVariable", name);
+			return (String) obj;
+		} catch (Exception e) {
+			return null;
 		}
-		return null;
+	}
+
+	public String getProperty(String propertyName) {
+		try {
+			Object obj = idispFlash.get(propertyName);
+			return (String) obj;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

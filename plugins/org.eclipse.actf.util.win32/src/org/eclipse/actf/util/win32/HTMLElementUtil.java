@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Daisuke SATO
  *******************************************************************************/
 
 package org.eclipse.actf.util.win32;
@@ -25,7 +26,7 @@ public class HTMLElementUtil {
         	objUnknown = ((AccessibleObject) objUnknown).getIAccessible();
         } else if (objUnknown instanceof IAccessibleObject) {
         	int ptr = ((IAccessibleObject) objUnknown).getPtr();
-        	objUnknown = ComService.newIUnknown(ResourceManager.newResourceManager(null), ptr, false);
+        	objUnknown = ComService.newIUnknown(ResourceManager.newResourceManager(null), ptr, true);
         }
         if( objUnknown instanceof IUnknown ) {
         	IServiceProvider sp = (IServiceProvider) ((IUnknown) objUnknown).queryInterface(IUnknown.IID_IServiceProvider);

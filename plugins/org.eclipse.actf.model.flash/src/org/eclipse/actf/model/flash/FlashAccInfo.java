@@ -7,9 +7,12 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Daisuke SATO
  *******************************************************************************/
 
 package org.eclipse.actf.model.flash;
+
+import org.eclipse.swt.ole.win32.Variant;
 
 
 
