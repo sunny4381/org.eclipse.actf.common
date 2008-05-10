@@ -20,14 +20,14 @@ import org.eclipse.swt.widgets.Display;
 
 public class FlashDetect {
 
-	private static final String CLSID_FLASH = "D27CDB6E-AE6D-11CF-96B8-444553540000";
+	private static final String CLSID_FLASH = "{D27CDB6E-AE6D-11CF-96B8-444553540000}";
 
     private static String strVersion = null;
 
     static {
     	try {
     		org.eclipse.actf.util.win32.comclutch.IDispatch idisp = ComService.createDispatch(CLSID_FLASH);
-    		String rawVersion = (String) idisp.invoke1("GetVariant", "$version");
+    		String rawVersion = (String) idisp.invoke1("GetVariable", "$version");
 			int sep = rawVersion.indexOf(' ');
 			if( sep > 0 ) {
 				strVersion = rawVersion.substring(sep+1);
