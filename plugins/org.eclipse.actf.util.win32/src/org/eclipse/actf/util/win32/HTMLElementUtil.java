@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
- *    Daisuke SATO
+ *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.util.win32;
@@ -17,6 +17,7 @@ import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.comclutch.IServiceProvider;
 import org.eclipse.actf.util.win32.comclutch.IUnknown;
 import org.eclipse.actf.util.win32.comclutch.ResourceManager;
+import org.eclipse.actf.util.win32.impl.AccessibleObject;
 
 
 public class HTMLElementUtil {

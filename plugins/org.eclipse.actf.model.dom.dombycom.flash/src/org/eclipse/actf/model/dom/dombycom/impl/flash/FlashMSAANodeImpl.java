@@ -19,13 +19,11 @@ import org.eclipse.actf.model.dom.dombycom.impl.Helper;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.html.ElementImpl;
 import org.eclipse.actf.util.vocab.AbstractTerms;
-import org.eclipse.actf.util.win32.AccessibleObject;
+import org.eclipse.actf.util.win32.AccessibleObjectFactory;
 import org.eclipse.actf.util.win32.FlashUtil;
 import org.eclipse.actf.util.win32.HTMLElementUtil;
 import org.eclipse.actf.util.win32.IAccessibleObject;
-import org.eclipse.actf.util.win32.comclutch.ComService;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
-import org.eclipse.actf.util.win32.comclutch.IServiceProvider;
 import org.eclipse.actf.util.win32.comclutch.IUnknown;
 import org.eclipse.actf.util.win32.msaa.MSAA;
 import org.eclipse.swt.graphics.Rectangle;
@@ -129,7 +127,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
     }
 
     public static FlashMSAANodeImpl newMSAANode(ElementImpl impl, IDispatch inode) {
-    	AccessibleObject iacc = getMSAAFromObject(inode);
+    	IAccessibleObject iacc = AccessibleObjectFactory.getAccessibleObjectFromElement(inode);
     	
     	if (iacc != null) {
             FlashMSAANodeImpl ret = new FlashMSAANodeImpl(impl, inode, iacc);
@@ -141,19 +139,9 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
         return null;
     }
 
-    public static AccessibleObject getMSAAFromObject(IUnknown iunk) {
-    	IServiceProvider isp = (IServiceProvider) iunk.queryInterface(IUnknown.IID_IServiceProvider);
-    	if (isp != null) {
-    		IUnknown iacc = isp.queryService(IUnknown.IID_IAccessible, IUnknown.IID_IAccessible);
-    		if (iunk != null) {
-    			return new AccessibleObject(ComService.newIAccessible(iacc));
-    		}
-    	}
-    	return null;
-    }
 
     public static long getHWNDFromObject(IUnknown unknown) {
-    	AccessibleObject iacc = getMSAAFromObject(unknown);
+    	IAccessibleObject iacc = AccessibleObjectFactory.getAccessibleObjectFromElement(unknown);
 
     	if (iacc == null)
     		return 0;

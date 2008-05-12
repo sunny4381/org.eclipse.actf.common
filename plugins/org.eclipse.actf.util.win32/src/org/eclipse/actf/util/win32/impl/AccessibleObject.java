@@ -8,8 +8,10 @@
  * Contributors:
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.util.win32;
+package org.eclipse.actf.util.win32.impl;
 
+import org.eclipse.actf.util.win32.IAccessibleObject;
+import org.eclipse.actf.util.win32.WindowUtil;
 import org.eclipse.actf.util.win32.comclutch.ComService;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.msaa.IAccessible;
