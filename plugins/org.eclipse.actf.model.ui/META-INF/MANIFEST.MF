@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ACTF Model UI Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.model.ui;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: org.eclipse.actf.model.ui.ModelUIPlugin
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.actf.common
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.actf.model.ui,
+ org.eclipse.actf.model.ui.editor,
+ org.eclipse.actf.model.ui.editor.actions,
+ org.eclipse.actf.model.ui.editor.browser,
+ org.eclipse.actf.model.ui.util
