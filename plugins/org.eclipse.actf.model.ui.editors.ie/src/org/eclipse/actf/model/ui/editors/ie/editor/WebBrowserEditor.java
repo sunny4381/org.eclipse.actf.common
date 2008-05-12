@@ -9,20 +9,18 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-
 package org.eclipse.actf.model.ui.editors.ie.editor;
 
-import org.eclipse.actf.model.ModelServiceUtils;
-import org.eclipse.actf.model.DummyEditorInput;
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IModelServiceHolder;
-import org.eclipse.actf.model.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.IModelServiceHolder;
+import org.eclipse.actf.model.ui.editor.DummyEditorInput;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
-import org.eclipse.actf.model.ui.editors.ie.impl.IWebBrowserPart;
 import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserEventExtension;
 import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserIEImpl;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.NewWindow2Parameters;
+import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.util.ui.PlatformUIUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Composite;
@@ -34,103 +32,104 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
+public class WebBrowserEditor extends EditorPart implements IModelServiceHolder {
 
+	public static final String ID = WebBrowserEditor.class.getName();
 
+	WebBrowserIEImpl webBrowser;
 
-public class WebBrowserEditor extends EditorPart implements IModelServiceHolder, IWebBrowserPart {
+	IEditorInput input;
 
-    public static final String ID = WebBrowserEditor.class.getName();
+	public WebBrowserEditor() {
+		super();
+	}
 
-    WebBrowserIEImpl webBrowser;
+	public void createPartControl(Composite parent) {
+		String targetUrl = "about:blank";
+		if (input instanceof DummyEditorInput) {
+			targetUrl = ((DummyEditorInput) input).getUrl();
+			if ("".equals(targetUrl)) {
+				targetUrl = "about:blank";
+			}
+		}
 
-    IEditorInput input;
+		webBrowser = new WebBrowserIEImpl(this, parent, targetUrl);
+		webBrowser.setNewWindow2EventListener(new INewWiondow2EventListener() {
 
-    public WebBrowserEditor() {
-        super();
-    }
+			public void newWindow2(NewWindow2Parameters param) {
+				IEditorPart newEditor = ModelServiceUtils.launch("about:blank",
+						ID);
+				if (newEditor instanceof WebBrowserEditor) {
+					IWebBrowserACTF browser = (IWebBrowserACTF) ((WebBrowserEditor) newEditor)
+							.getModelService();
+					param.setBrowserAddress(browser.getIWebBrowser2());
+					WebBrowserEventExtension.newWindow(browser);
+				} else {
+					// TODO
+				}
+			}
+		});
 
-    public void createPartControl(Composite parent) {
-        String targetUrl = "about:blank";
-        if (input instanceof DummyEditorInput) {
-            targetUrl = ((DummyEditorInput) input).getUrl();
-            if ("".equals(targetUrl)) {
-                targetUrl = "about:blank";
-            }
-        }
+		webBrowser
+				.setWindowClosedEventListener(new IWindowClosedEventListener() {
+					public void windowClosed() {
+						IWorkbenchPage page = PlatformUIUtil.getActivePage();
+						if (page != null) {
+							IEditorReference[] editorRefs = page
+									.getEditorReferences();
+							for (IEditorReference i : editorRefs) {
+								if (WebBrowserEditor.this == i.getEditor(false)) {
+									PlatformUIUtil.getActivePage().closeEditor(
+											WebBrowserEditor.this, false);
+								}
+							}
+						}
+					}
+				});
 
-        webBrowser = new WebBrowserIEImpl(this, parent, targetUrl);
-        webBrowser.setNewWindow2EventListener(new INewWiondow2EventListener() {
+	}
 
-            public void newWindow2(NewWindow2Parameters param) {
-                IEditorPart newEditor = ModelServiceUtils.launch("about:blank", ID);
-                if (newEditor instanceof WebBrowserEditor) {
-                    IWebBrowserACTF browser = (IWebBrowserACTF) ((WebBrowserEditor) newEditor).getModelService();
-                    param.setBrowserAddress(browser.getIWebBrowser2());
-                    WebBrowserEventExtension.newWindow(browser);
-                } else {
-                    // TODO
-                }
-            }
-        });
+	public void dispose() {
+		WebBrowserEventExtension.browserDisposed(webBrowser, getPartName());
+	}
 
-        webBrowser.setWindowClosedEventListener(new IWindowClosedEventListener() {
-            public void windowClosed() {
-                IWorkbenchPage page = PlatformUIUtil.getActivePage();
-                if (page != null) {
-                    IEditorReference[] editorRefs = page.getEditorReferences();
-                    for (IEditorReference i : editorRefs) {
-                        if (WebBrowserEditor.this == i.getEditor(false)) {
-                            PlatformUIUtil.getActivePage().closeEditor(WebBrowserEditor.this, false);
-                        }
-                    }
-                }
-            }
-        });
+	public void setFocus() {
+		WebBrowserEventExtension.focusChange(webBrowser);
+	}
 
-    }
+	public void doSave(IProgressMonitor monitor) {
+		// TODO
+	}
 
-    public void dispose() {
-        WebBrowserEventExtension.browserDisposed(webBrowser, getPartName());
-    }
+	public void doSaveAs() {
+		// TODO
+	}
 
-    public void setFocus() {
-        WebBrowserEventExtension.focusChange(webBrowser);
-    }
+	public void init(IEditorSite site, IEditorInput input)
+			throws PartInitException {
+		setSite(site);
+		setInput(input);
+		this.input = input;
+	}
 
-    public void doSave(IProgressMonitor monitor) {
-        // TODO
-    }
+	public boolean isDirty() {
+		return false;
+	}
 
-    public void doSaveAs() {
-        // TODO
-    }
+	public boolean isSaveAsAllowed() {
+		return false;
+	}
 
-    public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-        setSite(site);
-        setInput(input);
-        this.input = input;
-    }
+	public IModelService getModelService() {
+		return (this.webBrowser);
+	}
 
-    public boolean isDirty() {
-        return false;
-    }
+	public IEditorPart getEditorPart() {
+		return this;
+	}
 
-    public boolean isSaveAsAllowed() {
-        return false;
-    }
-
-    public IModelService getModelService() {
-        return (this.webBrowser);
-    }
-
-    public IEditorPart getEditorPart() {
-        return this;
-    }
-
-    public void changeTitle(IWebBrowserACTF webBrowser, String title) {
-        if (this.webBrowser == webBrowser) {
-            setPartName(title);
-        }
-    }
+	public void setEditorTitle(String title) {
+		setPartName(title);
+	}
 
 }

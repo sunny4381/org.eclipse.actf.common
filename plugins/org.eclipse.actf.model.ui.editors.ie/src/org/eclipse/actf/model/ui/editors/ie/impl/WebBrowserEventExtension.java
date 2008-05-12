@@ -14,8 +14,8 @@ package org.eclipse.actf.model.ui.editors.ie.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.IWebBrowserACTF;
-import org.eclipse.actf.model.events.IWebBrowserACTFEventListener;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTFEventListener;
 import org.eclipse.actf.model.ui.editors.ie.BrowserIE_Plugin;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;

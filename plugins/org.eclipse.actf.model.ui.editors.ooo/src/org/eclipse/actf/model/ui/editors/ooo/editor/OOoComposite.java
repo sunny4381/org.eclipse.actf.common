@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Norimasa HAYASHIDA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.ui.editors.ooo.editor;
@@ -14,16 +15,15 @@ package org.eclipse.actf.model.ui.editors.ooo.editor;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IModelServiceScrollManager;
 import org.eclipse.actf.model.dom.odf.ODFParser;
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.util.converter.ODFConverter;
 import org.eclipse.actf.model.dom.odf.util.converter.ODFConverterCreator;
-import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
-import org.eclipse.actf.model.ui.editors.ooo.editor.impl.IOOoEditorPart;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.IModelServiceHolder;
+import org.eclipse.actf.model.ui.IModelServiceScrollManager;
+import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.editors.ooo.editor.impl.OOoEditorScrollManager;
 import org.eclipse.actf.model.ui.editors.ooo.editor.impl.OOoEditorToolbar;
 import org.eclipse.actf.model.ui.editors.ooo.editor.impl.OOoWindowComposite;
@@ -46,19 +46,20 @@ public class OOoComposite extends Composite implements IModelService {
 
 	private OOoEditorScrollManager scrollManager;
 
-	private Vector<IOOoEditorPart> eventListenersV = new Vector<IOOoEditorPart>();
-
 	OOoEditorToolbar _toolbar;
 
 	private String lastURL = null;
 
 	private String title = "";
+	
+	private IModelServiceHolder holder;
 
-	public OOoComposite(Composite parent, int style) {
+	public OOoComposite(Composite parent, int style, IModelServiceHolder holder) {
 		super(parent, style);
 		if (OOoEditorInitUtil.isOOoInstalled(true)) {
 			init();
 		}
+		this.holder = holder;
 	}
 
 	private void init() {
@@ -245,23 +246,13 @@ public class OOoComposite extends Composite implements IModelService {
 		return MIMETYPES_ODF[0];
 	}
 
-	public void addODFBrowserEventListener(IOOoEditorPart listener) {
-		eventListenersV.add(listener);
-	}
-
-	public boolean removeODFBrowserEventListener(IOOoEditorPart listener) {
-		return (eventListenersV.remove(listener));
-	}
-
 	private void titleChange(String title) {
 		this.title = title;
-		for (IOOoEditorPart listener : eventListenersV) {
-			listener.titleChange(title);
-		}
+		holder.setEditorTitle(title);
 	}
 
 	public Object getAttribute(String name) {
-		// TODO Auto-generated method stub
+		// do nothing
 		return null;
 	}
 
@@ -274,13 +265,20 @@ public class OOoComposite extends Composite implements IModelService {
 	}
 
 	public File saveOriginalDocument(String file) {
-		// TODO Auto-generated method stub
+		// TODO impl
 		return null;
 	}
 
 	public ImagePositionInfo[] getAllImagePosition() {
-		// TODO Auto-generated method stub
+		// TODO impl
 		return new ImagePositionInfo[0];
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.IModelService#getModelServiceHolder()
+	 */
+	public IModelServiceHolder getModelServiceHolder() {
+		return holder;
 	}
 
 }

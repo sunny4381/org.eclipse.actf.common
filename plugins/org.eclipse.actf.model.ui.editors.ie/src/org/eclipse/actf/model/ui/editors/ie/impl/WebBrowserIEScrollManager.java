@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.model.ui.editors.ie.impl;
 
-import org.eclipse.actf.model.ModelServiceSizeInfo;
-import org.eclipse.actf.model.IModelServiceScrollManager;
+import org.eclipse.actf.model.ui.IModelServiceScrollManager;
+import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 
 
 

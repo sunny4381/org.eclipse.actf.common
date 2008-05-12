@@ -9,6 +9,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.actf.common,
+ org.eclipse.actf.model.ui,
  org.eclipse.actf.model.dom.dombycom,
  org.eclipse.actf.util.win32
 Eclipse-LazyStart: true

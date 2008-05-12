@@ -12,10 +12,10 @@
 
 package org.eclipse.actf.model.ui.editors.ie.impl;
 
-import org.eclipse.actf.common.CommonPlugin;
-import org.eclipse.actf.model.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.ModelUIPlugin;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editors.ie.BrowserIE_Plugin;
-import org.eclipse.actf.model.ui.internal.editor.ModelServiceMessages;
+import org.eclipse.actf.model.ui.util.ModelServiceMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
@@ -131,7 +131,7 @@ public class WebBrowserToolbar extends Composite {
         searchButton.setText(ModelServiceMessages.getString("WebBrowser.Go")); //$NON-NLS-1$
         searchButton.setToolTipText(ModelServiceMessages.getString("WebBrowser.Go_tp")); //$NON-NLS-1$
         //TODO
-        searchButton.setImage(BrowserIE_Plugin.imageDescriptorFromPlugin(CommonPlugin.PLUGIN_ID, "icons/browser/go.png").createImage());
+        searchButton.setImage(BrowserIE_Plugin.imageDescriptorFromPlugin(ModelUIPlugin.PLUGIN_ID, "icons/browser/go.png").createImage());
         searchButton.addMouseListener(new MouseAdapter() {
             public void mouseUp(MouseEvent e) {
                 if (browser != null) {

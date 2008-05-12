@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,12 +13,12 @@ package org.eclipse.actf.model.ui.editors.ie.impl;
 
 import java.io.File;
 
-import org.eclipse.actf.model.IModelServiceScrollManager;
-import org.eclipse.actf.model.IWebBrowserACTF;
-import org.eclipse.actf.model.ModelServiceSizeInfo;
 import org.eclipse.actf.model.dom.dombycom.DomByCom;
-import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
-import org.eclipse.actf.model.ui.editor.browser.IWebBrowserIEConstants;
+import org.eclipse.actf.model.ui.IModelServiceHolder;
+import org.eclipse.actf.model.ui.IModelServiceScrollManager;
+import org.eclipse.actf.model.ui.ImagePositionInfo;
+import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.BeforeNavigate2Parameters;
@@ -35,15 +35,13 @@ import org.eclipse.actf.model.ui.editors.ie.win32.RegistryUtil;
 import org.eclipse.actf.util.DebugPrintUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-public class WebBrowserIEImpl implements IWebBrowserACTF,
-		IWebBrowserIEConstants, BrowserEventListener {
+public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 	private WebBrowserToolbar toolbar;
 
@@ -62,7 +60,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 
 	private int _navigateErrorCode;
 
-	private IWebBrowserPart _webBrowserPart = null;
+	private IModelServiceHolder _holder = null;
 
 	private boolean onloadPopupBlock = true;
 
@@ -78,13 +76,9 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 
 	private IWindowClosedEventListener windowClosedEventListener = null;
 
-	private static final String IE_SETTINGS_KEY = "Software\\Microsoft\\Internet Explorer\\Settings", //$NON-NLS-1$
-			ANCHOR_COLOR = "Anchor Color", //$NON-NLS-1$
-			ANCHOR_COLOR_VISITED = "Anchor Color Visited"; //$NON-NLS-1$
-
-	public WebBrowserIEImpl(IWebBrowserPart webBrowserPart, Composite parent,
+	public WebBrowserIEImpl(IModelServiceHolder holder, Composite parent,
 			String startURL) {
-		this._webBrowserPart = webBrowserPart;
+		this._holder = holder;
 
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.verticalSpacing = 0;
@@ -178,24 +172,23 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 	 */
 	protected ModelServiceSizeInfo getBrowserSize(boolean isWhole) {
 		int[] size = new int[] { 1, 1, 1, 1 };
-		int width = browserComposite.getWidth()-4;
-		int height = browserComposite.getHeight()-4;
-		size[0] = width-scrollbarWidth;
+		int width = browserComposite.getWidth() - 4;
+		int height = browserComposite.getHeight() - 4;
+		size[0] = width - scrollbarWidth;
 		size[1] = height;
-		size[2] = width-scrollbarWidth;
-		size[3] = height;			
-		if(isWhole){
+		size[2] = width - scrollbarWidth;
+		size[3] = height;
+		if (isWhole) {
 			int[] tmpSize = browserComposite.getWholeSize();
-			if(tmpSize.length==2&&tmpSize[0]>-1&&tmpSize[1]>-1){
+			if (tmpSize.length == 2 && tmpSize[0] > -1 && tmpSize[1] > -1) {
 				size[2] = tmpSize[0];
 				size[3] = tmpSize[1];
-				if(tmpSize[0]>size[0]){
-					size[1] -=scrollbarWidth;
+				if (tmpSize[0] > size[0]) {
+					size[1] -= scrollbarWidth;
 				}
 			}
 		}
-		
-		
+
 		return (new ModelServiceSizeInfo(size[0], size[1], size[2], size[3]));
 	}
 
@@ -304,14 +297,14 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 	}
 
 	public RGB getAnchorColor() {
-		String color = RegistryUtil.getRegistoryString(OS.HKEY_CURRENT_USER,
-				IE_SETTINGS_KEY, ANCHOR_COLOR);
+		String color = RegistryUtil
+				.getIERegistryString(RegistryUtil.IE_ANCHOR_COLOR);
 		return getRGB(color);
 	}
 
 	public RGB getVisitedAnchorColor() {
-		String color = RegistryUtil.getRegistoryString(OS.HKEY_CURRENT_USER,
-				IE_SETTINGS_KEY, ANCHOR_COLOR_VISITED);
+		String color = RegistryUtil
+				.getIERegistryString(RegistryUtil.IE_ANCHOR_COLOR_VISITED);
 		return getRGB(color);
 	}
 
@@ -510,9 +503,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 					WebBrowserEventExtension.myRefresh(this);
 				}
 			}
-			if (_webBrowserPart != null) {
-				_webBrowserPart.changeTitle(this, title);
-			}
+			_holder.setEditorTitle(title);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -552,6 +543,15 @@ public class WebBrowserIEImpl implements IWebBrowserACTF,
 
 	public ImagePositionInfo[] getAllImagePosition() {
 		return browserComposite.getAllImagePosition();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getModelServiceHolder()
+	 */
+	public IModelServiceHolder getModelServiceHolder() {
+		return _holder;
 	}
 
 }

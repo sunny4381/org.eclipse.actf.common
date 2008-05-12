@@ -11,10 +11,10 @@
 
 package org.eclipse.actf.model.ui.editors.ooo.editor.impl;
 
-import org.eclipse.actf.model.ModelServiceSizeInfo;
-import org.eclipse.actf.model.IModelServiceScrollManager;
 import org.eclipse.actf.model.dom.odf.ODFConstants.ContentType;
 import org.eclipse.actf.model.dom.odf.util.ODFFileUtils;
+import org.eclipse.actf.model.ui.IModelServiceScrollManager;
+import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 import org.eclipse.actf.model.ui.editors.ooo.internal.util.ODFException;
 
 import com.sun.star.accessibility.XAccessibleAction;

@@ -19,8 +19,7 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
-import org.eclipse.actf.model.ui.editor.browser.IWebBrowserIEConstants;
+import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.BeforeNavigate2Parameters;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.BrowserEventListener;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.DocumentCompleteParameters;
@@ -59,13 +58,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-public class WebBrowserIEComposite extends Composite implements
-		IWebBrowserIEConstants {
+public class WebBrowserIEComposite extends Composite {
 
 	public static final int SCROLL_BY = 0;
 
 	public static final int SCROLL_TO = 1;
-
+	
 	OleFrame frame;
 
 	OleControlSite site;// , site2;

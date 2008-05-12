@@ -7,15 +7,15 @@
  *
  * Contributors:
  *    Norimasa HAYASHIDA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 
 package org.eclipse.actf.model.ui.editors.ooo.editor;
 
-import org.eclipse.actf.model.DummyEditorInput;
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IModelServiceHolder;
-import org.eclipse.actf.model.ui.editors.ooo.editor.impl.IOOoEditorPart;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.IModelServiceHolder;
+import org.eclipse.actf.model.ui.editor.DummyEditorInput;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -28,7 +28,7 @@ import org.eclipse.ui.part.EditorPart;
 
 
 
-public class OOoEditor extends EditorPart implements IModelServiceHolder, IOOoEditorPart {
+public class OOoEditor extends EditorPart implements IModelServiceHolder {
 
     public static final String ID = OOoEditor.class.getName();
 
@@ -76,8 +76,7 @@ public class OOoEditor extends EditorPart implements IModelServiceHolder, IOOoEd
             }
         }
 
-        this._odfBrowser = new OOoComposite(parent, SWT.NONE);
-        _odfBrowser.addODFBrowserEventListener(this);
+        this._odfBrowser = new OOoComposite(parent, SWT.NONE, this);
         if (targetUrl != null) {
             _odfBrowser.open(targetUrl);
         }
@@ -100,7 +99,7 @@ public class OOoEditor extends EditorPart implements IModelServiceHolder, IOOoEd
         this._odfBrowser.dispose();
     }
 
-    public void titleChange(String title) {
+    public void setEditorTitle(String title) {
         setPartName(title);
         setInputWithNotify(new DummyEditorInput(_odfBrowser.getURL(),input.getName()));
     }
