@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ACTF Mediator Plug-in
+Bundle-SymbolicName: org.eclipse.actf.mediator
+Bundle-Version: 0.0.1
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.views,
+ org.eclipse.actf.common;visibility:=reexport,
+ org.eclipse.actf.model.ui;visibility:=reexport
+Export-Package: org.eclipse.actf.mediator
