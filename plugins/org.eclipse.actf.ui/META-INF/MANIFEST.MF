@@ -6,11 +6,9 @@ Bundle-Version: 0.4.0.qualifier
 Bundle-Activator: org.eclipse.actf.ui.ActfUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.actf.model,
- org.eclipse.actf.core,
- org.eclipse.jdt.core,
- org.eclipse.ui,
- org.eclipse.core.runtime
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.actf.core
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.ui,
  org.eclipse.actf.ui.preferences
