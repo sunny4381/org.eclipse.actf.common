@@ -11,8 +11,10 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash;
+package org.eclipse.actf.model.flash.util;
 
+import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 public class FlashAdjust {

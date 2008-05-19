@@ -20,7 +20,7 @@ import org.eclipse.actf.model.dom.dombycom.IFlashMSAANode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.impl.DocumentImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.EmptyNodeListImpl;
-import org.eclipse.actf.model.flash.util.ASObject;
+import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.win32.comclutch.ComPlugin;
 import org.eclipse.actf.util.win32.keyhook.ISendEvent;

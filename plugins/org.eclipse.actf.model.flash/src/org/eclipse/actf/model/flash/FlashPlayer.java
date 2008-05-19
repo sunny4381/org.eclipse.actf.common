@@ -15,10 +15,10 @@ package org.eclipse.actf.model.flash;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.model.flash.bridge.IWaXcoding;
 import org.eclipse.actf.model.flash.internal.ASBridge;
 import org.eclipse.actf.model.flash.internal.Messages;
-import org.eclipse.actf.model.flash.util.ASObject;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;

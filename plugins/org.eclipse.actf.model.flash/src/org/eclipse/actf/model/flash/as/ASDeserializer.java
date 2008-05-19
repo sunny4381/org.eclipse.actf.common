@@ -9,7 +9,7 @@
  *    Hisashi MIYASHITA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.util;
+package org.eclipse.actf.model.flash.as;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.INodeExVideo;
-import org.eclipse.actf.model.flash.util.ASObject;
+import org.eclipse.actf.model.flash.as.ASObject;
 
 
 class FlashVideoImpl implements INodeExVideo {

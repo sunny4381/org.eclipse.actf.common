@@ -15,9 +15,9 @@ package org.eclipse.actf.model.flash.internal;
 import org.eclipse.actf.model.flash.FlashModelPlugin;
 import org.eclipse.actf.model.flash.FlashPlayer;
 import org.eclipse.actf.model.flash.IFlashConst;
+import org.eclipse.actf.model.flash.as.ASDeserializer;
+import org.eclipse.actf.model.flash.as.ASSerializer;
 import org.eclipse.actf.model.flash.bridge.IWaXcoding;
-import org.eclipse.actf.model.flash.util.ASDeserializer;
-import org.eclipse.actf.model.flash.util.ASSerializer;
 import org.eclipse.swt.widgets.Display;
 
 public class ASBridge implements IFlashConst {

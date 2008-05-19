@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.model.flash.internal.Messages;
-import org.eclipse.actf.model.flash.util.ASObject;
 
 public class FlashNode {
 

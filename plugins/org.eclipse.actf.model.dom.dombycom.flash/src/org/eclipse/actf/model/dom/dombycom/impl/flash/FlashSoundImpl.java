@@ -12,7 +12,7 @@
 package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import org.eclipse.actf.model.dom.dombycom.INodeExSound;
-import org.eclipse.actf.model.flash.util.ASObject;
+import org.eclipse.actf.model.flash.as.ASObject;
 
 
 class FlashSoundImpl implements INodeExSound {

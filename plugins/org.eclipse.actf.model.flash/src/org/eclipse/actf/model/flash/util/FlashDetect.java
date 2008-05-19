@@ -9,10 +9,11 @@
  *    Takashi ITOH - initial API and implementation
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash;
+package org.eclipse.actf.model.flash.util;
 
 import java.text.MessageFormat;
 
+import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.internal.Messages;
 import org.eclipse.actf.util.win32.comclutch.ComService;
 import org.eclipse.jface.dialogs.MessageDialog;

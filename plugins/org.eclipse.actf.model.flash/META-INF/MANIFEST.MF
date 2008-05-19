@@ -12,5 +12,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.actf.util.comclutch.win32
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.model.flash,
+ org.eclipse.actf.model.flash.as,
  org.eclipse.actf.model.flash.bridge,
  org.eclipse.actf.model.flash.util

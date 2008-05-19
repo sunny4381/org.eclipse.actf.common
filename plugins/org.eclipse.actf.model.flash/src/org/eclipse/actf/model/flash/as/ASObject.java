@@ -10,7 +10,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.util;
+package org.eclipse.actf.model.flash.as;
 
 import java.util.HashMap;
 import java.util.Iterator;
