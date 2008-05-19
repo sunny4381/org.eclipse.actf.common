@@ -37,26 +37,17 @@ public class FlashNode {
 	private String strTarget;
 	private boolean isUIComponent;
 
-	private static final String sidType = "type", //$NON-NLS-1$
-			sidClassName = "className", //$NON-NLS-1$
-			sidObjectName = "objectName", //$NON-NLS-1$
-			sidTarget = "target", //$NON-NLS-1$
-			sidValue = "value", //$NON-NLS-1$
-			sidText = "text", //$NON-NLS-1$
-			sidTitle = "title", //$NON-NLS-1$
-			sidIsUIComponent = "isUIComponent"; //$NON-NLS-1$
-
 	public FlashNode(FlashNode parent, FlashPlayer player, ASObject node) {
 		this.parent = parent;
 		this.level = null != parent ? parent.getLevel() + 1 : 0;
 		this.player = player;
 
 		asObject = node;
-		strType = getString(sidType);
-		strClassName = getString(sidClassName);
-		strObjectName = getString(sidObjectName);
-		strTarget = getString(sidTarget);
-		isUIComponent = "true".equals(getString(sidIsUIComponent)); //$NON-NLS-1$
+		strType = getString(ASObject.TYPE);
+		strClassName = getString(ASObject.CLASS_NAME);
+		strObjectName = getString(ASObject.OBJECT_NAME);
+		strTarget = getString(ASObject.TARGET);
+		isUIComponent = "true".equals(getString(ASObject.IS_UI_COMPONENT)); //$NON-NLS-1$
 
 		if (null != parent) {
 			String targetParent = parent.getTarget();
@@ -112,7 +103,7 @@ public class FlashNode {
 
 	public String getValue() {
 		if (null != asObject) {
-			return decodeString(getString(sidValue));
+			return decodeString(getString(ASObject.VALUE));
 		}
 		return null;
 	}
@@ -128,7 +119,7 @@ public class FlashNode {
 		}
 		if (null == text) {
 			if (null != asObject) {
-				text = getString(sidText);
+				text = getString(ASObject.TEXT);
 			}
 		} else {
 			text = "[" + text + "]"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -138,7 +129,7 @@ public class FlashNode {
 
 	public String getTitle() {
 		if (null != asObject) {
-			return decodeString(getString(sidTitle));
+			return decodeString(getString(ASObject.TITLE));
 		}
 		return null;
 	}

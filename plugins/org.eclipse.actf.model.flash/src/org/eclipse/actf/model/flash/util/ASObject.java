@@ -18,6 +18,16 @@ import java.util.Map;
 import java.util.Set;
 
 public class ASObject {
+	
+	public static final String TYPE = "type"; //$NON-NLS-1$
+	public static final String CLASS_NAME = "className"; //$NON-NLS-1$
+	public static final String OBJECT_NAME = "objectName"; //$NON-NLS-1$
+	public static final String TARGET = "target"; //$NON-NLS-1$
+	public static final String VALUE = "value"; //$NON-NLS-1$
+	public static final String TEXT = "text"; //$NON-NLS-1$
+	public static final String TITLE = "title"; //$NON-NLS-1$
+	public static final String IS_UI_COMPONENT = "isUIComponent"; //$NON-NLS-1$
+
 	private final Map<String, Object> map;
 
 	ASObject() {

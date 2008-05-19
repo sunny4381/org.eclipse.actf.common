@@ -8,13 +8,14 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
- *    Daisuke SATO
+ *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.model.flash;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.actf.model.flash.bridge.IWaXcoding;
 import org.eclipse.actf.model.flash.internal.ASBridge;
 import org.eclipse.actf.model.flash.internal.Messages;
 import org.eclipse.actf.model.flash.util.ASObject;
@@ -26,54 +27,46 @@ import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.comclutch.IUnknown;
 import org.eclipse.actf.util.win32.comclutch.ResourceManager;
 
-public class FlashPlayer {
+public class FlashPlayer implements IFlashConst {
 
 	private IDispatch idispFlash;
 	private Object objMarker;
 
 	public boolean isVisible = true;
-	private static final String sidGetRootNode = "getRootNode", //$NON-NLS-1$
-			sidGetNumDebugChildren = "getNumSuccessorNodes", //$NON-NLS-1$
-			sidGetDebugChildren = "getSuccessorNodes", //$NON-NLS-1$
-			sidGetNumChildren = "getNumChildNodes", //$NON-NLS-1$
-			sidGetChildren = "getChildNodes", //$NON-NLS-1$
-			sidGetInnerNodes = "getInnerNodes", //$NON-NLS-1$
-			sidNewMarker = "newMarker", //$NON-NLS-1$
-			sidSetMarker = "setMarker", //$NON-NLS-1$
-			sidGetNodeFromPath = "getNodeFromPath",//$NON-NLS-1$
-			sidCallMethod = "callMethodA"; //$NON-NLS-1$
-
 	private ASBridge bridge;
 	private FlashMSAAObject accessible;
 
 	public FlashPlayer(IDispatch idisp) {
 		idispFlash = idisp;
-		accessible = FlashMSAAObjectFactory.getFlashMSAAObjectFromElement(idispFlash);
+		accessible = FlashMSAAObjectFactory
+				.getFlashMSAAObjectFromElement(idispFlash);
 		bridge = ASBridge.getInstance(this);
 	}
-	
+
 	public FlashMSAAObject getAccessible() {
 		return accessible;
 	}
 
 	public static FlashPlayer getPlayerFromPtr(int ptr) {
-		IUnknown accObject = ComService.newIUnknown(ResourceManager.newResourceManager(null), ptr, true);
+		IUnknown accObject = ComService.newIUnknown(ResourceManager
+				.newResourceManager(null), ptr, true);
 		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
 		if (null != idisp) {
 			return new FlashPlayer(idisp);
 		}
 		return null;
 	}
-	
+
 	public static FlashPlayer getPlayerFromWindow(int hwnd) {
-		FlashMSAAObject accObject = FlashMSAAObjectFactory.getFlashMSAAObjectFromWindow(hwnd);
+		FlashMSAAObject accObject = FlashMSAAObjectFactory
+				.getFlashMSAAObjectFromWindow(hwnd);
 		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
 		if (null != idisp) {
 			return new FlashPlayer(idisp);
 		}
 		return null;
 	}
-	
+
 	public static FlashPlayer getPlayerFromObject(FlashMSAAObject accObject) {
 		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
 		if (null != idisp) {
@@ -84,7 +77,7 @@ public class FlashPlayer {
 
 	public FlashNode getRootNode() {
 		if (null != bridge) {
-			Object result = invoke(sidGetRootNode);
+			Object result = invoke(M_GET_ROOT_NODE);
 			if (result instanceof ASObject) {
 				return new FlashNode(null, this, (ASObject) result);
 			}
@@ -94,7 +87,7 @@ public class FlashPlayer {
 
 	public FlashNode getNodeFromPath(String path) {
 		if (null != bridge) {
-			Object result = invoke(sidGetNodeFromPath, path);
+			Object result = invoke(M_GET_NODE_FROM_PATH, path);
 			if (result instanceof ASObject) {
 				return new FlashNode(null, this, (ASObject) result);
 			}
@@ -114,10 +107,10 @@ public class FlashPlayer {
 		if (null != bridge) {
 			String sidMethod;
 			if (visual) {
-				sidMethod = sidGetNumDebugChildren;
+				sidMethod = M_GET_NUM_SUCCESSOR_NODES;
 			} else {
-				sidMethod = debugMode ? sidGetNumDebugChildren
-						: sidGetNumChildren;
+				sidMethod = debugMode ? M_GET_NUM_SUCCESSOR_NODES
+						: M_GET_NUM_CHILD_NODES;
 			}
 			Object result = invoke(sidMethod, parentNode.getTarget());
 			if (result instanceof Integer) {
@@ -137,9 +130,10 @@ public class FlashPlayer {
 		if (null != bridge) {
 			String sidMethod;
 			if (visual) {
-				sidMethod = sidGetInnerNodes;
+				sidMethod = M_GET_INNER_NODES;
 			} else {
-				sidMethod = debugMode ? sidGetDebugChildren : sidGetChildren;
+				sidMethod = debugMode ? M_GET_SUCCESSOR_NODES
+						: M_GET_CHILD_NODES;
 			}
 			Object result = invoke(sidMethod, parentNode.getTarget());
 			if (result instanceof Object[]) {
@@ -159,18 +153,19 @@ public class FlashPlayer {
 		if (null != objX && null != objY && null != objW && null != objH) {
 			if (null == objMarker) {
 
-				Object objMarker = idispFlash.invoke1("GetAttribute", "marker");
+				Object objMarker = idispFlash.invoke1(PLAYER_GET_ATTRIBUTE,
+						ATTR_MARKER);
 				if (null == objMarker) {
-					objMarker = invoke(sidNewMarker);
+					objMarker = invoke(M_NEW_MARKER);
 					if (!(objMarker instanceof Integer)) {
 						return;
 					}
-					idispFlash.invoke("SetAttribute", new Object[] { "marker",
-							objMarker });
+					idispFlash.invoke(PLAYER_SET_ATTRIBUTE, new Object[] {
+							ATTR_MARKER, objMarker });
 				}
 			}
 			if (null != bridge && null != objMarker) {
-				bridge.invoke(new Object[] { sidSetMarker, objMarker, objX,
+				bridge.invoke(new Object[] { M_SET_MARKER, objMarker, objX,
 						objY, objW, objH });
 			}
 		}
@@ -178,7 +173,7 @@ public class FlashPlayer {
 
 	public Object callMethod(String target, String method, Object arg1) {
 		return bridge
-				.invoke(new Object[] { sidCallMethod, target, method, arg1 });
+				.invoke(new Object[] { M_CALL_METHOD, target, method, arg1 });
 	}
 
 	private Object invoke(String method) {
@@ -193,18 +188,18 @@ public class FlashPlayer {
 
 		Object objError = null;
 		try {
-			objError = idispFlash.invoke1("GetAttribute", "aDesignerError");
+			objError = idispFlash.invoke1(PLAYER_GET_ATTRIBUTE, ATTR_ERROR);
 		} catch (Exception e) {
 		}
 		if (objError != null) {
 			String strError = (String) objError;
-			if (strError.startsWith(FlashAdjust.ERROR_WAIT)) {
+			if (strError.startsWith(ERROR_WAIT)) {
 				return Messages.getString("flash.player_loading"); //$NON-NLS-1$
 			}
-			if (strError.startsWith(FlashAdjust.ERROR_NG)) {
+			if (strError.startsWith(ERROR_NG)) {
 				return Messages.getString("flash.player_no_dom"); //$NON-NLS-1$
 			}
-			if (strError.startsWith(FlashAdjust.ERROR_NA)) {
+			if (strError.startsWith(ERROR_NA)) {
 				return Messages.getString("flash.player_no_xcode"); //$NON-NLS-1$
 			}
 		}
@@ -222,7 +217,7 @@ public class FlashPlayer {
 
 	public String getWMode() {
 		try {
-			Object objWMode = idispFlash.get("WMode");
+			Object objWMode = idispFlash.get(WMODE);
 			return (String) objWMode;
 		} catch (Exception e) {
 			return null;
@@ -231,14 +226,15 @@ public class FlashPlayer {
 
 	public void setVariable(String name, String value) {
 		try {
-			idispFlash.invoke("SetVariable", new Object[] { name, value });
+			idispFlash
+					.invoke(PLAYER_SET_VARIABLE, new Object[] { name, value });
 		} catch (Exception e) {
 		}
 	}
 
 	public String getVariable(String name) {
 		try {
-			Object obj = idispFlash.invoke1("GetVariable", name);
+			Object obj = idispFlash.invoke1(PLAYER_GET_VARIABLE, name);
 			return (String) obj;
 		} catch (Exception e) {
 			return null;
@@ -255,12 +251,12 @@ public class FlashPlayer {
 	}
 
 	public int getWindow() {
-		FlashMSAAObject fob = FlashMSAAObjectFactory.getFlashMSAAObjectFromElement(idispFlash);
+		FlashMSAAObject fob = FlashMSAAObjectFactory
+				.getFlashMSAAObjectFromElement(idispFlash);
 		return fob.getWindow();
 	}
 
 	public IDispatch getDispatch() {
 		return idispFlash;
 	}
-
 }
