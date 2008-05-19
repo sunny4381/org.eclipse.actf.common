@@ -8,38 +8,38 @@
  * Contributors:
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.util.win32.impl;
+package org.eclipse.actf.util.win32;
 
-import org.eclipse.actf.util.win32.IAccessibleObject;
-import org.eclipse.actf.util.win32.WindowUtil;
 import org.eclipse.actf.util.win32.comclutch.ComService;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.msaa.IAccessible;
 import org.eclipse.actf.util.win32.msaa.MSAA;
 
+public class FlashMSAAObject {
 
-public class AccessibleObject implements IAccessibleObject{
-
-	IAccessible parent, iacc;
+	FlashMSAAObject parent;
+	IAccessible iacc;
 	int childId = MSAA.CHILDID_SELF;
-	
-	public AccessibleObject(IAccessible iacc) {
+
+	public FlashMSAAObject(IAccessible iacc) {
 		this.iacc = iacc;
 	}
-	
-	public AccessibleObject(IAccessible parent, int childId) {
+
+	public FlashMSAAObject(FlashMSAAObject parent, int childId) {
 		this.parent = parent;
 		this.childId = childId;
 	}
-	
+
 	private int getInt() {
 		return childId;
 	}
-	
+
 	public IAccessible getIAccessible() {
+		if (iacc != null)
+			return iacc;
 		if (parent != null)
-			return parent;
-		return iacc;
+			return parent.getIAccessible();
+		return null;
 	}
 
 	public String getAccKeyboardShortcut() {
@@ -82,10 +82,9 @@ public class AccessibleObject implements IAccessibleObject{
 		return true;
 	}
 
+	private FlashMSAAObject[] cachedChildren = new FlashMSAAObject[0];
 
-	private AccessibleObject[] cachedChildren = new AccessibleObject[0];
-
-	public IAccessibleObject[] getChildren() {
+	public FlashMSAAObject[] getChildren() {
 		int childCount = Math.max(0, getChildCount());
 		if (childCount == cachedChildren.length) {
 			return cachedChildren;
@@ -94,19 +93,25 @@ public class AccessibleObject implements IAccessibleObject{
 			System.err
 					.println("Too many children(" + childCount + "), we don't fectch."); //$NON-NLS-1$ //$NON-NLS-2$
 
-			return new AccessibleObject[0];
+			return new FlashMSAAObject[0];
 		}
-		cachedChildren = new AccessibleObject[childCount];
+		cachedChildren = new FlashMSAAObject[childCount];
 		if (childCount > 0) {
-			Object[] children = MSAA.getAccessibleChildren(getIAccessible(), 0, childCount);
+			Object[] children = MSAA.getAccessibleChildren(getIAccessible(), 0,
+					childCount);
 			for (int i = 0; i < childCount; i++) {
 				if (children[i] != null) {
 					if (children[i] instanceof Integer) {
-						cachedChildren[i] = new AccessibleObject(this.getIAccessible(), (Integer) children[i]);
+						cachedChildren[i] = new FlashMSAAObject(this,
+								(Integer) children[i]);
 					} else if (children[i] instanceof IDispatch) {
-						IAccessible iacc = ComService.newIAccessible((IDispatch) children[i]);
-						//System.out.println(((IDispatch) children[i]).getPtr()+", "+iacc.getPtr());
-						cachedChildren[i] = new AccessibleObject(iacc);
+						// IAccessible iacc = (IAccessible) ((IDispatch)
+						// children[i]).queryInterface(IUnknown.IID_IAccessible);
+
+						IAccessible iacc = ComService
+								.newIAccessible((IDispatch) children[i]);
+
+						cachedChildren[i] = new FlashMSAAObject(iacc);
 					}
 				}
 			}
@@ -132,7 +137,8 @@ public class AccessibleObject implements IAccessibleObject{
 	public int getWindow() {
 		if (-1 == accWindow) {
 			try {
-				accWindow = MSAA.WindowFromAccessibleObject(getIAccessible().getPtr());
+				accWindow = MSAA.WindowFromAccessibleObject(getIAccessible()
+						.getPtr());
 			} catch (Exception e) {
 				accWindow = 0;
 			}

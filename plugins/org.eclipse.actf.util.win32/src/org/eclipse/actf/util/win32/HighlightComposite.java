@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.util.win32;
 
+import org.eclipse.actf.util.win32.impl.IIntervalExec;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
@@ -22,6 +23,10 @@ import org.eclipse.swt.widgets.Display;
 
 
 
+/**
+ * HighlightComposite is used to highlight an object. The composite is used
+ * in {@link OverlayWindow}.
+ */
 public class HighlightComposite extends Composite implements IIntervalExec {
 
     private static final int BORDER_WIDTH = 3;
@@ -49,7 +54,7 @@ public class HighlightComposite extends Composite implements IIntervalExec {
 
     private static final int MESSAGE_BACK = SWT.COLOR_INFO_BACKGROUND;
 
-    public HighlightComposite(Composite parent, int style) {
+    private HighlightComposite(Composite parent, int style) {
         super(parent, style);
         display = getDisplay();
         GridLayout layout = new GridLayout();
@@ -80,6 +85,9 @@ public class HighlightComposite extends Composite implements IIntervalExec {
         setVisible(true);
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.actf.util.win32.IIntervalExec#exec()
+     */
     public int exec() {
     	if( -1 != flashingIndex ) {
             if (flashingIndex < FLASHING_COLORS.length) {
@@ -97,6 +105,9 @@ public class HighlightComposite extends Composite implements IIntervalExec {
         return 0;
     }
 
+    /**
+     * @param rect the position to be highlighted.
+     */
     public static void flashRectangle(Rectangle rect) {
         if (null != rect && 0 == suppressRefCount ) {
             if( OverlayWindow.getVisible() ) {
@@ -113,21 +124,36 @@ public class HighlightComposite extends Composite implements IIntervalExec {
         }
     }
     
+    /**
+     * This method is used to synchronize the view updating.
+     * @param increment the increment(+) / decrement(-) width.
+     * @return the current suppress count.
+     */
     public static int updateSuppressCount(int increment) {
         suppressRefCount += increment;
         return suppressRefCount;
     }
     
+    /**
+     * @param show whether the object for highlight is shown or not.
+     */
     public static void show(boolean show) {
         if( null != instance ) {
             instance.setVisible(show);
         }
     }
     
+    /**
+     * @return the default overlay window.
+     */
     public static OverlayWindow getOverlayWindow() {
         return OverlayWindow.getInstance(OverlayWindow.INDEX_HIGHLIGHT,true);
     }
     
+    /**
+     * @return the instance of HighlightComposite which is created the most recently
+     *         by {@link HighlightComposite#flashRectangle(Rectangle)}.
+     */
     public static HighlightComposite getInstance() {
         return instance;
     }

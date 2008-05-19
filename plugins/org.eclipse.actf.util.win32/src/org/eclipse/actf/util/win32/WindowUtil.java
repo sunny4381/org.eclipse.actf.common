@@ -8,7 +8,6 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.actf.util.win32;
 
 import org.eclipse.swt.graphics.Rectangle;
@@ -16,6 +15,7 @@ import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.internal.win32.RECT;
 import org.eclipse.swt.internal.win32.TCHAR;
 import org.eclipse.swt.widgets.Control;
+
 
 
 

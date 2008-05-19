@@ -27,6 +27,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 
 
+/**
+ * OverlayLabel is used to show some information on the application windows.
+ */
 public class OverlayLabel extends CLabel {
 
     public Object associatedObject;
@@ -35,7 +38,7 @@ public class OverlayLabel extends CLabel {
     
     private static String ownerId = null;
     
-    public OverlayLabel(Composite parent, int style) {
+    private OverlayLabel(Composite parent, int style) {
         super(parent, style);
         setForeground(getDisplay().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
         setBackground(getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
@@ -48,10 +51,18 @@ public class OverlayLabel extends CLabel {
         });
     }
     
+    /**
+     * Remove all label from the overlay window for overlay labels.
+     * All labels will be removed with synchronization.
+     */
     public static void removeAll() {
         removeAll(true);
     }
     
+    /**
+     * remove all label from the overlay window for overlay labels.
+     * @param force whether remove without synchronize or not.
+     */
     public static void removeAll(boolean force) {
         final Composite composite = getOverlayComposite(false);
         if( null != composite ) {
@@ -79,6 +90,10 @@ public class OverlayLabel extends CLabel {
         }
     }
     
+    /**
+     * @param associatedObject the content of the label.
+     * @return the new OverlayLabel instance if the <i>associatedObject</i> is not arleady used.
+     */
     public static OverlayLabel create(Object associatedObject) {
         Composite composite = getOverlayComposite(true);
         composite.moveAbove(null);
@@ -95,6 +110,10 @@ public class OverlayLabel extends CLabel {
         return label;
     }
     
+    /**
+     * @param position the position to be used.
+     * @return the arrays of OverlayLabels placed at the <i>position</i>.
+     */
     public static OverlayLabel[] getLabelsAtPosition(Point position) {
         List<OverlayLabel> labelList = new ArrayList<OverlayLabel>();
         Composite composite = getOverlayComposite(false);
@@ -111,7 +130,7 @@ public class OverlayLabel extends CLabel {
         return (OverlayLabel[])labelList.toArray(new OverlayLabel[labelList.size()]);
     }
 
-    public static Composite getOverlayComposite(boolean create) {
+    private static Composite getOverlayComposite(boolean create) {
         OverlayWindow window = OverlayWindow.getInstance(OverlayWindow.INDEX_LABELS,create);
         if( null != window ) {
             return window.getComposite();
@@ -119,6 +138,9 @@ public class OverlayLabel extends CLabel {
         return null;
     }
 
+    /**
+     * @return the popup menu.
+     */
     public Menu createPopupMenu() {
         if( null != popupMenu && !popupMenu.isDisposed() ) {
             popupMenu.dispose();
@@ -127,6 +149,9 @@ public class OverlayLabel extends CLabel {
         return popupMenu;
     }
     
+    /* (non-Javadoc)
+     * @see org.eclipse.swt.widgets.Widget#dispose()
+     */
     public void dispose() {
         if( null != popupMenu && !popupMenu.isDisposed() ) {
             popupMenu.dispose();
@@ -134,16 +159,27 @@ public class OverlayLabel extends CLabel {
         super.dispose();
     }
 
+    /**
+     * @return the id of the owner view.
+     */
     public static String getOwnerId() {
         return ownerId;
     }
 
+    /**
+     * @param the id of the owner view.
+     */
     public static void setOwnerId(String id) {
         ownerId = id;
     }
     
-    public static final String MENU_SEPARATOR = "\n----------------"; //$NON-NLS-1$
+    private static final String MENU_SEPARATOR = "\n----------------"; //$NON-NLS-1$
 
+    /**
+     * Set the tooltip text of the label.
+     * @param text the tooltip text
+     * @param properties the set of property names and values. [0]=name, [1]=value.
+     */
     public void setTooltop(String text, String[][] properties) {
     	text += MENU_SEPARATOR;
     	for( int i=0; i<properties.length; i++ ) {
@@ -154,6 +190,9 @@ public class OverlayLabel extends CLabel {
         setToolTipText(text);
     }
     
+    /**
+     * @return the text to be shown on menu.
+     */
     public String getMenuText() {
         String text = getToolTipText();
         int sep = text.indexOf(MENU_SEPARATOR);

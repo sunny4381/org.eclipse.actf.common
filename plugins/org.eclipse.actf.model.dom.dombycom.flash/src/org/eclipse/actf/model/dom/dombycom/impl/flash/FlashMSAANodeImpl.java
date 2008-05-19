@@ -18,11 +18,10 @@ import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.impl.Helper;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.html.ElementImpl;
+import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.util.vocab.AbstractTerms;
-import org.eclipse.actf.util.win32.AccessibleObjectFactory;
-import org.eclipse.actf.util.win32.FlashUtil;
-import org.eclipse.actf.util.win32.HTMLElementUtil;
-import org.eclipse.actf.util.win32.IAccessibleObject;
+import org.eclipse.actf.util.win32.FlashMSAAObject;
+import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.comclutch.IUnknown;
 import org.eclipse.actf.util.win32.msaa.MSAA;
@@ -57,7 +56,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
         return id1.equals(id2);
     }
    
-    IAccessibleObject aObject;
+    FlashMSAAObject aObject;
     
     private final boolean isTop;
     
@@ -69,7 +68,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
 
     private int number;
 
-    private FlashMSAANodeImpl(ElementImpl impl, IDispatch inode, IAccessibleObject aObject) {
+    private FlashMSAANodeImpl(ElementImpl impl, IDispatch inode, FlashMSAAObject aObject) {
         super(impl, inode);
         this.base = impl;
         this.parent = null;
@@ -78,7 +77,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
         this.isTop = true;
     }
 
-    private IAccessibleObject searchFlash(IAccessibleObject top) {
+    private FlashMSAAObject searchFlash(FlashMSAAObject top) {
         try {
             return searchFlash(top, 100);
         } catch (Exception e) {
@@ -87,16 +86,16 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
         return null;
     }
 
-    private IAccessibleObject searchFlash(IAccessibleObject top, int n) {
+    private FlashMSAAObject searchFlash(FlashMSAAObject top, int n) {
         if (top == null)
             return null;
-        IAccessibleObject[] children = top.getChildren();
+        FlashMSAAObject[] children = top.getChildren();
         //System.out.println(children.length);
         for (int i = 0; i < children.length; i++) {
             if (children[i] == null)
                 continue;
-            if (FlashUtil.isFlash(children[i])) {
-                IDispatch htmlElem = HTMLElementUtil.getHtmlElementFromObject(children[i]);
+            if (FlashMSAAUtil.isFlash(children[i])) {
+                IDispatch htmlElem = FlashMSAAUtil.getHtmlElementFromObject(children[i]);
 
                 if (htmlElem != null) {
                     String targetUniqueID = (String) Helper.get(htmlElem, "uniqueID");
@@ -109,7 +108,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
         }
         for (int i = 0; i < children.length; i++) {
             if (n > 0) {
-                IAccessibleObject iacc = searchFlash(children[i], n - 1);
+                FlashMSAAObject iacc = searchFlash(children[i], n - 1);
                 if(iacc != null)
 	                return iacc;
             }
@@ -117,7 +116,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
         return null;
     }
 
-    private FlashMSAANodeImpl(ElementImpl msaaBase, NodeImpl parent, FlashMSAANodeImpl topNode, IAccessibleObject aObject) {
+    private FlashMSAANodeImpl(ElementImpl msaaBase, NodeImpl parent, FlashMSAANodeImpl topNode, FlashMSAAObject aObject) {
         super(msaaBase, null);
         this.base = msaaBase;
         this.aObject = aObject;
@@ -127,7 +126,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
     }
 
     public static FlashMSAANodeImpl newMSAANode(ElementImpl impl, IDispatch inode) {
-    	IAccessibleObject iacc = AccessibleObjectFactory.getAccessibleObjectFromElement(inode);
+    	FlashMSAAObject iacc = FlashMSAAObjectFactory.getFlashMSAAObjectFromElement(inode);
     	
     	if (iacc != null) {
             FlashMSAANodeImpl ret = new FlashMSAANodeImpl(impl, inode, iacc);
@@ -141,7 +140,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
 
 
     public static long getHWNDFromObject(IUnknown unknown) {
-    	IAccessibleObject iacc = AccessibleObjectFactory.getAccessibleObjectFromElement(unknown);
+    	FlashMSAAObject iacc = FlashMSAAObjectFactory.getFlashMSAAObjectFromElement(unknown);
 
     	if (iacc == null)
     		return 0;
@@ -164,7 +163,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
 
         private boolean showOffscreen = true;
 
-        private NodeListImpl(IAccessibleObject[] aObjects, FlashMSAANodeImpl parent, boolean isTop, int total) {
+        private NodeListImpl(FlashMSAAObject[] aObjects, FlashMSAANodeImpl parent, boolean isTop, int total) {
             this.parent = parent;
             list = new ArrayList<Node>();
             for (int i = 0; i < aObjects.length; i++) {
@@ -207,7 +206,7 @@ public class FlashMSAANodeImpl extends ElementImpl implements IFlashMSAANode {
     @Override
     public NodeList getChildNodes() {
         if (aObject == null) {
-            return new NodeListImpl(new IAccessibleObject[0], this, isTop, 0);
+            return new NodeListImpl(new FlashMSAAObject[0], this, isTop, 0);
         }
         return new NodeListImpl(aObject.getChildren(), this, isTop, 0);
     }

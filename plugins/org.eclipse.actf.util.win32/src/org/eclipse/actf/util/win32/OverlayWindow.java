@@ -14,6 +14,7 @@ package org.eclipse.actf.util.win32;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 
+import org.eclipse.actf.util.win32.impl.IIntervalExec;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -27,6 +28,11 @@ import org.eclipse.swt.widgets.Shell;
 
 
 
+/**
+ * OverlayWindow is transparent window. The purpose of this class is to overlay 
+ * some labels and highlight borders on the application windows. The OverlayWindow
+ * covers the entire screen. Currently it supports only the main screen.
+ */
 public class OverlayWindow implements Runnable {
 
     public static final String WINDOW_TEXT = "[Overlay Window]"; //$NON-NLS-1$
@@ -40,7 +46,7 @@ public class OverlayWindow implements Runnable {
 
     private static OverlayWindow[] instance = new OverlayWindow[2];
 
-    public OverlayWindow(int index) {
+    private OverlayWindow(int index) {
         // Create OverlayWindow shell
         shell = new Shell(SWT.MODELESS | SWT.NO_TRIM | SWT.ON_TOP);
         shell.setText(WINDOW_TEXT);
@@ -76,6 +82,13 @@ public class OverlayWindow implements Runnable {
         }
     }
     
+    /**
+     * @param index the index of the overlay, it must be INDEX_HIGHLIGHT or INDEX_LABELS
+     * @param create whether create a new intance or not
+     * @return the instance of the OverlayWindow
+     * @see #INDEX_HIGHLIGHT
+     * @see #INDEX_LABELS
+     */
     public static OverlayWindow getInstance(int index, boolean create) {
         if( index < instance.length ) {
             if (create && null == instance[index]) {
@@ -86,10 +99,16 @@ public class OverlayWindow implements Runnable {
         return null;
     }
     
+    /**
+     * @return whether the overlay window is visible or not
+     */
     public static boolean getVisible() {
     	return visible;
     }
     
+    /**
+     * @param newVisible whether the overlay window is visible or not
+     */
     public static void setVisible(boolean newVisible) {
     	if( visible != newVisible ) {
     		visible = newVisible;
@@ -101,10 +120,18 @@ public class OverlayWindow implements Runnable {
     	}
     }
 
+    /**
+     * @return the internal composite object. OverlayLabel and HighlightComposite are
+     * added to this composite.
+     */
     public Composite getComposite() {
         return shell;
     }
     
+    
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     public void run() {
         if (!shell.isDisposed()) {
             Control[] children = shell.getChildren();

@@ -9,10 +9,17 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.win32;
+package org.eclipse.actf.util.win32.impl;
 
 
+/**
+ * IIntervalExec interface defines a method to be implemented by the object which will be
+ * executed in certain interval. It has the same function of {@link Runnable}, but the
+ * exec() method has a return value. 
+ */
 public interface IIntervalExec {
-
+    /**
+     * @return the next interval time in milliseconds.
+     */
     public int exec();
 }
