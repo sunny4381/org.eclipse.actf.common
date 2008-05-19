@@ -18,9 +18,13 @@ import java.util.List;
 import org.eclipse.actf.model.flash.internal.ASBridge;
 import org.eclipse.actf.model.flash.internal.Messages;
 import org.eclipse.actf.model.flash.util.ASObject;
-import org.eclipse.actf.util.win32.HTMLElementUtil;
-import org.eclipse.actf.util.win32.IAccessibleObject;
+import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
+import org.eclipse.actf.util.win32.FlashMSAAObject;
+import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
+import org.eclipse.actf.util.win32.comclutch.ComService;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
+import org.eclipse.actf.util.win32.comclutch.IUnknown;
+import org.eclipse.actf.util.win32.comclutch.ResourceManager;
 
 public class FlashPlayer {
 
@@ -40,14 +44,38 @@ public class FlashPlayer {
 			sidCallMethod = "callMethodA"; //$NON-NLS-1$
 
 	private ASBridge bridge;
+	private FlashMSAAObject accessible;
 
 	public FlashPlayer(IDispatch idisp) {
 		idispFlash = idisp;
+		accessible = FlashMSAAObjectFactory.getFlashMSAAObjectFromElement(idispFlash);
 		bridge = ASBridge.getInstance(this);
 	}
+	
+	public FlashMSAAObject getAccessible() {
+		return accessible;
+	}
 
-	public static FlashPlayer getPlayerFromObject(IAccessibleObject accObject) {
-		IDispatch idisp = HTMLElementUtil.getHtmlElementFromObject(accObject);
+	public static FlashPlayer getPlayerFromPtr(int ptr) {
+		IUnknown accObject = ComService.newIUnknown(ResourceManager.newResourceManager(null), ptr, true);
+		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
+		if (null != idisp) {
+			return new FlashPlayer(idisp);
+		}
+		return null;
+	}
+	
+	public static FlashPlayer getPlayerFromWindow(int hwnd) {
+		FlashMSAAObject accObject = FlashMSAAObjectFactory.getFlashMSAAObjectFromWindow(hwnd);
+		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
+		if (null != idisp) {
+			return new FlashPlayer(idisp);
+		}
+		return null;
+	}
+	
+	public static FlashPlayer getPlayerFromObject(FlashMSAAObject accObject) {
+		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
 		if (null != idisp) {
 			return new FlashPlayer(idisp);
 		}
@@ -225,4 +253,14 @@ public class FlashPlayer {
 			return null;
 		}
 	}
+
+	public int getWindow() {
+		FlashMSAAObject fob = FlashMSAAObjectFactory.getFlashMSAAObjectFromElement(idispFlash);
+		return fob.getWindow();
+	}
+
+	public IDispatch getDispatch() {
+		return idispFlash;
+	}
+
 }

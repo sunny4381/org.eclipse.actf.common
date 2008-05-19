@@ -13,7 +13,6 @@
 package org.eclipse.actf.model.flash;
 
 import org.eclipse.actf.model.flash.internal.ASBridge;
-import org.eclipse.actf.util.win32.HTMLElementUtil;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 public class FlashAdjust {
@@ -25,8 +24,8 @@ public class FlashAdjust {
 
 	private IDispatch idispFlash = null;
 
-	public FlashAdjust(Object flashObject/* , int validate */) {
-		idispFlash = HTMLElementUtil.getHtmlElementFromObject(flashObject);
+	public FlashAdjust(FlashPlayer flashPlayer) {
+		idispFlash = flashPlayer.getDispatch();
 	}
 
 	public void dispose() {
