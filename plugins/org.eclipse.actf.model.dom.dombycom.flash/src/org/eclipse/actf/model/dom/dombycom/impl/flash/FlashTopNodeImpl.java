@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Hisashi MIYASHITA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.dom.dombycom.impl.flash;
@@ -25,6 +26,7 @@ import org.eclipse.actf.model.dom.dombycom.impl.ListNodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.html.ElementImpl;
 import org.eclipse.actf.model.flash.FlashModelPlugin;
+import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.as.ASDeserializer;
 import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.model.flash.as.ASSerializer;
@@ -39,14 +41,11 @@ import org.w3c.dom.NodeList;
 
 
 
-class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
+class FlashTopNodeImpl extends ElementImpl implements IFlashNode, IFlashConst {
     private static final String CLSID = "CLSID:D27CDB6E-AE6D-11CF-96B8-444553540000";
     private static final String APP_TYPE = "application/x-shockwave-flash";
 
     private static final IFlashNode[] emptyResult = new IFlashNode[0];
-
-//   private static final String ROOTLEVEL_PATH = "_level0";
-    private static final String BRIDGELEVEL_PATH = "_level53553";
 
     private final String rootPath;
     private final String requestArgsPath;
@@ -58,11 +57,11 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     static FlashTopNodeImpl newFlashNode(NodeImpl baseNode, IDispatch inode) {
         String clsid = (String) Helper.get(inode, "classid");
         if (CLSID.equalsIgnoreCase(clsid)) {
-            return new FlashTopNodeImpl(BRIDGELEVEL_PATH, baseNode, inode);
+            return new FlashTopNodeImpl(PATH_BRIDGELEVEL, baseNode, inode);
         }
         String type = (String) Helper.get((IDispatch) inode.invoke1("getAttributeNode", "type"), "value");
         if (APP_TYPE.equalsIgnoreCase(type)) {
-            return new FlashTopNodeImpl(BRIDGELEVEL_PATH, baseNode, inode);
+            return new FlashTopNodeImpl(PATH_BRIDGELEVEL, baseNode, inode);
         }
         return null;
     }
@@ -82,7 +81,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     private void setVariable(String name, String value) {
         if (!isReady()) return;
         try {
-            inode.invoke("SetVariable", new Object[] { name, value });
+            inode.invoke(PLAYER_SET_VARIABLE, new Object[] { name, value });
         } catch (DispatchException e) {
         }
     }
@@ -90,7 +89,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     private String getVariable(String name) {
         if (!isReady()) return "";
         try {
-            return (String) inode.invoke1("GetVariable", name);
+            return (String) inode.invoke1(PLAYER_GET_VARIABLE, name);
         } catch (DispatchException e) {
             return "";
         }
@@ -126,12 +125,12 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     }
 
     public Object callMethod(String target, String method) {
-        return invokeAS(new Object[] { "callMethodA", target, method });
+        return invokeAS(new Object[] { M_CALL_METHOD, target, method });
     }
 
     public Object callMethod(Object[] args) {
         Object[] a = new Object[args.length + 1];
-        a[0] = "callMethodA";
+        a[0] = M_CALL_METHOD;
         System.arraycopy(args, 0, a, 1, args.length);
         return invokeAS(a);
     }
@@ -148,7 +147,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
         if (marker == null)
             return false;
         if ((x != null) && (y != null) && (w != null) && (h != null)) {
-            invokeAS(new Object[] { "setMarker", marker, x, y, w, h });
+            invokeAS(new Object[] { M_SET_MARKER, marker, x, y, w, h });
             return true;
         } else {
             return false;
@@ -183,7 +182,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     }
 
     private INodeExSound[] searchSound(String path) {
-        Object[] sounds = (Object[]) invokeAS(new Object[] { "searchSound", "_level0", "_global" });
+        Object[] sounds = (Object[]) invokeAS(new Object[] { "searchSound", PATH_ROOTLEVEL, "_global" });
         if (sounds == null)
             return null;
         int len = sounds.length;
@@ -203,7 +202,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
 
     private void initSecret() {
         try {
-            String id = getVariable(rootPath + ".Eclipse_ACTF_SWF_CONTENT_ID");
+            String id = getVariable(rootPath + PATH_CONTENT_ID);
             if ((id == null) || (id.length() == 0)) return;
             IWaXcoding waxcoding = FlashModelPlugin.getDefault().getIWaXcoding();
             this.secret = waxcoding.getSecret(id, false);
@@ -214,8 +213,8 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     private FlashTopNodeImpl(String rootPath, NodeImpl baseNode, IDispatch idisp) {
         super(baseNode, idisp);
         this.rootPath = rootPath;
-        this.requestArgsPath = rootPath + ".Eclipse_ACTF_request_args";
-        this.responseValuePath = rootPath + ".Eclipse_ACTF_response_value";
+        this.requestArgsPath = rootPath + PROP_REQUEST_ARGS;
+        this.responseValuePath = rootPath + PROP_RESPONSE_VALUE;
         initMarker();
     }
 
@@ -223,7 +222,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
         if (this.marker != null)
             return;
         try {
-            Integer i = (Integer) invokeAS(new Object[] { "newMarker" });
+            Integer i = (Integer) invokeAS(new Object[] { M_NEW_MARKER });
             this.marker = i;
         } catch (DispatchException e) {
             this.marker = null;
@@ -235,7 +234,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     }
 
     public IFlashNode getNodeFromPath(String path) {
-        ASObject asObj = (ASObject) invokeAS(new Object[] { "getNodeFromPath", path });
+        ASObject asObj = (ASObject) invokeAS(new Object[] { M_GET_NODE_FROM_PATH, path });
         if (asObj == null)
             return null;
         return new FlashNodeImpl(this, asObj);
@@ -309,7 +308,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     }
 
     public IFlashNode[] getSWFChildNodesWithPath(String path) {
-        Object[] nodeObjs = (Object[]) invokeAS(new Object[] { "getChildNodes", path });
+        Object[] nodeObjs = (Object[]) invokeAS(new Object[] { M_GET_CHILD_NODES, path });
         if (nodeObjs == null)
             return emptyResult;
         int len = nodeObjs.length;
@@ -328,7 +327,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
 
     public IFlashNode[] translate() {
         try {
-            return translateWithPath("_level0");
+            return translateWithPath(PATH_ROOTLEVEL);
         } catch (DispatchException e) {
             return emptyResult;
         }
@@ -396,14 +395,14 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     }
     @Override
     public AnalyzedResult analyze(AnalyzedResult ar) {
-        INodeExVideo[] videos = searchVideo("_level0");
+        INodeExVideo[] videos = searchVideo(PATH_ROOTLEVEL);
         if ((videos != null) && videos.length > 0) {
             hasMedia = true;
             for (int i = 0; i < videos.length; i++) {
                 ar.addVideo(videos[i]);
             }
         }
-        INodeExSound[] sounds = searchSound("_level0");
+        INodeExSound[] sounds = searchSound(PATH_ROOTLEVEL);
         if (sounds != null) {
             for (int i = 0; i < sounds.length; i++) {
                 ar.addSound(sounds[i]);
@@ -418,7 +417,8 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     public void repairFlash() {
         if (!REPAIR) {
             REPAIR = true;
-            Object o = invokeAS(new Object[] { "repairFlash", "_level0" });
+            //Object o = 
+            invokeAS(new Object[] { "repairFlash", PATH_ROOTLEVEL });
             //System.out.println("" + o);
         }
     }
@@ -445,7 +445,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode {
     private boolean updatedTarget = false;
     public void updateTarget() {
         if (updatedTarget) return;
-        Object result = invokeAS(new Object[] { "updateTarget", "_level0", 10 });
+        Object result = invokeAS(new Object[] { "updateTarget", PATH_ROOTLEVEL, 10 });
         if ((result instanceof Boolean) && (((Boolean) result).booleanValue())) {
             updatedTarget = true;
         }

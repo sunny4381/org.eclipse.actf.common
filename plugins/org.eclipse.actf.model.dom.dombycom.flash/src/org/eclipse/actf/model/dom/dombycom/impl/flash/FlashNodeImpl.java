@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Hisashi MIYASHITA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.dom.dombycom.impl.flash;
@@ -59,7 +60,7 @@ class FlashNodeImpl implements IFlashNode {
 
     private FlashNodeImpl(ASObject nodeASObj, IFlashNode parent) {
         this.nodeASObj = nodeASObj;
-        this.target = (String) nodeASObj.get("target");
+        this.target = (String) nodeASObj.get(ASObject.TARGET);
         this.accInfo = (ASObject) nodeASObj.get("accInfo");
         Object o = nodeASObj.get("isOpaqueObject");
         if ((o instanceof Boolean) && ((Boolean) o).booleanValue()) {
@@ -304,7 +305,7 @@ class FlashNodeImpl implements IFlashNode {
             }
         }
         if (r == null) {
-            Object o = nodeASObj.get("text");
+            Object o = nodeASObj.get(ASObject.TEXT);
             if (o != null) {
                 r = "" + o;
             }
@@ -324,12 +325,12 @@ class FlashNodeImpl implements IFlashNode {
     }
 
     public boolean setText(String text) {
-        setProperty("text", text);
+        setProperty(ASObject.TEXT, text);
         return true;
     }
 
     public String getText() {
-        Object o = getProperty("text");
+        Object o = getProperty(ASObject.TEXT);
         if (o instanceof String) return (String) o;
         return "";
     }
