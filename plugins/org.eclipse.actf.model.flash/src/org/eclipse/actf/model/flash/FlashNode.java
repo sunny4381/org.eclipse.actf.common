@@ -162,13 +162,11 @@ public class FlashNode {
 		return input;
 	}
 	
-    private int getIntValue(Object o) {
-        if (o instanceof Integer) {
-            return ((Integer) o).intValue();
-        }else if (o instanceof Double){
-        	return ((Double) o).intValue();
+    private double getDoubleValue(Object o) {
+        if (o instanceof Number) {
+            return ((Number) o).doubleValue();
         }
-        return -1;
+        return Double.NaN;
     }
 
 	public FlashNode getParent() {
@@ -268,20 +266,20 @@ public class FlashNode {
 		return hasOnRelease.booleanValue();
 	}
 	
-	public int getX(){
-		return getIntValue(asObject.get(ASObject.ASNODE_X));
+	public double getX(){
+		return getDoubleValue(asObject.get(ASObject.ASNODE_X));
 	}
 
-	public int getY(){
-		return getIntValue(asObject.get(ASObject.ASNODE_Y));		
+	public double getY(){
+		return getDoubleValue(asObject.get(ASObject.ASNODE_Y));		
 	}
 
-	public int getWidth(){
-		return getIntValue(asObject.get(ASObject.ASNODE_WIDTH));
+	public double getWidth(){
+		return getDoubleValue(asObject.get(ASObject.ASNODE_WIDTH));
 	}
 
-	public int getHeight(){
-		return getIntValue(asObject.get(ASObject.ASNODE_HEIGHT));
+	public double getHeight(){
+		return getDoubleValue(asObject.get(ASObject.ASNODE_HEIGHT));
 	}
 
 	
