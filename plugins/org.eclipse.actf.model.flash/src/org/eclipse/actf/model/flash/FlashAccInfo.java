@@ -13,81 +13,58 @@
 
 package org.eclipse.actf.model.flash;
 
+import org.eclipse.actf.model.flash.as.ASObject;
+
 public class FlashAccInfo {
 
-	private FlashNode parent;
-	private Boolean hasOnRelease;
-	private Boolean isSilent;
-	private Integer accRole;
+	private ASObject accInfo;
 
-	public FlashAccInfo(FlashNode parent) {
-		this.parent = parent;
+	public FlashAccInfo(ASObject parent) {
+		Object result = parent.get(ASObject.ASNODE_ACCINFO);
+		if (result instanceof ASObject) {
+			accInfo = (ASObject) result;
+		}
 	}
 
 	public void dispose() {
 
 	}
 
-	public boolean hasOnRelease() {
-		if (null == hasOnRelease) {
-			FlashNode onReleaseNode = parent.getNode("onRelease"); //$NON-NLS-1$
-			if (null != onReleaseNode) {
-				hasOnRelease = Boolean.TRUE;
-				onReleaseNode.dispose();
-			} else {
-				hasOnRelease = Boolean.FALSE;
-			}
-		}
-		return hasOnRelease.booleanValue();
-	}
-
 	public int getAccRole() {
-		if (null == accRole) {
-			Object objRole = parent.getPlayer().callMethod(
-					parent.getTarget() + "._accImpl", "get_accRole", 0); //$NON-NLS-1$ //$NON-NLS-2$
-			if (objRole != null)
+		if (null != accInfo) {
+			Object objRole = accInfo.get(ASObject.ACCINFO_ROLE);
+			if (objRole instanceof Integer) {
 				return (Integer) objRole;
+			}
 		}
 		return -1;
 	}
 
 	public boolean isSilent() {
-		if (null == isSilent) {
-			FlashNode accSilentNode = parent.getNode("_accProps.silent"); //$NON-NLS-1$
-			if (null != accSilentNode) {
-				isSilent = new Boolean("true".equals(accSilentNode.getValue())); //$NON-NLS-1$
-				accSilentNode.dispose();
-			} else {
-				isSilent = Boolean.FALSE;
+		if (null != accInfo) {
+			Object objSilent = accInfo.get(ASObject.ACCINFO_SILENT);
+			if (objSilent instanceof Boolean) {
+				return (Boolean) objSilent;
 			}
 		}
-		return isSilent.booleanValue();
+		return false;
 	}
 
 	public String getAccName() {
-		Object objName = parent.getPlayer().callMethod(
-				parent.getTarget() + "._accImpl", "get_accName", 0); //$NON-NLS-1$ //$NON-NLS-2$
-		if (objName != null)
-			return (String) objName;
-
-		FlashNode accNameNode = parent.getNode("_accProps.name"); //$NON-NLS-1$
-		if (null != accNameNode) {
-			try {
-				return accNameNode.getValue();
-			} finally {
-				accNameNode.dispose();
+		if (null != accInfo) {
+			Object objName = accInfo.get(ASObject.ACCINFO_NAME);
+			if (objName instanceof String) {
+				return (String) objName;
 			}
 		}
 		return null;
 	}
 
 	public String getAccDescription() {
-		FlashNode accDescriptionNode = parent.getNode("_accProps.description"); //$NON-NLS-1$
-		if (null != accDescriptionNode) {
-			try {
-				return accDescriptionNode.getValue();
-			} finally {
-				accDescriptionNode.dispose();
+		if (null != accInfo) {
+			Object objDesc = accInfo.get(ASObject.ACCINFO_DESCRIPTION);
+			if (objDesc instanceof String) {
+				return (String) objDesc;
 			}
 		}
 		return null;

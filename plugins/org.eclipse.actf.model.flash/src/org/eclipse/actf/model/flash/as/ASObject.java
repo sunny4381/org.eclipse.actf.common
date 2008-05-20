@@ -19,17 +19,24 @@ import java.util.Set;
 
 public class ASObject {
 	
-	public static final String TYPE = "type"; //$NON-NLS-1$
-	public static final String CLASS_NAME = "className"; //$NON-NLS-1$
-	public static final String OBJECT_NAME = "objectName"; //$NON-NLS-1$
-	public static final String TARGET = "target"; //$NON-NLS-1$
-	public static final String VALUE = "value"; //$NON-NLS-1$
-	public static final String TEXT = "text"; //$NON-NLS-1$
-	public static final String TITLE = "title"; //$NON-NLS-1$
-	public static final String IS_UI_COMPONENT = "isUIComponent"; //$NON-NLS-1$
+	public static final String ASNODE_TYPE = "type"; //$NON-NLS-1$
+	public static final String ASNODE_CLASS_NAME = "className"; //$NON-NLS-1$
+	public static final String ASNODE_OBJECT_NAME = "objectName"; //$NON-NLS-1$
+	public static final String ASNODE_TARGET = "target"; //$NON-NLS-1$
+	public static final String ASNODE_VALUE = "value"; //$NON-NLS-1$
+	public static final String ASNODE_TEXT = "text"; //$NON-NLS-1$
+	public static final String ASNODE_TITLE = "title"; //$NON-NLS-1$
+	public static final String ASNODE_IS_UI_COMPONENT = "isUIComponent"; //$NON-NLS-1$
+	public static final String ASNODE_ACCINFO = "accInfo"; //$NON-NLS-1$
+
+	public static final String ACCINFO_NAME = "name"; //$NON-NLS-1$
+	public static final String ACCINFO_DESCRIPTION = "description"; //$NON-NLS-1$
+	public static final String ACCINFO_SILENT = "silent"; //$NON-NLS-1$
+	public static final String ACCINFO_ROLE = "role"; //$NON-NLS-1$
 
 	private final Map<String, Object> map;
 
+	
 	ASObject() {
 		this.map = new HashMap<String, Object>();
 	}

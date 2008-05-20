@@ -21,6 +21,7 @@ import org.eclipse.actf.model.dom.dombycom.IFlashMSAANode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.impl.DocumentImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.EmptyNodeListImpl;
+import org.eclipse.actf.model.flash.FlashAccInfo;
 import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.win32.comclutch.ComPlugin;
@@ -37,7 +38,7 @@ import org.w3c.dom.UserDataHandler;
 
 class FlashNodeImpl implements IFlashNode {
     final ASObject nodeASObj;
-    final ASObject accInfo;
+    final FlashAccInfo accInfo;
     private final String target;
     private final IFlashNode parent;
     private final boolean hasChildren;
@@ -60,8 +61,8 @@ class FlashNodeImpl implements IFlashNode {
 
     private FlashNodeImpl(ASObject nodeASObj, IFlashNode parent) {
         this.nodeASObj = nodeASObj;
-        this.target = (String) nodeASObj.get(ASObject.TARGET);
-        this.accInfo = (ASObject) nodeASObj.get("accInfo");
+        this.target = (String) nodeASObj.get(ASObject.ASNODE_TARGET);
+        this.accInfo = new FlashAccInfo(nodeASObj);
         Object o = nodeASObj.get("isOpaqueObject");
         if ((o instanceof Boolean) && ((Boolean) o).booleanValue()) {
             this.hasChildren = false;
@@ -297,15 +298,9 @@ class FlashNodeImpl implements IFlashNode {
     }
 
     public String extractString() {
-        String r = null;
-        if (accInfo != null) {
-            Object o = accInfo.get("name");
-            if (o != null) {
-                r = "" + o;
-            }
-        }
+        String r = accInfo.getAccName();
         if (r == null) {
-            Object o = nodeASObj.get(ASObject.TEXT);
+            Object o = nodeASObj.get(ASObject.ASNODE_TEXT);
             if (o != null) {
                 r = "" + o;
             }
@@ -325,12 +320,12 @@ class FlashNodeImpl implements IFlashNode {
     }
 
     public boolean setText(String text) {
-        setProperty(ASObject.TEXT, text);
+        setProperty(ASObject.ASNODE_TEXT, text);
         return true;
     }
 
     public String getText() {
-        Object o = getProperty(ASObject.TEXT);
+        Object o = getProperty(ASObject.ASNODE_TEXT);
         if (o instanceof String) return (String) o;
         return "";
     }

@@ -207,14 +207,6 @@ public class FlashPlayer implements IFlashConst {
 		return Messages.getString("flash.player_no_xcode"); //$NON-NLS-1$
 	}
 
-	public void dispose() {
-	}
-
-	protected void finalize() throws Throwable {
-		dispose();
-		super.finalize();
-	}
-
 	public String getWMode() {
 		try {
 			Object objWMode = idispFlash.get(WMODE);

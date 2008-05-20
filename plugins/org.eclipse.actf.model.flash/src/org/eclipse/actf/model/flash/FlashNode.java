@@ -30,6 +30,8 @@ public class FlashNode {
 	private boolean isReference = false;
 	private boolean skipChildren = false;
 	private boolean isAccProperties = false;
+	
+	private Boolean hasOnRelease;
 
 	private String strType;
 	private String strClassName;
@@ -43,12 +45,12 @@ public class FlashNode {
 		this.player = player;
 
 		asObject = node;
-		strType = getString(ASObject.TYPE);
-		strClassName = getString(ASObject.CLASS_NAME);
-		strObjectName = getString(ASObject.OBJECT_NAME);
-		strTarget = getString(ASObject.TARGET);
-		isUIComponent = "true".equals(getString(ASObject.IS_UI_COMPONENT)); //$NON-NLS-1$
-
+		strType = getString(ASObject.ASNODE_TYPE);
+		strClassName = getString(ASObject.ASNODE_CLASS_NAME);
+		strObjectName = getString(ASObject.ASNODE_OBJECT_NAME);
+		strTarget = getString(ASObject.ASNODE_TARGET);
+		isUIComponent = "true".equals(getString(ASObject.ASNODE_IS_UI_COMPONENT)); //$NON-NLS-1$
+		
 		if (null != parent) {
 			String targetParent = parent.getTarget();
 			if (null != targetParent) {
@@ -78,7 +80,7 @@ public class FlashNode {
 				skipChildren = true;
 			}
 		}
-		this.accInfo = new FlashAccInfo(this);
+		this.accInfo = new FlashAccInfo(asObject);
 	}
 
 	public String getType() {
@@ -103,7 +105,7 @@ public class FlashNode {
 
 	public String getValue() {
 		if (null != asObject) {
-			return decodeString(getString(ASObject.VALUE));
+			return decodeString(getString(ASObject.ASNODE_VALUE));
 		}
 		return null;
 	}
@@ -119,7 +121,7 @@ public class FlashNode {
 		}
 		if (null == text) {
 			if (null != asObject) {
-				text = getString(ASObject.TEXT);
+				text = getString(ASObject.ASNODE_TEXT);
 			}
 		} else {
 			text = "[" + text + "]"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -129,7 +131,7 @@ public class FlashNode {
 
 	public String getTitle() {
 		if (null != asObject) {
-			return decodeString(getString(ASObject.TITLE));
+			return decodeString(getString(ASObject.ASNODE_TITLE));
 		}
 		return null;
 	}
@@ -222,9 +224,6 @@ public class FlashNode {
 		return childList.toArray();
 	}
 
-	public void dispose() {
-	}
-
 	public FlashNode getNode(String nodeName) {
 		return player.getNodeFromPath(getTarget() + "." + nodeName); //$NON-NLS-1$
 	}
@@ -245,15 +244,22 @@ public class FlashNode {
 		return accInfo;
 	}
 
-	protected void finalize() throws Throwable {
-		dispose();
-		super.finalize();
-	}
-
 	public Set<String> getKeys() {
 		if (null != asObject) {
 			return asObject.getKeys();
 		}
 		return null;
+	}
+	
+	public boolean hasOnRelease() {
+		if (null == hasOnRelease) {
+			FlashNode onReleaseNode = getNode("onRelease"); //$NON-NLS-1$
+			if (null != onReleaseNode) {
+				hasOnRelease = Boolean.TRUE;
+			} else {
+				hasOnRelease = Boolean.FALSE;
+			}
+		}
+		return hasOnRelease.booleanValue();
 	}
 }

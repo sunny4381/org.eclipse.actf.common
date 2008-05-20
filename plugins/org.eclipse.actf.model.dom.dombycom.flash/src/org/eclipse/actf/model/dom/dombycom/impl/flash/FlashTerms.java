@@ -44,12 +44,7 @@ public class FlashTerms extends AbstractTerms {
     public boolean isVisibleNode(IEvalTarget target) {
         if (target instanceof FlashNodeImpl) {
             FlashNodeImpl flash = (FlashNodeImpl) target;
-
-            if (flash.accInfo != null) {
-                Boolean b = (Boolean) flash.accInfo.get("silent");
-                if (b != null)
-                    return !b.booleanValue();
-            }
+            return !(flash.accInfo.isSilent());
         }
         return true;
     }
