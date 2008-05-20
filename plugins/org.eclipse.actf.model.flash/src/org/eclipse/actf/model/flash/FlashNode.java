@@ -224,10 +224,6 @@ public class FlashNode {
 		return childList.toArray();
 	}
 
-	public FlashNode getNode(String nodeName) {
-		return player.getNodeFromPath(getTarget() + "." + nodeName); //$NON-NLS-1$
-	}
-
 	public void setMarker() {
 		if (null != asObject) {
 			player
@@ -253,7 +249,7 @@ public class FlashNode {
 	
 	public boolean hasOnRelease() {
 		if (null == hasOnRelease) {
-			FlashNode onReleaseNode = getNode("onRelease"); //$NON-NLS-1$
+			FlashNode onReleaseNode = player.getNodeFromPath(strTarget+ ".onRelease"); //$NON-NLS-1$
 			if (null != onReleaseNode) {
 				hasOnRelease = Boolean.TRUE;
 			} else {

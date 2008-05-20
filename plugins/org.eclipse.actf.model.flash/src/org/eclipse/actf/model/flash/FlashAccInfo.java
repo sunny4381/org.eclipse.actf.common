@@ -26,10 +26,6 @@ public class FlashAccInfo {
 		}
 	}
 
-	public void dispose() {
-
-	}
-
 	public int getAccRole() {
 		if (null != accInfo) {
 			Object objRole = accInfo.get(ASObject.ACCINFO_ROLE);
