@@ -13,57 +13,110 @@
 
 package org.eclipse.actf.model.flash;
 
+import java.util.Set;
+
 import org.eclipse.actf.model.flash.as.ASObject;
 
 public class FlashAccInfo {
 
 	private ASObject accInfo;
 
-	public FlashAccInfo(ASObject parent) {
-		Object result = parent.get(ASObject.ASNODE_ACCINFO);
-		if (result instanceof ASObject) {
-			accInfo = (ASObject) result;
-		}
+	private FlashAccInfo(ASObject accInfo) {
+		this.accInfo = accInfo;
 	}
 
-	public int getAccRole() {
-		if (null != accInfo) {
-			Object objRole = accInfo.get(ASObject.ACCINFO_ROLE);
-			if (objRole instanceof Integer) {
-				return (Integer) objRole;
-			}
+	public static FlashAccInfo create(ASObject target) {
+		Object result = target.get(ASObject.ASNODE_ACCINFO);
+		if (result instanceof ASObject) {
+			return new FlashAccInfo((ASObject) result);
+		}
+		return null;
+	}
+
+	public int getRole() {
+		Object obj = accInfo.get(ASObject.ACCINFO_ROLE);
+		if (obj instanceof Integer) {
+			return (Integer) obj;
+		}
+		return -1;
+	}
+
+	public int getState() {
+		Object obj = accInfo.get(ASObject.ACCINFO_STATE);
+		if (obj instanceof Integer) {
+			return (Integer) obj;
 		}
 		return -1;
 	}
 
 	public boolean isSilent() {
-		if (null != accInfo) {
-			Object objSilent = accInfo.get(ASObject.ACCINFO_SILENT);
-			if (objSilent instanceof Boolean) {
-				return (Boolean) objSilent;
-			}
+		Object obj = accInfo.get(ASObject.ACCINFO_SILENT);
+		if (obj instanceof Boolean) {
+			return (Boolean) obj;
 		}
 		return false;
 	}
 
-	public String getAccName() {
-		if (null != accInfo) {
-			Object objName = accInfo.get(ASObject.ACCINFO_NAME);
-			if (objName instanceof String) {
-				return (String) objName;
-			}
+	public boolean isForceSimple() {
+		Object obj = accInfo.get(ASObject.ACCINFO_FORCESIMPLE);
+		if (obj instanceof Boolean) {
+			return (Boolean) obj;
+		}
+		return false;
+	}
+
+	public String getName() {
+		Object obj = accInfo.get(ASObject.ACCINFO_NAME);
+		if (obj instanceof String) {
+			return (String) obj;
 		}
 		return null;
 	}
 
-	public String getAccDescription() {
-		if (null != accInfo) {
-			Object objDesc = accInfo.get(ASObject.ACCINFO_DESCRIPTION);
-			if (objDesc instanceof String) {
-				return (String) objDesc;
-			}
+	public String getDescription() {
+		Object obj = accInfo.get(ASObject.ACCINFO_DESCRIPTION);
+		if (obj instanceof String) {
+			return (String) obj;
 		}
 		return null;
+	}
+
+	public String getShortcut() {
+		Object obj = accInfo.get(ASObject.ACCINFO_SHORTCUT);
+		if (obj instanceof String) {
+			return (String) obj;
+		}
+		return null;
+	}
+
+	public String getDefaultAction() {
+		Object obj = accInfo.get(ASObject.ACCINFO_DEFAULTACTION);
+		if (obj instanceof String) {
+			return (String) obj;
+		}
+		return null;
+	}
+
+	public Object get(String prop) {
+		return accInfo.get(prop);
+	}
+
+	public Set<String> getKeys() {
+		return accInfo.getKeys();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		if (accInfo != null) {
+			return accInfo.toString();
+		} else {
+			return "";
+		}
 	}
 
 }

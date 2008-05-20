@@ -27,12 +27,21 @@ public class ASObject {
 	public static final String ASNODE_TEXT = "text"; //$NON-NLS-1$
 	public static final String ASNODE_TITLE = "title"; //$NON-NLS-1$
 	public static final String ASNODE_IS_UI_COMPONENT = "isUIComponent"; //$NON-NLS-1$
+	public static final String ASNODE_X = "x"; //$NON-NLS-1$
+	public static final String ASNODE_Y = "y"; //$NON-NLS-1$
+	public static final String ASNODE_WIDTH = "w"; //$NON-NLS-1$
+	public static final String ASNODE_HEIGHT = "h"; //$NON-NLS-1$
 	public static final String ASNODE_ACCINFO = "accInfo"; //$NON-NLS-1$
 
 	public static final String ACCINFO_NAME = "name"; //$NON-NLS-1$
 	public static final String ACCINFO_DESCRIPTION = "description"; //$NON-NLS-1$
-	public static final String ACCINFO_SILENT = "silent"; //$NON-NLS-1$
 	public static final String ACCINFO_ROLE = "role"; //$NON-NLS-1$
+	public static final String ACCINFO_STATE = "state"; //$NON-NLS-1$
+	public static final String ACCINFO_SILENT = "silent"; //$NON-NLS-1$
+	public static final String ACCINFO_FORCESIMPLE = "forceSimple"; //$NON-NLS-1$
+	public static final String ACCINFO_SHORTCUT = "shortcut"; //$NON-NLS-1$
+	public static final String ACCINFO_DEFAULTACTION = "defaultAction"; //$NON-NLS-1$
+	//public static final String ACCINFO_CHILDREN = "children"; //$NON-NLS-1$
 
 	private final Map<String, Object> map;
 

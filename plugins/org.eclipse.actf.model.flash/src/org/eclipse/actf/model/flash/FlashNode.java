@@ -39,7 +39,7 @@ public class FlashNode {
 	private String strTarget;
 	private boolean isUIComponent;
 
-	public FlashNode(FlashNode parent, FlashPlayer player, ASObject node) {
+	FlashNode(FlashNode parent, FlashPlayer player, ASObject node) {
 		this.parent = parent;
 		this.level = null != parent ? parent.getLevel() + 1 : 0;
 		this.player = player;
@@ -80,7 +80,7 @@ public class FlashNode {
 				skipChildren = true;
 			}
 		}
-		this.accInfo = new FlashAccInfo(asObject);
+		this.accInfo = FlashAccInfo.create(asObject);
 	}
 
 	public String getType() {
@@ -116,8 +116,8 @@ public class FlashNode {
 
 	public String getText(boolean useAccName) {
 		String text = null;
-		if (useAccName) {
-			text = accInfo.getAccName();
+		if (useAccName && null != accInfo) {
+			text = accInfo.getName();
 		}
 		if (null == text) {
 			if (null != asObject) {
@@ -136,7 +136,7 @@ public class FlashNode {
 		return null;
 	}
 
-	public String getString(String name) {
+	private String getString(String name) {
 		if (null != asObject) {
 			Object result = asObject.get(name);
 			return null == result ? null : result.toString();
@@ -151,7 +151,7 @@ public class FlashNode {
 		return null;
 	}
 
-	private static String decodeString(String input) {
+	private String decodeString(String input) {
 		if (null != input) {
 			try {
 				return URLDecoder.decode(input, "UTF-8"); //$NON-NLS-1$
@@ -161,6 +161,15 @@ public class FlashNode {
 		}
 		return input;
 	}
+	
+    private int getIntValue(Object o) {
+        if (o instanceof Integer) {
+            return ((Integer) o).intValue();
+        }else if (o instanceof Double){
+        	return ((Double) o).intValue();
+        }
+        return -1;
+    }
 
 	public FlashNode getParent() {
 		return parent;
@@ -258,4 +267,22 @@ public class FlashNode {
 		}
 		return hasOnRelease.booleanValue();
 	}
+	
+	public int getX(){
+		return getIntValue(asObject.get(ASObject.ASNODE_X));
+	}
+
+	public int getY(){
+		return getIntValue(asObject.get(ASObject.ASNODE_Y));		
+	}
+
+	public int getWidth(){
+		return getIntValue(asObject.get(ASObject.ASNODE_WIDTH));
+	}
+
+	public int getHeight(){
+		return getIntValue(asObject.get(ASObject.ASNODE_HEIGHT));
+	}
+
+	
 }
