@@ -9,25 +9,21 @@
  *    Norimasa HAYASHIDA - initial API and implementation
  *******************************************************************************/
 
-
-package org.eclipse.actf.model.ui.editors.ooo.editor;
+package org.eclipse.actf.model.ui.editors.ooo.editor.impl;
 
 import org.eclipse.actf.model.ui.editors.ooo.actions.OpenODFAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.ui.part.EditorActionBarContributor;
 
-
-
-
 public class OOoEditorContributor extends EditorActionBarContributor {
 
-    public OOoEditorContributor() {
-        super();
-    }
+	public OOoEditorContributor() {
+		super();
+	}
 
-    public void contributeToToolBar(IToolBarManager toolBarManager) {
-        toolBarManager.add(new OpenODFAction());
-//        toolBarManager.add(new EditODFAction());
-//        toolBarManager.add(new SaveODFAction());
-    }
+	public void contributeToToolBar(IToolBarManager toolBarManager) {
+		toolBarManager.add(new OpenODFAction());
+		// toolBarManager.add(new EditODFAction());
+		// toolBarManager.add(new SaveODFAction());
+	}
 }

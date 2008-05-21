@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editors.ie.impl;
+package org.eclipse.actf.model.ui.editors.ie.editor;
 
 import java.io.File;
 
@@ -21,6 +21,10 @@ import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
+import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserEventExtension;
+import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserIEComposite;
+import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserIEScrollManager;
+import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserToolbar;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.BeforeNavigate2Parameters;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.BrowserEventListener;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.DocumentCompleteParameters;
@@ -170,7 +174,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	 * @param isWhole
 	 * @return (browserSizeX, browserSizeY, pageSizeX, pageSizeY)
 	 */
-	protected ModelServiceSizeInfo getBrowserSize(boolean isWhole) {
+	public ModelServiceSizeInfo getBrowserSize(boolean isWhole) {
 		int[] size = new int[] { 1, 1, 1, 1 };
 		int width = browserComposite.getWidth() - 4;
 		int height = browserComposite.getHeight() - 4;
@@ -241,11 +245,11 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		return scrollManager;
 	}
 
-	protected void scrollY(int y) {
+	public void scrollY(int y) {
 		browserComposite.scroll(0, y, WebBrowserIEComposite.SCROLL_BY);
 	}
 
-	protected void scrollTo(int x, int y) {
+	public void scrollTo(int x, int y) {
 		browserComposite.scroll(x, y, WebBrowserIEComposite.SCROLL_TO);
 	}
 

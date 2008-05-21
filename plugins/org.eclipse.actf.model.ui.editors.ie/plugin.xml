@@ -6,7 +6,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="org.eclipse.actf.model.ui.editors.ie.editor.WebBrowserEditor"
-            contributorClass="org.eclipse.actf.model.ui.editors.ie.editor.WebBrowserEditorContributor"
+            contributorClass="org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserEditorContributor"
             default="true"
             extensions="html, htm, xhtml, mht"
             icon="icons/bl_24_02.gif"

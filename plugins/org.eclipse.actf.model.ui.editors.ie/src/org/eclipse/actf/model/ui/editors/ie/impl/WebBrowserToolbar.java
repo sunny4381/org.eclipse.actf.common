@@ -151,15 +151,15 @@ public class WebBrowserToolbar extends Composite {
         return gridData;
     }
 
-    protected String getAddressTextString() {
+    public String getAddressTextString() {
         return _addressText.getText();
     }
     
-    protected void setAddressTextString(String targetS) {
+    public void setAddressTextString(String targetS) {
         _addressText.setText(targetS);
     }
     
-    protected void setFocusToAddressText(boolean selectAll) {
+    public void setFocusToAddressText(boolean selectAll) {
         if (!isVisible()) setVisible(true);
         _addressText.setFocus();
         if (selectAll) {
@@ -169,7 +169,7 @@ public class WebBrowserToolbar extends Composite {
         }
     }
 
-    protected void showAddressText(boolean flag) {
+    public void showAddressText(boolean flag) {
         this.setVisible(flag);
     }
 

@@ -18,7 +18,6 @@ import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
 import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserEventExtension;
-import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserIEImpl;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.NewWindow2Parameters;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.util.ui.PlatformUIUtil;

@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editors.ie.editor;
+package org.eclipse.actf.model.ui.editors.ie.impl;
 
 import org.eclipse.actf.model.ui.editor.actions.DisableDebugMessageAction;
 import org.eclipse.actf.model.ui.editor.actions.GoBackAction;
