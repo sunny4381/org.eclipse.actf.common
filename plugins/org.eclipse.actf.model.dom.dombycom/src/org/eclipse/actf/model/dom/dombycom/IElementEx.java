@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
 /**
  * The extended interface of the {@link Element}
  */
-public interface IElementEx {
+public interface IElementEx extends Element, INodeEx{
 	/**
 	 * An instance of Position represents a nth position of a element in a radio
 	 * button group and list group.

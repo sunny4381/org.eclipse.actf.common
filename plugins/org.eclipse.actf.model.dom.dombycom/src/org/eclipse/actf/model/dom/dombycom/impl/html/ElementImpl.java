@@ -40,7 +40,7 @@ import org.w3c.dom.TypeInfo;
 
 
 
-public class ElementImpl extends NodeImpl implements Element, INodeEx, IElementEx {
+public class ElementImpl extends NodeImpl implements IElementEx {
     protected ElementImpl(NodeImpl baseNode, IDispatch inode) {
         super(baseNode, inode, Node.ELEMENT_NODE);
     }
