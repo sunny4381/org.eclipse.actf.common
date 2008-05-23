@@ -15,6 +15,9 @@ public interface IFlashConst {
 	//general
 	public static final String CLSID_FLASH = "{D27CDB6E-AE6D-11CF-96B8-444553540000}";
 	public static final String WMODE = "WMode";
+	
+    public static final Integer COMPLETED_READY_STATE = Integer.valueOf(4);
+
 
 	//messages
 	public static final String ERROR_OK = "OK: "; //$NON-NLS-1$

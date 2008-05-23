@@ -15,9 +15,10 @@ package org.eclipse.actf.model.flash;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.actf.model.flash.as.ASDeserializer;
 import org.eclipse.actf.model.flash.as.ASObject;
+import org.eclipse.actf.model.flash.as.ASSerializer;
 import org.eclipse.actf.model.flash.bridge.IWaXcoding;
-import org.eclipse.actf.model.flash.internal.ASBridge;
 import org.eclipse.actf.model.flash.internal.Messages;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
@@ -26,6 +27,7 @@ import org.eclipse.actf.util.win32.comclutch.ComService;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.comclutch.IUnknown;
 import org.eclipse.actf.util.win32.comclutch.ResourceManager;
+import org.eclipse.swt.widgets.Display;
 
 public class FlashPlayer implements IFlashConst {
 
@@ -33,14 +35,31 @@ public class FlashPlayer implements IFlashConst {
 	private Object objMarker;
 
 	public boolean isVisible = true;
-	private ASBridge bridge;
 	private FlashMSAAObject accessible;
+
+	private String requestArgsPath;
+	private String responseValuePath;
+	private String contentIdPath;
+	private String secret;
+	private int swfVersion = -1;
+
+	private boolean _isReady = false;
 
 	public FlashPlayer(IDispatch idisp) {
 		idispFlash = idisp;
 		accessible = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromElement(idispFlash);
-		bridge = ASBridge.getInstance(this);
+
+		String rootPath = "";
+		if ("true".equals(getVariable(PATH_ROOTLEVEL + PATH_IS_AVAILABLE))) { //$NON-NLS-1$ //$NON-NLS-2$
+			rootPath = PATH_ROOTLEVEL;
+		} else if ("true".equals(getVariable(PATH_BRIDGELEVEL + PATH_IS_AVAILABLE))) { //$NON-NLS-1$ //$NON-NLS-2$
+			rootPath = PATH_BRIDGELEVEL;
+		}
+
+		this.requestArgsPath = rootPath + PROP_REQUEST_ARGS;
+		this.responseValuePath = rootPath + PROP_RESPONSE_VALUE;
+		this.contentIdPath = rootPath + PATH_CONTENT_ID;
 	}
 
 	public FlashMSAAObject getAccessible() {
@@ -75,22 +94,32 @@ public class FlashPlayer implements IFlashConst {
 		return null;
 	}
 
-	public FlashNode getRootNode() {
-		if (null != bridge) {
-			Object result = invoke(M_GET_ROOT_NODE);
-			if (result instanceof ASObject) {
-				return new FlashNode(null, this, (ASObject) result);
+	private boolean isReady() {
+		if (_isReady)
+			return true;
+		try {
+			Object r = idispFlash.get("readyState");
+			if (COMPLETED_READY_STATE.equals(r)) {
+				_isReady = true;
+				return true;
 			}
+		} catch (Exception e) {
+		}
+		return false;
+	}
+
+	public FlashNode getRootNode() {
+		Object result = invoke(M_GET_ROOT_NODE);
+		if (result instanceof ASObject) {
+			return new FlashNode(null, this, (ASObject) result);
 		}
 		return null;
 	}
 
 	public FlashNode getNodeFromPath(String path) {
-		if (null != bridge) {
-			Object result = invoke(M_GET_NODE_FROM_PATH, path);
-			if (result instanceof ASObject) {
-				return new FlashNode(null, this, (ASObject) result);
-			}
+		Object result = invoke(M_GET_NODE_FROM_PATH, path);
+		if (result instanceof ASObject) {
+			return new FlashNode(null, this, (ASObject) result);
 		}
 		return null;
 	}
@@ -104,18 +133,16 @@ public class FlashPlayer implements IFlashConst {
 		if (visual) {
 			return true;
 		}
-		if (null != bridge) {
-			String sidMethod;
-			if (visual) {
-				sidMethod = M_GET_NUM_SUCCESSOR_NODES;
-			} else {
-				sidMethod = debugMode ? M_GET_NUM_SUCCESSOR_NODES
-						: M_GET_NUM_CHILD_NODES;
-			}
-			Object result = invoke(sidMethod, parentNode.getTarget());
-			if (result instanceof Integer) {
-				return ((Integer) result).intValue() > 0;
-			}
+		String sidMethod;
+		if (visual) {
+			sidMethod = M_GET_NUM_SUCCESSOR_NODES;
+		} else {
+			sidMethod = debugMode ? M_GET_NUM_SUCCESSOR_NODES
+					: M_GET_NUM_CHILD_NODES;
+		}
+		Object result = invoke(sidMethod, parentNode.getTarget());
+		if (result instanceof Integer) {
+			return ((Integer) result).intValue() > 0;
 		}
 		return false;
 	}
@@ -127,22 +154,19 @@ public class FlashPlayer implements IFlashConst {
 	public FlashNode[] getChildren(FlashNode parentNode, boolean visual,
 			boolean debugMode) {
 		List<FlashNode> children = new ArrayList<FlashNode>();
-		if (null != bridge) {
-			String sidMethod;
-			if (visual) {
-				sidMethod = M_GET_INNER_NODES;
-			} else {
-				sidMethod = debugMode ? M_GET_SUCCESSOR_NODES
-						: M_GET_CHILD_NODES;
-			}
-			Object result = invoke(sidMethod, parentNode.getTarget());
-			if (result instanceof Object[]) {
-				Object[] objChildren = (Object[]) result;
-				for (int i = 0; i < objChildren.length; i++) {
-					if (objChildren[i] instanceof ASObject) {
-						children.add(new FlashNode(parentNode, this,
-								(ASObject) objChildren[i]));
-					}
+		String sidMethod;
+		if (visual) {
+			sidMethod = M_GET_INNER_NODES;
+		} else {
+			sidMethod = debugMode ? M_GET_SUCCESSOR_NODES : M_GET_CHILD_NODES;
+		}
+		Object result = invoke(sidMethod, parentNode.getTarget());
+		if (result instanceof Object[]) {
+			Object[] objChildren = (Object[]) result;
+			for (int i = 0; i < objChildren.length; i++) {
+				if (objChildren[i] instanceof ASObject) {
+					children.add(new FlashNode(parentNode, this,
+							(ASObject) objChildren[i]));
 				}
 			}
 		}
@@ -164,24 +188,61 @@ public class FlashPlayer implements IFlashConst {
 							ATTR_MARKER, objMarker });
 				}
 			}
-			if (null != bridge && null != objMarker) {
-				bridge.invoke(new Object[] { M_SET_MARKER, objMarker, objX,
-						objY, objW, objH });
+			if (null != objMarker) {
+				invoke(new Object[] { M_SET_MARKER, objMarker, objX, objY,
+						objW, objH });
 			}
 		}
 	}
 
 	public Object callMethod(String target, String method, Object arg1) {
-		return bridge
-				.invoke(new Object[] { M_CALL_METHOD, target, method, arg1 });
+		return invoke(new Object[] { M_CALL_METHOD, target, method, arg1 });
 	}
 
 	private Object invoke(String method) {
-		return bridge.invoke(new Object[] { method });
+		return invoke(new Object[] { method });
 	}
 
 	private Object invoke(String method, Object arg1) {
-		return bridge.invoke(new Object[] { method, arg1 });
+		return invoke(new Object[] { method, arg1 });
+	}
+
+	private Object invoke(Object[] args) {
+		int counter = 0;
+		try {
+			if (secret == null) {
+				this.secret = getSecret(contentIdPath);
+				if (secret == null) {
+					return null;
+				}
+			}
+			setVariable(responseValuePath, ""); //$NON-NLS-1$
+			String argsStr = ASSerializer.serialize(secret, args);
+			setVariable(requestArgsPath, argsStr);
+			long endTime = System.currentTimeMillis() + 100;
+			while (endTime > System.currentTimeMillis()) {
+				counter++;
+				String value = getVariable(responseValuePath);
+				if (null == value)
+					return null;
+				if (value.length() > 0) {
+					ASDeserializer asd = new ASDeserializer(value);
+					return asd.deserialize();
+				}
+				Display.getCurrent().readAndDispatch();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// if (counter != 1) {
+			// System.out.println("FlashPlayer: " + counter);
+			// for (int i = 0; i < args.length; i++) {
+			// System.out.println(" args[" + i + "]=" + args[i]); //$NON-NLS-1$
+			// //$NON-NLS-2$
+			// }
+			// }
+		}
+		return null;
 	}
 
 	public String getErrorText() {
@@ -217,6 +278,9 @@ public class FlashPlayer implements IFlashConst {
 	}
 
 	public void setVariable(String name, String value) {
+		if (!isReady()) {
+			return;
+		}
 		try {
 			idispFlash
 					.invoke(PLAYER_SET_VARIABLE, new Object[] { name, value });
@@ -225,6 +289,9 @@ public class FlashPlayer implements IFlashConst {
 	}
 
 	public String getVariable(String name) {
+		if (!isReady()) {
+			return "";
+		}
 		try {
 			Object obj = idispFlash.invoke1(PLAYER_GET_VARIABLE, name);
 			return (String) obj;
@@ -251,4 +318,19 @@ public class FlashPlayer implements IFlashConst {
 	public IDispatch getDispatch() {
 		return idispFlash;
 	}
+
+	private String getSecret(String contentId) {
+		try {
+			String id = getVariable(contentId);
+			if (null == id || id.length() == 0)
+				return null;
+			IWaXcoding waxcoding = FlashModelPlugin.getDefault()
+					.getIWaXcoding();
+			return waxcoding.getSecret(id, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
