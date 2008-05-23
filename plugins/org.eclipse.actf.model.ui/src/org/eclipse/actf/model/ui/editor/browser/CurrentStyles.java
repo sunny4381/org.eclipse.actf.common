@@ -11,10 +11,11 @@
 
 package org.eclipse.actf.model.ui.editor.browser;
 
-public class CurrentStyles {
+public class CurrentStyles implements ICurrentStyles {
 
     //TODO re-construct
-    
+    String xpath;
+	
     String tagName;
 
     String backgroundColor;
@@ -23,7 +24,9 @@ public class CurrentStyles {
 
     String color;
 
-    String cssText;
+    String cssText;	//Style
+
+    String fontWeight; //Style
 
     String fontFamily;
 
@@ -32,8 +35,6 @@ public class CurrentStyles {
     String fontStyle;
 
     String fontVariant;
-
-    String fontWeight;
 
     String lineHeight;
 
@@ -57,150 +58,150 @@ public class CurrentStyles {
 
     String letterSpacing;
 
-    String offsetWidth;
+    String offsetWidth; //IHTMLElement
 
-    String offsetHeight;
+    String offsetHeight; //IHTMLElement
 
-    String offsetTop;
+    String offsetTop; //IHTMLElement
 
-    String offsetLeft;
+    String offsetLeft; //IHTMLElement
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getBackgroundColor()
+	 */
     public String getBackgroundColor() {
         return backgroundColor;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getBackgroundRepeat()
+	 */
     public String getBackgroundRepeat() {
         return backgroundRepeat;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getColor()
+	 */
     public String getColor() {
         return color;
     }
 
-    /**
-     * @return
-     */
-    public String getCssText() {
-        return cssText;
-    }
+//    /* (non-Javadoc)
+//	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getCssText()
+//	 */
+//    public String getCssText() {
+//        return cssText;
+//    }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getDisplay()
+	 */
     public String getDisplay() {
         return display;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getFontFamily()
+	 */
     public String getFontFamily() {
         return fontFamily;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getFontSize()
+	 */
     public String getFontSize() {
         return fontSize;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getFontStyle()
+	 */
     public String getFontStyle() {
         return fontStyle;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getFontVariant()
+	 */
     public String getFontVariant() {
         return fontVariant;
     }
 
-    /**
-     * @return
-     */
-    public String getFontWeight() {
-        return fontWeight;
-    }
+//    /* (non-Javadoc)
+//	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getFontWeight()
+//	 */
+//    public String getFontWeight() {
+//        return fontWeight;
+//    }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getHeight()
+	 */
     public String getHeight() {
         return Height;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getLeft()
+	 */
     public String getLeft() {
         return left;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getLetterSpacing()
+	 */
     public String getLetterSpacing() {
         return letterSpacing;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getLineHeight()
+	 */
     public String getLineHeight() {
         return lineHeight;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getPosition()
+	 */
     public String getPosition() {
         return position;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getTextAlign()
+	 */
     public String getTextAlign() {
         return textAlign;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getTextDecoration()
+	 */
     public String getTextDecoration() {
         return textDecoration;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getTop()
+	 */
     public String getTop() {
         return Top;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getVisibility()
+	 */
     public String getVisibility() {
         return visibility;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getWidth()
+	 */
     public String getWidth() {
         return Width;
     }
@@ -345,9 +346,9 @@ public class CurrentStyles {
         Width = string;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getTagName()
+	 */
     public String getTagName() {
         return tagName;
     }
@@ -359,30 +360,30 @@ public class CurrentStyles {
         tagName = string;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getOffsetHeight()
+	 */
     public String getOffsetHeight() {
         return offsetHeight;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getOffsetLeft()
+	 */
     public String getOffsetLeft() {
         return offsetLeft;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getOffsetTop()
+	 */
     public String getOffsetTop() {
         return offsetTop;
     }
 
-    /**
-     * @return
-     */
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getOffsetWidth()
+	 */
     public String getOffsetWidth() {
         return offsetWidth;
     }
@@ -414,5 +415,12 @@ public class CurrentStyles {
     public void setOffsetWidth(String string) {
         offsetWidth = string;
     }
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getXPath()
+	 */
+	public String getXPath() {
+		return xpath;
+	}
 
 }

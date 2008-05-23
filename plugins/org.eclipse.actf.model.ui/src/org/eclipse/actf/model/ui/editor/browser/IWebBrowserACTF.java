@@ -11,7 +11,6 @@
 package org.eclipse.actf.model.ui.editor.browser;
 
 import org.eclipse.actf.model.ui.IModelService;
-import org.eclipse.swt.graphics.RGB;
 
 
 public interface IWebBrowserACTF extends IModelService {
@@ -92,9 +91,12 @@ public interface IWebBrowserACTF extends IModelService {
 
 	public abstract int getFontSize();
 
-	public abstract RGB getAnchorColor();
-
-	public abstract RGB getVisitedAnchorColor();
+	public abstract BrowserAndStyleInfo getStyleInfo();
+	
+//	public abstract RGB getAnchorColor();
+//
+//	public abstract RGB getVisitedAnchorColor();
+	
 
 	int getIWebBrowser2();
         

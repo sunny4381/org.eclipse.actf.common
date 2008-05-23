@@ -12,12 +12,15 @@
 package org.eclipse.actf.model.ui.editors.ie.editor;
 
 import java.io.File;
+import java.util.HashMap;
 
 import org.eclipse.actf.model.dom.dombycom.DomByCom;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
+import org.eclipse.actf.model.ui.editor.browser.BrowserAndStyleInfo;
+import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
@@ -300,13 +303,13 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		// TODO low priority
 	}
 
-	public RGB getAnchorColor() {
+	private RGB getAnchorColor() {
 		String color = RegistryUtil
 				.getIERegistryString(RegistryUtil.IE_ANCHOR_COLOR);
 		return getRGB(color);
 	}
 
-	public RGB getVisitedAnchorColor() {
+	private RGB getVisitedAnchorColor() {
 		String color = RegistryUtil
 				.getIERegistryString(RegistryUtil.IE_ANCHOR_COLOR_VISITED);
 		return getRGB(color);
@@ -556,6 +559,20 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	 */
 	public IModelServiceHolder getModelServiceHolder() {
 		return _holder;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF#getStyleInfo()
+	 */
+	public BrowserAndStyleInfo getStyleInfo() {
+		// TODO obtain current style info from live DOM [233615]
+		// need to wait IPZilla [2323]
+		BrowserAndStyleInfo styleInfo = new BrowserAndStyleInfo(scrollManager
+				.getSize(true), new HashMap<String, ICurrentStyles>(),
+				getAnchorColor(), getVisitedAnchorColor());
+		return styleInfo;
 	}
 
 }
