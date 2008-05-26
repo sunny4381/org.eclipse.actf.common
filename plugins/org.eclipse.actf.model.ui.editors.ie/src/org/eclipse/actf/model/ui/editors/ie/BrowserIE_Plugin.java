@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.actf.model.ui.editors.ie;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.actf.util.ui.AbstractUIPluginACTF;
 import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class BrowserIE_Plugin extends AbstractUIPlugin {
+public class BrowserIE_Plugin extends AbstractUIPluginACTF {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "org.eclipse.actf.model.ui.editors.ie";

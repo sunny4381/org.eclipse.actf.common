@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.common,
  org.eclipse.actf.model.ui,
  org.eclipse.actf.model.dom.dombycom,
+ org.eclipse.actf.model.dom.html,
  org.eclipse.actf.util.win32
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.model.ui.editors.ie.editor,

@@ -12,9 +12,11 @@
 package org.eclipse.actf.model.ui.editors.ie.editor;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashMap;
 
 import org.eclipse.actf.model.dom.dombycom.DomByCom;
+import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
@@ -22,6 +24,7 @@ import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 import org.eclipse.actf.model.ui.editor.browser.BrowserAndStyleInfo;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.editors.ie.BrowserIE_Plugin;
 import org.eclipse.actf.model.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
 import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserEventExtension;
@@ -351,7 +354,14 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	}
 
 	public Document getDocument() {
-		// TODO user save(filename) and html parser
+		try {
+			File tmpF = BrowserIE_Plugin.getDefault().createTempFile("", "html");
+			HtmlParserUtil hpu = new HtmlParserUtil();
+			hpu.parse(new FileInputStream(tmpF));
+			return hpu.getSHDocument();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
