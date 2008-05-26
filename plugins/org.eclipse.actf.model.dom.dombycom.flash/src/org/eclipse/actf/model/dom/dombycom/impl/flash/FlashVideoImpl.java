@@ -7,87 +7,91 @@
  *
  * Contributors:
  *    Hisashi MIYASHITA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.INodeExVideo;
-import org.eclipse.actf.model.flash.as.ASObject;
+import org.eclipse.actf.model.flash.FlashNode;
+import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.IFlashConst;
 
+class FlashVideoImpl implements INodeExVideo, IFlashConst {
+	private final FlashTopNodeImpl swf;
+	private final String target;
+	private final FlashPlayer player;
+	// Some sort of hacking solution!!!
+	private VideoState currentState = VideoState.STATE_UNKNOWN;
 
-class FlashVideoImpl implements INodeExVideo {
-    private final FlashTopNodeImpl swf;
-    private final String target;
-    // Some sort of hacking solution!!!
-    private VideoState currentState = VideoState.STATE_UNKNOWN;
-    
-    public String getTarget() {
-        return target;
-    }
+	public String getTarget() {
+		return target;
+	}
 
-    FlashVideoImpl(FlashTopNodeImpl swf, ASObject nodeASObj) {
-        this.swf = swf;
-        this.target = (String) nodeASObj.get("target");
-    }
+	FlashVideoImpl(FlashTopNodeImpl swf, FlashNode node) {
+		this.swf = swf;
+		this.target = node.getTarget();
+		this.player = node.getPlayer();
+	}
 
-    public boolean previousTrack() {
-        return false;
-    }
+	public boolean previousTrack() {
+		return false;
+	}
 
-    public boolean nextTrack() {
-        return false;
-    }
+	public boolean nextTrack() {
+		return false;
+	}
 
-    public boolean stopMedia() {
-        swf.callMethod(new Object[] { getTarget(), "stop" });
-        currentState = VideoState.STATE_STOP;
-        return true;
-    }
+	public boolean stopMedia() {
+		player.callMethod(getTarget(), M_STOP);
+		currentState = VideoState.STATE_STOP;
+		return true;
+	}
 
-    public boolean playMedia() {
-        swf.callMethod(new Object[] { getTarget(), "play" });
-        currentState = VideoState.STATE_PLAY;
-        return true;
-    }
+	public boolean playMedia() {
+		player.callMethod(getTarget(), M_PLAY);
+		currentState = VideoState.STATE_PLAY;
+		return true;
+	}
 
-    public boolean pauseMedia() {
-        swf.callMethod(new Object[] { getTarget(), "pause" });
-        currentState = VideoState.STATE_PAUSE;
-        return true;
-    }
+	public boolean pauseMedia() {
+		player.callMethod(getTarget(), M_PAUSE);
+		currentState = VideoState.STATE_PAUSE;
+		return true;
+	}
 
-    public boolean fastReverse() {
-        return false;
-    }
+	public boolean fastReverse() {
+		return false;
+	}
 
-    public boolean fastForward() {
-        return false;
-    }
+	public boolean fastForward() {
+		return false;
+	}
 
-    public double getCurrentPosition() {
-        Object o = swf.callMethod(new Object[] { getTarget(), "getCurrentPosition" });
-        if (o instanceof Double) {
-            return ((Double) o).doubleValue();
-        } else if (o instanceof Float) {
-            return ((Float) o).floatValue();
-        } else if (o instanceof Integer) {
-            return ((Integer) o).intValue();
-        }
-        return 0;
-    }
+	public double getCurrentPosition() {
+		Object o = player.callMethod(getTarget(), M_GET_CURRENT_POSITION);
+		if (o instanceof Double) {
+			return ((Double) o).doubleValue();
+		} else if (o instanceof Float) {
+			return ((Float) o).floatValue();
+		} else if (o instanceof Integer) {
+			return ((Integer) o).intValue();
+		}
+		return 0;
+	}
 
-    public double getTotalLength() {
-        return -1;
-    }
+	public double getTotalLength() {
+		return -1;
+	}
 
-    public VideoState getCurrentState() {
-        // TODO
-        return currentState;
-    }
+	public VideoState getCurrentState() {
+		// TODO
+		return currentState;
+	}
 
-    public INodeEx getReferenceNode() {
-        // Returns the top node (maybe a makeshift).
-        return swf;
-    }
+	public INodeEx getReferenceNode() {
+		// Returns the top node (maybe a makeshift).
+		return swf;
+	}
 }

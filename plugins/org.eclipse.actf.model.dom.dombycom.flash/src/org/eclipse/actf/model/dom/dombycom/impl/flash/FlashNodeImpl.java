@@ -16,12 +16,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import org.eclipse.actf.model.dom.dombycom.AnalyzedResult;
-import org.eclipse.actf.model.dom.dombycom.IFlashNode;
 import org.eclipse.actf.model.dom.dombycom.IFlashMSAANode;
+import org.eclipse.actf.model.dom.dombycom.IFlashNode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.impl.DocumentImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.EmptyNodeListImpl;
 import org.eclipse.actf.model.flash.FlashAccInfo;
+import org.eclipse.actf.model.flash.FlashNode;
+import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.win32.comclutch.ComPlugin;
@@ -34,14 +37,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.UserDataHandler;
 
-class FlashNodeImpl implements IFlashNode {
-	final ASObject nodeASObj;
-	final FlashAccInfo accInfo;
+class FlashNodeImpl implements IFlashNode, IFlashConst {
+	// final ASObject nodeASObj;
+	private final FlashAccInfo accInfo;
 	private final String target;
 	private final IFlashNode parent;
 	private final boolean hasChildren;
 	private FlashTopNodeImpl swf;
 	private DocumentImpl doc;
+
+	private final FlashNode flashNode;
+	private final FlashPlayer flashPlayer;
 
 	@Override
 	public int hashCode() {
@@ -57,12 +63,12 @@ class FlashNodeImpl implements IFlashNode {
 		return false;
 	}
 
-	private FlashNodeImpl(ASObject nodeASObj, IFlashNode parent) {
-		this.nodeASObj = nodeASObj;
-		this.target = (String) nodeASObj.get(ASObject.ASNODE_TARGET);
-		this.accInfo = FlashAccInfo.create(nodeASObj);
-		Object o = nodeASObj.get("isOpaqueObject");
-		if ((o instanceof Boolean) && ((Boolean) o).booleanValue()) {
+	private FlashNodeImpl(FlashNode node, IFlashNode parent) {
+		this.flashNode = node;
+		this.flashPlayer = node.getPlayer();
+		this.target = node.getTarget();
+		this.accInfo = node.getAccInfo();
+		if (node.isOpaqueObject()) {
 			this.hasChildren = false;
 		} else {
 			this.hasChildren = true;
@@ -70,24 +76,24 @@ class FlashNodeImpl implements IFlashNode {
 		this.parent = parent;
 	}
 
-	FlashNodeImpl(FlashNodeImpl baseNode, ASObject nodeASObj) {
-		this(nodeASObj, baseNode);
+	FlashNodeImpl(FlashNodeImpl baseNode, FlashNode node) {
+		this(node, baseNode);
 		this.swf = baseNode.swf;
 		this.doc = baseNode.doc;
 	}
 
-	FlashNodeImpl(FlashTopNodeImpl baseNode, ASObject nodeASObj) {
-		this(nodeASObj, baseNode);
+	FlashNodeImpl(FlashTopNodeImpl baseNode, FlashNode node) {
+		this(node, baseNode);
 		this.swf = baseNode;
 		this.doc = (DocumentImpl) baseNode.getOwnerDocument();
 	}
 
 	private Object getProperty(String prop) {
-		return swf.getProperty(getTarget(), prop);
+		return flashPlayer.getProperty(getTarget(), prop);
 	}
 
 	private void setProperty(String prop, Object value) {
-		swf.setProperty(getTarget(), prop, value);
+		flashPlayer.setProperty(getTarget(), prop, value);
 	}
 
 	private static ISendEvent sendEvent;
@@ -315,10 +321,7 @@ class FlashNodeImpl implements IFlashNode {
 			accInfo.getName();
 		}
 		if (r == null) {
-			Object o = nodeASObj.get(ASObject.ASNODE_TEXT);
-			if (o != null) {
-				r = "" + o;
-			}
+			r = flashNode.getText(false);
 		}
 		if (r == null)
 			return "";
@@ -347,19 +350,12 @@ class FlashNodeImpl implements IFlashNode {
 		return "";
 	}
 
-	private int getObjNumber(Object o) {
-		if (o instanceof Integer) {
-			return ((Integer) o).intValue();
-		}
-		return ((Double) o).intValue();
-	}
-
 	private boolean doHardwareClick() {
 		long hwnd = swf.getHWND();
-		int ix = getObjNumber(getX());
-		int iy = getObjNumber(getY());
-		int iw = getObjNumber(getW());
-		int ih = getObjNumber(getH());
+		int ix = (int) flashNode.getX();
+		int iy = (int) flashNode.getY();
+		int iw = (int) flashNode.getWidth();
+		int ih = (int) flashNode.getHeight();
 		int x = ix + iw / 4;
 		int y = iy + ih / 4;
 
@@ -375,11 +371,11 @@ class FlashNodeImpl implements IFlashNode {
 
 	String getClickableTarget(String current) {
 		while (current.length() > 0) {
-			String tryOnRelease = current + ".onRelease";
+			String tryOnRelease = current + PATH_ON_RELEASE;
 			if (swf.getNodeFromPath(tryOnRelease) != null) {
 				return current;
 			}
-			String tryOnPress = current + ".onPress";
+			String tryOnPress = current + PATH_ON_PRESS;
 			if (swf.getNodeFromPath(tryOnPress) != null) {
 				return current;
 			}
@@ -394,14 +390,14 @@ class FlashNodeImpl implements IFlashNode {
 	public boolean doClick() {
 		String current = getTarget();
 		while (current.length() > 0) {
-			String tryOnRelease = current + ".onRelease";
+			String tryOnRelease = current + PATH_ON_RELEASE;
 			if (swf.getNodeFromPath(tryOnRelease) != null) {
-				swf.callMethod(current, "onRelease");
+				flashPlayer.callMethod(current, M_ON_RELEASE);
 				return true;
 			}
-			String tryOnPress = current + ".onPress";
+			String tryOnPress = current + PATH_ON_PRESS;
 			if (swf.getNodeFromPath(tryOnPress) != null) {
-				swf.callMethod(current, "onPress");
+				flashPlayer.callMethod(current, M_ON_PRESS);
 				return true;
 			}
 			if (true)
@@ -417,23 +413,23 @@ class FlashNodeImpl implements IFlashNode {
 	}
 
 	public boolean highlight() {
-		swf.callMethod(getTarget(), "onRollOver");
+		flashPlayer.callMethod(getTarget(), M_ON_ROLL_OVER);
 		boolean ret1 = swf.highlight();
-		boolean ret2 = swf.setMarker(getX(), getY(), getW(), getH());
+		boolean ret2 = flashNode.setMarker();
 		return ret1 && ret2;
 	}
 
 	public boolean unhighlight() {
-		swf.callMethod(getTarget(), "onRollOut");
+		flashPlayer.callMethod(getTarget(), M_ON_ROLL_OUT);
 		boolean ret1 = swf.unhighlight();
-		boolean ret2 = swf.unsetMarker();
+		boolean ret2 = flashPlayer.unsetMarker();
 		return ret1 && ret2;
 	}
 
 	public boolean setFocus() {
 		if (!swf.setFocus())
 			return false;
-		return swf.setFocus(getTarget());
+		return flashPlayer.setFocus(getTarget());
 	}
 
 	public int getNth() {
@@ -454,33 +450,39 @@ class FlashNodeImpl implements IFlashNode {
 	}
 
 	public IFlashNode getNodeAtDepth(int depth) {
-		return swf.getNodeAtDepthWithPath(getTarget(), depth);
+		FlashNode result = flashPlayer.getNodeAtDepthWithPath(getTarget(),
+				depth);
+		if (result == null)
+			return null;
+		return new FlashNodeImpl(swf, result);
+	}
+
+	private IFlashNode[] createIFlashNodeArray(FlashNode[] nodes) {
+		IFlashNode[] results = new IFlashNode[nodes.length];
+		for (int i = 0; i < nodes.length; i++) {
+			results[i] = new FlashNodeImpl(this, nodes[i]);
+		}
+		return results;
 	}
 
 	public IFlashNode[] getInnerNodes() {
-		return swf.getInnerNodesWithPath(getTarget());
+		return createIFlashNodeArray(flashPlayer.getChildren(flashNode, true));
 	}
 
 	public IFlashNode[] getSWFChildNodes() {
-		return swf.getSWFChildNodesWithPath(getTarget());
+		return createIFlashNodeArray(flashPlayer.getChildren(flashNode, false));
 	}
 
 	public int getDepth() {
-		Integer target = (Integer) nodeASObj.get("depth");
-		if (target != null)
-			return target.intValue();
-		return INVALID_DEPTH;
+		return flashNode.getDepth();
 	}
 
 	public int getCurrentFrame() {
-		Integer target = (Integer) nodeASObj.get("currentFrame");
-		if (target != null)
-			return target.intValue();
-		return -1;
+		return flashNode.getCurrentFrame();
 	}
 
 	public IFlashNode[] translate() {
-		return swf.translateWithPath(getTarget());
+		return createIFlashNodeArray(flashPlayer.translateWithPath(getTarget()));
 	}
 
 	public INodeEx getBaseNode() {
@@ -491,24 +493,12 @@ class FlashNodeImpl implements IFlashNode {
 	// extensions.
 	// --------------------------------------------------------------------------------
 
-	// Double or Integer
-	public Object getX() {
-		return nodeASObj.get("x");
+	boolean isInputable() {
+		return flashNode.isInputable();
 	}
 
-	// Double or Integer
-	public Object getY() {
-		return nodeASObj.get("y");
-	}
-
-	// Double or Integer
-	public Object getW() {
-		return nodeASObj.get("w");
-	}
-
-	// Double or Integer
-	public Object getH() {
-		return nodeASObj.get("h");
+	boolean isSilent() {
+		return accInfo.isSilent();
 	}
 
 	public AnalyzedResult analyze(AnalyzedResult ar) {

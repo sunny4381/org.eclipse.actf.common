@@ -16,7 +16,6 @@ package org.eclipse.actf.model.dom.dombycom;
  */
 public interface IFlashNode extends INodeEx {
 	short FLASH_NODE = 120;
-	int INVALID_DEPTH = -16384;
 
 	/**
 	 * @return the target path of the Flash object from the root. It might be

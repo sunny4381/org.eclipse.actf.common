@@ -7,62 +7,63 @@
  *
  * Contributors:
  *    Hisashi MIYASHITA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import org.eclipse.actf.model.dom.dombycom.INodeExSound;
-import org.eclipse.actf.model.flash.as.ASObject;
+import org.eclipse.actf.model.flash.FlashNode;
+import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.IFlashConst;
 
+class FlashSoundImpl implements INodeExSound, IFlashConst {
 
-class FlashSoundImpl implements INodeExSound {
-    private int volBeforeMuted = -1;
-    private final FlashTopNodeImpl swf;
-    private final String target;
-    
-    public String getTarget() {
-        return target;
-    }
+	private int volBeforeMuted = -1;
+	private final FlashPlayer player;
+	private final String target;
 
-    FlashSoundImpl(FlashTopNodeImpl swf, ASObject nodeASObj) {
-        this.swf = swf;
-        this.target = (String) nodeASObj.get("target");
-    }
+	FlashSoundImpl(FlashNode node) {
+		this.target = node.getTarget();
+		this.player = node.getPlayer();
+	}
 
-    public boolean muteMedia(boolean flag) {
-        if (flag) {
-            if (volBeforeMuted < 0) {
-                volBeforeMuted = getVolume();
-                return setVolume(0);
-            }
-        } else {
-            if (volBeforeMuted >= 0) {
-                boolean success = setVolume(volBeforeMuted);
-                volBeforeMuted = -1;
-                return success;
-            }
-        }
-        return true;
-    }
+	public boolean muteMedia(boolean flag) {
+		if (flag) {
+			if (volBeforeMuted < 0) {
+				volBeforeMuted = getVolume();
+				return setVolume(0);
+			}
+		} else {
+			if (volBeforeMuted >= 0) {
+				boolean success = setVolume(volBeforeMuted);
+				volBeforeMuted = -1;
+				return success;
+			}
+		}
+		return true;
+	}
 
-    public int getVolume() {
-        Object o = swf.callMethod(new Object[] { getTarget(), "getVolume" });
-        if (o instanceof Double) {
-            return ((Double) o).intValue() * 10;
-        } else if (o instanceof Integer) {
-            return ((Integer) o).intValue() * 10;
-        }
-        return -1;
-    }
+	public int getVolume() {
+		Object o = player.callMethod(target, M_GET_VOLUME);
+		if (o instanceof Double) {
+			return ((Double) o).intValue() * 10;
+		} else if (o instanceof Integer) {
+			return ((Integer) o).intValue() * 10;
+		}
+		return -1;
+	}
 
-    public boolean setVolume(int val) {
-        val = val / 10;
-        swf.callMethod(new Object[] { getTarget(), "setVolume", Integer.valueOf(val) });
-        return true;
-    }
+	public boolean setVolume(int val) {
+		val = val / 10;
+		player.callMethod(target, M_SET_VOLUME, new Object[] { Integer
+				.valueOf(val) });
+		return true;
+	}
 
-    public boolean getMuteState() {
-        if (volBeforeMuted < 0) return false;
-        return true;
-    }
+	public boolean getMuteState() {
+		if (volBeforeMuted < 0)
+			return false;
+		return true;
+	}
 }

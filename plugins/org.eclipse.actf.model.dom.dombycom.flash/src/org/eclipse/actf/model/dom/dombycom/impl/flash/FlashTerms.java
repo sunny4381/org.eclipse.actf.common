@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Daisuke SATO - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.dom.dombycom.impl.flash;
@@ -44,7 +45,7 @@ public class FlashTerms extends AbstractTerms {
     public boolean isVisibleNode(IEvalTarget target) {
         if (target instanceof FlashNodeImpl) {
             FlashNodeImpl flash = (FlashNodeImpl) target;
-            return !(flash.accInfo.isSilent());
+            return !(flash.isSilent());
         }
         return true;
     }
@@ -53,11 +54,7 @@ public class FlashTerms extends AbstractTerms {
     public boolean isInputable(IEvalTarget target) {
         if (target instanceof FlashNodeImpl) {
             FlashNodeImpl flash = (FlashNodeImpl) target;
-
-            Boolean b = (Boolean) flash.nodeASObj.get("isInputable");
-            if (b == null)
-                return false;
-            return b.booleanValue();
+            return flash.isInputable();
         }
         return false;
     }
