@@ -24,6 +24,7 @@ import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
 import org.eclipse.actf.util.win32.comclutch.ComService;
+import org.eclipse.actf.util.win32.comclutch.DispatchException;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.comclutch.IUnknown;
 import org.eclipse.actf.util.win32.comclutch.ResourceManager;
@@ -44,8 +45,9 @@ public class FlashPlayer implements IFlashConst {
 	private int swfVersion = -1;
 
 	private boolean _isReady = false;
+	private boolean _isRepaired = false;
 
-	public FlashPlayer(IDispatch idisp) {
+	private FlashPlayer(IDispatch idisp) {
 		idispFlash = idisp;
 		accessible = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromElement(idispFlash);
@@ -60,10 +62,6 @@ public class FlashPlayer implements IFlashConst {
 		this.requestArgsPath = rootPath + PROP_REQUEST_ARGS;
 		this.responseValuePath = rootPath + PROP_RESPONSE_VALUE;
 		this.contentIdPath = rootPath + PATH_CONTENT_ID;
-	}
-
-	public FlashMSAAObject getAccessible() {
-		return accessible;
 	}
 
 	public static FlashPlayer getPlayerFromPtr(int ptr) {
@@ -94,11 +92,22 @@ public class FlashPlayer implements IFlashConst {
 		return null;
 	}
 
+	public static FlashPlayer getPlayerFromIDsipatch(IDispatch idisp) {
+		if (null != idisp) {
+			return new FlashPlayer(idisp);
+		}
+		return null;
+	}
+
+	public FlashMSAAObject getAccessible() {
+		return accessible;
+	}
+
 	private boolean isReady() {
 		if (_isReady)
 			return true;
 		try {
-			Object r = idispFlash.get("readyState");
+			Object r = idispFlash.get(READY_STATE);
 			if (COMPLETED_READY_STATE.equals(r)) {
 				_isReady = true;
 				return true;
@@ -122,6 +131,39 @@ public class FlashPlayer implements IFlashConst {
 			return new FlashNode(null, this, (ASObject) result);
 		}
 		return null;
+	}
+
+	public FlashNode getNodeAtDepthWithPath(String path, int depth) {
+		Object result = invoke(new Object[] { M_GET_NODE_AT_DEPTH, path,
+				Integer.valueOf(depth) });
+		if (result instanceof ASObject) {
+			return new FlashNode(null, this, (ASObject) result);
+		}
+		return null;
+	}
+
+	private FlashNode[] createFlashNodeArray(Object object, FlashNode parentNode) {
+		List<FlashNode> children = new ArrayList<FlashNode>();
+		if (object instanceof Object[]) {
+			Object[] objChildren = (Object[]) object;
+			for (int i = 0; i < objChildren.length; i++) {
+				if (objChildren[i] instanceof ASObject) {
+					children.add(new FlashNode(parentNode, this,
+							(ASObject) objChildren[i]));
+				}
+			}
+		}
+		return children.toArray(new FlashNode[children.size()]);
+
+	}
+
+	public FlashNode[] translateWithPath(String path) {
+		Object result = null;
+		try {
+			result = invoke(M_TRANSLATE, path);
+		} catch (DispatchException e) {
+		}
+		return createFlashNodeArray(result, null);
 	}
 
 	public boolean hasChild(FlashNode parentNode, boolean visual) {
@@ -153,50 +195,100 @@ public class FlashPlayer implements IFlashConst {
 
 	public FlashNode[] getChildren(FlashNode parentNode, boolean visual,
 			boolean debugMode) {
-		List<FlashNode> children = new ArrayList<FlashNode>();
 		String sidMethod;
 		if (visual) {
 			sidMethod = M_GET_INNER_NODES;
 		} else {
 			sidMethod = debugMode ? M_GET_SUCCESSOR_NODES : M_GET_CHILD_NODES;
 		}
-		Object result = invoke(sidMethod, parentNode.getTarget());
-		if (result instanceof Object[]) {
-			Object[] objChildren = (Object[]) result;
-			for (int i = 0; i < objChildren.length; i++) {
-				if (objChildren[i] instanceof ASObject) {
-					children.add(new FlashNode(parentNode, this,
-							(ASObject) objChildren[i]));
-				}
-			}
-		}
-		return children.toArray(new FlashNode[children.size()]);
+		return createFlashNodeArray(invoke(sidMethod, parentNode.getTarget()),
+				parentNode);
 	}
 
-	public void setMarker(Object objX, Object objY, Object objW, Object objH) {
-		if (null != objX && null != objY && null != objW && null != objH) {
-			if (null == objMarker) {
+	public FlashNode[] searchVideo() {
+		return createFlashNodeArray(invoke(new Object[] { M_SEARCH_VIDEO,
+				PATH_ROOTLEVEL, PATH_GLOBAL }), null);
+	}
 
-				Object objMarker = idispFlash.invoke1(PLAYER_GET_ATTRIBUTE,
-						ATTR_MARKER);
-				if (null == objMarker) {
-					objMarker = invoke(M_NEW_MARKER);
-					if (!(objMarker instanceof Integer)) {
-						return;
-					}
-					idispFlash.invoke(PLAYER_SET_ATTRIBUTE, new Object[] {
-							ATTR_MARKER, objMarker });
-				}
-			}
+	public FlashNode[] searchSound() {
+		return createFlashNodeArray(invoke(new Object[] { M_SEARCH_SOUND,
+				PATH_ROOTLEVEL, PATH_GLOBAL }), null);
+	}
+
+	private void initMarker() {
+		if (objMarker != null)
+			return;
+		Object result = invoke(M_NEW_MARKER);
+		if (result instanceof Integer) {
+			objMarker = (Integer) result;
+			return;
+		}
+		objMarker = null;
+	}
+
+	public boolean setMarker(Object objX, Object objY, Object objW, Object objH) {
+		if (null != objX && null != objY && null != objW && null != objH) {
+			initMarker();
 			if (null != objMarker) {
 				invoke(new Object[] { M_SET_MARKER, objMarker, objX, objY,
 						objW, objH });
+				return true;
 			}
+		}
+		return false;
+	}
+
+	public boolean unsetMarker() {
+		if (objMarker == null)
+			return false;
+		invoke(M_UNSET_MARKER, objMarker);
+		return true;
+	}
+
+	public boolean setFocus(String target) {
+		Object result = invoke(M_SET_FOCUS, target);
+		if (result instanceof Boolean) {
+			return ((Boolean) result).booleanValue();
+		}
+		return false;
+	}
+
+	public Object getProperty(String path, String prop) {
+		return invoke(new Object[] { M_GET_PROPERTY, path, prop });
+	}
+
+	public void setProperty(String path, String prop, Object value) {
+		invoke(new Object[] { M_SET_PROPERTY, path, prop, value });
+	}
+
+	public boolean updateTarget() {
+		Object result = invoke(new Object[] { M_UPDATE_TARGET, PATH_ROOTLEVEL,
+				10 });
+		return ((result instanceof Boolean) && (((Boolean) result)
+				.booleanValue()));
+	}
+
+	public void repairFlash() {
+		if (!_isRepaired) {
+			_isRepaired = true;
+			invoke(M_REPAIR_FLASH, PATH_ROOTLEVEL);
 		}
 	}
 
-	public Object callMethod(String target, String method, Object arg1) {
-		return invoke(new Object[] { M_CALL_METHOD, target, method, arg1 });
+	public Object callMethod(String target, String method) {
+		return invoke(new Object[] { M_CALL_METHOD, target, method });
+	}
+
+	public Object callMethod(String target, String method, Object[] args) {
+		if (null == args) {
+			args = new Object[0];
+		}
+		Object[] a = new Object[args.length + 3];
+		a[0] = M_CALL_METHOD;
+		a[1] = target;
+		a[2] = method;
+		System.arraycopy(args, 0, a, 3, args.length);
+		return invoke(a);
 	}
 
 	private Object invoke(String method) {
@@ -300,7 +392,7 @@ public class FlashPlayer implements IFlashConst {
 		}
 	}
 
-	public String getProperty(String propertyName) {
+	public String getPlayerProperty(String propertyName) {
 		try {
 			Object obj = idispFlash.get(propertyName);
 			return (String) obj;

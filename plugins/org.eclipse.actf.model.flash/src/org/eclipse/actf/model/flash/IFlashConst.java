@@ -14,7 +14,9 @@ public interface IFlashConst {
 
 	//general
 	public static final String CLSID_FLASH = "{D27CDB6E-AE6D-11CF-96B8-444553540000}";
+	public static final	int INVALID_DEPTH = -16384;
 	public static final String WMODE = "WMode";
+	public static final String READY_STATE = "readyState";
 	
     public static final Integer COMPLETED_READY_STATE = Integer.valueOf(4);
 
@@ -31,6 +33,11 @@ public interface IFlashConst {
 	public static final String PATH_IS_AVAILABLE = ".Eclipse_ACTF_is_available"; //$NON-NLS-1$
 	public static final String PATH_CONTENT_ID = ".Eclipse_ACTF_SWF_CONTENT_ID";
 
+	//other paths
+	public static final String PATH_GLOBAL = "_global"; //$NON-NLS-1$
+	public static final String PATH_ON_PRESS = ".onPress";
+	public static final String PATH_ON_RELEASE = ".onRelease";
+
 	//V8
 	public static final String PROP_REQUEST_ARGS = ".Eclipse_ACTF_request_args";
 	public static final String PROP_RESPONSE_VALUE = ".Eclipse_ACTF_response_value";
@@ -40,7 +47,6 @@ public interface IFlashConst {
 	public static final String PLAYER_SET_ATTRIBUTE = "SetAttribute";
 	public static final String PLAYER_GET_ATTRIBUTE = "GetAttribute";
 	public static final String ATTR_ERROR = "aDesignerError";
-	public static final String ATTR_MARKER = "marker";
 
 	
 	//methods
@@ -55,6 +61,31 @@ public interface IFlashConst {
 	public static final String M_GET_NODE_FROM_PATH = "getNodeFromPath";//$NON-NLS-1$
 	public static final String M_CALL_METHOD = "callMethodA"; //$NON-NLS-1$
 
+	public static final String M_SET_FOCUS = "setFocus"; //$NON-NLS-1$
+	public static final String M_UPDATE_TARGET = "updateTarget";
+	public static final String M_REPAIR_FLASH = "repairFlash";
+	public static final String M_SET_PROPERTY = "setProperty";
+	public static final String M_GET_PROPERTY = "getProperty";
+	public static final String M_TRANSLATE = "translate";
+	public static final String M_GET_NODE_AT_DEPTH = "getNodeAtDepth";
+	public static final String M_UNSET_MARKER = "unsetMarker";	
+	public static final String M_ON_ROLL_OUT = "onRollOut";
+	public static final String M_ON_ROLL_OVER = "onRollOver";
+	public static final String M_ON_PRESS = "onPress";
+	public static final String M_ON_RELEASE = "onRelease";
+
+	//methods for media control
+	public static final String M_SEARCH_SOUND = "searchSound";
+	public static final String M_SEARCH_VIDEO = "searchVideo";
+	public static final String M_GET_CURRENT_POSITION = "getCurrentPosition";
+	public static final String M_PAUSE = "pause";
+	public static final String M_PLAY = "play";
+	public static final String M_STOP = "stop";
+	public static final String M_SET_VOLUME = "setVolume";
+	public static final String M_GET_VOLUME = "getVolume";
+
+	
+	
 	//V9
 	public static final String DISPATCH_METHOD = "dispatchMethod";
 	public static final String M_GET_SWF_VERSION = "getSwfVersion";

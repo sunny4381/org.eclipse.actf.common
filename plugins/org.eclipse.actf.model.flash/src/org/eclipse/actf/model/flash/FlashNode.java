@@ -30,7 +30,7 @@ public class FlashNode {
 	private boolean isReference = false;
 	private boolean skipChildren = false;
 	private boolean isAccProperties = false;
-	
+
 	private Boolean hasOnRelease;
 
 	private String strType;
@@ -50,7 +50,7 @@ public class FlashNode {
 		strObjectName = getString(ASObject.ASNODE_OBJECT_NAME);
 		strTarget = getString(ASObject.ASNODE_TARGET);
 		isUIComponent = "true".equals(getString(ASObject.ASNODE_IS_UI_COMPONENT)); //$NON-NLS-1$
-		
+
 		if (null != parent) {
 			String targetParent = parent.getTarget();
 			if (null != targetParent) {
@@ -161,13 +161,13 @@ public class FlashNode {
 		}
 		return input;
 	}
-	
-    private double getDoubleValue(Object o) {
-        if (o instanceof Number) {
-            return ((Number) o).doubleValue();
-        }
-        return Double.NaN;
-    }
+
+	private double getDoubleValue(Object o) {
+		if (o instanceof Number) {
+			return ((Number) o).doubleValue();
+		}
+		return Double.NaN;
+	}
 
 	public FlashNode getParent() {
 		return parent;
@@ -231,12 +231,14 @@ public class FlashNode {
 		return childList.toArray();
 	}
 
-	public void setMarker() {
+	public boolean setMarker() {
 		if (null != asObject) {
-			player
-					.setMarker(
-							asObject.get("x"), asObject.get("y"), asObject.get("w"), asObject.get("h")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			return player.setMarker(asObject.get(ASObject.ASNODE_X), asObject
+					.get(ASObject.ASNODE_Y), asObject
+					.get(ASObject.ASNODE_WIDTH), asObject
+					.get(ASObject.ASNODE_HEIGHT));
 		}
+		return false;
 	}
 
 	public FlashPlayer getPlayer() {
@@ -253,10 +255,11 @@ public class FlashNode {
 		}
 		return null;
 	}
-	
+
 	public boolean hasOnRelease() {
 		if (null == hasOnRelease) {
-			FlashNode onReleaseNode = player.getNodeFromPath(strTarget+ ".onRelease"); //$NON-NLS-1$
+			FlashNode onReleaseNode = player.getNodeFromPath(strTarget
+					+ IFlashConst.PATH_ON_RELEASE); //$NON-NLS-1$
 			if (null != onReleaseNode) {
 				hasOnRelease = Boolean.TRUE;
 			} else {
@@ -265,22 +268,49 @@ public class FlashNode {
 		}
 		return hasOnRelease.booleanValue();
 	}
-	
-	public double getX(){
+
+	public double getX() {
 		return getDoubleValue(asObject.get(ASObject.ASNODE_X));
 	}
 
-	public double getY(){
-		return getDoubleValue(asObject.get(ASObject.ASNODE_Y));		
+	public double getY() {
+		return getDoubleValue(asObject.get(ASObject.ASNODE_Y));
 	}
 
-	public double getWidth(){
+	public double getWidth() {
 		return getDoubleValue(asObject.get(ASObject.ASNODE_WIDTH));
 	}
 
-	public double getHeight(){
+	public double getHeight() {
 		return getDoubleValue(asObject.get(ASObject.ASNODE_HEIGHT));
 	}
+	
+	public int getDepth() {
+		Integer target = (Integer) asObject.get(ASObject.ASNODE_DEPTH);
+		if (target != null)
+			return target.intValue();
+		return IFlashConst.INVALID_DEPTH;
+	}
 
+	public int getCurrentFrame() {
+		Integer target = (Integer) asObject.get(ASObject.ASNODE_CURRENT_FRAME);
+		if (target != null)
+			return target.intValue();
+		return -1;
+	}
+	
+	public boolean isInputable() {
+		Boolean b = (Boolean) asObject.get(ASObject.ASNODE_IS_INPUTABLE);
+        if (b == null)
+            return false;
+        return b.booleanValue();
+	}
+
+	public boolean isOpaqueObject() {
+		Boolean b = (Boolean) asObject.get(ASObject.ASNODE_IS_OPAQUE_OBJECT);
+        if (b == null)
+            return false;
+        return b.booleanValue();
+	}
 	
 }
