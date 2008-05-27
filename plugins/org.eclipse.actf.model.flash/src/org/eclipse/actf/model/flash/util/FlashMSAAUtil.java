@@ -46,12 +46,13 @@ public class FlashMSAAUtil {
 				.getFlashMSAAObjectFromPtr(iacc);
 		return isInvisibleFlash(acc);
 	}
-	
+
 	public static IFlashPlayer[] getFlashPlayers(int hwnd) {
 		return getFlashPlayers(hwnd, SHOW_OFFSCREEN, SCAN_ALL);
 	}
 
-	public static IFlashPlayer[] getFlashPlayers(int hwnd, boolean showOffScreen, boolean scanAll) {
+	public static IFlashPlayer[] getFlashPlayers(int hwnd,
+			boolean showOffScreen, boolean scanAll) {
 		FlashMSAAObject acc = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromWindow(hwnd);
 		FlashMSAAObject[] accs = getFlashElements(acc, showOffScreen, scanAll);
@@ -75,8 +76,9 @@ public class FlashMSAAUtil {
 	/**
 	 * @param accObject
 	 *            the accessible object to be checked.
-	 * @return whether the <i>accObject</i> is a invisible Flash object or not.
-	 *         Invisible means that the Flash object is in window-less mode.
+	 * @return whether the <i>accObject</i> is an invisible Flash object or
+	 *         not. Invisible means that the Flash object is in window-less
+	 *         mode.
 	 */
 	public static boolean isInvisibleFlash(FlashMSAAObject accObject) {
 		if (MSAA.ROLE_SYSTEM_CLIENT == accObject.getAccRole()) {

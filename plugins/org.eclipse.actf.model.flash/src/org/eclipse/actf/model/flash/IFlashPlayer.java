@@ -13,14 +13,14 @@ package org.eclipse.actf.model.flash;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
-public interface IFlashPlayer extends IASBridge {
+public interface IFlashPlayer extends IASBridge, IFlashConst {
 
 	public abstract FlashMSAAObject getAccessible();
 
 	public abstract IDispatch getDispatch();
 
 	public abstract String getErrorText();
-	
+
 	public abstract String getPlayerVersion();
 
 	public abstract void setPlayerProperty(String propertyName, String value);
@@ -32,8 +32,15 @@ public interface IFlashPlayer extends IASBridge {
 	public abstract String getWMode();
 
 	/**
-	 * @return whether the HTML document that the FlashPlayer belongs to is ready or not. 
+	 * @return whether the HTML document that the FlashPlayer belongs to is
+	 *         ready or not.
 	 */
-	public boolean isReady();
+	public abstract boolean isReady();
+
+	/**
+	 * @return whether this Flash object is visible or not.
+	 *         Invisible means that the Flash object is in window-less mode.
+	 */
+	public abstract boolean isVisible();
 
 }

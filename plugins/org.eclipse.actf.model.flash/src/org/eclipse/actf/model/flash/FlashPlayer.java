@@ -26,12 +26,11 @@ import org.eclipse.actf.util.win32.comclutch.DispatchException;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.swt.widgets.Display;
 
-public class FlashPlayer implements IFlashConst, IFlashPlayer {
+public class FlashPlayer implements IFlashPlayer {
 
 	private IDispatch idispFlash;
 	private Object objMarker;
 
-	public boolean isVisible = true;
 	private FlashMSAAObject accessible;
 
 	private String requestArgsPath;
@@ -40,6 +39,7 @@ public class FlashPlayer implements IFlashConst, IFlashPlayer {
 	private String secret;
 	private int swfVersion = -1;
 
+	private final boolean _isVisible;
 	private boolean _isReady = false;
 	private boolean _isRepaired = false;
 
@@ -49,8 +49,17 @@ public class FlashPlayer implements IFlashConst, IFlashPlayer {
 			accessible = FlashMSAAObjectFactory
 					.getFlashMSAAObjectFromElement(idispFlash);
 		} catch (Exception e) {
-			//without UI (FlashDetect)
+			// without UI (FlashDetect)
 			_isReady = true;
+		}
+
+		String wmode = getWMode();
+		if (null != wmode
+				&& (V_OPAQUE.equalsIgnoreCase(wmode) || V_TRANSPARENT
+						.equalsIgnoreCase(wmode))) {
+			_isVisible = false;
+		} else {
+			_isVisible = true;
 		}
 
 		String rootPath = "";
@@ -86,6 +95,10 @@ public class FlashPlayer implements IFlashConst, IFlashPlayer {
 		} catch (Exception e) {
 		}
 		return false;
+	}
+
+	public boolean isVisible() {
+		return _isVisible;
 	}
 
 	/*
