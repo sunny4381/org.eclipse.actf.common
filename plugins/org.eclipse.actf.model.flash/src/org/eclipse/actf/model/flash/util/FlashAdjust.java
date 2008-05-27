@@ -13,21 +13,23 @@
 
 package org.eclipse.actf.model.flash.util;
 
-import org.eclipse.actf.model.flash.FlashPlayer;
 import org.eclipse.actf.model.flash.IFlashConst;
+import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 public class FlashAdjust {
 
 	private IDispatch idispFlash = null;
+	IFlashPlayer player = null;
 
-	public FlashAdjust(FlashPlayer flashPlayer) {
+	public FlashAdjust(IFlashPlayer flashPlayer) {
 		idispFlash = flashPlayer.getDispatch();
+		player = flashPlayer;
 	}
 
 	public void dispose() {
-		if (idispFlash != null)
-			idispFlash.release();
+		// if (idispFlash != null)
+		// idispFlash.release();
 	}
 
 	public void adjust(String newId) {
@@ -56,7 +58,8 @@ public class FlashAdjust {
 
 		String tagName = (String) idispFlash.get("tagName");
 		if (!"OBJECT".equals(tagName)) {
-			setErrorAttribute(IFlashConst.ERROR_NG + tagName + " tag is not supoported"); //$NON-NLS-1$ //$NON-NLS-2$
+			setErrorAttribute(IFlashConst.ERROR_NG + tagName
+					+ " tag is not supoported"); //$NON-NLS-1$ //$NON-NLS-2$
 			return;
 		}
 
@@ -73,7 +76,6 @@ public class FlashAdjust {
 	}
 
 	private void setErrorAttribute(String message) {
-		idispFlash.invoke("setAttribute", new Object[] { "aDesignerError",
-				message });
+		player.setPlayerProperty(IFlashConst.ATTR_ERROR, message);
 	}
 }

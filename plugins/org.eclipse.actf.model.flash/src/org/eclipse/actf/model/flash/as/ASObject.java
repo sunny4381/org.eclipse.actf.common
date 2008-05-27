@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,35 +18,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class ASObject {
-
-	public static final String ASNODE_TYPE = "type"; //$NON-NLS-1$
-	public static final String ASNODE_CLASS_NAME = "className"; //$NON-NLS-1$
-	public static final String ASNODE_OBJECT_NAME = "objectName"; //$NON-NLS-1$
-	public static final String ASNODE_TARGET = "target"; //$NON-NLS-1$
-	public static final String ASNODE_VALUE = "value"; //$NON-NLS-1$
-	public static final String ASNODE_TEXT = "text"; //$NON-NLS-1$
-	public static final String ASNODE_TITLE = "title"; //$NON-NLS-1$
-	public static final String ASNODE_X = "x"; //$NON-NLS-1$
-	public static final String ASNODE_Y = "y"; //$NON-NLS-1$
-	public static final String ASNODE_WIDTH = "w"; //$NON-NLS-1$
-	public static final String ASNODE_HEIGHT = "h"; //$NON-NLS-1$
-	public static final String ASNODE_ACCINFO = "accInfo"; //$NON-NLS-1$
-	public static final String ASNODE_DEPTH = "depth"; //$NON-NLS-1$
-	public static final String ASNODE_CURRENT_FRAME = "currentFrame"; //$NON-NLS-1$
-	public static final String ASNODE_IS_UI_COMPONENT = "isUIComponent"; //$NON-NLS-1$
-	public static final String ASNODE_IS_INPUTABLE = "isInputable"; //$NON-NLS-1$
-	public static final String ASNODE_IS_OPAQUE_OBJECT = "isOpaqueObject"; //$NON-NLS-1$
-
-
-	public static final String ACCINFO_NAME = "name"; //$NON-NLS-1$
-	public static final String ACCINFO_DESCRIPTION = "description"; //$NON-NLS-1$
-	public static final String ACCINFO_ROLE = "role"; //$NON-NLS-1$
-	public static final String ACCINFO_STATE = "state"; //$NON-NLS-1$
-	public static final String ACCINFO_SILENT = "silent"; //$NON-NLS-1$
-	public static final String ACCINFO_FORCESIMPLE = "forceSimple"; //$NON-NLS-1$
-	public static final String ACCINFO_SHORTCUT = "shortcut"; //$NON-NLS-1$
-	public static final String ACCINFO_DEFAULTACTION = "defaultAction"; //$NON-NLS-1$
-	// public static final String ACCINFO_CHILDREN = "children"; //$NON-NLS-1$
 
 	private final Map<String, Object> map;
 

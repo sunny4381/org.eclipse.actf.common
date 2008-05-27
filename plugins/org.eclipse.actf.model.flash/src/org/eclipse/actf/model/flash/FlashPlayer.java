@@ -20,17 +20,13 @@ import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.model.flash.as.ASSerializer;
 import org.eclipse.actf.model.flash.bridge.IWaXcoding;
 import org.eclipse.actf.model.flash.internal.Messages;
-import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
-import org.eclipse.actf.util.win32.comclutch.ComService;
 import org.eclipse.actf.util.win32.comclutch.DispatchException;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
-import org.eclipse.actf.util.win32.comclutch.IUnknown;
-import org.eclipse.actf.util.win32.comclutch.ResourceManager;
 import org.eclipse.swt.widgets.Display;
 
-public class FlashPlayer implements IFlashConst {
+public class FlashPlayer implements IFlashConst, IFlashPlayer {
 
 	private IDispatch idispFlash;
 	private Object objMarker;
@@ -47,10 +43,15 @@ public class FlashPlayer implements IFlashConst {
 	private boolean _isReady = false;
 	private boolean _isRepaired = false;
 
-	private FlashPlayer(IDispatch idisp) {
+	FlashPlayer(IDispatch idisp) {
 		idispFlash = idisp;
-		accessible = FlashMSAAObjectFactory
-				.getFlashMSAAObjectFromElement(idispFlash);
+		try {
+			accessible = FlashMSAAObjectFactory
+					.getFlashMSAAObjectFromElement(idispFlash);
+		} catch (Exception e) {
+			//without UI (FlashDetect)
+			_isReady = true;
+		}
 
 		String rootPath = "";
 		if ("true".equals(getVariable(PATH_ROOTLEVEL + PATH_IS_AVAILABLE))) { //$NON-NLS-1$ //$NON-NLS-2$
@@ -64,46 +65,16 @@ public class FlashPlayer implements IFlashConst {
 		this.contentIdPath = rootPath + PATH_CONTENT_ID;
 	}
 
-	public static FlashPlayer getPlayerFromPtr(int ptr) {
-		IUnknown accObject = ComService.newIUnknown(ResourceManager
-				.newResourceManager(null), ptr, true);
-		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
-		if (null != idisp) {
-			return new FlashPlayer(idisp);
-		}
-		return null;
-	}
-
-	public static FlashPlayer getPlayerFromWindow(int hwnd) {
-		FlashMSAAObject accObject = FlashMSAAObjectFactory
-				.getFlashMSAAObjectFromWindow(hwnd);
-		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
-		if (null != idisp) {
-			return new FlashPlayer(idisp);
-		}
-		return null;
-	}
-
-	public static FlashPlayer getPlayerFromObject(FlashMSAAObject accObject) {
-		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
-		if (null != idisp) {
-			return new FlashPlayer(idisp);
-		}
-		return null;
-	}
-
-	public static FlashPlayer getPlayerFromIDsipatch(IDispatch idisp) {
-		if (null != idisp) {
-			return new FlashPlayer(idisp);
-		}
-		return null;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getAccessible()
+	 */
 	public FlashMSAAObject getAccessible() {
 		return accessible;
 	}
 
-	private boolean isReady() {
+	public boolean isReady() {
 		if (_isReady)
 			return true;
 		try {
@@ -117,47 +88,68 @@ public class FlashPlayer implements IFlashConst {
 		return false;
 	}
 
-	public FlashNode getRootNode() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getRootNode()
+	 */
+	public ASNode getRootNode() {
 		Object result = invoke(M_GET_ROOT_NODE);
 		if (result instanceof ASObject) {
-			return new FlashNode(null, this, (ASObject) result);
+			return new ASNode(null, this, (ASObject) result);
 		}
 		return null;
 	}
 
-	public FlashNode getNodeFromPath(String path) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getNodeFromPath(java.lang.String)
+	 */
+	public ASNode getNodeFromPath(String path) {
 		Object result = invoke(M_GET_NODE_FROM_PATH, path);
 		if (result instanceof ASObject) {
-			return new FlashNode(null, this, (ASObject) result);
+			return new ASNode(null, this, (ASObject) result);
 		}
 		return null;
 	}
 
-	public FlashNode getNodeAtDepthWithPath(String path, int depth) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getNodeAtDepthWithPath(java.lang.String,
+	 *      int)
+	 */
+	public ASNode getNodeAtDepthWithPath(String path, int depth) {
 		Object result = invoke(new Object[] { M_GET_NODE_AT_DEPTH, path,
 				Integer.valueOf(depth) });
 		if (result instanceof ASObject) {
-			return new FlashNode(null, this, (ASObject) result);
+			return new ASNode(null, this, (ASObject) result);
 		}
 		return null;
 	}
 
-	private FlashNode[] createFlashNodeArray(Object object, FlashNode parentNode) {
-		List<FlashNode> children = new ArrayList<FlashNode>();
+	private ASNode[] createFlashNodeArray(Object object, ASNode parentNode) {
+		List<ASNode> children = new ArrayList<ASNode>();
 		if (object instanceof Object[]) {
 			Object[] objChildren = (Object[]) object;
 			for (int i = 0; i < objChildren.length; i++) {
 				if (objChildren[i] instanceof ASObject) {
-					children.add(new FlashNode(parentNode, this,
+					children.add(new ASNode(parentNode, this,
 							(ASObject) objChildren[i]));
 				}
 			}
 		}
-		return children.toArray(new FlashNode[children.size()]);
+		return children.toArray(new ASNode[children.size()]);
 
 	}
 
-	public FlashNode[] translateWithPath(String path) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#translateWithPath(java.lang.String)
+	 */
+	public ASNode[] translateWithPath(String path) {
 		Object result = null;
 		try {
 			result = invoke(M_TRANSLATE, path);
@@ -166,12 +158,23 @@ public class FlashPlayer implements IFlashConst {
 		return createFlashNodeArray(result, null);
 	}
 
-	public boolean hasChild(FlashNode parentNode, boolean visual) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#hasChild(org.eclipse.actf.model.flash.ASNode,
+	 *      boolean)
+	 */
+	public boolean hasChild(ASNode parentNode, boolean visual) {
 		return hasChild(parentNode, visual, false);
 	}
 
-	public boolean hasChild(FlashNode parentNode, boolean visual,
-			boolean debugMode) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#hasChild(org.eclipse.actf.model.flash.ASNode,
+	 *      boolean, boolean)
+	 */
+	public boolean hasChild(ASNode parentNode, boolean visual, boolean debugMode) {
 		if (visual) {
 			return true;
 		}
@@ -189,11 +192,23 @@ public class FlashPlayer implements IFlashConst {
 		return false;
 	}
 
-	public FlashNode[] getChildren(FlashNode parentNode, boolean visual) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getChildren(org.eclipse.actf.model.flash.ASNode,
+	 *      boolean)
+	 */
+	public ASNode[] getChildren(ASNode parentNode, boolean visual) {
 		return getChildren(parentNode, visual, false);
 	}
 
-	public FlashNode[] getChildren(FlashNode parentNode, boolean visual,
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getChildren(org.eclipse.actf.model.flash.ASNode,
+	 *      boolean, boolean)
+	 */
+	public ASNode[] getChildren(ASNode parentNode, boolean visual,
 			boolean debugMode) {
 		String sidMethod;
 		if (visual) {
@@ -205,12 +220,22 @@ public class FlashPlayer implements IFlashConst {
 				parentNode);
 	}
 
-	public FlashNode[] searchVideo() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#searchVideo()
+	 */
+	public ASNode[] searchVideo() {
 		return createFlashNodeArray(invoke(new Object[] { M_SEARCH_VIDEO,
 				PATH_ROOTLEVEL, PATH_GLOBAL }), null);
 	}
 
-	public FlashNode[] searchSound() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#searchSound()
+	 */
+	public ASNode[] searchSound() {
 		return createFlashNodeArray(invoke(new Object[] { M_SEARCH_SOUND,
 				PATH_ROOTLEVEL, PATH_GLOBAL }), null);
 	}
@@ -226,18 +251,30 @@ public class FlashPlayer implements IFlashConst {
 		objMarker = null;
 	}
 
-	public boolean setMarker(Object objX, Object objY, Object objW, Object objH) {
-		if (null != objX && null != objY && null != objW && null != objH) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#setMarker(java.lang.Number,
+	 *      java.lang.Number, java.lang.Number, java.lang.Number)
+	 */
+	public boolean setMarker(Number x, Number y, Number width, Number height) {
+		unsetMarker();
+		if (null != x && null != y && null != width && null != height) {
 			initMarker();
 			if (null != objMarker) {
-				invoke(new Object[] { M_SET_MARKER, objMarker, objX, objY,
-						objW, objH });
+				invoke(new Object[] { M_SET_MARKER, objMarker, x, y, width,
+						height });
 				return true;
 			}
 		}
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#unsetMarker()
+	 */
 	public boolean unsetMarker() {
 		if (objMarker == null)
 			return false;
@@ -245,6 +282,11 @@ public class FlashPlayer implements IFlashConst {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#setFocus(java.lang.String)
+	 */
 	public boolean setFocus(String target) {
 		Object result = invoke(M_SET_FOCUS, target);
 		if (result instanceof Boolean) {
@@ -253,14 +295,31 @@ public class FlashPlayer implements IFlashConst {
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getProperty(java.lang.String,
+	 *      java.lang.String)
+	 */
 	public Object getProperty(String path, String prop) {
 		return invoke(new Object[] { M_GET_PROPERTY, path, prop });
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#setProperty(java.lang.String,
+	 *      java.lang.String, java.lang.Object)
+	 */
 	public void setProperty(String path, String prop, Object value) {
 		invoke(new Object[] { M_SET_PROPERTY, path, prop, value });
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#updateTarget()
+	 */
 	public boolean updateTarget() {
 		Object result = invoke(new Object[] { M_UPDATE_TARGET, PATH_ROOTLEVEL,
 				10 });
@@ -268,6 +327,11 @@ public class FlashPlayer implements IFlashConst {
 				.booleanValue()));
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#repairFlash()
+	 */
 	public void repairFlash() {
 		if (!_isRepaired) {
 			_isRepaired = true;
@@ -275,10 +339,22 @@ public class FlashPlayer implements IFlashConst {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#callMethod(java.lang.String,
+	 *      java.lang.String)
+	 */
 	public Object callMethod(String target, String method) {
 		return invoke(new Object[] { M_CALL_METHOD, target, method });
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#callMethod(java.lang.String,
+	 *      java.lang.String, java.lang.Object[])
+	 */
 	public Object callMethod(String target, String method, Object[] args) {
 		if (null == args) {
 			args = new Object[0];
@@ -337,15 +413,15 @@ public class FlashPlayer implements IFlashConst {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getErrorText()
+	 */
 	public String getErrorText() {
 
-		Object objError = null;
-		try {
-			objError = idispFlash.invoke1(PLAYER_GET_ATTRIBUTE, ATTR_ERROR);
-		} catch (Exception e) {
-		}
-		if (objError != null) {
-			String strError = (String) objError;
+		String strError = getPlayerProperty(ATTR_ERROR);
+		if (strError != null) {
 			if (strError.startsWith(ERROR_WAIT)) {
 				return Messages.getString("flash.player_loading"); //$NON-NLS-1$
 			}
@@ -360,16 +436,27 @@ public class FlashPlayer implements IFlashConst {
 		return Messages.getString("flash.player_no_xcode"); //$NON-NLS-1$
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getWMode()
+	 */
 	public String getWMode() {
 		try {
-			Object objWMode = idispFlash.get(WMODE);
+			Object objWMode = idispFlash.get(ATTR_WMODE);
 			return (String) objWMode;
 		} catch (Exception e) {
 			return null;
 		}
 	}
 
-	public void setVariable(String name, String value) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#setVariable(java.lang.String,
+	 *      java.lang.String)
+	 */
+	void setVariable(String name, String value) {
 		if (!isReady()) {
 			return;
 		}
@@ -380,7 +467,12 @@ public class FlashPlayer implements IFlashConst {
 		}
 	}
 
-	public String getVariable(String name) {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getVariable(java.lang.String)
+	 */
+	String getVariable(String name) {
 		if (!isReady()) {
 			return "";
 		}
@@ -392,6 +484,25 @@ public class FlashPlayer implements IFlashConst {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getPlayerProperty(java.lang.String)
+	 */
+	public void setPlayerProperty(String propertyName, String value) {
+		try {
+			idispFlash.invoke(PLAYER_SET_ATTRIBUTE, new Object[] {
+					propertyName, value });
+		} catch (Exception e) {
+			return;
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getPlayerProperty(java.lang.String)
+	 */
 	public String getPlayerProperty(String propertyName) {
 		try {
 			Object obj = idispFlash.get(propertyName);
@@ -401,12 +512,22 @@ public class FlashPlayer implements IFlashConst {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getWindow()
+	 */
 	public int getWindow() {
 		FlashMSAAObject fob = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromElement(idispFlash);
 		return fob.getWindow();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getDispatch()
+	 */
 	public IDispatch getDispatch() {
 		return idispFlash;
 	}
@@ -423,6 +544,19 @@ public class FlashPlayer implements IFlashConst {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getPlayerVersion()
+	 */
+	public String getPlayerVersion() {
+		String version = getVariable(PLAYER_VERSION);
+		if (null == version) {
+			version = getNodeFromPath(PLAYER_VERSION).getValue();
+		}
+		return version;
 	}
 
 }

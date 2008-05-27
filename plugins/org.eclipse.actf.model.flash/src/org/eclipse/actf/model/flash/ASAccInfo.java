@@ -17,24 +17,24 @@ import java.util.Set;
 
 import org.eclipse.actf.model.flash.as.ASObject;
 
-public class FlashAccInfo {
+public class ASAccInfo {
 
 	private ASObject accInfo;
 
-	private FlashAccInfo(ASObject accInfo) {
+	private ASAccInfo(ASObject accInfo) {
 		this.accInfo = accInfo;
 	}
 
-	public static FlashAccInfo create(ASObject target) {
-		Object result = target.get(ASObject.ASNODE_ACCINFO);
+	public static ASAccInfo create(ASObject target) {
+		Object result = target.get(IFlashConst.ASNODE_ACCINFO);
 		if (result instanceof ASObject) {
-			return new FlashAccInfo((ASObject) result);
+			return new ASAccInfo((ASObject) result);
 		}
 		return null;
 	}
 
 	public int getRole() {
-		Object obj = accInfo.get(ASObject.ACCINFO_ROLE);
+		Object obj = accInfo.get(IFlashConst.ACCINFO_ROLE);
 		if (obj instanceof Integer) {
 			return (Integer) obj;
 		}
@@ -42,7 +42,7 @@ public class FlashAccInfo {
 	}
 
 	public int getState() {
-		Object obj = accInfo.get(ASObject.ACCINFO_STATE);
+		Object obj = accInfo.get(IFlashConst.ACCINFO_STATE);
 		if (obj instanceof Integer) {
 			return (Integer) obj;
 		}
@@ -50,7 +50,7 @@ public class FlashAccInfo {
 	}
 
 	public boolean isSilent() {
-		Object obj = accInfo.get(ASObject.ACCINFO_SILENT);
+		Object obj = accInfo.get(IFlashConst.ACCINFO_SILENT);
 		if (obj instanceof Boolean) {
 			return (Boolean) obj;
 		}
@@ -58,7 +58,7 @@ public class FlashAccInfo {
 	}
 
 	public boolean isForceSimple() {
-		Object obj = accInfo.get(ASObject.ACCINFO_FORCESIMPLE);
+		Object obj = accInfo.get(IFlashConst.ACCINFO_FORCESIMPLE);
 		if (obj instanceof Boolean) {
 			return (Boolean) obj;
 		}
@@ -66,7 +66,7 @@ public class FlashAccInfo {
 	}
 
 	public String getName() {
-		Object obj = accInfo.get(ASObject.ACCINFO_NAME);
+		Object obj = accInfo.get(IFlashConst.ACCINFO_NAME);
 		if (obj instanceof String) {
 			return (String) obj;
 		}
@@ -74,7 +74,7 @@ public class FlashAccInfo {
 	}
 
 	public String getDescription() {
-		Object obj = accInfo.get(ASObject.ACCINFO_DESCRIPTION);
+		Object obj = accInfo.get(IFlashConst.ACCINFO_DESCRIPTION);
 		if (obj instanceof String) {
 			return (String) obj;
 		}
@@ -82,7 +82,7 @@ public class FlashAccInfo {
 	}
 
 	public String getShortcut() {
-		Object obj = accInfo.get(ASObject.ACCINFO_SHORTCUT);
+		Object obj = accInfo.get(IFlashConst.ACCINFO_SHORTCUT);
 		if (obj instanceof String) {
 			return (String) obj;
 		}
@@ -90,7 +90,7 @@ public class FlashAccInfo {
 	}
 
 	public String getDefaultAction() {
-		Object obj = accInfo.get(ASObject.ACCINFO_DEFAULTACTION);
+		Object obj = accInfo.get(IFlashConst.ACCINFO_DEFAULTACTION);
 		if (obj instanceof String) {
 			return (String) obj;
 		}

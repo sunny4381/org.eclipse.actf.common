@@ -8,14 +8,17 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *    Daisuke SATO - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.model.flash.util;
 
 import java.text.MessageFormat;
 
+import org.eclipse.actf.model.flash.FlashPlayerFactory;
 import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.internal.Messages;
 import org.eclipse.actf.util.win32.comclutch.ComService;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 
@@ -25,10 +28,13 @@ public class FlashDetect {
 
 	static {
 		try {
-			org.eclipse.actf.util.win32.comclutch.IDispatch idisp = ComService
+			IDispatch idisp = ComService
 					.createDispatch(IFlashConst.CLSID_FLASH);
-			String rawVersion = (String) idisp.invoke1(IFlashConst.PLAYER_GET_VARIABLE,
-					"$version");
+			String rawVersion = FlashPlayerFactory
+					.getPlayerFromIDsipatch(idisp).getPlayerVersion();
+			// String rawVersion = (String)
+			// idisp.invoke1(IFlashConst.PLAYER_GET_VARIABLE,
+			// IFlashConst.PLAYER_VERSION);
 			int sep = rawVersion.indexOf(' ');
 			if (sep > 0) {
 				strVersion = rawVersion.substring(sep + 1);

@@ -13,17 +13,17 @@
 package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import org.eclipse.actf.model.dom.dombycom.INodeExSound;
-import org.eclipse.actf.model.flash.FlashNode;
-import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.ASNode;
+import org.eclipse.actf.model.flash.IASBridge;
 import org.eclipse.actf.model.flash.IFlashConst;
 
 class FlashSoundImpl implements INodeExSound, IFlashConst {
 
 	private int volBeforeMuted = -1;
-	private final FlashPlayer player;
+	private final IASBridge player;
 	private final String target;
 
-	FlashSoundImpl(FlashNode node) {
+	FlashSoundImpl(ASNode node) {
 		this.target = node.getTarget();
 		this.player = node.getPlayer();
 	}

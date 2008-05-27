@@ -20,13 +20,13 @@ import java.util.Set;
 import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.model.flash.internal.Messages;
 
-public class FlashNode {
+public class ASNode {
 
 	private FlashPlayer player;
 	private ASObject asObject;
-	private FlashNode parent;
+	private ASNode parent;
 	private int level;
-	private FlashAccInfo accInfo;
+	private ASAccInfo accInfo;
 	private boolean isReference = false;
 	private boolean skipChildren = false;
 	private boolean isAccProperties = false;
@@ -39,17 +39,17 @@ public class FlashNode {
 	private String strTarget;
 	private boolean isUIComponent;
 
-	FlashNode(FlashNode parent, FlashPlayer player, ASObject node) {
+	ASNode(ASNode parent, FlashPlayer player, ASObject node) {
 		this.parent = parent;
 		this.level = null != parent ? parent.getLevel() + 1 : 0;
 		this.player = player;
 
 		asObject = node;
-		strType = getString(ASObject.ASNODE_TYPE);
-		strClassName = getString(ASObject.ASNODE_CLASS_NAME);
-		strObjectName = getString(ASObject.ASNODE_OBJECT_NAME);
-		strTarget = getString(ASObject.ASNODE_TARGET);
-		isUIComponent = "true".equals(getString(ASObject.ASNODE_IS_UI_COMPONENT)); //$NON-NLS-1$
+		strType = getString(IFlashConst.ASNODE_TYPE);
+		strClassName = getString(IFlashConst.ASNODE_CLASS_NAME);
+		strObjectName = getString(IFlashConst.ASNODE_OBJECT_NAME);
+		strTarget = getString(IFlashConst.ASNODE_TARGET);
+		isUIComponent = "true".equals(getString(IFlashConst.ASNODE_IS_UI_COMPONENT)); //$NON-NLS-1$
 
 		if (null != parent) {
 			String targetParent = parent.getTarget();
@@ -80,7 +80,7 @@ public class FlashNode {
 				skipChildren = true;
 			}
 		}
-		this.accInfo = FlashAccInfo.create(asObject);
+		this.accInfo = ASAccInfo.create(asObject);
 	}
 
 	public String getType() {
@@ -105,7 +105,7 @@ public class FlashNode {
 
 	public String getValue() {
 		if (null != asObject) {
-			return decodeString(getString(ASObject.ASNODE_VALUE));
+			return decodeString(getString(IFlashConst.ASNODE_VALUE));
 		}
 		return null;
 	}
@@ -121,7 +121,7 @@ public class FlashNode {
 		}
 		if (null == text) {
 			if (null != asObject) {
-				text = getString(ASObject.ASNODE_TEXT);
+				text = getString(IFlashConst.ASNODE_TEXT);
 			}
 		} else {
 			text = "[" + text + "]"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -131,7 +131,7 @@ public class FlashNode {
 
 	public String getTitle() {
 		if (null != asObject) {
-			return decodeString(getString(ASObject.ASNODE_TITLE));
+			return decodeString(getString(IFlashConst.ASNODE_TITLE));
 		}
 		return null;
 	}
@@ -169,7 +169,7 @@ public class FlashNode {
 		return Double.NaN;
 	}
 
-	public FlashNode getParent() {
+	public ASNode getParent() {
 		return parent;
 	}
 
@@ -177,11 +177,11 @@ public class FlashNode {
 		return level;
 	}
 
-	protected boolean shouldSkip() {
+	private boolean shouldSkip() {
 		return (skipChildren && !isAccProperties) || isReference;
 	}
 
-	protected boolean isAccProperties() {
+	private boolean isAccProperties() {
 		return isAccProperties;
 	}
 
@@ -206,10 +206,10 @@ public class FlashNode {
 
 	public Object[] getChildren(boolean visual, boolean informative,
 			boolean debugMode) {
-		FlashNode[] children = player.getChildren(this, visual, debugMode);
-		List<FlashNode> childList = new ArrayList<FlashNode>();
+		ASNode[] children = player.getChildren(this, visual, debugMode);
+		List<ASNode> childList = new ArrayList<ASNode>();
 		for (int i = 0; i < children.length; i++) {
-			FlashNode node = children[i];
+			ASNode node = children[i];
 			if (!debugMode) {
 				if (!visual && node.shouldSkip()) {
 					continue;
@@ -233,10 +233,14 @@ public class FlashNode {
 
 	public boolean setMarker() {
 		if (null != asObject) {
-			return player.setMarker(asObject.get(ASObject.ASNODE_X), asObject
-					.get(ASObject.ASNODE_Y), asObject
-					.get(ASObject.ASNODE_WIDTH), asObject
-					.get(ASObject.ASNODE_HEIGHT));
+			try {
+				return player.setMarker((Number) asObject
+						.get(IFlashConst.ASNODE_X), (Number) asObject
+						.get(IFlashConst.ASNODE_Y), (Number) asObject
+						.get(IFlashConst.ASNODE_WIDTH), (Number) asObject
+						.get(IFlashConst.ASNODE_HEIGHT));
+			} catch (Exception e) {
+			}
 		}
 		return false;
 	}
@@ -245,7 +249,7 @@ public class FlashNode {
 		return player;
 	}
 
-	public FlashAccInfo getAccInfo() {
+	public ASAccInfo getAccInfo() {
 		return accInfo;
 	}
 
@@ -258,7 +262,7 @@ public class FlashNode {
 
 	public boolean hasOnRelease() {
 		if (null == hasOnRelease) {
-			FlashNode onReleaseNode = player.getNodeFromPath(strTarget
+			ASNode onReleaseNode = player.getNodeFromPath(strTarget
 					+ IFlashConst.PATH_ON_RELEASE); //$NON-NLS-1$
 			if (null != onReleaseNode) {
 				hasOnRelease = Boolean.TRUE;
@@ -270,47 +274,48 @@ public class FlashNode {
 	}
 
 	public double getX() {
-		return getDoubleValue(asObject.get(ASObject.ASNODE_X));
+		return getDoubleValue(asObject.get(IFlashConst.ASNODE_X));
 	}
 
 	public double getY() {
-		return getDoubleValue(asObject.get(ASObject.ASNODE_Y));
+		return getDoubleValue(asObject.get(IFlashConst.ASNODE_Y));
 	}
 
 	public double getWidth() {
-		return getDoubleValue(asObject.get(ASObject.ASNODE_WIDTH));
+		return getDoubleValue(asObject.get(IFlashConst.ASNODE_WIDTH));
 	}
 
 	public double getHeight() {
-		return getDoubleValue(asObject.get(ASObject.ASNODE_HEIGHT));
+		return getDoubleValue(asObject.get(IFlashConst.ASNODE_HEIGHT));
 	}
-	
+
 	public int getDepth() {
-		Integer target = (Integer) asObject.get(ASObject.ASNODE_DEPTH);
+		Integer target = (Integer) asObject.get(IFlashConst.ASNODE_DEPTH);
 		if (target != null)
 			return target.intValue();
 		return IFlashConst.INVALID_DEPTH;
 	}
 
 	public int getCurrentFrame() {
-		Integer target = (Integer) asObject.get(ASObject.ASNODE_CURRENT_FRAME);
+		Integer target = (Integer) asObject
+				.get(IFlashConst.ASNODE_CURRENT_FRAME);
 		if (target != null)
 			return target.intValue();
 		return -1;
 	}
-	
+
 	public boolean isInputable() {
-		Boolean b = (Boolean) asObject.get(ASObject.ASNODE_IS_INPUTABLE);
-        if (b == null)
-            return false;
-        return b.booleanValue();
+		Boolean b = (Boolean) asObject.get(IFlashConst.ASNODE_IS_INPUTABLE);
+		if (b == null)
+			return false;
+		return b.booleanValue();
 	}
 
 	public boolean isOpaqueObject() {
-		Boolean b = (Boolean) asObject.get(ASObject.ASNODE_IS_OPAQUE_OBJECT);
-        if (b == null)
-            return false;
-        return b.booleanValue();
+		Boolean b = (Boolean) asObject.get(IFlashConst.ASNODE_IS_OPAQUE_OBJECT);
+		if (b == null)
+			return false;
+		return b.booleanValue();
 	}
-	
+
 }

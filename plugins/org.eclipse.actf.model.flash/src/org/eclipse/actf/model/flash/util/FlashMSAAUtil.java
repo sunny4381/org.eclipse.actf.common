@@ -15,7 +15,8 @@ package org.eclipse.actf.model.flash.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.FlashPlayerFactory;
+import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
 import org.eclipse.actf.util.win32.WindowUtil;
@@ -45,17 +46,17 @@ public class FlashMSAAUtil {
 		return isInvisibleFlash(acc);
 	}
 	
-	public static FlashPlayer[] getFlashPlayers(int hwnd) {
+	public static IFlashPlayer[] getFlashPlayers(int hwnd) {
 		return getFlashPlayers(hwnd, SHOW_OFFSCREEN, SCAN_ALL);
 	}
 
-	public static FlashPlayer[] getFlashPlayers(int hwnd, boolean showOffScreen, boolean scanAll) {
+	public static IFlashPlayer[] getFlashPlayers(int hwnd, boolean showOffScreen, boolean scanAll) {
 		FlashMSAAObject acc = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromWindow(hwnd);
 		FlashMSAAObject[] accs = getFlashElements(acc, showOffScreen, scanAll);
-		FlashPlayer[] ret = new FlashPlayer[accs.length];
+		IFlashPlayer[] ret = new IFlashPlayer[accs.length];
 		for (int i = 0; i < accs.length; i++) {
-			ret[i] = FlashPlayer.getPlayerFromObject(accs[i]);
+			ret[i] = FlashPlayerFactory.getPlayerFromObject(accs[i]);
 		}
 		return ret;
 	}

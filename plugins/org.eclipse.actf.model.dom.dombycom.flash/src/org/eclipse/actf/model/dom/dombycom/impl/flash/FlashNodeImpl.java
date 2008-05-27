@@ -21,11 +21,10 @@ import org.eclipse.actf.model.dom.dombycom.IFlashNode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.impl.DocumentImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.EmptyNodeListImpl;
-import org.eclipse.actf.model.flash.FlashAccInfo;
-import org.eclipse.actf.model.flash.FlashNode;
-import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.ASNode;
+import org.eclipse.actf.model.flash.ASAccInfo;
+import org.eclipse.actf.model.flash.IASBridge;
 import org.eclipse.actf.model.flash.IFlashConst;
-import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.win32.comclutch.ComPlugin;
 import org.eclipse.actf.util.win32.keyhook.ISendEvent;
@@ -39,15 +38,15 @@ import org.w3c.dom.UserDataHandler;
 
 class FlashNodeImpl implements IFlashNode, IFlashConst {
 	// final ASObject nodeASObj;
-	private final FlashAccInfo accInfo;
+	private final ASAccInfo accInfo;
 	private final String target;
 	private final IFlashNode parent;
 	private final boolean hasChildren;
 	private FlashTopNodeImpl swf;
 	private DocumentImpl doc;
 
-	private final FlashNode flashNode;
-	private final FlashPlayer flashPlayer;
+	private final ASNode flashNode;
+	private final IASBridge flashPlayer;
 
 	@Override
 	public int hashCode() {
@@ -63,7 +62,7 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 		return false;
 	}
 
-	private FlashNodeImpl(FlashNode node, IFlashNode parent) {
+	private FlashNodeImpl(ASNode node, IFlashNode parent) {
 		this.flashNode = node;
 		this.flashPlayer = node.getPlayer();
 		this.target = node.getTarget();
@@ -76,13 +75,13 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 		this.parent = parent;
 	}
 
-	FlashNodeImpl(FlashNodeImpl baseNode, FlashNode node) {
+	FlashNodeImpl(FlashNodeImpl baseNode, ASNode node) {
 		this(node, baseNode);
 		this.swf = baseNode.swf;
 		this.doc = baseNode.doc;
 	}
 
-	FlashNodeImpl(FlashTopNodeImpl baseNode, FlashNode node) {
+	FlashNodeImpl(FlashTopNodeImpl baseNode, ASNode node) {
 		this(node, baseNode);
 		this.swf = baseNode;
 		this.doc = (DocumentImpl) baseNode.getOwnerDocument();
@@ -339,12 +338,12 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 	}
 
 	public boolean setText(String text) {
-		setProperty(ASObject.ASNODE_TEXT, text);
+		setProperty(ASNODE_TEXT, text);
 		return true;
 	}
 
 	public String getText() {
-		Object o = getProperty(ASObject.ASNODE_TEXT);
+		Object o = getProperty(ASNODE_TEXT);
 		if (o instanceof String)
 			return (String) o;
 		return "";
@@ -450,14 +449,14 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 	}
 
 	public IFlashNode getNodeAtDepth(int depth) {
-		FlashNode result = flashPlayer.getNodeAtDepthWithPath(getTarget(),
+		ASNode result = flashPlayer.getNodeAtDepthWithPath(getTarget(),
 				depth);
 		if (result == null)
 			return null;
 		return new FlashNodeImpl(swf, result);
 	}
 
-	private IFlashNode[] createIFlashNodeArray(FlashNode[] nodes) {
+	private IFlashNode[] createIFlashNodeArray(ASNode[] nodes) {
 		IFlashNode[] results = new IFlashNode[nodes.length];
 		for (int i = 0; i < nodes.length; i++) {
 			results[i] = new FlashNodeImpl(this, nodes[i]);

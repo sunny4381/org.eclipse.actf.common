@@ -14,14 +14,14 @@ package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.INodeExVideo;
-import org.eclipse.actf.model.flash.FlashNode;
-import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.ASNode;
+import org.eclipse.actf.model.flash.IASBridge;
 import org.eclipse.actf.model.flash.IFlashConst;
 
 class FlashVideoImpl implements INodeExVideo, IFlashConst {
 	private final FlashTopNodeImpl swf;
 	private final String target;
-	private final FlashPlayer player;
+	private final IASBridge player;
 	// Some sort of hacking solution!!!
 	private VideoState currentState = VideoState.STATE_UNKNOWN;
 
@@ -29,7 +29,7 @@ class FlashVideoImpl implements INodeExVideo, IFlashConst {
 		return target;
 	}
 
-	FlashVideoImpl(FlashTopNodeImpl swf, FlashNode node) {
+	FlashVideoImpl(FlashTopNodeImpl swf, ASNode node) {
 		this.swf = swf;
 		this.target = node.getTarget();
 		this.player = node.getPlayer();

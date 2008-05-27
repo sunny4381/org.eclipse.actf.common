@@ -15,9 +15,10 @@ public interface IFlashConst {
 	//general
 	public static final String CLSID_FLASH = "{D27CDB6E-AE6D-11CF-96B8-444553540000}";
 	public static final	int INVALID_DEPTH = -16384;
-	public static final String WMODE = "WMode";
+	public static final String PLAYER_VERSION = "$version";
+
+	//Browser Ready State
 	public static final String READY_STATE = "readyState";
-	
     public static final Integer COMPLETED_READY_STATE = Integer.valueOf(4);
 
 
@@ -38,16 +39,19 @@ public interface IFlashConst {
 	public static final String PATH_ON_PRESS = ".onPress";
 	public static final String PATH_ON_RELEASE = ".onRelease";
 
+
 	//V8
 	public static final String PROP_REQUEST_ARGS = ".Eclipse_ACTF_request_args";
 	public static final String PROP_RESPONSE_VALUE = ".Eclipse_ACTF_response_value";
 	public static final String PLAYER_SET_VARIABLE = "SetVariable";
 	public static final String PLAYER_GET_VARIABLE = "GetVariable";
-	//attributes
+	
+	//HTML node attributes
 	public static final String PLAYER_SET_ATTRIBUTE = "SetAttribute";
-	public static final String PLAYER_GET_ATTRIBUTE = "GetAttribute";
-	public static final String ATTR_ERROR = "aDesignerError";
-
+	//public static final String PLAYER_GET_ATTRIBUTE = "GetAttribute";
+	public static final String ATTR_ERROR = "ACTF_Flash_Error";
+	public static final String ATTR_WMODE = "WMode";
+	
 	
 	//methods
 	public static final String M_GET_ROOT_NODE = "getRootNode"; //$NON-NLS-1$
@@ -91,6 +95,37 @@ public interface IFlashConst {
 	public static final String M_GET_SWF_VERSION = "getSwfVersion";
 	public static final String M_GET_CONTENT_ID = "getContentId";
 	//V9
-
+	
+	//ASNODE
+	public static final String ASNODE_TYPE = "type"; //$NON-NLS-1$
+	public static final String ASNODE_CLASS_NAME = "className"; //$NON-NLS-1$
+	public static final String ASNODE_OBJECT_NAME = "objectName"; //$NON-NLS-1$
+	public static final String ASNODE_TARGET = "target"; //$NON-NLS-1$
+	public static final String ASNODE_VALUE = "value"; //$NON-NLS-1$
+	public static final String ASNODE_TEXT = "text"; //$NON-NLS-1$
+	public static final String ASNODE_TITLE = "title"; //$NON-NLS-1$
+	public static final String ASNODE_X = "x"; //$NON-NLS-1$
+	public static final String ASNODE_Y = "y"; //$NON-NLS-1$
+	public static final String ASNODE_WIDTH = "w"; //$NON-NLS-1$
+	public static final String ASNODE_HEIGHT = "h"; //$NON-NLS-1$
+	public static final String ASNODE_ACCINFO = "accInfo"; //$NON-NLS-1$
+	public static final String ASNODE_DEPTH = "depth"; //$NON-NLS-1$
+	public static final String ASNODE_CURRENT_FRAME = "currentFrame"; //$NON-NLS-1$
+	public static final String ASNODE_IS_UI_COMPONENT = "isUIComponent"; //$NON-NLS-1$
+	public static final String ASNODE_IS_INPUTABLE = "isInputable"; //$NON-NLS-1$
+	public static final String ASNODE_IS_OPAQUE_OBJECT = "isOpaqueObject"; //$NON-NLS-1$
+	//ASNODE
+	
+	//ACCINFO
+	public static final String ACCINFO_NAME = "name"; //$NON-NLS-1$
+	public static final String ACCINFO_DESCRIPTION = "description"; //$NON-NLS-1$
+	public static final String ACCINFO_ROLE = "role"; //$NON-NLS-1$
+	public static final String ACCINFO_STATE = "state"; //$NON-NLS-1$
+	public static final String ACCINFO_SILENT = "silent"; //$NON-NLS-1$
+	public static final String ACCINFO_FORCESIMPLE = "forceSimple"; //$NON-NLS-1$
+	public static final String ACCINFO_SHORTCUT = "shortcut"; //$NON-NLS-1$
+	public static final String ACCINFO_DEFAULTACTION = "defaultAction"; //$NON-NLS-1$
+	// public static final String ACCINFO_CHILDREN = "children"; //$NON-NLS-1$
+	//ACCINFO
 	
 }
