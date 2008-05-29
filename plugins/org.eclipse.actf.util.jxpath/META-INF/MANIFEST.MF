@@ -4,8 +4,8 @@ Bundle-Name: Eclipse ACTF Jxpath Fragment (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.util.jxpath;singleton:=true
 Bundle-Version: 0.0.1
 Fragment-Host: org.eclipse.actf.core
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ org.apache.commons.jxpath
 Eclipse-LazyStart: true
-Bundle-ClassPath: lib/commons-jxpath-1.2.jar,
- .
+Bundle-ClassPath: .
 Bundle-Vendor: Eclipse.org
