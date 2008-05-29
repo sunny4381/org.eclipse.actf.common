@@ -20,11 +20,11 @@ import org.eclipse.actf.model.dom.dombycom.IFlashMSAANode;
 import org.eclipse.actf.model.dom.dombycom.IFlashNode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.impl.DocumentImpl;
-import org.eclipse.actf.model.dom.dombycom.impl.EmptyNodeListImpl;
-import org.eclipse.actf.model.flash.ASNode;
 import org.eclipse.actf.model.flash.ASAccInfo;
+import org.eclipse.actf.model.flash.ASNode;
 import org.eclipse.actf.model.flash.IASBridge;
 import org.eclipse.actf.model.flash.IFlashConst;
+import org.eclipse.actf.util.dom.EmptyNodeListImpl;
 import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.win32.comclutch.ComPlugin;
 import org.eclipse.actf.util.win32.keyhook.ISendEvent;
@@ -145,7 +145,7 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 
 	public NodeList getChildNodes() {
 		if (!hasChildren)
-			return EmptyNodeListImpl.INSTANCE;
+			return EmptyNodeListImpl.getInstance();
 		IFlashNode[] r = getSWFChildNodes();
 		return new NodeListImpl(r);
 	}

@@ -12,12 +12,12 @@
 package org.eclipse.actf.model.dom.dombycom.impl.html;
 
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
-import org.eclipse.actf.model.dom.dombycom.impl.EmptyNodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.Helper;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.SingletonNodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.StyleSheetImpl;
+import org.eclipse.actf.util.dom.EmptyNodeListImpl;
 import org.eclipse.actf.util.win32.comclutch.DispatchException;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.comclutch.IEnumUnknown;
@@ -143,7 +143,7 @@ class FrameNodeImpl extends ElementImpl {
     public NodeList getChildNodes() {
         Node n = getFrameRootElement();
         if (n == null)
-            return EmptyNodeListImpl.INSTANCE;
+            return EmptyNodeListImpl.getInstance();
         return new SingletonNodeListImpl(n);
     }
 
