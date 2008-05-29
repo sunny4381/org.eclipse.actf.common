@@ -31,7 +31,6 @@ import org.osgi.framework.BundleContext;
 
 
 public class ActfCorePlugin extends Plugin
-	implements ITracingService, ILoggingService
 {
 
 	public static final String ACTFCORE_PLUGIN_ID = "org.eclipse.actf.core";
@@ -131,8 +130,8 @@ public class ActfCorePlugin extends Plugin
 			}
 		}
 		
-		trace(getClass().getName() + " started");
-		trace("configuration:" + configuration);
+		LoggingUtil.println(IReporter.INFO, getClass().getName() + " started");
+		LoggingUtil.println(IReporter.INFO, "configuration:" + configuration);
 	}
 
 	protected IReporter getTracer () {
@@ -142,6 +141,29 @@ public class ActfCorePlugin extends Plugin
 	public IRuntimeContext getRuntimeContext () {
 		return runtimeContext;
 	}
+
+	public void logException (String message, Throwable t) {
+		String tname = t.getClass().getName();
+		String msg = t.getMessage();
+		msg = msg != null && msg.length() > 0 ? tname + " - " + msg : tname;
+		log(getLogOptionId(), IStatus.ERROR, 1, message != null ? message : "<No message>", t);
+	}
+
+	public void logException (Throwable t) {
+		String msg = t.getMessage();
+		logException(msg != null && msg.length() > 0 ? msg : "<no message>", t);
+	}
+
+	public void log (String option, int sev, int code,
+			 String message, Throwable t) {
+if (message == null) {
+	message = "<no message>";
+}
+if (isDebugging(option)) {
+	Status status = new Status(sev, getPluginId(), code, message, t);
+	getLog().log(status);
+}
+}
 
 	protected void prepareTraceFacility () {
 		String trace = Platform.getDebugOption(getTraceOptionId());
@@ -171,75 +193,13 @@ public class ActfCorePlugin extends Plugin
 	}
 
 	public void stop (BundleContext context) throws Exception {
-		trace(getClass().getName() + " stopped");
+		LoggingUtil.println(IReporter.INFO, getClass().getName() + " stopped");
 		super.stop(context);
-	}
-
-	public void log (String option, int sev, int code,
-					 String message, Throwable t) {
-		if (message == null) {
-			message = "<no message>";
-		}
-		if (isDebugging(option)) {
-			Status status = new Status(sev, getPluginId(), code, message, t);
-			getLog().log(status);
-		}
-	}
-
-	public void logInfo (String message) {
-		log(getLogOptionId(), IStatus.INFO, 0, message, (Throwable) null);
-	}
-
-	public void logError (String message) {
-		log(getLogOptionId(), IStatus.ERROR, 0, message, (Throwable) null);
-	}
-
-	public void logException (String message, Throwable t) {
-		String tname = t.getClass().getName();
-		String msg = t.getMessage();
-		msg = msg != null && msg.length() > 0 ? tname + " - " + msg : tname;
-		log(getLogOptionId(), IStatus.ERROR, 1, message != null ? message : "<No message>", t);
-	}
-
-	public void logException (Throwable t) {
-		String msg = t.getMessage();
-		logException(msg != null && msg.length() > 0 ? msg : "<no message>", t);
 	}
 
 	public boolean isDebugging (String option) {
 		String value = Platform.getDebugOption(option);
 		return super.isDebugging() && value != null && "true".equalsIgnoreCase(value);
-	}
-
-	public void trace (String option, String message) {
-		if (isDebugging(option)) {
-			getTracer().report(IReporter.INFO, message);
-		}
-	}
-
-	public void trace (String message) {
-		trace(getTraceOptionId(), message);
-	}
-
-	public void trace (int level, String msg) {
-		if (isDebugging(getTraceOptionId())) {
-			getTracer().report(level, msg);
-		}
-	}
-
-	public void trace (Object source, String message) {
-		trace(getTraceOptionId(), source.getClass().getName() + ": " + message);
-	}
-
-	public void trace (String message, Throwable t) {
-		if (isDebugging(getTraceOptionId())) {
-			getTracer().report(IReporter.ERROR, message, t);
-		}
-	}
-
-	public void trace (Throwable t) {
-		String msg = t != null ? t.getMessage() : "<no message>";
-		trace(msg != null && msg.length() > 0 ? msg : "<no message>", t);
 	}
 
 	protected String setupDefaultTraceStream () {
