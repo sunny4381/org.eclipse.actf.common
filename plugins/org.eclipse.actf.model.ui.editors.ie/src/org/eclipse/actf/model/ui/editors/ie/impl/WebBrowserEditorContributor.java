@@ -17,7 +17,7 @@ import org.eclipse.actf.model.ui.editor.actions.GoForwardAction;
 import org.eclipse.actf.model.ui.editor.actions.RefreshAction;
 import org.eclipse.actf.model.ui.editor.actions.StopAction;
 import org.eclipse.actf.model.ui.editor.actions.TextSizeMenu;
-import org.eclipse.actf.util.ui.Messages;
+import org.eclipse.actf.ui.util.Messages;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;

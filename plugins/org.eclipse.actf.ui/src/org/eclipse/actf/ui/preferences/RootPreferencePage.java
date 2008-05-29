@@ -59,10 +59,11 @@ public class RootPreferencePage extends AbstractBasePreferencePage
 		Composite descComposite = new Composite(parent, SWT.NONE);
 		GridLayout descLayout = new GridLayout(2, false);
 		descComposite.setLayout(descLayout);
-		GridData labelGd = new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false);
-		Label descriptionLabel = new Label(descComposite, SWT.LEFT);
-		descriptionLabel.setText("ACTF Information");
-		descriptionLabel.setLayoutData(labelGd);
+		//duplicated message
+//		GridData labelGd = new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false);
+//		Label descriptionLabel = new Label(descComposite, SWT.LEFT);
+//		descriptionLabel.setText("ACTF Information");
+//		descriptionLabel.setLayoutData(labelGd);
 		actfDescription = new Text(descComposite, (SWT.READ_ONLY | SWT.WRAP | SWT.MULTI));
 		String actfDescriptionString = ACTF_TITLE_STRING;
 		actfDescription.setText(actfDescriptionString);

@@ -9,8 +9,9 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
+            category="org.eclipse.actf.ui.preferences.RootPreferencePage"
             class="org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferencePage"
-               id="org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferencePage"
+            id="org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferencePage"
             name="%ProxyPreferencePage.name"/>
    </extension>
    

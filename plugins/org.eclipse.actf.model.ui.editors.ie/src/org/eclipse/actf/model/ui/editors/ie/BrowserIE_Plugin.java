@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.model.ui.editors.ie;
 
-import org.eclipse.actf.util.ui.AbstractUIPluginACTF;
+import org.eclipse.actf.ui.util.AbstractUIPluginACTF;
 import org.osgi.framework.BundleContext;
 
 /**

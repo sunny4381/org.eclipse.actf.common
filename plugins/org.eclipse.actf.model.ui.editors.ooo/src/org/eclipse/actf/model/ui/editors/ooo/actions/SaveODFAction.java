@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.ui.editors.ooo.actions;
 
-import org.eclipse.actf.util.ui.PlatformUIUtil;
+import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;

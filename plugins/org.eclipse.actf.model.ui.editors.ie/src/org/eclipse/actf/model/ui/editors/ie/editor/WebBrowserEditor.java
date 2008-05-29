@@ -20,7 +20,7 @@ import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
 import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserEventExtension;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.NewWindow2Parameters;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
-import org.eclipse.actf.util.ui.PlatformUIUtil;
+import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;

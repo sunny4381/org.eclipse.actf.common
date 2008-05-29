@@ -14,7 +14,7 @@ import org.eclipse.actf.model.flash.proxy.Messages;
 import org.eclipse.actf.model.flash.proxy.ProxyPlugin;
 import org.eclipse.actf.model.flash.proxy.internal.WSTR;
 import org.eclipse.actf.model.flash.proxy.internal.WinInet;
-import org.eclipse.actf.util.ui.ProgressContribution;
+import org.eclipse.actf.ui.util.ProgressContribution;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IStatusLineManager;

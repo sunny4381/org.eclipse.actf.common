@@ -4,6 +4,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
+            category="org.eclipse.actf.ui.preferences.RootPreferencePage"
             class="org.eclipse.actf.util.vocab.preferences.VocabPreferencePage"
             id="org.eclipse.actf.util.vocab.preferences.VocabPreferencePage"
             name="DOM Vocabulary"/>

@@ -18,7 +18,7 @@ import org.eclipse.actf.model.ui.editor.browser.IWebBrowserNavigationEventListen
 import org.eclipse.actf.model.ui.editor.browser.WebBrowserNavigationEvent;
 import org.eclipse.actf.model.ui.util.ModelServiceMessages;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
-import org.eclipse.actf.util.ui.PlatformUIUtil;
+import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.ui.ISharedImages;
 

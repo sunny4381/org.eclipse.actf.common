@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import org.eclipse.actf.model.ui.IModelServiceHolder;
-import org.eclipse.actf.util.ui.AbstractPartListener;
+import org.eclipse.actf.ui.util.AbstractPartListener;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
