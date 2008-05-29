@@ -23,7 +23,7 @@ import java.util.jar.Manifest;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.eclipse.actf.util.Utils;
+import org.eclipse.actf.util.logging.LoggingUtil;
 
 
 /**
@@ -267,7 +267,7 @@ public class ZipImploder
 		String source = dir.getCanonicalPath();
 		String dest = new File(zipName).getCanonicalPath();
 		if (verbose) {
-			Utils.println(Utils.PROCESS_ALL, "\n**** Imploding "
+			LoggingUtil.println(LoggingUtil.PROCESS_ALL, "\n**** Imploding "
 					+ source + " to " + dest);
 		}
 		return dest;
@@ -307,27 +307,27 @@ public class ZipImploder
 				if (xpath.length() > 0) {
 					xpath += '/';
 					if (verbose) {
-						Utils.println(
-							Utils.PROCESS_ALL, "\nProcessing directory "
+						LoggingUtil.println(
+							LoggingUtil.PROCESS_ALL, "\nProcessing directory "
 									+ path + " to " + xpath);
 					}
 					ZipEntry ze = new ZipEntry(xpath);
 					zos.putNextEntry(ze);
 				}else {
 					if (verbose) {
-						Utils.println(
-							Utils.PROCESS_ALL, "\nSkipping empty path");
+						LoggingUtil.println(
+							LoggingUtil.PROCESS_ALL, "\nSkipping empty path");
 					}
 				}
 			}else {
 				if (verbose) {
-					Utils.println(Utils.PROCESS_ALL, "\nDropping "
+					LoggingUtil.println(LoggingUtil.PROCESS_ALL, "\nDropping "
 							+ path);
 				}
 			}
 		}else {
 			if (verbose) {
-				Utils.println(Utils.PROCESS_ALL, "\nSkipping " + path);
+				LoggingUtil.println(LoggingUtil.PROCESS_ALL, "\nSkipping " + path);
 			}
 		}
 		dirCount++;
@@ -355,7 +355,7 @@ public class ZipImploder
 		path = path.replace('\\', '/');
 		String xpath = removeDrive(removeLead(path));
 		if (verbose) {
-			Utils.println(Utils.PROCESS_ALL, "Processing file "
+			LoggingUtil.println(LoggingUtil.PROCESS_ALL, "Processing file "
 					+ path + " to " + xpath);
 		}
 		ZipEntry ze = new ZipEntry(xpath);
@@ -386,7 +386,7 @@ public class ZipImploder
 	protected void copyFileEntry (ZipOutputStream zos, DataInputStream dis)
 		throws IOException {
 		byte[] bytes = readAllBytes(dis);
-		Utils.println(Utils.ALL, "Writing " + bytes.length
+		LoggingUtil.println(LoggingUtil.ALL, "Writing " + bytes.length
 				+ " bytes...");
 		zos.write(bytes, 0, bytes.length);
 	}
@@ -398,7 +398,7 @@ public class ZipImploder
 		for (int len = is.available(); len > 0; len = is.available()) {
 			byte[] xbytes = new byte[len];
 			int count = is.read(xbytes);
-			Utils.println(Utils.ALL, "readAllBytes: " + len + " vs. "
+			LoggingUtil.println(LoggingUtil.ALL, "readAllBytes: " + len + " vs. "
 					+ count);
 			if (count > 0) {
 				byte[] nbytes = new byte[bytes.length + count];

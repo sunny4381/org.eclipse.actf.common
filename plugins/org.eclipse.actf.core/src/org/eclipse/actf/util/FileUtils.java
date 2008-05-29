@@ -21,6 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.eclipse.actf.util.logging.LoggingUtil;
+
 public class FileUtils
 {
 
@@ -86,8 +88,8 @@ public class FileUtils
 			File dir = new File(baseDir, directories[d].getName());
 			deleteFiles(dir, pattern);
 			if (!dir.delete()) {
-				Utils.println(
-					Utils.WARNINGS, "Could not delete directory " + dir);
+				LoggingUtil.println(
+					LoggingUtil.WARNINGS, "Could not delete directory " + dir);
 				// _launchEvent.addMessage(LaunchEvent.IO_STATUS_KEY, "Could not
 				// delete directory " + dir);
 			}
@@ -113,7 +115,7 @@ public class FileUtils
 				FileOutputStream fos = new FileOutputStream(new File(newParent, files[f].getName()));
 				copyFile(fis, fos);
 			}catch (IOException e) {
-				Utils.println(Utils.WARNINGS, "Could not copy file "
+				LoggingUtil.println(LoggingUtil.WARNINGS, "Could not copy file "
 						+ files[f].getName());
 				// _launchEvent.addMessage(LaunchEvent.IO_STATUS_KEY, "Could not
 				// copy file " + classFiles[cf].getName());
@@ -124,8 +126,8 @@ public class FileUtils
 			if (newDir.mkdir() || newDir.exists()) {
 				copyFiles(directories[d], newDir, pattern);
 			}else {
-				Utils.println(
-					Utils.WARNINGS, "Could not create directory "
+				LoggingUtil.println(
+					LoggingUtil.WARNINGS, "Could not create directory "
 							+ newDir.getName());
 				// _launchEvent.addMessage(LaunchEvent.IO_STATUS_KEY, "Could not
 				// create directory " + newDir.getName());

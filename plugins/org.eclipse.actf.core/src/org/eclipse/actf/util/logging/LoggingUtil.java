@@ -9,11 +9,8 @@
 *  Mike Squillace - initial API and implementation
 *******************************************************************************/ 
 
-package org.eclipse.actf.util;
+package org.eclipse.actf.util.logging;
 
-import org.eclipse.actf.util.logging.AbstractReporter;
-import org.eclipse.actf.util.logging.IReporter;
-import org.eclipse.actf.util.logging.PrintWriterReporter;
 
 /**
  * A set of static methods utilized by the IBM Reflexive GUI Builder.
@@ -22,7 +19,7 @@ import org.eclipse.actf.util.logging.PrintWriterReporter;
  *
  * @author Mike Squillace
  */
-public final class Utils
+public final class LoggingUtil
 {
 
 	/** only fatal errors and exception messages are printed */
@@ -69,7 +66,7 @@ public final class Utils
 		_tracer.setSourceID(IReporter.TRACE);
 	}
 
-	protected Utils () {
+	protected LoggingUtil () {
 	}
 
 	/**

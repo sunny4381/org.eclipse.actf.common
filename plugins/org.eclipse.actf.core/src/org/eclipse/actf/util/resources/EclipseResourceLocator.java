@@ -24,8 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.actf.core.config.Version;
-import org.eclipse.actf.util.Utils;
 import org.eclipse.actf.util.logging.IReporter;
+import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -96,13 +96,13 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 		if (pathToFile != null) {
 			try {
 				stream = new FileInputStream(pathToFile.toFile());
-				Utils.println(Utils.ALL, "Created stream for file - " + relativePath + " using bundle " + bundleName);
+				LoggingUtil.println(LoggingUtil.ALL, "Created stream for file - " + relativePath + " using bundle " + bundleName);
 			}catch (FileNotFoundException e) {
 				//Don't need to report anything in this catch , the result of the call to
 				//getPathToFile will have already made sure that this file exists.
 			}
 		} else {
-			Utils.println(Utils.ALL, "unable to create stream for file - " + relativePath + " using bundle " + bundleName);
+			LoggingUtil.println(LoggingUtil.ALL, "unable to create stream for file - " + relativePath + " using bundle " + bundleName);
 		}
 		
 		return stream;
@@ -238,10 +238,10 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 					try {
 						pathUrl = Platform.resolve(pathUrl);
 						absolutePath = new Path(new File(pathUrl.getFile()).getAbsolutePath());
-						Utils.println(IReporter.DETAIL,
+						LoggingUtil.println(IReporter.DETAIL,
 							"getPathToFile(), absolute path to " + relativePath + " = " + absolutePath.toString());
 					}catch (IOException ioe) {
-						Utils.println(IReporter.SYSTEM_NONFATAL, ioe);
+						LoggingUtil.println(IReporter.SYSTEM_NONFATAL, ioe);
 					}
 				}
 			}
@@ -287,7 +287,7 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 				File file = path.toFile();
 				absolutePath = new Path(file.getPath());
 			}
-			Utils.println(
+			LoggingUtil.println(
 				IReporter.DETAIL,
 				"getPathToBundle(), path to bundle "
 						+ bundleName + " = " + absolutePath.toString());
@@ -305,7 +305,7 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 		}else {
 			eclipseVersion = new Version("0.0.0");
 		}
-		Utils.println(
+		LoggingUtil.println(
 			IReporter.DETAIL,
 			"getEclipseVersion(), Eclipse version - "
 					+ eclipseVersion.toString());
@@ -325,9 +325,9 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 			Path absolutePath = new Path(new File(url.getFile()).getAbsolutePath());
 			filePath = absolutePath.toString();
 		}catch (Exception e) {
-			Utils.println(IReporter.SYSTEM_NONFATAL, e.getMessage(), e);
+			LoggingUtil.println(IReporter.SYSTEM_NONFATAL, e.getMessage(), e);
 		}
-		Utils.println(
+		LoggingUtil.println(
 			IReporter.DETAIL,
 			"getEclipseInstallPath(), Eclipse installation path - " + filePath);
 		return filePath;

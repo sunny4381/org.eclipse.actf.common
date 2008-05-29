@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.eclipse.actf.util.Utils;
+import org.eclipse.actf.util.logging.LoggingUtil;
 
 
 /**
@@ -148,7 +148,7 @@ public class ZipExploder
 		String source = new File(zipName).getCanonicalPath();
 		String dest = new File(destDir).getCanonicalPath();
 		if (verbose) {
-			Utils.println(Utils.PROCESS_ALL, "\n**** Exploding "
+			LoggingUtil.println(LoggingUtil.PROCESS_ALL, "\n**** Exploding "
 					+ source + " to " + dest);
 		}
 		ZipFile f = null;
@@ -218,35 +218,35 @@ public class ZipExploder
 									String destFile, DataInputStream dis)
 		throws IOException {
 		byte[] bytes = readAllBytes(dis);
-		Utils.println(Utils.ALL, "Writing " + bytes.length
+		LoggingUtil.println(LoggingUtil.ALL, "Writing " + bytes.length
 				+ " bytes...");
 		File file = new File(destFile);
 		String parent = file.getParent();
 		if (parent != null && parent.length() > 0) {
 			File dir = new File(destDir, parent);
 			if (dir != null) {
-				Utils.println(Utils.ALL, "Creating directory path "
+				LoggingUtil.println(LoggingUtil.ALL, "Creating directory path "
 						+ dir.getAbsolutePath());
 				dir.mkdirs();
-				Utils.println(Utils.ALL, "Created directory path "
+				LoggingUtil.println(LoggingUtil.ALL, "Created directory path "
 						+ dir.getAbsolutePath());
 			}
 		}
 		File outFile = new File(destDir, destFile);
 		if (destIsDir) {
-			Utils.println(Utils.ALL, "Creating directory "
+			LoggingUtil.println(LoggingUtil.ALL, "Creating directory "
 					+ outFile.getAbsolutePath());
 			outFile.mkdir();
-			Utils.println(Utils.ALL, "Created directory "
+			LoggingUtil.println(LoggingUtil.ALL, "Created directory "
 					+ outFile.getAbsolutePath());
 		}else {
-			Utils.println(Utils.ALL, "Creating file "
+			LoggingUtil.println(LoggingUtil.ALL, "Creating file "
 					+ outFile.getAbsolutePath());
 			FileOutputStream fos = new FileOutputStream(outFile);
 			try {
 				fos.write(bytes, 0, bytes.length);
 				if (verbose) {
-					Utils.println(Utils.ALL, "Copied file "
+					LoggingUtil.println(LoggingUtil.ALL, "Copied file "
 							+ outFile.getAbsolutePath());
 				}
 			}finally {
@@ -265,7 +265,7 @@ public class ZipExploder
 		for (int len = is.available(); len > 0; len = is.available()) {
 			byte[] xbytes = new byte[len];
 			int count = is.read(xbytes);
-			Utils.println(Utils.ALL, "readAllBytes: " + len + " vs. "
+			LoggingUtil.println(LoggingUtil.ALL, "readAllBytes: " + len + " vs. "
 					+ count);
 			if (count > 0) {
 				byte[] nbytes = new byte[bytes.length + count];

@@ -17,9 +17,9 @@ import java.io.InputStream;
 import org.eclipse.actf.core.config.IConfiguration;
 import org.eclipse.actf.core.runtime.IRuntimeContext;
 import org.eclipse.actf.core.runtime.RuntimeContextFactory;
-import org.eclipse.actf.util.Utils;
 import org.eclipse.actf.util.logging.AbstractReporter;
 import org.eclipse.actf.util.logging.IReporter;
+import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 import org.eclipse.actf.util.resources.EclipseResourceLocator;
 import org.eclipse.core.runtime.CoreException;
@@ -136,7 +136,7 @@ public class ActfCorePlugin extends Plugin
 	}
 
 	protected IReporter getTracer () {
-		return Utils.getTracer();
+		return LoggingUtil.getTracer();
 	}
 	
 	public IRuntimeContext getRuntimeContext () {
@@ -165,8 +165,8 @@ public class ActfCorePlugin extends Plugin
 				traceLevel = IReporter.WARNING;
 			}
 			
-			Utils.setTracer(AbstractReporter.getReporter(traceLevel, traceStream));
-			Utils.getTracer().setSourceID(IReporter.TRACE);
+			LoggingUtil.setTracer(AbstractReporter.getReporter(traceLevel, traceStream));
+			LoggingUtil.getTracer().setSourceID(IReporter.TRACE);
 		}
 	}
 

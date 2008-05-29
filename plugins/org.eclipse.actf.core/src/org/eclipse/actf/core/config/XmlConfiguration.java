@@ -25,8 +25,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.eclipse.actf.core.runtime.IRuntimeContext;
 import org.eclipse.actf.core.runtime.RuntimeContextFactory;
-import org.eclipse.actf.util.Utils;
 import org.eclipse.actf.util.logging.IReporter;
+import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
@@ -147,7 +147,7 @@ public class XmlConfiguration extends AbstractConfiguration
 				SAXParser parser = factory.newSAXParser();
 				parser.parse(stream, new ParserHandler());
 			}catch (Exception e) {
-				Utils.println(
+				LoggingUtil.println(
 					IReporter.SYSTEM_FATAL,
 					"SAXParseException caught while parsing file."
 							+ e.getMessage(), e);
@@ -283,7 +283,7 @@ public class XmlConfiguration extends AbstractConfiguration
 		}
 
 		public void error (SAXParseException e) throws SAXException {
-			Utils.println(
+			LoggingUtil.println(
 				IReporter.SYSTEM_FATAL, "SAX parse exception -- line: "
 						+ _locator.getLineNumber() + ", column: "
 						+ _locator.getColumnNumber(), e);
@@ -291,14 +291,14 @@ public class XmlConfiguration extends AbstractConfiguration
 		}
 
 		public void warning (SAXParseException e) throws SAXException {
-			Utils.println(
+			LoggingUtil.println(
 				IReporter.SYSTEM_NONFATAL, "SAX parse exception -- line: "
 						+ _locator.getLineNumber() + ", column: "
 						+ _locator.getColumnNumber(), e);
 		}
 
 		public void fatalError (SAXParseException e) throws SAXException {
-			Utils.println(
+			LoggingUtil.println(
 				IReporter.SYSTEM_FATAL, "SAX parse exception -- line: "
 						+ _locator.getLineNumber() + ", column: "
 						+ _locator.getColumnNumber(), e);
@@ -364,14 +364,14 @@ public class XmlConfiguration extends AbstractConfiguration
 				if (cls != null) {
 					setParameter(path, cls.getName());
 				} else {
-					Utils.println(IReporter.SYSTEM_NONFATAL, "Could not find class for value " + val);
+					LoggingUtil.println(IReporter.SYSTEM_NONFATAL, "Could not find class for value " + val);
 				}
 			}else if (type.equals(Integer.TYPE.getName())
 					|| type.equals(Integer.class.getName())) {
 				try {
 					setParameter(path, Integer.parseInt(val));
 				}catch (NumberFormatException e) {
-					Utils.println(
+					LoggingUtil.println(
 						IReporter.SYSTEM_NONFATAL,
 						"Error parsing value for symbol " + path);
 				}
@@ -380,7 +380,7 @@ public class XmlConfiguration extends AbstractConfiguration
 				try {
 					setParameter(path, Double.parseDouble(val));
 				}catch (NumberFormatException e) {
-					Utils.println(
+					LoggingUtil.println(
 						IReporter.SYSTEM_NONFATAL,
 						"Error parsing value for symbol " + path);
 				}
@@ -389,7 +389,7 @@ public class XmlConfiguration extends AbstractConfiguration
 				try {
 					setParameter(path, Long.parseLong(val));
 				}catch (NumberFormatException e) {
-					Utils.println(
+					LoggingUtil.println(
 						IReporter.SYSTEM_NONFATAL,
 						"Error parsing value for symbol " + path);
 				}
@@ -398,7 +398,7 @@ public class XmlConfiguration extends AbstractConfiguration
 				try {
 					setParameter(path, Float.parseFloat(val));
 				}catch (NumberFormatException e) {
-					Utils.println(
+					LoggingUtil.println(
 						IReporter.SYSTEM_NONFATAL,
 						"Error parsing value for symbol " + path);
 				}
@@ -407,7 +407,7 @@ public class XmlConfiguration extends AbstractConfiguration
 				try {
 					setParameter(path, Boolean.valueOf(val).booleanValue());
 				}catch (NumberFormatException e) {
-					Utils.println(
+					LoggingUtil.println(
 						IReporter.SYSTEM_NONFATAL,
 						"Error parsing value for symbol " + path);
 				}
