@@ -15,8 +15,11 @@ Export-Package: org.eclipse.actf.core,
  org.eclipse.actf.core.runtime,
  org.eclipse.actf.util,
  org.eclipse.actf.util.command,
+ org.eclipse.actf.util.comparator,
+ org.eclipse.actf.util.dom,
  org.eclipse.actf.util.jar,
  org.eclipse.actf.util.logging,
  org.eclipse.actf.util.resources,
- org.eclipse.actf.util.thread
+ org.eclipse.actf.util.thread,
+ org.eclipse.actf.util.xpath
 

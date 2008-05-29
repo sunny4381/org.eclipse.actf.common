@@ -11,5 +11,6 @@ Require-Bundle: org.eclipse.ui,
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.ui,
  org.eclipse.actf.ui.preferences,
- org.eclipse.actf.ui.util
+ org.eclipse.actf.ui.util,
+ org.eclipse.actf.ui.util.timer
 Bundle-ClassPath: .

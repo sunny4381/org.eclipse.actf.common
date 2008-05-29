@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.ui.editor.browser;
 
-import org.eclipse.actf.util.timer.WaitExecSyncEventHandler;
+import org.eclipse.actf.ui.util.timer.WaitExecSyncEventHandler;
 import org.eclipse.swt.widgets.Display;
 
 

@@ -9,7 +9,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.swt,
  org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.actf.common,
+ org.eclipse.actf.core,
  org.eclipse.actf.util.vocab,
  org.eclipse.actf.util.comclutch.win32
 Eclipse-LazyStart: true

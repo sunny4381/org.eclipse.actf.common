@@ -16,7 +16,7 @@ import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.editor.DummyEditorInput;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.ui.util.PlatformUIUtil;
-import org.eclipse.actf.util.DebugPrintUtil;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;

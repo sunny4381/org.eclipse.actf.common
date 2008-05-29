@@ -42,7 +42,7 @@ import org.eclipse.actf.model.ui.editors.ie.internal.events.StatusTextChangePara
 import org.eclipse.actf.model.ui.editors.ie.internal.events.TitleChangeParameters;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.WindowClosingParameters;
 import org.eclipse.actf.model.ui.editors.ie.win32.RegistryUtil;
-import org.eclipse.actf.util.DebugPrintUtil;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
