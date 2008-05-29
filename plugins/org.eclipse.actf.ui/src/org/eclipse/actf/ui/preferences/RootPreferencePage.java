@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2007 IBM Corporation.
+* Copyright (c) 2004, 2008 IBM Corporation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
 *
 * Contributors:
 *  Mike Squillace - initial API and implementation
+*  Kentarou FUKUDA - [232278]
 *******************************************************************************/ 
 
 package org.eclipse.actf.ui.preferences;
@@ -14,7 +15,6 @@ package org.eclipse.actf.ui.preferences;
 import java.util.Map;
 
 import org.eclipse.actf.ui.ActfUIPlugin;
-//import org.eclipse.actf.validation.ui.preferences.ValidationPreferenceInitializer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -48,27 +48,6 @@ public class RootPreferencePage extends AbstractBasePreferencePage
 
 	// Text Control to hold ACTF information.
 	private static Text actfDescription;
-
-	public static int mapToLevel (String levelKey) {
-		int level = AbstractUIPreferenceInitializer.WARNINGS;
-		if (levelKey.equals(AbstractUIPreferenceInitializer.V_ALL)) {
-			level = AbstractUIPreferenceInitializer.PROCESS_ALL;
-		}else if (levelKey.equals(AbstractUIPreferenceInitializer.V_INFO)) {
-			level = AbstractUIPreferenceInitializer.PROCESS_INFO;
-		}else if (levelKey.equals(AbstractUIPreferenceInitializer.V_WARNING)) {
-			level = AbstractUIPreferenceInitializer.WARNINGS;
-		}else if (levelKey.equals(AbstractUIPreferenceInitializer.V_ERROR)) {
-			level = AbstractUIPreferenceInitializer.ERRORS;
-		}else if (levelKey.equals(AbstractUIPreferenceInitializer.V_NONE)) {
-			level = AbstractUIPreferenceInitializer.NONE;
-		}
-		return level;
-	}
-
-	public static boolean isListProperty (String p) {
-		return p.equals(AbstractUIPreferenceInitializer.P_MODELS)
-				|| p.endsWith(AbstractUIPreferenceInitializer.P_ALIASES);
-	}
 
 	public RootPreferencePage () {
 		super();
