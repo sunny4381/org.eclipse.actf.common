@@ -42,7 +42,6 @@ public interface IFlashConst {
 	//HTML node attributes
 	public static final String PLAYER_SET_ATTRIBUTE = "SetAttribute";
 	//public static final String PLAYER_GET_ATTRIBUTE = "GetAttribute";
-	public static final String ATTR_ERROR = "ACTF_Flash_Error";
 	public static final String ATTR_WMODE = "WMode";
 	public static final String V_TRANSPARENT = "Transparent";
 	public static final String V_OPAQUE = "Opaque";
