@@ -19,7 +19,7 @@ import org.eclipse.actf.model.flash.as.ASDeserializer;
 import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.model.flash.as.ASSerializer;
 import org.eclipse.actf.model.flash.bridge.IWaXcoding;
-import org.eclipse.actf.model.flash.internal.Messages;
+import org.eclipse.actf.model.flash.internal.FlashStatusUtil;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
 import org.eclipse.actf.util.win32.comclutch.DispatchException;
@@ -404,9 +404,7 @@ public class FlashPlayer implements IFlashPlayer {
 			while (endTime > System.currentTimeMillis()) {
 				counter++;
 				String value = getVariable(responseValuePath);
-				if (null == value)
-					return null;
-				if (value.length() > 0) {
+				if (null != value && value.length() > 0) {
 					ASDeserializer asd = new ASDeserializer(value);
 					return asd.deserialize();
 				}
@@ -429,24 +427,10 @@ public class FlashPlayer implements IFlashPlayer {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getErrorText()
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getStatus()
 	 */
-	public String getErrorText() {
-
-		String strError = getPlayerProperty(ATTR_ERROR);
-		if (strError != null) {
-			if (strError.startsWith(ERROR_WAIT)) {
-				return Messages.getString("flash.player_loading"); //$NON-NLS-1$
-			}
-			if (strError.startsWith(ERROR_NG)) {
-				return Messages.getString("flash.player_no_dom"); //$NON-NLS-1$
-			}
-			if (strError.startsWith(ERROR_NA)) {
-				return Messages.getString("flash.player_no_xcode"); //$NON-NLS-1$
-			}
-		}
-		// return Messages.getString("flash.player_unknown"); //$NON-NLS-1$
-		return Messages.getString("flash.player_no_xcode"); //$NON-NLS-1$
+	public String getStatus() {
+		return FlashStatusUtil.getStatus(this);
 	}
 
 	/*
@@ -470,9 +454,6 @@ public class FlashPlayer implements IFlashPlayer {
 	 *      java.lang.String)
 	 */
 	void setVariable(String name, String value) {
-		if (!isReady()) {
-			return;
-		}
 		try {
 			idispFlash
 					.invoke(PLAYER_SET_VARIABLE, new Object[] { name, value });
@@ -486,9 +467,6 @@ public class FlashPlayer implements IFlashPlayer {
 	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getVariable(java.lang.String)
 	 */
 	String getVariable(String name) {
-		if (!isReady()) {
-			return "";
-		}
 		try {
 			Object obj = idispFlash.invoke1(PLAYER_GET_VARIABLE, name);
 			return (String) obj;

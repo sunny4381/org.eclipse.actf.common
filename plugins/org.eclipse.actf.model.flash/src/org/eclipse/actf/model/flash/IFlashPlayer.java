@@ -19,7 +19,7 @@ public interface IFlashPlayer extends IASBridge, IFlashConst {
 
 	public abstract IDispatch getDispatch();
 
-	public abstract String getErrorText();
+	public abstract String getStatus();
 
 	public abstract String getPlayerVersion();
 

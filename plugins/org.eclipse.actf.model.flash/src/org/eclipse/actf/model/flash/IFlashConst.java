@@ -21,13 +21,6 @@ public interface IFlashConst {
 	public static final String READY_STATE = "readyState";
     public static final Integer COMPLETED_READY_STATE = Integer.valueOf(4);
 
-
-	//messages
-	public static final String ERROR_OK = "OK: "; //$NON-NLS-1$
-	public static final String ERROR_NG = "NG: "; //$NON-NLS-1$
-	public static final String ERROR_NA = "NA: "; //$NON-NLS-1$
-	public static final String ERROR_WAIT = "WAIT: "; //$NON-NLS-1$	
-
 	//initialize
 	public static final String PATH_ROOTLEVEL = "_level0"; //$NON-NLS-1$
 	public static final String PATH_BRIDGELEVEL = "_level53553"; //$NON-NLS-1$
