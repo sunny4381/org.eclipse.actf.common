@@ -152,8 +152,9 @@ public abstract class AbstractReporter implements IReporter
 
 	/** {@inheritDoc} */
 	public void setDefaultOutputLevel (int level) {
-		if (level < MIN_LEVEL || level > MAX_LEVEL) { throw new IllegalArgumentException("invalid level: "
-				+ level); }
+		if (level < MIN_LEVEL || level > MAX_LEVEL) {
+			throw new IllegalArgumentException("invalid level: " + level);
+		}
 		defaultOutputLevel = level;
 	}
 

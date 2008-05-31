@@ -128,25 +128,6 @@ public class EclipseConfiguration extends AbstractConfiguration {
 			String filterModel = (String) attributeMap
 					.get(IConfiguration.FILTER_MODEL_ATTRIBUTE);
 			filterMap.put(filterModel, attributeMap);
-
-		} else if (elementName.equals(IConfiguration.ALIASES_ID)) {
-			// aliases are children of the model element
-			String model = (String) elementStack.peek();
-			// create pool with id <model-name>_aliases and add the aliases
-			String poolName = model + MODEL_POOL_ID_DELIMITER
-					+ IConfiguration.ALIASES_ID;
-			if (_configMap.containsKey(poolName)) {
-				setSymbolPool(poolName);
-			} else {
-				createSymbolPool(poolName);
-			}
-			// then get all of its children and process them too
-			IConfigurationElement[] children = element.getChildren();
-			if (children.length > 0) {
-				for (int i = 0; i < children.length; i++) {
-					addElement(children[i]);
-				}
-			}
 		} else if (elementName.equals(ALIAS_ID)) {
 			// get the attributes and add this element to
 			// the current model alias pool - <model_name>_aliases)
