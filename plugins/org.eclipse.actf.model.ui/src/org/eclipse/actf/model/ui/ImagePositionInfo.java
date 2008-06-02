@@ -10,15 +10,13 @@
  *******************************************************************************/
 package org.eclipse.actf.model.ui;
 
+
 public class ImagePositionInfo {
 	int x=0;
 	int y=0;
 	int width=0;
 	int height=0;
 	String url="";
-
-	public ImagePositionInfo(){		
-	};
 	
 	public ImagePositionInfo(int x, int y, int width, int height, String url) {
 		this.x = x;
