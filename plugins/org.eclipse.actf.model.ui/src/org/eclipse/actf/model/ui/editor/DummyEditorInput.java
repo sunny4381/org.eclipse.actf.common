@@ -52,7 +52,8 @@ public class DummyEditorInput implements IEditorInput {
         return "";
     }
 
-    public Object getAdapter(Class adapter) {
+    @SuppressWarnings("unchecked")
+	public Object getAdapter(Class adapter) {
         return null;
     }
 

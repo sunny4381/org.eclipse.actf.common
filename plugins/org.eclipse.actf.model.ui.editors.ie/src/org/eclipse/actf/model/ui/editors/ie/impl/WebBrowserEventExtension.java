@@ -36,7 +36,7 @@ public class WebBrowserEventExtension {
         IExtension[] extensions = Platform.getExtensionRegistry()
             .getExtensionPoint(BrowserIE_Plugin.PLUGIN_ID, "WebBrowserEventListener")
             .getExtensions();
-        List l = new ArrayList();
+        List<WebBrowserEventExtension> l = new ArrayList<WebBrowserEventExtension>();
         for (int i = 0; i < extensions.length; i++) {
             IConfigurationElement[] configElements =
                 extensions[i].getConfigurationElements();

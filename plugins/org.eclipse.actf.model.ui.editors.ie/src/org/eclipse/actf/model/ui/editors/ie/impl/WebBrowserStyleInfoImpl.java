@@ -9,14 +9,16 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editor.browser;
+package org.eclipse.actf.model.ui.editors.ie.impl;
 
 import java.util.HashMap;
 
 import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
+import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo;
 import org.eclipse.swt.graphics.RGB;
 
-public class BrowserAndStyleInfo implements IWebBrowserStyleInfo {
+public class WebBrowserStyleInfoImpl implements IWebBrowserStyleInfo {
 	private HashMap<String, ICurrentStyles> nodeStyles;
 
 	private ModelServiceSizeInfo size;
@@ -29,7 +31,7 @@ public class BrowserAndStyleInfo implements IWebBrowserStyleInfo {
 	 * @param rgb
 	 * @param pageSize
 	 */
-	public BrowserAndStyleInfo(ModelServiceSizeInfo size,
+	public WebBrowserStyleInfoImpl(ModelServiceSizeInfo size,
 			HashMap<String, ICurrentStyles> nodeStyles, RGB unvisited,
 			RGB visited) {
 		this.size = size;

@@ -21,13 +21,13 @@ import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
-import org.eclipse.actf.model.ui.editor.browser.BrowserAndStyleInfo;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo;
 import org.eclipse.actf.model.ui.editors.ie.BrowserIE_Plugin;
 import org.eclipse.actf.model.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
+import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserStyleInfoImpl;
 import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserEventExtension;
 import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserIEComposite;
 import org.eclipse.actf.model.ui.editors.ie.impl.WebBrowserIEScrollManager;
@@ -580,7 +580,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	public IWebBrowserStyleInfo getStyleInfo() {
 		// TODO obtain current style info from live DOM [233615]
 		// need to wait IPZilla [2323]
-		IWebBrowserStyleInfo styleInfo = new BrowserAndStyleInfo(scrollManager
+		IWebBrowserStyleInfo styleInfo = new WebBrowserStyleInfoImpl(scrollManager
 				.getSize(true), new HashMap<String, ICurrentStyles>(),
 				getAnchorColor(), getVisitedAnchorColor());
 		return styleInfo;

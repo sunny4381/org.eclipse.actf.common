@@ -9,9 +9,11 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editor.browser;
+package org.eclipse.actf.model.ui.editors.ie.impl;
 
-public class CurrentStyles implements ICurrentStyles {
+import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
+
+public class CurrentStylesImpl implements ICurrentStyles {
 
     //TODO re-construct
     String xpath;
