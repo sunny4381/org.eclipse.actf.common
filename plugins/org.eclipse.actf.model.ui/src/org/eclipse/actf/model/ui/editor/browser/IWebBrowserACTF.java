@@ -91,13 +91,8 @@ public interface IWebBrowserACTF extends IModelService {
 
 	public abstract int getFontSize();
 
-	public abstract BrowserAndStyleInfo getStyleInfo();
+	public abstract IWebBrowserStyleInfo getStyleInfo();
 	
-//	public abstract RGB getAnchorColor();
-//
-//	public abstract RGB getVisitedAnchorColor();
-	
-
 	int getIWebBrowser2();
         
 }

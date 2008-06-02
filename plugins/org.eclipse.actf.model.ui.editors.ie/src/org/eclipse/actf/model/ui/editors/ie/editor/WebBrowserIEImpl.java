@@ -24,6 +24,7 @@ import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 import org.eclipse.actf.model.ui.editor.browser.BrowserAndStyleInfo;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo;
 import org.eclipse.actf.model.ui.editors.ie.BrowserIE_Plugin;
 import org.eclipse.actf.model.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.ui.editors.ie.events.IWindowClosedEventListener;
@@ -576,10 +577,10 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	 * 
 	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF#getStyleInfo()
 	 */
-	public BrowserAndStyleInfo getStyleInfo() {
+	public IWebBrowserStyleInfo getStyleInfo() {
 		// TODO obtain current style info from live DOM [233615]
 		// need to wait IPZilla [2323]
-		BrowserAndStyleInfo styleInfo = new BrowserAndStyleInfo(scrollManager
+		IWebBrowserStyleInfo styleInfo = new BrowserAndStyleInfo(scrollManager
 				.getSize(true), new HashMap<String, ICurrentStyles>(),
 				getAnchorColor(), getVisitedAnchorColor());
 		return styleInfo;

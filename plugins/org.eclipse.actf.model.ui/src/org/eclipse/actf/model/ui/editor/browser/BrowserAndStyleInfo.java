@@ -16,14 +16,12 @@ import java.util.HashMap;
 import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 import org.eclipse.swt.graphics.RGB;
 
-public class BrowserAndStyleInfo {
+public class BrowserAndStyleInfo implements IWebBrowserStyleInfo {
 	private HashMap<String, ICurrentStyles> nodeStyles;
 
 	private ModelServiceSizeInfo size;
-
-	private String unvisited;
-
-	private String visited;
+	
+	private RGB unvisited, visited;
 
 	/**
 	 * @param nodeStyles
@@ -35,58 +33,9 @@ public class BrowserAndStyleInfo {
 			HashMap<String, ICurrentStyles> nodeStyles, RGB unvisited,
 			RGB visited) {
 		this.size = size;
-		this.unvisited = parseRGB(unvisited);
-		this.visited = parseRGB(visited);
 		this.nodeStyles = nodeStyles;
-	}
-
-	/**
-	 * @return Returns the Map between Elements (XPath) and nodeStyles.
-	 */
-	public HashMap<String, ICurrentStyles> getNodeStyles() {
-		return this.nodeStyles;
-	}
-
-	/**
-	 * @return Returns the pageSizeX.
-	 */
-	public int getPageSizeX() {
-		return size.getWholeSizeX();
-	}
-
-	/**
-	 * @return Returns the pageSizeY.
-	 */
-	public int getPageSizeY() {
-		return size.getWholeSizeY();
-	}
-
-	/**
-	 * @return Returns the screenSizeX.
-	 */
-	public int getScreenSizeX() {
-		return size.getViewSizeX();
-	}
-
-	/**
-	 * @return Returns the screenSizeY.
-	 */
-	public int getScreenSizeY() {
-		return size.getViewSizeY();
-	}
-
-	/**
-	 * @return Returns the unvisited.
-	 */
-	public String getUnvisited() {
-		return unvisited;
-	}
-
-	/**
-	 * @return Returns the visited.
-	 */
-	public String getVisited() {
-		return visited;
+		this.unvisited = unvisited;
+		this.visited = visited;
 	}
 
 	/**
@@ -101,5 +50,71 @@ public class BrowserAndStyleInfo {
 				+ g.substring(g.length() - 2) + b.substring(b.length() - 2);
 		// System.out.println(color);
 		return color;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getCurrentStyles()
+	 */
+	public HashMap<String, ICurrentStyles> getCurrentStyles() {
+		return this.nodeStyles;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getPageSizeX()
+	 */
+	public int getPageSizeX() {
+		return size.getWholeSizeX();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getPageSizeY()
+	 */
+	public int getPageSizeY() {
+		return size.getWholeSizeY();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getScreenSizeX()
+	 */
+	public int getScreenSizeX() {
+		return size.getViewSizeX();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getScreenSizeY()
+	 */
+	public int getScreenSizeY() {
+		return size.getViewSizeY();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getUnvisitedColorStr()
+	 */
+	public String getUnvisitedLinkColorStr() {
+		return parseRGB(unvisited);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getVisitedLinkColorStr()
+	 */
+	public String getVisitedLinkColorStr() {
+		return parseRGB(visited);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getUnvisitedLinkColor()
+	 */
+	public RGB getUnvisitedLinkColor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getVisitedLinkColor()
+	 */
+	public RGB getVisitedLinkColor() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
