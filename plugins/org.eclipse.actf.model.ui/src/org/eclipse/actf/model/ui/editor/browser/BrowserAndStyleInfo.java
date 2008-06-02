@@ -37,20 +37,6 @@ public class BrowserAndStyleInfo implements IWebBrowserStyleInfo {
 		this.unvisited = unvisited;
 		this.visited = visited;
 	}
-
-	/**
-	 * @param unvisited2
-	 * @return
-	 */
-	private String parseRGB(RGB rgbColor) {
-		String r = "0" + Integer.toHexString(rgbColor.red);
-		String g = "0" + Integer.toHexString(rgbColor.green);
-		String b = "0" + Integer.toHexString(rgbColor.blue);
-		String color = r.substring(r.length() - 2)
-				+ g.substring(g.length() - 2) + b.substring(b.length() - 2);
-		// System.out.println(color);
-		return color;
-	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getCurrentStyles()
@@ -88,33 +74,16 @@ public class BrowserAndStyleInfo implements IWebBrowserStyleInfo {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getUnvisitedColorStr()
-	 */
-	public String getUnvisitedLinkColorStr() {
-		return parseRGB(unvisited);
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getVisitedLinkColorStr()
-	 */
-	public String getVisitedLinkColorStr() {
-		return parseRGB(visited);
-	}
-
-
-	/* (non-Javadoc)
 	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getUnvisitedLinkColor()
 	 */
 	public RGB getUnvisitedLinkColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return unvisited;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getVisitedLinkColor()
 	 */
 	public RGB getVisitedLinkColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return visited;
 	}
 }

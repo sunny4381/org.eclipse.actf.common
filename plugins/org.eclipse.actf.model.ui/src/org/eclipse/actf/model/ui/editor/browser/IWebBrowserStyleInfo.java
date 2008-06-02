@@ -42,16 +42,6 @@ public interface IWebBrowserStyleInfo {
 	public abstract int getScreenSizeY();
 
 	/**
-	 * @return Returns the unvisited link color in String format.
-	 */
-	public abstract String getUnvisitedLinkColorStr();
-
-	/**
-	 * @return Returns the visited link color in String format.
-	 */
-	public abstract String getVisitedLinkColorStr();
-
-	/**
 	 * @return Returns the unvisited link color in RGB format.
 	 */
 	public abstract RGB getUnvisitedLinkColor();
