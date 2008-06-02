@@ -26,6 +26,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.traversal.NodeFilter;
 
 public class WebBrowserStyleInfoImpl implements IWebBrowserStyleInfo {
+	private static final String TAG_HEAD = "HEAD";
 	private final WebBrowserIEImpl browser;
 
 	public WebBrowserStyleInfoImpl(WebBrowserIEImpl browser) {
@@ -38,10 +39,18 @@ public class WebBrowserStyleInfoImpl implements IWebBrowserStyleInfo {
 	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getCurrentStyles()
 	 */
 	public HashMap<String, ICurrentStyles> getCurrentStyles() {
-		HashMap<String, ICurrentStyles> currentStyles = new HashMap<String, ICurrentStyles>();
+		HashMap<String, ICurrentStyles> currentStyles = new HashMap<String, ICurrentStyles>(512);
 		Document doc = browser.getLiveDocument();
 		TreeWalkerImpl treeWalker = new TreeWalkerImpl(doc,
-				NodeFilter.SHOW_ELEMENT, null, false);
+				NodeFilter.SHOW_ELEMENT, new NodeFilter() {
+
+					public short acceptNode(Node arg0) {
+						if (TAG_HEAD.equalsIgnoreCase(arg0.getNodeName())) {
+							return FILTER_REJECT;
+						}
+						return FILTER_ACCEPT;
+					}
+				}, false);
 		Node tmpN = treeWalker.nextNode();
 		URL base = null;
 		try {
@@ -51,7 +60,8 @@ public class WebBrowserStyleInfoImpl implements IWebBrowserStyleInfo {
 		}
 		while (tmpN != null) {
 			if (tmpN instanceof IElementEx) {
-				ICurrentStyles curStyle = new CurrentStylesImpl((IElementEx)tmpN, base);
+				ICurrentStyles curStyle = new CurrentStylesImpl(
+						(IElementEx) tmpN, base);
 				currentStyles.put(curStyle.getXPath(), curStyle);
 			}
 			tmpN = (IElementEx) treeWalker.nextNode();
