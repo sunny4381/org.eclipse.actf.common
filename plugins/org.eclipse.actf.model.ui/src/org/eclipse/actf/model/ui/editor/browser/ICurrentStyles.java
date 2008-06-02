@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.eclipse.actf.model.ui.editor.browser;
 
+import java.net.URL;
+
+import org.eclipse.swt.graphics.Rectangle;
+
 public interface ICurrentStyles {
 
 	/**
@@ -22,6 +26,23 @@ public interface ICurrentStyles {
 	 */
 	public abstract String getTagName();
 
+
+	/**
+	 * @return
+	 */
+	public abstract Rectangle getRectangle();
+
+	
+	/**
+	 * @return
+	 */
+	public abstract boolean isLink();
+
+	/**
+	 * @return
+	 */
+	public abstract URL getLinkURL();
+	
 	
 	/**
 	 * @return
@@ -77,16 +98,6 @@ public interface ICurrentStyles {
 	/**
 	 * @return
 	 */
-	public abstract String getHeight();
-
-	/**
-	 * @return
-	 */
-	public abstract String getLeft();
-
-	/**
-	 * @return
-	 */
 	public abstract String getLetterSpacing();
 
 	/**
@@ -109,39 +120,10 @@ public interface ICurrentStyles {
 	 */
 	public abstract String getTextDecoration();
 
-	/**
-	 * @return
-	 */
-	public abstract String getTop();
 
 	/**
 	 * @return
 	 */
 	public abstract String getVisibility();
-
-	/**
-	 * @return
-	 */
-	public abstract String getWidth();
-
-	/**
-	 * @return
-	 */
-	public abstract String getOffsetHeight();
-
-	/**
-	 * @return
-	 */
-	public abstract String getOffsetLeft();
-
-	/**
-	 * @return
-	 */
-	public abstract String getOffsetTop();
-
-	/**
-	 * @return
-	 */
-	public abstract String getOffsetWidth();
 
 }

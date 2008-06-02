@@ -13,48 +13,55 @@ package org.eclipse.actf.util.xpath;
 
 import org.w3c.dom.Node;
 
-
 public class XPathCreator {
-    public static String childPathSequence(Node target) {
-        StringBuffer tmpSB = new StringBuffer();
-        
-        Node owner = null;
-        if(target!=null){
-            owner = target.getOwnerDocument();
-        }
-        while (target != null && target!=owner) {
-            //short currentType = target.getNodeType();            
-            String currentName = target.getNodeName();
-            int count = countSiblingByName(target, currentName);
 
-            if (currentName.equals("#text")){
-                currentName = "text()";
-            }
-            
-            if (count > 0) {
-                count = count+1;
-                tmpSB.insert(0,"/" + currentName + "[" + count + "]");
-            } else {
-                tmpSB.insert(0,"/" + currentName);
-            }
-            target = target.getParentNode();
-        }
-        
-        return (tmpSB.toString());
-    }
+	private static final String TEXT_NODE_NAME = "#text";
+	private static final String TEXT_NODE = "text()";
+	private static final String RIGHT_BRACKET = "]";
+	private static final String LEFT_BRACKET = "[";
+	private static final String SLASH = "/";
 
-    private static int countSiblingByName(Node target, String name) {
-        int count = 0;
-        if (target != null) {
-            target = target.getPreviousSibling();
-        }
-        while (target != null) {
-            if (target.getNodeName().equals(name)) {
-                count++;
-            }
-            target = target.getPreviousSibling();
-        }
-        return count;
-    }
+	public static String childPathSequence(Node target) {
+		StringBuffer tmpSB = new StringBuffer();
+
+		Node owner = null;
+		if (target != null) {
+			owner = target.getOwnerDocument();
+		}
+		while (target != null && target != owner) {
+			// short currentType = target.getNodeType();
+			String currentName = target.getNodeName();
+			int count = countSiblingByName(target, currentName);
+
+			if (TEXT_NODE_NAME.equalsIgnoreCase(currentName)) {
+				currentName = TEXT_NODE;
+			}
+
+			if (count > 0) {
+				count = count + 1;
+				tmpSB.insert(0, SLASH + currentName + LEFT_BRACKET + count
+						+ RIGHT_BRACKET);
+			} else {
+				tmpSB.insert(0, SLASH + currentName);
+			}
+			target = target.getParentNode();
+		}
+
+		return (tmpSB.toString());
+	}
+
+	private static int countSiblingByName(Node target, String name) {
+		int count = 0;
+		if (target != null) {
+			target = target.getPreviousSibling();
+		}
+		while (target != null) {
+			if (target.getNodeName().equals(name)) {
+				count++;
+			}
+			target = target.getPreviousSibling();
+		}
+		return count;
+	}
 
 }

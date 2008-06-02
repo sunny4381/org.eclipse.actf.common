@@ -136,13 +136,13 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode, IFlashConst {
 
 	@Override
 	public Node getFirstChild() {
-		System.err.println("invalid(getFirstChild).");
+		//System.err.println("invalid(getFirstChild).");
 		return null;
 	}
 
 	@Override
 	public Node getLastChild() {
-		System.err.println("invalid(getLastChild).");
+		//System.err.println("invalid(getLastChild).");
 		return null;
 	}
 

@@ -11,81 +11,79 @@
 
 package org.eclipse.actf.model.ui.editors.ie.impl;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 
+import org.eclipse.actf.model.dom.dombycom.IElementEx;
 import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo;
+import org.eclipse.actf.util.dom.TreeWalkerImpl;
 import org.eclipse.swt.graphics.RGB;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.traversal.NodeFilter;
 
 public class WebBrowserStyleInfoImpl implements IWebBrowserStyleInfo {
-	private HashMap<String, ICurrentStyles> nodeStyles;
+	private final WebBrowserIEImpl browser;
 
-	private ModelServiceSizeInfo size;
-	
-	private RGB unvisited, visited;
-
-	/**
-	 * @param nodeStyles
-	 * @param rgb2
-	 * @param rgb
-	 * @param pageSize
-	 */
-	public WebBrowserStyleInfoImpl(ModelServiceSizeInfo size,
-			HashMap<String, ICurrentStyles> nodeStyles, RGB unvisited,
-			RGB visited) {
-		this.size = size;
-		this.nodeStyles = nodeStyles;
-		this.unvisited = unvisited;
-		this.visited = visited;
+	public WebBrowserStyleInfoImpl(WebBrowserIEImpl browser) {
+		this.browser = browser;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getCurrentStyles()
 	 */
 	public HashMap<String, ICurrentStyles> getCurrentStyles() {
-		return this.nodeStyles;
+		HashMap<String, ICurrentStyles> currentStyles = new HashMap<String, ICurrentStyles>();
+		Document doc = browser.getLiveDocument();
+		TreeWalkerImpl treeWalker = new TreeWalkerImpl(doc,
+				NodeFilter.SHOW_ELEMENT, null, false);
+		Node tmpN = treeWalker.nextNode();
+		URL base = null;
+		try {
+			base = new URL(browser.getURL());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		while (tmpN != null) {
+			if (tmpN instanceof IElementEx) {
+				ICurrentStyles curStyle = new CurrentStylesImpl((IElementEx)tmpN, base);
+				currentStyles.put(curStyle.getXPath(), curStyle);
+			}
+			tmpN = (IElementEx) treeWalker.nextNode();
+		}
+
+		return currentStyles;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getPageSizeX()
-	 */
-	public int getPageSizeX() {
-		return size.getWholeSizeX();
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getPageSizeY()
-	 */
-	public int getPageSizeY() {
-		return size.getWholeSizeY();
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getScreenSizeX()
-	 */
-	public int getScreenSizeX() {
-		return size.getViewSizeX();
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getScreenSizeY()
-	 */
-	public int getScreenSizeY() {
-		return size.getViewSizeY();
-	}
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getUnvisitedLinkColor()
 	 */
 	public RGB getUnvisitedLinkColor() {
-		return unvisited;
+		return browser.getAnchorColor();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getVisitedLinkColor()
 	 */
 	public RGB getVisitedLinkColor() {
-		return visited;
+		return browser.getVisitedAnchorColor();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getSizeInfo()
+	 */
+	public ModelServiceSizeInfo getSizeInfo(boolean isWhole) {
+		return browser.getBrowserSize(isWhole);
 	}
 }

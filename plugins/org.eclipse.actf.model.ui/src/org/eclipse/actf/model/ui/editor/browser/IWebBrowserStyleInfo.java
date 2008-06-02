@@ -10,36 +10,26 @@
  *******************************************************************************/
 package org.eclipse.actf.model.ui.editor.browser;
 
-import java.util.HashMap;
+import java.util.Map;
 
+import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 import org.eclipse.swt.graphics.RGB;
 
 public interface IWebBrowserStyleInfo {
 
 	/**
-	 * @return Returns the Map between Elements (XPath) and node's current styles.
+	 * @return Returns the Map between Elements (XPath) and node's current
+	 *         styles.
 	 */
-	public abstract HashMap<String, ICurrentStyles> getCurrentStyles();
+	public abstract Map<String, ICurrentStyles> getCurrentStyles();
 
 	/**
-	 * @return Returns the pageSizeX.
+	 * @param isWhole
+	 *            if true returns whole page size, if false returns visible area
+	 *            size
+	 * @return Returns the Browser's size information.
 	 */
-	public abstract int getPageSizeX();
-
-	/**
-	 * @return Returns the pageSizeY.
-	 */
-	public abstract int getPageSizeY();
-
-	/**
-	 * @return Returns the screenSizeX.
-	 */
-	public abstract int getScreenSizeX();
-
-	/**
-	 * @return Returns the screenSizeY.
-	 */
-	public abstract int getScreenSizeY();
+	public abstract ModelServiceSizeInfo getSizeInfo(boolean isWhole);
 
 	/**
 	 * @return Returns the unvisited link color in RGB format.
@@ -50,5 +40,5 @@ public interface IWebBrowserStyleInfo {
 	 * @return Returns the visited link color in RGB format.
 	 */
 	public abstract RGB getVisitedLinkColor();
-	
+
 }
