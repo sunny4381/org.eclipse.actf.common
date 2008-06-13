@@ -36,6 +36,7 @@ import org.eclipse.actf.model.ui.editors.ie.internal.events.StatusTextChangePara
 import org.eclipse.actf.model.ui.editors.ie.internal.events.TitleChangeParameters;
 import org.eclipse.actf.model.ui.editors.ie.internal.events.WindowClosingParameters;
 import org.eclipse.actf.model.ui.editors.ie.win32.RegistryUtil;
+import org.eclipse.actf.model.ui.util.ScrollBarSizeUtil;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
@@ -71,8 +72,6 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	// private boolean allowNewWindow = false;
 
 	private IModelServiceScrollManager scrollManager;
-
-	private int scrollbarWidth;
 
 	private DomByCom domByCom;
 
@@ -178,6 +177,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		int[] size = new int[] { 1, 1, 1, 1 };
 		int width = browserComposite.getWidth() - 4;
 		int height = browserComposite.getHeight() - 4;
+		int scrollbarWidth = ScrollBarSizeUtil.getVerticalBarWidth();
 		size[0] = width - scrollbarWidth;
 		size[1] = height;
 		size[2] = width - scrollbarWidth;
@@ -395,13 +395,6 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	public String getCurrentMIMEType() {
 		// TODO get info from browser
 		return MIMETYPES_HTML[0];
-	}
-
-	public void setScrollbarWidth(int width) {
-		// TODO Implement within Browser -> remove from interface
-		// currently uses lowVisionView.getVarticalBarSize().x
-		scrollbarWidth = width;
-		scrollManager.setScrollBarWidth(width);
 	}
 
 	/*

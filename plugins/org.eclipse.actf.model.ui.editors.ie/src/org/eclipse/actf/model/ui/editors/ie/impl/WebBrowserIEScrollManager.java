@@ -18,7 +18,6 @@ import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 
 public class WebBrowserIEScrollManager implements IModelServiceScrollManager {
 
-    int scrollBarWidth;
     WebBrowserIEImpl browserIE;
 
     public WebBrowserIEScrollManager(WebBrowserIEImpl browserIE) {
@@ -93,10 +92,6 @@ public class WebBrowserIEScrollManager implements IModelServiceScrollManager {
 
     public ModelServiceSizeInfo getSize(boolean isWhole) {
         return browserIE.getBrowserSize(isWhole);
-    }
-
-    public void setScrollBarWidth(int width) {
-        scrollBarWidth = width;
     }
 
 }

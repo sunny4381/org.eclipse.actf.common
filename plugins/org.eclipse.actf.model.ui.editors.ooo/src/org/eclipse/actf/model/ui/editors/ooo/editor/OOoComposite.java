@@ -237,10 +237,6 @@ public class OOoComposite extends Composite implements IModelService {
 		}
 	}
 
-	public void setScrollbarWidth(int metric) {
-		scrollManager.setScrollBarWidth(metric);
-	}
-
 	public String getCurrentMIMEType() {
 		// TODO return actual MIME type
 		return MIMETYPES_ODF[0];

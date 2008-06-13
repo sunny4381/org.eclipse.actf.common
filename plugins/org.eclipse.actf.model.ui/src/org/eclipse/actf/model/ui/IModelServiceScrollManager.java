@@ -41,6 +41,5 @@ public interface IModelServiceScrollManager {
     int getCurrentPageNumber();
     int getLastPageNumber();
     
-    void setScrollBarWidth(int width);
     ModelServiceSizeInfo getSize(boolean isWhole);
 }

@@ -65,8 +65,6 @@ public interface IModelService {
 
     IModelServiceScrollManager getScrollManager();
 
-    void setScrollbarWidth(int width);
-
     ImagePositionInfo[] getAllImagePosition();
     
     IModelServiceHolder getModelServiceHolder();
