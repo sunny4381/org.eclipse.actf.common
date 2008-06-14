@@ -11,43 +11,48 @@
 
 package org.eclipse.actf.model.ui;
 
-
-
 public class ModelServiceSizeInfo {
 
-    int viewSizeX;
+	int viewSizeX;
 
-    int viewSizeY;
+	int viewSizeY;
 
-    int wholeSizeX;
+	int wholeSizeX;
 
-    int wholeSizeY;
+	int wholeSizeY;
 
-    public ModelServiceSizeInfo(int viewSizeX, int viewSizeY, int wholeSizeX, int wholeSizeY) {
-        this.viewSizeX = viewSizeX;
-        this.viewSizeY = viewSizeY;
-        this.wholeSizeX = wholeSizeX;
-        this.wholeSizeY = wholeSizeY;
-    }
+	public ModelServiceSizeInfo(int viewSizeX, int viewSizeY, int wholeSizeX,
+			int wholeSizeY) {
+		this.viewSizeX = viewSizeX;
+		this.viewSizeY = viewSizeY;
+		this.wholeSizeX = wholeSizeX;
+		this.wholeSizeY = wholeSizeY;
+	}
 
-    public int getViewSizeX() {
-        return viewSizeX;
-    }
+	public int getViewSizeX() {
+		return viewSizeX;
+	}
 
-    public int getViewSizeY() {
-        return viewSizeY;
-    }
+	public int getViewSizeY() {
+		return viewSizeY;
+	}
 
-    public int getWholeSizeX() {
-        return wholeSizeX;
-    }
+	public int getWholeSizeX() {
+		return wholeSizeX;
+	}
 
-    public int getWholeSizeY() {
-        return wholeSizeY;
-    }
+	public int getWholeSizeY() {
+		return wholeSizeY;
+	}
 
-    public int[] toArray() {
-        return new int[] { viewSizeX, viewSizeY, wholeSizeX, wholeSizeY };
-    }
+	public int[] toArray() {
+		return new int[] { viewSizeX, viewSizeY, wholeSizeX, wholeSizeY };
+	}
+
+	@Override
+	public String toString() {
+		return "View: (" + viewSizeX + ", " + viewSizeY + ") Whole: ("
+				+ wholeSizeX + ", " + wholeSizeY + ")";
+	}
 
 }
