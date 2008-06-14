@@ -447,7 +447,14 @@ public class NodeImpl implements Node {
     public String getText() {
         String ret = "";
         if (Helper.hasProperty(inode, "value")) {
-            ret = (String) Helper.get(inode, "value");
+        	Object obj = Helper.get(inode, "value");
+        	if(obj instanceof String){
+        		return (String)obj;
+        	}else if(null != obj){
+        		//TODO check other case
+        		//System.err.println(obj+" "+obj.toString());
+        		return obj.toString();
+        	}
         } else {
             NodeImpl element = (NodeImpl) getParentNode();
             if ("TEXTAREA".equals(element.getLocalName())) {
