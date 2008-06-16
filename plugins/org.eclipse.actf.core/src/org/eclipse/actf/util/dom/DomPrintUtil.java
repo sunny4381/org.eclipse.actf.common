@@ -145,18 +145,17 @@ public class DomPrintUtil {
 					String sysId = docType.getSystemId();
 					if (null != pubId && pubId.length() > 0) {
 						if (null != sysId && sysId.length() > 0) {
-							tmpSB.append(line_sep + indentS + lt + "!DOCTYPE "
-									+ docType.getName() + " PUBLIC \"" + pubId
-									+ " \"" + sysId + "\">" + line_sep);
-						} else {
-							tmpSB.append(line_sep + indentS + lt + "!DOCTYPE "
-									+ docType.getName() + " PUBLIC \"" + pubId
+							tmpSB.append(lt + "!DOCTYPE " + docType.getName()
+									+ " PUBLIC \"" + pubId + " \"" + sysId
 									+ "\">" + line_sep);
+						} else {
+							tmpSB.append(lt + "!DOCTYPE " + docType.getName()
+									+ " PUBLIC \"" + pubId + "\">" + line_sep);
 						}
 					} else {
-						tmpSB.append(line_sep + indentS + lt + "!DOCTYPE "
-								+ docType.getName() + " SYSTEM \""
-								+ docType.getSystemId() + "\">" + line_sep);
+						tmpSB.append(lt + "!DOCTYPE " + docType.getName()
+								+ " SYSTEM \"" + docType.getSystemId() + "\">"
+								+ line_sep);
 
 					}
 				} else {
