@@ -290,19 +290,6 @@ public class SGMLDocument extends SGMLParentNode implements Document {
 		};
 	}
 
-	/**
-	 * Creates DocumentType instance.
-	 * 
-	 * @param docTypeName
-	 *            document type name
-	 * @apram id public ID.
-	 * @deprecated See
-	 *             {@link SGMLDOMImpl#createDocumentType(java.lang.String, java.lang.String, java.lang.String)}.
-	 */
-	public SGMLDocType createDocumentType(String docTypeName, String id) {
-		return new SGMLDocType(docTypeName, id, this);
-	}
-
 	public void printAsXML(String publicID, URL location, PrintWriter pw,
 			boolean indent) throws IOException {
 		printAsXML(publicID, location, pw, indent, null);

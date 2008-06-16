@@ -12,12 +12,13 @@
 package org.eclipse.actf.model.dom.sgml;
 
 import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 public class SGMLDocType extends SGMLNode implements DocumentType {
+	private static final long serialVersionUID = -4133901290836989142L;
+
 	/**
 	 * @serial
 	 */
@@ -43,11 +44,11 @@ public class SGMLDocType extends SGMLNode implements DocumentType {
 		return systemID;
 	}
 
-	SGMLDocType(String name, String id, Document doc) {
-		super(doc);
-		this.name = name;
-		this.id = id;
-	}
+	// SGMLDocType(String name, String id, Document doc) {
+	// super(doc);
+	// this.name = name;
+	// this.id = id;
+	// }
 
 	/**
 	 * @serial
@@ -73,6 +74,7 @@ public class SGMLDocType extends SGMLNode implements DocumentType {
 	void check(Node newChild) throws DOMException {
 		throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, this
 				+ "cannot have children.") {
+			private static final long serialVersionUID = -1251093824923453659L;
 		};
 	}
 
@@ -115,6 +117,7 @@ public class SGMLDocType extends SGMLNode implements DocumentType {
 	public void setNodeValue(String nodeValue) throws DOMException {
 		throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
 				"cannot set value on " + this) {
+					private static final long serialVersionUID = -2040752127102111247L;
 		};
 	}
 
