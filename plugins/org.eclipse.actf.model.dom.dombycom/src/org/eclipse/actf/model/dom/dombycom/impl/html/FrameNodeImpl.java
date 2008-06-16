@@ -30,7 +30,7 @@ import org.w3c.dom.NodeList;
 
 
 
-class FrameNodeImpl extends ElementImpl {
+class FrameNodeImpl extends HTMLElementImpl {
     FrameNodeImpl(NodeImpl baseNode, IDispatch idisp) {
         super(baseNode, idisp);
     }

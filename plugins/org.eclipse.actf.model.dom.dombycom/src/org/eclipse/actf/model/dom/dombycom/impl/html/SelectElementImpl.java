@@ -21,7 +21,7 @@ import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 
 
-public class SelectElementImpl extends ElementImpl implements ISelectElement {
+public class SelectElementImpl extends HTMLElementImpl implements ISelectElement {
 
     public SelectElementImpl(NodeImpl baseNode, IDispatch inode) {
         super(baseNode, inode);

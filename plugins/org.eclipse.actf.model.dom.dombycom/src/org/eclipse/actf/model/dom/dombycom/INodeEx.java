@@ -77,11 +77,12 @@ public interface INodeEx extends Node, IEvalTarget {
 	boolean setFocus();
 
 	/**
+	 * Set the text to the node.
+	 * 
 	 * @param text
 	 *            the text to be set.
-	 * @return the set is succeeded or not.
 	 */
-	boolean setText(String text);
+	void setText(String text);
 
 	/**
 	 * @return the text of the form element. It is NOT the text representation

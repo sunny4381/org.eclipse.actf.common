@@ -68,7 +68,7 @@ public class ElementImpl extends NodeImpl implements IElementEx {
         inode.invoke1("removeAttribute", name);
     }
 
-    protected String getSpecifiedAttribute(String name) {
+    public String getSpecifiedAttribute(String name) {
         IDispatch r = (IDispatch) inode.invoke1("getAttributeNode", name);
         if (r == null)
             return null;

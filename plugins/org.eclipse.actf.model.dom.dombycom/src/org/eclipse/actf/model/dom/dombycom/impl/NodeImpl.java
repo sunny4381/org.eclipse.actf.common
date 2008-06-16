@@ -431,16 +431,15 @@ public class NodeImpl implements Node {
         return ar;
     }
 
-    public boolean setText(String text) {
+    public void setText(String text) {
         if (Helper.hasProperty(inode, "value")) {
-            return Helper.put(inode, "value", text);
+            Helper.put(inode, "value", text);
         } else {
             NodeImpl element = (NodeImpl) getParentNode();
             if ("TEXTAREA".equals(element.getLocalName())) {
                 IDispatch tr = (IDispatch) element.inode.invoke0("createTextRange");
-                return Helper.put(tr, "text", text);
+                Helper.put(tr, "text", text);
             }
-            return false;
         }
     }
 

@@ -337,9 +337,8 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 		return null;
 	}
 
-	public boolean setText(String text) {
+	public void setText(String text) {
 		setProperty(ASNODE_TEXT, text);
-		return true;
 	}
 
 	public String getText() {

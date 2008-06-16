@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Daisuke SATO - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.dom.dombycom;
@@ -49,4 +50,9 @@ public interface IElementEx extends Element, INodeEx{
 	 *         existing.
 	 */
 	public Element getFormLabel();
+	
+	/**
+	 * @return the attribute value originally specified to the element. If no value is specified, returns null.
+	 */
+	public String getSpecifiedAttribute(String name);
 }

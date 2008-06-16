@@ -22,7 +22,7 @@ import org.w3c.dom.NodeList;
 
 
 
-public class ImageElementImpl extends ElementImpl implements IImageElement {
+public class ImageElementImpl extends HTMLElementImpl implements IImageElement {
 
     public ImageElementImpl(NodeImpl baseNode, IDispatch inode) {
         super(baseNode, inode);
