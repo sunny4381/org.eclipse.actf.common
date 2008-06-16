@@ -11,6 +11,7 @@
 package org.eclipse.actf.util.dom;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.DocumentType;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLTitleElement;
@@ -133,8 +134,40 @@ public class DomPrintUtil {
 						+ tmpN.getNodeValue() + "--" + gt + line_sep);
 				prevIsText = false;
 				break;
+			case Node.CDATA_SECTION_NODE:
+				tmpSB.append(line_sep + indentS + lt + "!CDATA["
+						+ tmpN.getNodeValue() + "]]" + line_sep);
+				break;
+			case Node.DOCUMENT_TYPE_NODE:
+				if (tmpN instanceof DocumentType) {
+					DocumentType docType = (DocumentType) tmpN;
+					String pubId = docType.getPublicId();
+					String sysId = docType.getSystemId();
+					if (null != pubId && pubId.length() > 0) {
+						if (null != sysId && sysId.length() > 0) {
+							tmpSB.append(line_sep + indentS + lt + "!DOCTYPE "
+									+ docType.getName() + " PUBLIC \"" + pubId
+									+ " \"" + sysId + "\">" + line_sep);
+						} else {
+							tmpSB.append(line_sep + indentS + lt + "!DOCTYPE "
+									+ docType.getName() + " PUBLIC \"" + pubId
+									+ "\">" + line_sep);
+						}
+					} else {
+						tmpSB.append(line_sep + indentS + lt + "!DOCTYPE "
+								+ docType.getName() + " SYSTEM \""
+								+ docType.getSystemId() + "\">" + line_sep);
+
+					}
+				} else {
+					System.out
+							.println("Document Type node does not implement DocumentType: "
+									+ tmpN);
+				}
+				break;
 			default:
-				System.out.println(tmpN.getNodeName());
+				System.out.println(tmpN.getNodeType() + " : "
+						+ tmpN.getNodeName());
 			}
 
 			Node next = treeWalker.firstChild();
