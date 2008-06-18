@@ -350,6 +350,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	public Document getDocument() {
 		try {
 			File tmpF = BrowserIE_Plugin.getDefault().createTempFile("actf", "html");
+			saveOriginalDocument(tmpF.getAbsolutePath());
 			HtmlParserUtil hpu = new HtmlParserUtil();
 			hpu.parse(new FileInputStream(tmpF));
 			return hpu.getSHDocument();

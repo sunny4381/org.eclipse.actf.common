@@ -20,6 +20,8 @@ import org.w3c.dom.traversal.NodeFilter;
 public class DomPrintUtil {
 
 	private static final String LINE_SEP = System.getProperty("line.separator");
+	private static final String EMPTY_STR = "";
+
 	private static final String LT = "<";
 	private static final String GT = ">";
 	private static final String AMP = "&";
@@ -38,11 +40,7 @@ public class DomPrintUtil {
 	private boolean indent = true;
 	private boolean escapeTagBracket = false;
 
-	private AttributeFilter attrFilter = new AttributeFilter() {
-		public boolean acceptNode(Node element, Node attr) {
-			return true;
-		}
-	};
+	private AttributeFilter attrFilter = null;
 
 	public interface AttributeFilter {
 		public boolean acceptNode(Node element, Node attr);
@@ -58,7 +56,7 @@ public class DomPrintUtil {
 	}
 
 	private String getAttributeString(Node element, Node attr) {
-		if (attrFilter.acceptNode(element, attr)) {
+		if (null != attrFilter && attrFilter.acceptNode(element, attr)) {
 			String value = getXMLString(attr.getNodeValue());
 			String quat = QUAT;
 			if (value.indexOf(QUAT) > 0) {
@@ -66,7 +64,7 @@ public class DomPrintUtil {
 			}
 			return " " + attr.getNodeName() + "=" + quat + value + quat;
 		}
-		return "";
+		return EMPTY_STR;
 	}
 
 	private boolean checkNewLine(Node target) {
@@ -88,12 +86,12 @@ public class DomPrintUtil {
 
 		String lt = escapeTagBracket ? ESC_LT : LT;
 		String gt = escapeTagBracket ? ESC_GT : GT;
-		String line_sep = indent ? LINE_SEP : "";
+		String line_sep = indent ? LINE_SEP : EMPTY_STR;
 
 		Node tmpN = treeWalker.nextNode();
 		boolean prevIsText = false;
 
-		String indentS = "";
+		String indentS = EMPTY_STR;
 		while (tmpN != null) {
 			short type = tmpN.getNodeType();
 			switch (type) {
