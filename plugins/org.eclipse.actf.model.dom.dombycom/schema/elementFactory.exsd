@@ -3,7 +3,7 @@
 <schema targetNamespace="org.eclipse.actf.model.dom.dombycom">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.actf.model.dom.dombycom" id="elementFactory" name="Element Factory"/>
+         <meta.schema plugin="org.eclipse.actf.model.dom.dombycom" id="elementFactory" name="elementFactory"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]
