@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.model.flash;
 
-public interface IASBridge {
+public interface IASBridge extends IFlashConst{
 
 	public abstract Object callMethod(String target, String method);
 

@@ -22,7 +22,7 @@ import org.eclipse.actf.model.flash.internal.Messages;
 
 public class ASNode {
 
-	private FlashPlayer player;
+	private IFlashPlayer player;
 	private ASObject asObject;
 	private ASNode parent;
 	private int level;
@@ -39,7 +39,7 @@ public class ASNode {
 	private String strTarget;
 	private boolean isUIComponent;
 
-	ASNode(ASNode parent, FlashPlayer player, ASObject node) {
+	public ASNode(ASNode parent, IFlashPlayer player, ASObject node) {
 		this.parent = parent;
 		this.level = null != parent ? parent.getLevel() + 1 : 0;
 		this.player = player;
@@ -245,7 +245,7 @@ public class ASNode {
 		return false;
 	}
 
-	public FlashPlayer getPlayer() {
+	public IFlashPlayer getPlayer() {
 		return player;
 	}
 

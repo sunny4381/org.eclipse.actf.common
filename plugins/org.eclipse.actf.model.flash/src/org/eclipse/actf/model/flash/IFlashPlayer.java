@@ -13,7 +13,7 @@ package org.eclipse.actf.model.flash;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
-public interface IFlashPlayer extends IASBridge, IFlashConst {
+public interface IFlashPlayer extends IASBridge {
 
 	public abstract FlashMSAAObject getAccessible();
 
