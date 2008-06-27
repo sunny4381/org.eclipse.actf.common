@@ -20,7 +20,13 @@ import java.util.Set;
 import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.model.flash.internal.Messages;
 
-public class ASNode {
+public class ASNode implements IFlashConst {
+
+	private static final String ACC_IMPL = "_accImpl";
+	private static final String ACC_PROPS = "_accProps";
+	private static final String LEVEL0_FOCUS_MANAGER = "_level0.focusManager";
+	private static final String LEVEL0_RESERVED = "_level0.reserved";
+	private static final String ON_RELEASE = "onRelease";
 
 	private IFlashPlayer player;
 	private ASObject asObject;
@@ -45,11 +51,11 @@ public class ASNode {
 		this.player = player;
 
 		asObject = node;
-		strType = getString(IFlashConst.ASNODE_TYPE);
-		strClassName = getString(IFlashConst.ASNODE_CLASS_NAME);
-		strObjectName = getString(IFlashConst.ASNODE_OBJECT_NAME);
-		strTarget = getString(IFlashConst.ASNODE_TARGET);
-		isUIComponent = "true".equals(getString(IFlashConst.ASNODE_IS_UI_COMPONENT)); //$NON-NLS-1$
+		strType = getString(ASNODE_TYPE);
+		strClassName = getString(ASNODE_CLASS_NAME);
+		strObjectName = getString(ASNODE_OBJECT_NAME);
+		strTarget = getString(ASNODE_TARGET);
+		isUIComponent = "true".equals(getString(ASNODE_IS_UI_COMPONENT)); //$NON-NLS-1$
 
 		if (null != parent) {
 			String targetParent = parent.getTarget();
@@ -59,24 +65,24 @@ public class ASNode {
 				}
 			}
 			String parentObjectName = parent.getObjectName();
-			if ("_accProps".equals(parentObjectName) || //$NON-NLS-1$
-					"_accImpl".equals(parentObjectName)) { //$NON-NLS-1$
+			if (ACC_PROPS.equals(parentObjectName) || //$NON-NLS-1$
+					ACC_IMPL.equals(parentObjectName)) { //$NON-NLS-1$
 				isAccProperties = true;
 			}
 		}
-		if ("number".equals(strType) || //$NON-NLS-1$
-				"null".equals(strType) || //$NON-NLS-1$
-				"boolean".equals(strType) || //$NON-NLS-1$
-				"string".equals(strType) || //$NON-NLS-1$
-				"undefined".equals(strType)) { //$NON-NLS-1$
+		if (ASNODE_TYPE_NUMBER.equals(strType) || //$NON-NLS-1$
+				ASNODE_TYPE_NULL.equals(strType) || //$NON-NLS-1$
+				ASNODE_TYPE_BOOLEAN.equals(strType) || //$NON-NLS-1$
+				ASNODE_TYPE_STRING.equals(strType) || //$NON-NLS-1$
+				ASNODE_TYPE_UNDEFINED.equals(strType)) { //$NON-NLS-1$
 			skipChildren = true;
-		} else if ("object".equals(strType)) { //$NON-NLS-1$
-			if (null == strClassName || "Array".equals(strClassName)) { //$NON-NLS-1$
+		} else if (ASNODE_TYPE_OBJECT.equals(strType)) { //$NON-NLS-1$
+			if (null == strClassName || ASNODE_CLASS_ARRAY.equals(strClassName)) { //$NON-NLS-1$
 				skipChildren = true;
 			}
-		} else if ("movieclip".equals(strType)) { //$NON-NLS-1$
-			if ("_level0.reserved".equals(strTarget) || //$NON-NLS-1$
-					"_level0.focusManager".equals(strTarget)) { //$NON-NLS-1$
+		} else if (ASNODE_TYPE_MOVIECLIP.equals(strType)) { //$NON-NLS-1$
+			if (LEVEL0_RESERVED.equals(strTarget) || //$NON-NLS-1$
+					LEVEL0_FOCUS_MANAGER.equals(strTarget)) { //$NON-NLS-1$
 				skipChildren = true;
 			}
 		}
@@ -105,7 +111,7 @@ public class ASNode {
 
 	public String getValue() {
 		if (null != asObject) {
-			return decodeString(getString(IFlashConst.ASNODE_VALUE));
+			return decodeString(getString(ASNODE_VALUE));
 		}
 		return null;
 	}
@@ -121,7 +127,7 @@ public class ASNode {
 		}
 		if (null == text) {
 			if (null != asObject) {
-				text = getString(IFlashConst.ASNODE_TEXT);
+				text = getString(ASNODE_TEXT);
 			}
 		} else {
 			text = "[" + text + "]"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -131,7 +137,7 @@ public class ASNode {
 
 	public String getTitle() {
 		if (null != asObject) {
-			return decodeString(getString(IFlashConst.ASNODE_TITLE));
+			return decodeString(getString(ASNODE_TITLE));
 		}
 		return null;
 	}
@@ -216,11 +222,11 @@ public class ASNode {
 				}
 				if (informative && !node.isAccProperties()) {
 					if (null == node.getText()
-							&& !"movieclip".equals(node.getType()) && //$NON-NLS-1$
-							!"Button".equals(node.getClassName()) && //$NON-NLS-1$
-							!"_accProps".equals(node.getObjectName()) && //$NON-NLS-1$
-							!"_accImpl".equals(node.getObjectName()) && //$NON-NLS-1$
-							!"onRelease".equals(node.getObjectName())) //$NON-NLS-1$
+							&& !ASNODE_TYPE_MOVIECLIP.equals(node.getType()) && //$NON-NLS-1$
+							!ASNODE_CLASS_BUTTON.equals(node.getClassName()) && //$NON-NLS-1$
+							!ACC_PROPS.equals(node.getObjectName()) && //$NON-NLS-1$
+							!ACC_IMPL.equals(node.getObjectName()) && //$NON-NLS-1$
+							!ON_RELEASE.equals(node.getObjectName())) //$NON-NLS-1$
 					{
 						continue;
 					}
@@ -234,11 +240,10 @@ public class ASNode {
 	public boolean setMarker() {
 		if (null != asObject) {
 			try {
-				return player.setMarker((Number) asObject
-						.get(IFlashConst.ASNODE_X), (Number) asObject
-						.get(IFlashConst.ASNODE_Y), (Number) asObject
-						.get(IFlashConst.ASNODE_WIDTH), (Number) asObject
-						.get(IFlashConst.ASNODE_HEIGHT));
+				return player.setMarker((Number) asObject.get(ASNODE_X),
+						(Number) asObject.get(ASNODE_Y), (Number) asObject
+								.get(ASNODE_WIDTH), (Number) asObject
+								.get(ASNODE_HEIGHT));
 			} catch (Exception e) {
 			}
 		}
@@ -263,7 +268,7 @@ public class ASNode {
 	public boolean hasOnRelease() {
 		if (null == hasOnRelease) {
 			ASNode onReleaseNode = player.getNodeFromPath(strTarget
-					+ IFlashConst.PATH_ON_RELEASE); //$NON-NLS-1$
+					+ PATH_ON_RELEASE); //$NON-NLS-1$
 			if (null != onReleaseNode) {
 				hasOnRelease = Boolean.TRUE;
 			} else {
@@ -274,45 +279,44 @@ public class ASNode {
 	}
 
 	public double getX() {
-		return getDoubleValue(asObject.get(IFlashConst.ASNODE_X));
+		return getDoubleValue(asObject.get(ASNODE_X));
 	}
 
 	public double getY() {
-		return getDoubleValue(asObject.get(IFlashConst.ASNODE_Y));
+		return getDoubleValue(asObject.get(ASNODE_Y));
 	}
 
 	public double getWidth() {
-		return getDoubleValue(asObject.get(IFlashConst.ASNODE_WIDTH));
+		return getDoubleValue(asObject.get(ASNODE_WIDTH));
 	}
 
 	public double getHeight() {
-		return getDoubleValue(asObject.get(IFlashConst.ASNODE_HEIGHT));
+		return getDoubleValue(asObject.get(ASNODE_HEIGHT));
 	}
 
 	public int getDepth() {
-		Integer target = (Integer) asObject.get(IFlashConst.ASNODE_DEPTH);
+		Integer target = (Integer) asObject.get(ASNODE_DEPTH);
 		if (target != null)
 			return target.intValue();
-		return IFlashConst.INVALID_DEPTH;
+		return INVALID_DEPTH;
 	}
 
 	public int getCurrentFrame() {
-		Integer target = (Integer) asObject
-				.get(IFlashConst.ASNODE_CURRENT_FRAME);
+		Integer target = (Integer) asObject.get(ASNODE_CURRENT_FRAME);
 		if (target != null)
 			return target.intValue();
 		return -1;
 	}
 
 	public boolean isInputable() {
-		Boolean b = (Boolean) asObject.get(IFlashConst.ASNODE_IS_INPUTABLE);
+		Boolean b = (Boolean) asObject.get(ASNODE_IS_INPUTABLE);
 		if (b == null)
 			return false;
 		return b.booleanValue();
 	}
 
 	public boolean isOpaqueObject() {
-		Boolean b = (Boolean) asObject.get(IFlashConst.ASNODE_IS_OPAQUE_OBJECT);
+		Boolean b = (Boolean) asObject.get(ASNODE_IS_OPAQUE_OBJECT);
 		if (b == null)
 			return false;
 		return b.booleanValue();
