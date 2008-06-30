@@ -65,7 +65,7 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		} else {
 			id = -1;
 		}
-		
+
 		isUIComponent = "true".equals(getString(ASNODE_IS_UI_COMPONENT)); //$NON-NLS-1$
 
 		if (null != parent) {
@@ -100,42 +100,54 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		this.accInfo = ASAccInfo.create(asObject);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getType()
 	 */
 	public String getType() {
 		return strType;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getClassName()
 	 */
 	public String getClassName() {
 		return strClassName;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getObjectName()
 	 */
 	public String getObjectName() {
 		return strObjectName;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getTarget()
 	 */
 	public String getTarget() {
 		return strTarget;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#isUIComponent()
 	 */
 	public boolean isUIComponent() {
 		return isUIComponent;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getValue()
 	 */
 	public String getValue() {
@@ -145,14 +157,18 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getText()
 	 */
 	public String getText() {
 		return getText(true);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getText(boolean)
 	 */
 	public String getText(boolean useAccName) {
@@ -170,7 +186,9 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return decodeString(text);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getTitle()
 	 */
 	public String getTitle() {
@@ -188,7 +206,9 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getObject(java.lang.String)
 	 */
 	public Object getObject(String name) {
@@ -216,14 +236,18 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return Double.NaN;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getParent()
 	 */
 	public IASNode getParent() {
 		return parent;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getLevel()
 	 */
 	public int getLevel() {
@@ -238,14 +262,18 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return isAccProperties;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#hasChild(boolean)
 	 */
 	public boolean hasChild(boolean visual) {
 		return hasChild(visual, false);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#hasChild(boolean, boolean)
 	 */
 	public boolean hasChild(boolean visual, boolean debugMode) {
@@ -259,45 +287,55 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return player.hasChild(this, visual, debugMode);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getChildren(boolean, boolean)
 	 */
 	public IASNode[] getChildren(boolean visual, boolean informative) {
 		return getChildren(visual, informative, false);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.model.flash.IASNode#getChildren(boolean, boolean, boolean)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IASNode#getChildren(boolean, boolean,
+	 *      boolean)
 	 */
 	public IASNode[] getChildren(boolean visual, boolean informative,
 			boolean debugMode) {
-		//TODO
-		ASNodeImplV8[] children = (ASNodeImplV8[])player.getChildren(this, visual, debugMode);
+		IASNode[] children = player.getChildren(this, visual, debugMode);
 		List<ASNodeImplV8> childList = new ArrayList<ASNodeImplV8>();
-		for (int i = 0; i < children.length; i++) {
-			ASNodeImplV8 node = children[i];
-			if (!debugMode) {
-				if (!visual && node.shouldSkip()) {
-					continue;
-				}
-				if (informative && !node.isAccProperties()) {
-					if (null == node.getText()
-							&& !ASNODE_TYPE_MOVIECLIP.equals(node.getType()) && //$NON-NLS-1$
-							!ASNODE_CLASS_BUTTON.equals(node.getClassName()) && //$NON-NLS-1$
-							!ACC_PROPS.equals(node.getObjectName()) && //$NON-NLS-1$
-							!ACC_IMPL.equals(node.getObjectName()) && //$NON-NLS-1$
-							!ON_RELEASE.equals(node.getObjectName())) //$NON-NLS-1$
-					{
+		for (IASNode child : children) {
+			if (child instanceof ASNodeImplV8) {
+				ASNodeImplV8 node = (ASNodeImplV8)child;
+				if (!debugMode) {
+					if (!visual && node.shouldSkip()) {
 						continue;
 					}
+					if (informative && !node.isAccProperties()) {
+						if (null == node.getText()
+								&& !ASNODE_TYPE_MOVIECLIP
+										.equals(node.getType()) && //$NON-NLS-1$
+								!ASNODE_CLASS_BUTTON
+										.equals(node.getClassName()) && //$NON-NLS-1$
+								!ACC_PROPS.equals(node.getObjectName()) && //$NON-NLS-1$
+								!ACC_IMPL.equals(node.getObjectName()) && //$NON-NLS-1$
+								!ON_RELEASE.equals(node.getObjectName())) //$NON-NLS-1$
+						{
+							continue;
+						}
+					}
 				}
+				childList.add(node);
 			}
-			childList.add(node);
-		}		
+		}
 		return childList.toArray(new IASNode[childList.size()]);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#setMarker()
 	 */
 	public boolean setMarker() {
@@ -313,21 +351,27 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getPlayer()
 	 */
 	public IFlashPlayer getPlayer() {
 		return player;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getAccInfo()
 	 */
 	public ASAccInfo getAccInfo() {
 		return accInfo;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getKeys()
 	 */
 	public Set<String> getKeys() {
@@ -337,7 +381,9 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#hasOnRelease()
 	 */
 	public boolean hasOnRelease() {
@@ -353,42 +399,54 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return hasOnRelease.booleanValue();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getX()
 	 */
 	public double getX() {
 		return getDoubleValue(asObject.get(ASNODE_X));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getY()
 	 */
 	public double getY() {
 		return getDoubleValue(asObject.get(ASNODE_Y));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getWidth()
 	 */
 	public double getWidth() {
 		return getDoubleValue(asObject.get(ASNODE_WIDTH));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getHeight()
 	 */
 	public double getHeight() {
 		return getDoubleValue(asObject.get(ASNODE_HEIGHT));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getId()
 	 */
 	public int getId() {
 		return id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getDepth()
 	 */
 	public int getDepth() {
@@ -398,7 +456,9 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return INVALID_DEPTH;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getCurrentFrame()
 	 */
 	public int getCurrentFrame() {
@@ -408,7 +468,9 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return -1;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#isInputable()
 	 */
 	public boolean isInputable() {
@@ -418,7 +480,9 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return b.booleanValue();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#isOpaqueObject()
 	 */
 	public boolean isOpaqueObject() {
