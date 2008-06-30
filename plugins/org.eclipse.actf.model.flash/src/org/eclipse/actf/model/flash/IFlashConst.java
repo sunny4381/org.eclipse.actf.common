@@ -118,8 +118,11 @@ public interface IFlashConst {
 	public static final String ASNODE_TYPE_BOOLEAN = "boolean";
 	public static final String ASNODE_TYPE_NULL = "null";
 	public static final String ASNODE_TYPE_NUMBER = "number";
+	public static final String ASNODE_TYPE_FUNCTION = "function";
 	public static final String ASNODE_CLASS_BUTTON = "Button";
 	public static final String ASNODE_CLASS_ARRAY = "Array";
+	public static final String ASNODE_CLASS_TEXTFIELD = "TextField";
+	public static final String ASNODE_CLASS_SHAPE = "Shape";
 	//ASNODE
 	
 	//ACCINFO
