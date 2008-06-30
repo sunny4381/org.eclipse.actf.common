@@ -109,6 +109,7 @@ public interface IFlashConst {
 	public static final String ASNODE_IS_UI_COMPONENT = "isUIComponent"; //$NON-NLS-1$
 	public static final String ASNODE_IS_INPUTABLE = "isInputable"; //$NON-NLS-1$
 	public static final String ASNODE_IS_OPAQUE_OBJECT = "isOpaqueObject"; //$NON-NLS-1$
+	public static final String ASNODE_ID = "id"; //$NON-NLS-1$
 	//ASNODE TYPE/CLASS
 	public static final String ASNODE_TYPE_MOVIECLIP = "movieclip";
 	public static final String ASNODE_TYPE_OBJECT = "object";
