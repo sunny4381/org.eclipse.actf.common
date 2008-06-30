@@ -14,24 +14,24 @@ package org.eclipse.actf.model.dom.dombycom.impl.flash;
 
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.INodeExVideo;
-import org.eclipse.actf.model.flash.ASNode;
 import org.eclipse.actf.model.flash.IASBridge;
+import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashConst;
 
 class FlashVideoImpl implements INodeExVideo, IFlashConst {
 	private final FlashTopNodeImpl swf;
-	private final String target;
+	private final IASNode target;
 	private final IASBridge player;
 	// Some sort of hacking solution!!!
 	private VideoState currentState = VideoState.STATE_UNKNOWN;
 
-	public String getTarget() {
-		return target;
-	}
+	// public String getTarget() {
+	// return target.getTarget();
+	// }
 
-	FlashVideoImpl(FlashTopNodeImpl swf, ASNode node) {
+	FlashVideoImpl(FlashTopNodeImpl swf, IASNode node) {
 		this.swf = swf;
-		this.target = node.getTarget();
+		this.target = node;
 		this.player = node.getPlayer();
 	}
 
@@ -44,19 +44,19 @@ class FlashVideoImpl implements INodeExVideo, IFlashConst {
 	}
 
 	public boolean stopMedia() {
-		player.callMethod(getTarget(), M_STOP);
+		player.callMethod(target, M_STOP);
 		currentState = VideoState.STATE_STOP;
 		return true;
 	}
 
 	public boolean playMedia() {
-		player.callMethod(getTarget(), M_PLAY);
+		player.callMethod(target, M_PLAY);
 		currentState = VideoState.STATE_PLAY;
 		return true;
 	}
 
 	public boolean pauseMedia() {
-		player.callMethod(getTarget(), M_PAUSE);
+		player.callMethod(target, M_PAUSE);
 		currentState = VideoState.STATE_PAUSE;
 		return true;
 	}
@@ -70,7 +70,7 @@ class FlashVideoImpl implements INodeExVideo, IFlashConst {
 	}
 
 	public double getCurrentPosition() {
-		Object o = player.callMethod(getTarget(), M_GET_CURRENT_POSITION);
+		Object o = player.callMethod(target, M_GET_CURRENT_POSITION);
 		if (o instanceof Double) {
 			return ((Double) o).doubleValue();
 		} else if (o instanceof Float) {

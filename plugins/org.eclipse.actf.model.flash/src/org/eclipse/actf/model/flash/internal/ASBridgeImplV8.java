@@ -13,9 +13,9 @@ package org.eclipse.actf.model.flash.internal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.flash.ASNode;
 import org.eclipse.actf.model.flash.FlashModelPlugin;
 import org.eclipse.actf.model.flash.IASBridge;
+import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.model.flash.as.ASDeserializer;
 import org.eclipse.actf.model.flash.as.ASObject;
@@ -73,7 +73,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	}
 
 	private boolean initSecret() {
-		if(null!=secret){
+		if (null != secret) {
 			return true;
 		}
 		try {
@@ -86,7 +86,7 @@ public class ASBridgeImplV8 implements IASBridge {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return (null!=secret);
+		return (null != secret);
 	}
 
 	private Object invoke(String method) {
@@ -130,18 +130,18 @@ public class ASBridgeImplV8 implements IASBridge {
 		return null;
 	}
 
-	private ASNode[] createFlashNodeArray(Object object, ASNode parentNode) {
-		List<ASNode> children = new ArrayList<ASNode>();
+	private ASNodeImplV8[] createFlashNodeArray(Object object, IASNode parentNode) {
+		List<ASNodeImplV8> children = new ArrayList<ASNodeImplV8>();
 		if (object instanceof Object[]) {
 			Object[] objChildren = (Object[]) object;
 			for (int i = 0; i < objChildren.length; i++) {
 				if (objChildren[i] instanceof ASObject) {
-					children.add(new ASNode(parentNode, flashPlayer,
+					children.add(new ASNodeImplV8(parentNode, flashPlayer,
 							(ASObject) objChildren[i]));
 				}
 			}
 		}
-		return children.toArray(new ASNode[children.size()]);
+		return children.toArray(new ASNodeImplV8[children.size()]);
 
 	}
 
@@ -159,26 +159,27 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(java.lang.String,
+	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(org.eclipse.actf.model.flash.IASNode,
 	 *      java.lang.String)
 	 */
-	public Object callMethod(String target, String method) {
-		return invoke(new Object[] { M_CALL_METHOD, target, method });
+	public Object callMethod(IASNode targetNode, String method) {
+		return invoke(new Object[] { M_CALL_METHOD, targetNode.getTarget(),
+				method });
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(java.lang.String,
+	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(org.eclipse.actf.model.flash.IASNode,
 	 *      java.lang.String, java.lang.Object[])
 	 */
-	public Object callMethod(String target, String method, Object[] args) {
+	public Object callMethod(IASNode targetNode, String method, Object[] args) {
 		if (null == args) {
 			args = new Object[0];
 		}
 		Object[] a = new Object[args.length + 3];
 		a[0] = M_CALL_METHOD;
-		a[1] = target;
+		a[1] = targetNode.getTarget();
 		a[2] = method;
 		System.arraycopy(args, 0, a, 3, args.length);
 		return invoke(a);
@@ -190,7 +191,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * @see org.eclipse.actf.model.flash.IASBridge#getChildren(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean)
 	 */
-	public ASNode[] getChildren(ASNode parentNode, boolean visual) {
+	public IASNode[] getChildren(IASNode parentNode, boolean visual) {
 		return getChildren(parentNode, visual, false);
 	}
 
@@ -200,7 +201,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * @see org.eclipse.actf.model.flash.IASBridge#getChildren(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean, boolean)
 	 */
-	public ASNode[] getChildren(ASNode parentNode, boolean visual,
+	public ASNodeImplV8[] getChildren(IASNode parentNode, boolean visual,
 			boolean debugMode) {
 		String sidMethod;
 		if (visual) {
@@ -218,11 +219,11 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * @see org.eclipse.actf.model.flash.IASBridge#getNodeAtDepthWithPath(java.lang.String,
 	 *      int)
 	 */
-	public ASNode getNodeAtDepthWithPath(String path, int depth) {
+	public IASNode getNodeAtDepthWithPath(String path, int depth) {
 		Object result = invoke(new Object[] { M_GET_NODE_AT_DEPTH, path,
 				Integer.valueOf(depth) });
 		if (result instanceof ASObject) {
-			return new ASNode(null, flashPlayer, (ASObject) result);
+			return new ASNodeImplV8(null, flashPlayer, (ASObject) result);
 		}
 		return null;
 	}
@@ -232,10 +233,10 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#getNodeFromPath(java.lang.String)
 	 */
-	public ASNode getNodeFromPath(String path) {
+	public IASNode getNodeFromPath(String path) {
 		Object result = invoke(M_GET_NODE_FROM_PATH, path);
 		if (result instanceof ASObject) {
-			return new ASNode(null, flashPlayer, (ASObject) result);
+			return new ASNodeImplV8(null, flashPlayer, (ASObject) result);
 		}
 		return null;
 	}
@@ -255,10 +256,10 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#getRootNode()
 	 */
-	public ASNode getRootNode() {
+	public IASNode getRootNode() {
 		Object result = invoke(M_GET_ROOT_NODE);
 		if (result instanceof ASObject) {
-			return new ASNode(null, flashPlayer, (ASObject) result);
+			return new ASNodeImplV8(null, flashPlayer, (ASObject) result);
 		}
 		return null;
 	}
@@ -269,7 +270,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * @see org.eclipse.actf.model.flash.IASBridge#hasChild(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean)
 	 */
-	public boolean hasChild(ASNode parentNode, boolean visual) {
+	public boolean hasChild(IASNode parentNode, boolean visual) {
 		return hasChild(parentNode, visual, false);
 	}
 
@@ -279,7 +280,8 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * @see org.eclipse.actf.model.flash.IASBridge#hasChild(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean, boolean)
 	 */
-	public boolean hasChild(ASNode parentNode, boolean visual, boolean debugMode) {
+	public boolean hasChild(IASNode parentNode, boolean visual,
+			boolean debugMode) {
 		if (visual) {
 			return true;
 		}
@@ -314,7 +316,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#searchSound()
 	 */
-	public ASNode[] searchSound() {
+	public IASNode[] searchSound() {
 		return createFlashNodeArray(invoke(new Object[] { M_SEARCH_SOUND,
 				PATH_ROOTLEVEL, PATH_GLOBAL }), null);
 	}
@@ -324,7 +326,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#searchVideo()
 	 */
-	public ASNode[] searchVideo() {
+	public IASNode[] searchVideo() {
 		return createFlashNodeArray(invoke(new Object[] { M_SEARCH_VIDEO,
 				PATH_ROOTLEVEL, PATH_GLOBAL }), null);
 	}
@@ -376,7 +378,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#translateWithPath(java.lang.String)
 	 */
-	public ASNode[] translateWithPath(String path) {
+	public IASNode[] translateWithPath(String path) {
 		Object result = null;
 		try {
 			result = invoke(M_TRANSLATE, path);

@@ -13,7 +13,7 @@
 
 package org.eclipse.actf.model.flash.internal;
 
-import org.eclipse.actf.model.flash.ASNode;
+import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 
 public class FlashStatusUtil {
@@ -38,7 +38,7 @@ public class FlashStatusUtil {
 			return null;
 		}
 
-		ASNode rootNode = player.getRootNode();
+		IASNode rootNode = player.getRootNode();
 		if (null != rootNode) {
 			return STATUS_OK;
 		}

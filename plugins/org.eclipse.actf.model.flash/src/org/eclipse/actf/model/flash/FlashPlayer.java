@@ -95,7 +95,7 @@ public class FlashPlayer implements IFlashPlayer {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#getRootNode()
 	 */
-	public ASNode getRootNode() {
+	public IASNode getRootNode() {
 		if (initAsBridge()) {
 			return asBrigde.getRootNode();
 		}
@@ -107,7 +107,7 @@ public class FlashPlayer implements IFlashPlayer {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#getNodeFromPath(java.lang.String)
 	 */
-	public ASNode getNodeFromPath(String path) {
+	public IASNode getNodeFromPath(String path) {
 		if (initAsBridge()) {
 			return asBrigde.getNodeFromPath(path);
 		}
@@ -120,7 +120,7 @@ public class FlashPlayer implements IFlashPlayer {
 	 * @see org.eclipse.actf.model.flash.IASBridge#getNodeAtDepthWithPath(java.lang.String,
 	 *      int)
 	 */
-	public ASNode getNodeAtDepthWithPath(String path, int depth) {
+	public IASNode getNodeAtDepthWithPath(String path, int depth) {
 		if (initAsBridge()) {
 			return asBrigde.getNodeAtDepthWithPath(path, depth);
 		}
@@ -132,11 +132,11 @@ public class FlashPlayer implements IFlashPlayer {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#translateWithPath(java.lang.String)
 	 */
-	public ASNode[] translateWithPath(String path) {
+	public IASNode[] translateWithPath(String path) {
 		if (initAsBridge()) {
 			return asBrigde.translateWithPath(path);
 		}
-		return new ASNode[0];
+		return new IASNode[0];
 	}
 
 	/*
@@ -145,7 +145,7 @@ public class FlashPlayer implements IFlashPlayer {
 	 * @see org.eclipse.actf.model.flash.IASBridge#hasChild(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean)
 	 */
-	public boolean hasChild(ASNode parentNode, boolean visual) {
+	public boolean hasChild(IASNode parentNode, boolean visual) {
 		return hasChild(parentNode, visual, false);
 	}
 
@@ -155,7 +155,8 @@ public class FlashPlayer implements IFlashPlayer {
 	 * @see org.eclipse.actf.model.flash.IASBridge#hasChild(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean, boolean)
 	 */
-	public boolean hasChild(ASNode parentNode, boolean visual, boolean debugMode) {
+	public boolean hasChild(IASNode parentNode, boolean visual,
+			boolean debugMode) {
 		if (initAsBridge()) {
 			return asBrigde.hasChild(parentNode, visual, debugMode);
 		}
@@ -168,7 +169,7 @@ public class FlashPlayer implements IFlashPlayer {
 	 * @see org.eclipse.actf.model.flash.IASBridge#getChildren(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean)
 	 */
-	public ASNode[] getChildren(ASNode parentNode, boolean visual) {
+	public IASNode[] getChildren(IASNode parentNode, boolean visual) {
 		return getChildren(parentNode, visual, false);
 	}
 
@@ -178,12 +179,12 @@ public class FlashPlayer implements IFlashPlayer {
 	 * @see org.eclipse.actf.model.flash.IASBridge#getChildren(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean, boolean)
 	 */
-	public ASNode[] getChildren(ASNode parentNode, boolean visual,
+	public IASNode[] getChildren(IASNode parentNode, boolean visual,
 			boolean debugMode) {
 		if (initAsBridge()) {
 			return asBrigde.getChildren(parentNode, visual, debugMode);
 		}
-		return new ASNode[0];
+		return new IASNode[0];
 	}
 
 	/*
@@ -191,11 +192,11 @@ public class FlashPlayer implements IFlashPlayer {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#searchVideo()
 	 */
-	public ASNode[] searchVideo() {
+	public IASNode[] searchVideo() {
 		if (initAsBridge()) {
 			return asBrigde.searchVideo();
 		}
-		return new ASNode[0];
+		return new IASNode[0];
 	}
 
 	/*
@@ -203,11 +204,11 @@ public class FlashPlayer implements IFlashPlayer {
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#searchSound()
 	 */
-	public ASNode[] searchSound() {
+	public IASNode[] searchSound() {
 		if (initAsBridge()) {
 			return asBrigde.searchSound();
 		}
-		return new ASNode[0];
+		return new IASNode[0];
 	}
 
 	/*
@@ -298,12 +299,12 @@ public class FlashPlayer implements IFlashPlayer {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(java.lang.String,
+	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(org.eclipse.actf.model.flash.IASNode,
 	 *      java.lang.String)
 	 */
-	public Object callMethod(String target, String method) {
+	public Object callMethod(IASNode targetNode, String method) {
 		if (initAsBridge()) {
-			return asBrigde.callMethod(target, method);
+			return asBrigde.callMethod(targetNode, method);
 		}
 		return null;
 	}
@@ -311,12 +312,12 @@ public class FlashPlayer implements IFlashPlayer {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(java.lang.String,
+	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(org.eclipse.actf.model.flash.IASNode,
 	 *      java.lang.String, java.lang.Object[])
 	 */
-	public Object callMethod(String target, String method, Object[] args) {
+	public Object callMethod(IASNode targetNode, String method, Object[] args) {
 		if (initAsBridge()) {
-			return asBrigde.callMethod(target, method, args);
+			return asBrigde.callMethod(targetNode, method, args);
 		}
 		return null;
 	}
@@ -409,7 +410,7 @@ public class FlashPlayer implements IFlashPlayer {
 	public String getPlayerVersion() {
 		String version = getVariable(PLAYER_VERSION);
 		if (null == version) {
-			ASNode versionNode = getNodeFromPath(PLAYER_VERSION);
+			IASNode versionNode = getNodeFromPath(PLAYER_VERSION);
 			if (null != versionNode) {
 				version = versionNode.getValue();
 			}

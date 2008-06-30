@@ -21,8 +21,8 @@ import org.eclipse.actf.model.dom.dombycom.IFlashNode;
 import org.eclipse.actf.model.dom.dombycom.INodeEx;
 import org.eclipse.actf.model.dom.dombycom.impl.DocumentImpl;
 import org.eclipse.actf.model.flash.ASAccInfo;
-import org.eclipse.actf.model.flash.ASNode;
 import org.eclipse.actf.model.flash.IASBridge;
+import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.util.dom.EmptyNodeListImpl;
 import org.eclipse.actf.util.vocab.AbstractTerms;
@@ -45,7 +45,7 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 	private FlashTopNodeImpl swf;
 	private DocumentImpl doc;
 
-	private final ASNode flashNode;
+	private final IASNode flashNode;
 	private final IASBridge flashPlayer;
 
 	@Override
@@ -62,7 +62,7 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 		return false;
 	}
 
-	private FlashNodeImpl(ASNode node, IFlashNode parent) {
+	private FlashNodeImpl(IASNode node, IFlashNode parent) {
 		this.flashNode = node;
 		this.flashPlayer = node.getPlayer();
 		this.target = node.getTarget();
@@ -75,13 +75,13 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 		this.parent = parent;
 	}
 
-	FlashNodeImpl(FlashNodeImpl baseNode, ASNode node) {
+	FlashNodeImpl(FlashNodeImpl baseNode, IASNode node) {
 		this(node, baseNode);
 		this.swf = baseNode.swf;
 		this.doc = baseNode.doc;
 	}
 
-	FlashNodeImpl(FlashTopNodeImpl baseNode, ASNode node) {
+	FlashNodeImpl(FlashTopNodeImpl baseNode, IASNode node) {
 		this(node, baseNode);
 		this.swf = baseNode;
 		this.doc = (DocumentImpl) baseNode.getOwnerDocument();
@@ -390,12 +390,12 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 		while (current.length() > 0) {
 			String tryOnRelease = current + PATH_ON_RELEASE;
 			if (swf.getNodeFromPath(tryOnRelease) != null) {
-				flashPlayer.callMethod(current, M_ON_RELEASE);
+				flashPlayer.callMethod(flashNode, M_ON_RELEASE);
 				return true;
 			}
 			String tryOnPress = current + PATH_ON_PRESS;
 			if (swf.getNodeFromPath(tryOnPress) != null) {
-				flashPlayer.callMethod(current, M_ON_PRESS);
+				flashPlayer.callMethod(flashNode, M_ON_PRESS);
 				return true;
 			}
 			if (true)
@@ -411,14 +411,14 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 	}
 
 	public boolean highlight() {
-		flashPlayer.callMethod(getTarget(), M_ON_ROLL_OVER);
+		flashPlayer.callMethod(flashNode, M_ON_ROLL_OVER);
 		boolean ret1 = swf.highlight();
 		boolean ret2 = flashNode.setMarker();
 		return ret1 && ret2;
 	}
 
 	public boolean unhighlight() {
-		flashPlayer.callMethod(getTarget(), M_ON_ROLL_OUT);
+		flashPlayer.callMethod(flashNode, M_ON_ROLL_OUT);
 		boolean ret1 = swf.unhighlight();
 		boolean ret2 = flashPlayer.unsetMarker();
 		return ret1 && ret2;
@@ -448,14 +448,14 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 	}
 
 	public IFlashNode getNodeAtDepth(int depth) {
-		ASNode result = flashPlayer.getNodeAtDepthWithPath(getTarget(),
+		IASNode result = flashPlayer.getNodeAtDepthWithPath(getTarget(),
 				depth);
 		if (result == null)
 			return null;
 		return new FlashNodeImpl(swf, result);
 	}
 
-	private IFlashNode[] createIFlashNodeArray(ASNode[] nodes) {
+	private IFlashNode[] createIFlashNodeArray(IASNode[] nodes) {
 		IFlashNode[] results = new IFlashNode[nodes.length];
 		for (int i = 0; i < nodes.length; i++) {
 			results[i] = new FlashNodeImpl(this, nodes[i]);

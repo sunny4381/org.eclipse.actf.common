@@ -10,36 +10,37 @@
  *******************************************************************************/
 package org.eclipse.actf.model.flash;
 
-public interface IASBridge extends IFlashConst{
 
-	public abstract Object callMethod(String target, String method);
+public interface IASBridge extends IFlashConst {
 
-	public abstract Object callMethod(String target, String method,
+	public abstract Object callMethod(IASNode targetNode, String method);
+
+	public abstract Object callMethod(IASNode targetNode, String method,
 			Object[] args);
 
-	public abstract ASNode[] getChildren(ASNode parentNode, boolean visual);
+	public abstract IASNode[] getChildren(IASNode parentNode, boolean visual);
 
-	public abstract ASNode[] getChildren(ASNode parentNode, boolean visual,
+	public abstract IASNode[] getChildren(IASNode parentNode, boolean visual,
 			boolean debugMode);
 
-	public abstract ASNode getNodeAtDepthWithPath(String path, int depth);
+	public abstract IASNode getNodeAtDepthWithPath(String path, int depth);
 
-	public abstract ASNode getNodeFromPath(String path);
+	public abstract IASNode getNodeFromPath(String path);
 
 	public abstract Object getProperty(String path, String prop);
 
-	public abstract ASNode getRootNode();
+	public abstract IASNode getRootNode();
 
-	public abstract boolean hasChild(ASNode parentNode, boolean visual);
+	public abstract boolean hasChild(IASNode parentNode, boolean visual);
 
-	public abstract boolean hasChild(ASNode parentNode, boolean visual,
+	public abstract boolean hasChild(IASNode parentNode, boolean visual,
 			boolean debugMode);
 
 	public abstract void repairFlash();
 
-	public abstract ASNode[] searchSound();
+	public abstract IASNode[] searchSound();
 
-	public abstract ASNode[] searchVideo();
+	public abstract IASNode[] searchVideo();
 
 	public abstract boolean setFocus(String target);
 
@@ -48,7 +49,7 @@ public interface IASBridge extends IFlashConst{
 
 	public abstract void setProperty(String path, String prop, Object value);
 
-	public abstract ASNode[] translateWithPath(String path);
+	public abstract IASNode[] translateWithPath(String path);
 
 	public abstract boolean unsetMarker();
 

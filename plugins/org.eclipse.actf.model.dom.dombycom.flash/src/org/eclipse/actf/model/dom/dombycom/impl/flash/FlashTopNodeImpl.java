@@ -25,8 +25,8 @@ import org.eclipse.actf.model.dom.dombycom.impl.Helper;
 import org.eclipse.actf.model.dom.dombycom.impl.ListNodeListImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.model.dom.dombycom.impl.html.ElementImpl;
-import org.eclipse.actf.model.flash.ASNode;
 import org.eclipse.actf.model.flash.FlashPlayerFactory;
+import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.util.vocab.AbstractTerms;
@@ -66,7 +66,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode, IFlashConst {
 	}
 
 	private INodeExVideo[] searchVideo() {
-		ASNode[] videos = flashPlayer.searchVideo();
+		IASNode[] videos = flashPlayer.searchVideo();
 		int len = videos.length;
 		INodeExVideo[] result = new INodeExVideo[len];
 		for (int i = 0; i < len; i++) {
@@ -77,7 +77,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode, IFlashConst {
 	}
 
 	private INodeExSound[] searchSound() {
-		ASNode[] sounds = flashPlayer.searchSound();
+		IASNode[] sounds = flashPlayer.searchSound();
 		int len = sounds.length;
 		INodeExSound[] result = new INodeExSound[len];
 		for (int i = 0; i < len; i++) {
@@ -91,7 +91,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode, IFlashConst {
 	}
 
 	public IFlashNode getNodeFromPath(String path) {
-		ASNode node = flashPlayer.getNodeFromPath(path);
+		IASNode node = flashPlayer.getNodeFromPath(path);
 		if (node == null)
 			return null;
 		return new FlashNodeImpl(this, node);
@@ -105,7 +105,7 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode, IFlashConst {
 		return emptyResult;
 	}
 
-	private IFlashNode[] createIFlashNodeArray(ASNode[] nodes) {
+	private IFlashNode[] createIFlashNodeArray(IASNode[] nodes) {
 		IFlashNode[] results = new IFlashNode[nodes.length];
 		for (int i = 0; i < nodes.length; i++) {
 			results[i] = new FlashNodeImpl(this, nodes[i]);
