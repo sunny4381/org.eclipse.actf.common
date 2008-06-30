@@ -201,7 +201,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * @see org.eclipse.actf.model.flash.IASBridge#getChildren(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean, boolean)
 	 */
-	public ASNodeImplV8[] getChildren(IASNode parentNode, boolean visual,
+	public IASNode[] getChildren(IASNode parentNode, boolean visual,
 			boolean debugMode) {
 		String sidMethod;
 		if (visual) {

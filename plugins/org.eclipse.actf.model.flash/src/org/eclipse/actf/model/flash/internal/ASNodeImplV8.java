@@ -262,14 +262,14 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 	/* (non-Javadoc)
 	 * @see org.eclipse.actf.model.flash.IASNode#getChildren(boolean, boolean)
 	 */
-	public Object[] getChildren(boolean visual, boolean informative) {
+	public IASNode[] getChildren(boolean visual, boolean informative) {
 		return getChildren(visual, informative, false);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.actf.model.flash.IASNode#getChildren(boolean, boolean, boolean)
 	 */
-	public Object[] getChildren(boolean visual, boolean informative,
+	public IASNode[] getChildren(boolean visual, boolean informative,
 			boolean debugMode) {
 		//TODO
 		ASNodeImplV8[] children = (ASNodeImplV8[])player.getChildren(this, visual, debugMode);
@@ -293,8 +293,8 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 				}
 			}
 			childList.add(node);
-		}
-		return childList.toArray();
+		}		
+		return childList.toArray(new IASNode[childList.size()]);
 	}
 
 	/* (non-Javadoc)
