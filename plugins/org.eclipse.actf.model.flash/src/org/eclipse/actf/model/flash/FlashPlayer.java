@@ -24,6 +24,8 @@ public class FlashPlayer implements IFlashPlayer {
 
 	private FlashMSAAObject accessible;
 
+	private int swfVersion = -1;
+
 	private IASBridge asBrigde = null;
 
 	private final boolean _isVisible;
@@ -224,7 +226,9 @@ public class FlashPlayer implements IFlashPlayer {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#setMarker(org.eclipse.actf.model.flash.IASNode)
 	 */
 	public boolean setMarker(IASNode node) {
@@ -246,7 +250,9 @@ public class FlashPlayer implements IFlashPlayer {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#clearAllMarkers()
 	 */
 	public boolean clearAllMarkers() {
@@ -255,7 +261,7 @@ public class FlashPlayer implements IFlashPlayer {
 		}
 		return false;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -438,4 +444,22 @@ public class FlashPlayer implements IFlashPlayer {
 		return version;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getSWFVersion()
+	 */
+	public int getSWFVersion() {
+		if (swfVersion == -1) {
+			try {
+				Object result = idispFlash.invoke0(M_GET_SWF_VERSION);
+				if (result instanceof Integer) {
+					swfVersion = ((Integer) result).intValue();
+				}
+			} catch (Exception e) {
+				// e.printStackTrace();
+			}
+		}
+		return swfVersion;
+	}
 }

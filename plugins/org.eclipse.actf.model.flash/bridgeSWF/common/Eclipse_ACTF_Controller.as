@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Hisashi MIYASHITA - initial API and implementation
+ *    Shin SAITO - added method getSwfVersion()
  *******************************************************************************/
 
 import flash.filters.*;
@@ -47,5 +48,9 @@ class Eclipse_ACTF_Controller {
     public static function removeFilter(path:String) {
         var o = eval(path);
         o.filters = [];
+    }
+    
+    public static function getSwfVersion() {
+      return 8;
     }
 }

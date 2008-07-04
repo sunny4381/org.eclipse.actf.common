@@ -9,13 +9,17 @@
  *    Shin SAITO, Hisashi MIYASHITA - initial API and implementation
  *******************************************************************************/
 // boot_loader.as
+import flash.external.ExternalInterface;
+
 var Eclipse_ACTF_DEBUG:Boolean = false;
 var Eclipse_ACTF_RANDOM_STRING_1 = "";
+
+trace("SWF boot-loader ver 1.3.2 is loaded");
 
 if (Eclipse_ACTF_DEBUG) {
     var Eclipse_ACTF_lc:LocalConnection = new LocalConnection();
     var mess:String = "";
-    mess = "SWF bootloader ver 1.00" + newline + "this._url = " + this._url + newline;
+    mess = "SWF bootloader ver 1.3.2" + newline + "this._url = " + this._url + newline;
 }
 
 if (_level53553.Eclipse_ACTF_is_available) {
@@ -41,7 +45,9 @@ if (_level53553.Eclipse_ACTF_is_available) {
         mess += "this is root SWF." + newline;
     }
     _global.Eclipse_ACTF_PROPERTIES = new Object();
-
+    // trace('registering getSwfVersion...');
+    // ExternalInterface.addCallback('getSwfVersion', null, Eclipse_ACTF_Controller.getSwfVersion);
+    // trace('done.');
     var getSameDomainURL = function(url:String, filename) {
         if (url.indexOf("http:")<0 && url.indexOf("https:")<0) {
             return filename;

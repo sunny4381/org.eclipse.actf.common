@@ -11,14 +11,14 @@
 // --------------------------------------------------------------------------------
 //  Common Bridge Initialization Module
 // --------------------------------------------------------------------------------
-
 _root.Eclipse_ACTF_is_available = "true";
-_root.Eclipse_ACTF_SWF_Bridge_version = "0.01";
+_root.Eclipse_ACTF_SWF_Bridge_version = "1.1.0";
 
 // Used by RequestServer.
 _root.Eclipse_ACTF_request_args = "";
 _root.Eclipse_ACTF_response_value = "";
 _root.Eclipse_ACTF_SWF_CONTENT_ID = _global.Eclipse_ACTF_SWF_CONTENT_ID;
+// ExternalInterface.addCallback('getSwfVersion', null, Eclipse_ACTF_Controller.getSwfVersion);
 Eclipse_ACTF_RequestServer.start(_global.Eclipse_ACTF_SECRET);
 delete _global.Eclipse_ACTF_SECRET;
 

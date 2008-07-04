@@ -8,8 +8,10 @@
  * Contributors:
  *    Shin SAITO, Hisashi MIYASHITA - initial API and implementation
  *******************************************************************************/
-// AS Serializer/Deserialization library
 
+/** 
+ * AS Serializer/Deserialization library
+*/
 class Eclipse_ACTF_ASSerializer {
     private static var ignorePropertiesWithUnderScores:Boolean = true;
 

@@ -30,6 +30,8 @@ public interface IFlashPlayer extends IASBridge {
 	public abstract int getWindow();
 
 	public abstract String getWMode();
+	
+	public int getSWFVersion();
 
 	/**
 	 * @return whether the HTML document that the FlashPlayer belongs to is
