@@ -224,6 +224,16 @@ public class FlashPlayer implements IFlashPlayer {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.flash.IASBridge#setMarker(org.eclipse.actf.model.flash.IASNode)
+	 */
+	public boolean setMarker(IASNode node) {
+		if (initAsBridge()) {
+			return asBrigde.setMarker(node);
+		}
+		return false;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -236,6 +246,16 @@ public class FlashPlayer implements IFlashPlayer {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.flash.IASBridge#clearAllMarkers()
+	 */
+	public boolean clearAllMarkers() {
+		if (initAsBridge()) {
+			return asBrigde.clearAllMarkers();
+		}
+		return false;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

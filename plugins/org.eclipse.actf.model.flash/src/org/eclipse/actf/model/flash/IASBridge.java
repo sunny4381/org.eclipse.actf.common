@@ -44,8 +44,12 @@ public interface IASBridge extends IFlashConst {
 
 	public abstract boolean setFocus(String target);
 
+	public abstract boolean setMarker(IASNode node);
+
 	public abstract boolean setMarker(Number x, Number y, Number width,
 			Number height);
+
+	public abstract boolean clearAllMarkers();
 
 	public abstract void setProperty(String path, String prop, Object value);
 

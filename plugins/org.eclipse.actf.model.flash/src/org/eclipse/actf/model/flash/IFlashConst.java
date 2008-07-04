@@ -67,7 +67,8 @@ public interface IFlashConst {
 	public static final String M_GET_PROPERTY = "getProperty";
 	public static final String M_TRANSLATE = "translate";
 	public static final String M_GET_NODE_AT_DEPTH = "getNodeAtDepth";
-	public static final String M_UNSET_MARKER = "unsetMarker";	
+	public static final String M_UNSET_MARKER = "unsetMarker";
+	public static final String M_CLEAR_ALL_MARKERS = "clearAllMarkers";
 	public static final String M_ON_ROLL_OUT = "onRollOut";
 	public static final String M_ON_ROLL_OVER = "onRollOver";
 	public static final String M_ON_PRESS = "onPress";

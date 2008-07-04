@@ -130,7 +130,8 @@ public class ASBridgeImplV8 implements IASBridge {
 		return null;
 	}
 
-	private ASNodeImplV8[] createFlashNodeArray(Object object, IASNode parentNode) {
+	private ASNodeImplV8[] createFlashNodeArray(Object object,
+			IASNode parentNode) {
 		List<ASNodeImplV8> children = new ArrayList<ASNodeImplV8>();
 		if (object instanceof Object[]) {
 			Object[] objChildren = (Object[]) object;
@@ -366,6 +367,16 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.eclipse.actf.model.flash.IASBridge#setMarker(org.eclipse.actf.model.flash.IASNode)
+	 */
+	public boolean setMarker(IASNode node) {
+		return setMarker(node.getX(), node.getY(), node.getWidth(), node
+				.getHeight());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#setProperty(java.lang.String,
 	 *      java.lang.String, java.lang.Object)
 	 */
@@ -409,6 +420,14 @@ public class ASBridgeImplV8 implements IASBridge {
 				10 });
 		return ((result instanceof Boolean) && (((Boolean) result)
 				.booleanValue()));
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.flash.IASBridge#clearAllMarkers()
+	 */
+	public boolean clearAllMarkers() {
+		invoke(M_CLEAR_ALL_MARKERS);
+		return true;
 	}
 
 }

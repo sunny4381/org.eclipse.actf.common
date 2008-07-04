@@ -8,6 +8,7 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
+ *    Shin SAITO - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.model.flash.internal;
 
@@ -206,6 +207,19 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return null;
 	}
 
+	private Number getNumber(String name) {
+		if (null != asObject) {
+			Object result = asObject.get(name);
+			if (result == null)
+				return null;
+			else if (result instanceof Number)
+				return (Number) result;
+			else
+				return null;
+		} else
+			return null;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -341,10 +355,9 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 	public boolean setMarker() {
 		if (null != asObject) {
 			try {
-				return player.setMarker((Number) asObject.get(ASNODE_X),
-						(Number) asObject.get(ASNODE_Y), (Number) asObject
-								.get(ASNODE_WIDTH), (Number) asObject
-								.get(ASNODE_HEIGHT));
+				return player.setMarker(getNumber(ASNODE_X),
+						getNumber(ASNODE_Y), getNumber(ASNODE_WIDTH),
+						getNumber(ASNODE_HEIGHT));
 			} catch (Exception e) {
 			}
 		}
