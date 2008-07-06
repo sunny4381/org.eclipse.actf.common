@@ -71,6 +71,8 @@ public interface IASNode {
 
 	public abstract int getCurrentFrame();
 
+	public abstract int getTabIndex();
+
 	public abstract boolean isInputable();
 
 	public abstract boolean isOpaqueObject();

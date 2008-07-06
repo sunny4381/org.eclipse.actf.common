@@ -505,4 +505,15 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return b.booleanValue();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.flash.IASNode#getTabIndex()
+	 */
+	public int getTabIndex() {
+		Number num = getNumber(ASNODE_TAB_INDEX);
+		if (num == null)
+			return -1;
+		else
+			return num.intValue();
+	}
+
 }
