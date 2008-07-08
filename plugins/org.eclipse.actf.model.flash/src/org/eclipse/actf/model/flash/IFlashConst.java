@@ -128,6 +128,7 @@ public interface IFlashConst {
 	public static final String ASNODE_ICON_OTHERS = "others"; //$NON-NLS-1$
 	public static final String ASNODE_ICON_TEXT = "text"; //$NON-NLS-1$
 	public static final String ASNODE_ICON_VARIABLE = "variable"; //$NON-NLS-1$
+	public static final String ASNODE_ICON_COMPONENT = "component";
 	// ASNODE
 
 	// ACCINFO
