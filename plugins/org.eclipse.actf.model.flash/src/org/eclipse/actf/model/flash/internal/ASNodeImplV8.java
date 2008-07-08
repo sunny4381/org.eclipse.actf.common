@@ -44,6 +44,7 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 
 	private Boolean hasOnRelease;
 
+	private String strIconType = ASNODE_ICON_OTHERS;
 	private String strType;
 	private String strClassName;
 	private String strObjectName;
@@ -99,6 +100,44 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 			}
 		}
 		this.accInfo = ASAccInfo.create(asObject);
+		
+		initIconType();
+	}
+
+	private void initIconType() {
+		if (ASNODE_TYPE_MOVIECLIP.equals(strType)) { //$NON-NLS-1$
+			strIconType = strType;
+			if (accInfo != null) {
+				int accRole = accInfo.getRole();
+				if (-1 != accRole) {
+					strIconType = ASNODE_ICON_ACCROLE+accRole;
+					return;
+				}
+			}
+			if (hasOnRelease()) {
+				strIconType = ASNODE_CLASS_BUTTON;
+			}
+		} else if (ASNODE_TYPE_OBJECT.equals(strType)) { //$NON-NLS-1$
+			strIconType = strType;
+			if (ASNODE_CLASS_BUTTON.equals(strClassName)) { //$NON-NLS-1$
+				strIconType = ASNODE_CLASS_BUTTON;
+			} else if (strClassName.startsWith(ASNODE_CLASS_TEXTFIELD)) { //$NON-NLS-1$
+				strIconType = ASNODE_ICON_TEXT;
+			} else {
+				if (ACC_IMPL.equals(strObjectName) || //$NON-NLS-1$
+						ACC_PROPS.equals(strObjectName)) { //$NON-NLS-1$
+					strIconType = ASNODE_ICON_ACCPROPS;
+				}
+			}
+		} else if (ASNODE_TYPE_FUNCTION.equals(strType) || //$NON-NLS-1$
+				ASNODE_TYPE_STRING.equals(strType)) { //$NON-NLS-1$
+			strIconType = strType;
+		} else if (ASNODE_TYPE_NUMBER.equals(strType) || //$NON-NLS-1$
+				ASNODE_TYPE_NULL.equals(strType) || //$NON-NLS-1$
+				ASNODE_TYPE_BOOLEAN.equals(strType) || //$NON-NLS-1$
+				ASNODE_TYPE_UNDEFINED.equals(strType)) { //$NON-NLS-1$
+			strIconType = ASNODE_ICON_VARIABLE;
+		}
 	}
 
 	/*
@@ -322,7 +361,7 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		List<ASNodeImplV8> childList = new ArrayList<ASNodeImplV8>();
 		for (IASNode child : children) {
 			if (child instanceof ASNodeImplV8) {
-				ASNodeImplV8 node = (ASNodeImplV8)child;
+				ASNodeImplV8 node = (ASNodeImplV8) child;
 				if (!debugMode) {
 					if (!visual && node.shouldSkip()) {
 						continue;
@@ -505,7 +544,9 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return b.booleanValue();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASNode#getTabIndex()
 	 */
 	public int getTabIndex() {
@@ -514,6 +555,15 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 			return -1;
 		else
 			return num.intValue();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.flash.IASNode#getIconType()
+	 */
+	public String getIconType() {
+		return strIconType;
 	}
 
 }

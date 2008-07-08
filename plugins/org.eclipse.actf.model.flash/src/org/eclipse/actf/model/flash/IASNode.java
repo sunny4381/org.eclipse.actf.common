@@ -13,6 +13,8 @@ package org.eclipse.actf.model.flash;
 import java.util.Set;
 
 public interface IASNode {
+	
+	public abstract String getIconType();
 
 	public abstract String getType();
 
