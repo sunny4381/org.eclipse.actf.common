@@ -453,8 +453,8 @@ public class FlashPlayer implements IFlashPlayer {
 		if (swfVersion == -1) {
 			try {
 				Object result = idispFlash.invoke0(M_GET_SWF_VERSION);
-				if (result instanceof Integer) {
-					swfVersion = ((Integer) result).intValue();
+				if (result instanceof Number) {
+					swfVersion = ((Number) result).intValue();
 				}
 			} catch (Exception e) {
 				// e.printStackTrace();
