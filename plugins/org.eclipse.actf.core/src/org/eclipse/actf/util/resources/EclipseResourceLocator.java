@@ -18,19 +18,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Dictionary;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.actf.core.config.Version;
 import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.Bundle;
 
 
@@ -250,86 +247,32 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 		return absolutePath;
 	}	
 	
-	private IPath getPathToBundle (String bundleName) {
+	public IPath getPathToBundle (String bundleName) {
 		IPath absolutePath = null;
-		if (bundleName == null || bundleName.length() == 0) { return absolutePath; }
-		Version eclipseVersion = getEclipseVersion();
-		Bundle bundle = Platform.getBundle(bundleName);
-		if (bundle != null) {
-			// In Eclipse 3.1 the bundle location is always relative. To get the
-			// absolute path we
-			// need start with the path of the Eclipse installation, append the
-			// relative path
-			// to the bundle and let the Path class resolve the path segments to
-			// for the canonical
-			// path.
-			// In Eclipse 3.0 the bundle locations are always absolute.
-			if ((eclipseVersion.getMajor() == 3)
-					&& (eclipseVersion.getMinor() == 0)) {
-				absolutePath = new Path("");
-			}else {
-				absolutePath = new Path(getEclipseInstallPath());
-			}
-			// The bundle location always begins with "update@" and ends with
-			// the relative bundle location.
-			// We have to strip off the "update@" before we append it to the
-			// path.
-			String[] bundlePaths = bundle.getLocation().split("@");
-			absolutePath = absolutePath.append(bundlePaths[1]);
-			if ((eclipseVersion.getMajor() == 3)
-					&& (eclipseVersion.getMinor() == 0)) {
-				IPath path = absolutePath.makeAbsolute();
-				// String [] segments = path.segments();
-				// for ( int i=0; i<path.segmentCount(); i++) {
-				// ConfigUtils.logDebug("\tsegment [" + i + "] - " +
-				// segments[i]);
-				// }
-				File file = path.toFile();
-				absolutePath = new Path(file.getPath());
-			}
-			LoggingUtil.println(
-				IReporter.DETAIL,
-				"getPathToBundle(), path to bundle "
-						+ bundleName + " = " + absolutePath.toString());
+		if (bundleName != null && bundleName.length() > 0) {
+			Bundle bundle = Platform.getBundle(bundleName);
+			if (bundle != null) {
+				// The bundle location always begins with "update@" and ends with
+				// the relative bundle location.
+				// We have to strip off the "update@" before we append it to the
+				// path.
+				// MAS: until 3.4, where they changed the form of the identifier returned by Bundle.getLocation()!
+				// new format is reference:<URL of absolute path to bundle>
+				String bundleLoc = bundle.getLocation();
+				String installPath = Platform.getInstallLocation().getURL().getPath();
+				int atIndex = bundleLoc.indexOf('@');
+				int installIndex = bundleLoc.indexOf(installPath);
+				if (atIndex > 0) {
+					absolutePath = new Path(installPath);
+					absolutePath = absolutePath.append(bundleLoc.substring(atIndex + 1));
+				} else {
+					absolutePath = new Path(bundleLoc.substring(installIndex));
+				}
+				LoggingUtil.println(IReporter.DETAIL,
+					"getPathToBundle(), path to bundle " + bundleName + " = " + absolutePath.toString());
+		}
 		}
 		return absolutePath;
 	}	
 	
-	private Version getEclipseVersion () {
-		Version eclipseVersion = null;
-		Bundle platformBundle = Platform.getBundle("org.eclipse.platform");
-		Dictionary platformDict = platformBundle.getHeaders();
-		if (!platformDict.isEmpty()) {
-			String version = (String) platformDict.get(Version.bundleVersionKey);
-			eclipseVersion = new Version(version);
-		}else {
-			eclipseVersion = new Version("0.0.0");
-		}
-		LoggingUtil.println(
-			IReporter.DETAIL,
-			"getEclipseVersion(), Eclipse version - "
-					+ eclipseVersion.toString());
-		return eclipseVersion;
-	}
-	
-	private String getEclipseInstallPath () {
-		String filePath = "";
-		try {
-			// The following code returns the Eclipse installation path.
-			// The URL.getPath() method returns the path in the form of
-			// /d:/eclipse.
-			// We want to strip off the preceeding "/" and an easy way to do it
-			// is to convert it to a Path and return the string representation.
-			Location installLocation = Platform.getInstallLocation();
-			URL url = installLocation.getURL();
-			Path absolutePath = new Path(new File(url.getFile()).getAbsolutePath());
-			filePath = absolutePath.toString();
-		}catch (Exception e) {
-			LoggingUtil.println(IReporter.SYSTEM_NONFATAL, e.getMessage(), e);
-		}
-		LoggingUtil.println(
-			IReporter.DETAIL,
-			"getEclipseInstallPath(), Eclipse installation path - " + filePath);
-		return filePath;
-	}
 }
