@@ -262,6 +262,8 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 				String installPath = Platform.getInstallLocation().getURL().getPath();
 				int atIndex = bundleLoc.indexOf('@');
 				int installIndex = bundleLoc.indexOf(installPath);
+				System.err.println("bundle location id: " + bundleLoc);
+				LoggingUtil.println(IReporter.WARNING, "bundle location id: " + bundleLoc);
 				if (atIndex > 0) {
 					absolutePath = new Path(installPath);
 					absolutePath = absolutePath.append(bundleLoc.substring(atIndex + 1));
