@@ -252,26 +252,27 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 		if (bundleName != null && bundleName.length() > 0) {
 			Bundle bundle = Platform.getBundle(bundleName);
 			if (bundle != null) {
-				// The bundle location always begins with "update@" and ends with
-				// the relative bundle location.
-				// We have to strip off the "update@" before we append it to the
-				// path.
-				// MAS: until 3.4, where they changed the form of the identifier returned by Bundle.getLocation()!
-				// new format is reference:<URL of absolute path to bundle>
-				String bundleLoc = bundle.getLocation();
-				String installPath = Platform.getInstallLocation().getURL().getPath();
-				int atIndex = bundleLoc.indexOf('@');
-				int installIndex = bundleLoc.indexOf(installPath);
-				System.err.println("bundle location id: " + bundleLoc);
-				LoggingUtil.println(IReporter.WARNING, "bundle location id: " + bundleLoc);
-				if (atIndex > 0) {
-					absolutePath = new Path(installPath);
-					absolutePath = absolutePath.append(bundleLoc.substring(atIndex + 1));
-				} else {
-					absolutePath = new Path(bundleLoc.substring(installIndex));
+				try {
+					String bundleLoc = FileLocator.resolve(bundle.getEntry("/")).getFile();
+					if (bundleLoc.startsWith("file:")) {
+						bundleLoc = bundleLoc.substring("file:".length());
+					}
+					if (bundleLoc.startsWith("/") && Platform.getOS().equals(Platform.OS_WIN32)) {
+						// remove forward slash on windows systems
+						bundleLoc = bundleLoc.substring(1);
+					}
+					if (bundleLoc.endsWith("jar!/")) {
+						// root of bundle is in jar so just use the absolute path to that jar file
+						absolutePath = new Path(bundleLoc.substring(0, bundleLoc.length() - 2));
+					} else if (bundleLoc.endsWith("/")) {
+						// bundle is unpacked as directory so just remove trailing slash
+						absolutePath = new Path(bundleLoc.substring(0, bundleLoc.length() - 1));
+					}
+					LoggingUtil.println(IReporter.DETAIL,
+						"getPathToBundle(), path to bundle " + bundleName + " = " + absolutePath.toString());
+				} catch (IOException e) {
+					LoggingUtil.println(IReporter.SYSTEM_NONFATAL, "Could not retreave location for a bundle", e);
 				}
-				LoggingUtil.println(IReporter.DETAIL,
-					"getPathToBundle(), path to bundle " + bundleName + " = " + absolutePath.toString());
 		}
 		}
 		return absolutePath;
