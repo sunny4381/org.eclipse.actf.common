@@ -234,22 +234,10 @@ public class ClassLoaderCache
 	 *         instrumented, <code>false</code> otherwise
 	 */
 	public boolean isNonAdvisableClassName (String classname) {
-		return classname.startsWith("org.jboss.aop")
-				|| classname.startsWith("org.aspectj")
-				|| classname.endsWith("$aop")
-				|| classname.startsWith("javassist")
-				|| classname.startsWith("org.jboss.util.")
-				|| classname.startsWith("gnu.trove.")
-				|| classname.startsWith("EDU.oswego.cs.dl.util.concurrent.")
-				|| classname.startsWith("org.apache.crimson")
-				|| classname.startsWith("org.apache.bsf")
-				|| classname.startsWith("org.apache.xalan")
-				|| classname.startsWith("org.apache.xml")
-				|| classname.startsWith("org.apache.xpath")
-				|| classname.startsWith("org.ietf.")
-				|| classname.startsWith("org.omg.")
-				//|| classname.startsWith("org.w3c.")
-				|| classname.startsWith("org.xml.sax.")
+		return classname.startsWith("org.aspectj")
+		|| classname.startsWith("org.apache.")
+		|| classname.startsWith("org.mozilla.javascript.")
+		|| classname.startsWith("org.xml.sax.")
 				|| classname.startsWith("sunw.")
 				|| classname.startsWith("sun.")
 				|| (classname.startsWith("java.") && !classname.startsWith("java.awt."))
@@ -257,6 +245,5 @@ public class ClassLoaderCache
 				|| classname.startsWith("com.sun.")
 				|| classname.startsWith("com.ibm.sns.")
 				|| classname.startsWith("org.eclipse.actf.");
-				
 	}
 } // ClassLoaderCache
