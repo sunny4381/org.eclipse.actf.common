@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.actf.util.dom;
 
+import java.util.HashMap;
+
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.traversal.NodeFilter;
@@ -24,6 +26,7 @@ public class TreeWalkerImpl implements TreeWalker {
 	private NodeFilter defaultFilter;
 	private boolean entitiyReferenceExpansion;
 	private boolean noFilter = true;
+	private HashMap<Node, Node> parentMap = new HashMap<Node, Node>();
 
 	public TreeWalkerImpl(Node root, int whatToShow, NodeFilter filter,
 			boolean entityReferenceExpansion) throws DOMException {
@@ -57,7 +60,7 @@ public class TreeWalkerImpl implements TreeWalker {
 		}
 		Node tmpN = target.getNextSibling();
 		if (null == tmpN) {
-			Node tmpP = target.getParentNode();
+			Node tmpP = getParentNode(target);
 			if (eval(tmpP) == NodeFilter.FILTER_SKIP) {
 				return getVisibleNextSibling(tmpP, root);
 			}
@@ -83,7 +86,7 @@ public class TreeWalkerImpl implements TreeWalker {
 		}
 		Node tmpN = target.getPreviousSibling();
 		if (null == tmpN) {
-			Node tmpP = target.getParentNode();
+			Node tmpP = getParentNode(target);
 			if (eval(tmpP) == NodeFilter.FILTER_SKIP) {
 				return getVisiblePreviousSibling(tmpP, root);
 			}
@@ -111,6 +114,13 @@ public class TreeWalkerImpl implements TreeWalker {
 		Node tmpN = target.getFirstChild();
 		if (null == tmpN) {
 			return null;
+		}
+
+		parentMap.put(tmpN, target);
+		Node tmpNext = tmpN.getNextSibling();
+		while (null != tmpNext) {
+			parentMap.put(tmpNext, target);
+			tmpNext = tmpNext.getNextSibling();
 		}
 
 		switch (eval(tmpN)) {
@@ -155,7 +165,7 @@ public class TreeWalkerImpl implements TreeWalker {
 		if (target == walkerRoot) {
 			return null;
 		}
-		Node tmpN = target.getParentNode();
+		Node tmpN = getParentNode(target);
 		if (null == tmpN) {
 			return null;
 		}
@@ -167,6 +177,16 @@ public class TreeWalkerImpl implements TreeWalker {
 		default:
 			return getVisibleParent(tmpN);
 		}
+	}
+
+	// to avoid to fall into an infinite loop caused by broken tree structure of
+	// IE DOM
+	protected Node getParentNode(Node target) {
+		Node tmpN = parentMap.get(target);
+		if (null != tmpN) {
+			return tmpN;
+		}
+		return target.getParentNode();
 	}
 
 	/*
@@ -267,9 +287,8 @@ public class TreeWalkerImpl implements TreeWalker {
 			if (null != tmpN) {
 				current = tmpN;
 				return tmpN;
-			} else {
-				tmpP = getVisibleParent(tmpP);
 			}
+			tmpP = getVisibleParent(tmpP);
 		}
 		return null;
 	}

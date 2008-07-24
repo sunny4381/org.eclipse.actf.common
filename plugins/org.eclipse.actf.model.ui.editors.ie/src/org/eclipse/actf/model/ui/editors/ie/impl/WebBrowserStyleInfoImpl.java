@@ -39,7 +39,8 @@ public class WebBrowserStyleInfoImpl implements IWebBrowserStyleInfo {
 	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo#getCurrentStyles()
 	 */
 	public HashMap<String, ICurrentStyles> getCurrentStyles() {
-		HashMap<String, ICurrentStyles> currentStyles = new HashMap<String, ICurrentStyles>(512);
+		HashMap<String, ICurrentStyles> currentStyles = new HashMap<String, ICurrentStyles>(
+				512);
 		Document doc = browser.getLiveDocument();
 		TreeWalkerImpl treeWalker = new TreeWalkerImpl(doc,
 				NodeFilter.SHOW_ELEMENT, new NodeFilter() {
@@ -64,7 +65,7 @@ public class WebBrowserStyleInfoImpl implements IWebBrowserStyleInfo {
 						(IElementEx) tmpN, base);
 				currentStyles.put(curStyle.getXPath(), curStyle);
 			}
-			tmpN = (IElementEx) treeWalker.nextNode();
+			tmpN = treeWalker.nextNode();
 		}
 
 		return currentStyles;

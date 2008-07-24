@@ -194,13 +194,13 @@ public class NodeIteratorImpl implements NodeIterator {
 		if (null != tmpN) {
 			return tmpN;
 		}
-		Node tmpP = target.getParentNode();
+		Node tmpP = treeWalker.getParentNode(target);
 		while (null != tmpP && tmpP != root) {
 			tmpN = tmpP.getNextSibling();
 			if (null != tmpN) {
 				return tmpN;
 			}
-			tmpP = tmpP.getParentNode();
+			tmpP = treeWalker.getParentNode(tmpP);
 		}
 		return null;
 	}
@@ -211,7 +211,7 @@ public class NodeIteratorImpl implements NodeIterator {
 			if (tmpN == target) {
 				return target;
 			}
-			tmpN = tmpN.getParentNode();
+			tmpN = treeWalker.getParentNode(tmpN);
 		}
 		return null;
 	}

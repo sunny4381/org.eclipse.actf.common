@@ -129,7 +129,8 @@ public class DomPrintUtil {
 				break;
 			case Node.COMMENT_NODE:
 				tmpSB.append(line_sep + indentS + lt + "!--"
-						+ tmpN.getNodeValue() + "--" + gt + line_sep);
+						+ getXMLString(tmpN.getNodeValue()) + "--" + gt
+						+ line_sep);
 				prevIsText = false;
 				break;
 			case Node.CDATA_SECTION_NODE:
@@ -192,7 +193,12 @@ public class DomPrintUtil {
 			while (null != next) {
 				if (next.getNodeType() == Node.ELEMENT_NODE) {
 					if (indent) {
-						indentS = indentS.substring(1);
+						if (indentS.length() > 0) {
+							indentS = indentS.substring(1);
+						} else {
+							System.err.println("indent: " + next.getNodeName()
+									+ " " + next);
+						}
 					}
 					tmpSB.append(line_sep + indentS + lt + "/"
 							+ next.getNodeName() + gt + line_sep);
@@ -202,9 +208,8 @@ public class DomPrintUtil {
 				if (null != next) {
 					tmpN = next;
 					break;
-				} else {
-					next = treeWalker.parentNode();
 				}
+				next = treeWalker.parentNode();
 			}
 		}
 		return tmpSB.toString();

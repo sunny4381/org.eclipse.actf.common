@@ -87,7 +87,7 @@ public class CurrentStylesImpl implements ICurrentStyles {
 
 	private final String letterSpacing;
 
-	private final boolean isLink;
+	private boolean isLink;
 
 	private URL target = null;
 
@@ -99,29 +99,32 @@ public class CurrentStylesImpl implements ICurrentStyles {
 		xpath = XPathCreator.childPathSequence(element);
 		tagName = element.getTagName();
 
-		if (TAG_A.equalsIgnoreCase(tagName) && element.hasAttribute(HREF)) {
-			isLink = true;
-			String href = element.getAttribute(HREF);
-			if (null != baseUrl) {
-				try {
-					target = new URL(baseUrl, href);
-				} catch (Exception e) {
-					e.printStackTrace();
+		isLink = false;
+		if (TAG_A.equalsIgnoreCase(tagName)) {
+			String href = element.getSpecifiedAttribute(HREF);
+			if (null != href) {
+				if (null != baseUrl) {
+					try {
+						target = new URL(baseUrl, href);
+						isLink = true;
+					} catch (Exception e) {
+						// e.printStackTrace();
+						try {
+							target = new URL(href);
+							isLink = true;
+						} catch (Exception e2) {
+							// e2.printStackTrace();
+						}
+					}
+				} else {
 					try {
 						target = new URL(href);
+						isLink = true;
 					} catch (Exception e2) {
-						e2.printStackTrace();
+						//e2.printStackTrace();
 					}
 				}
-			} else {
-				try {
-					target = new URL(href);
-				} catch (Exception e2) {
-					e2.printStackTrace();
-				}
 			}
-		} else {
-			isLink = false;
 		}
 
 		IStyle style = element.getStyle();
