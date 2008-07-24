@@ -282,7 +282,7 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 							DEBUG("SUCCESS");
 						} catch (TimeoutException e) {
 							sendGatewayTimeout(request);
-							DEBUG("Timeout. Failed to send a SWF bootloader to the client.");
+							DEBUG("Timeout. Failed to send original SWF to the client.");
 						}
 						request = null;
 						clearNextRequest();
