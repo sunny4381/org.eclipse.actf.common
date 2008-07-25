@@ -56,7 +56,7 @@ public class DomPrintUtil {
 	}
 
 	private String getAttributeString(Node element, Node attr) {
-		if (null != attrFilter && attrFilter.acceptNode(element, attr)) {
+		if (null == attrFilter || attrFilter.acceptNode(element, attr)) {
 			String value = getXMLString(attr.getNodeValue());
 			String quat = QUAT;
 			if (value.indexOf(QUAT) > 0) {
@@ -128,9 +128,14 @@ public class DomPrintUtil {
 				prevIsText = true;
 				break;
 			case Node.COMMENT_NODE:
-				tmpSB.append(line_sep + indentS + lt + "!--"
-						+ getXMLString(tmpN.getNodeValue()) + "--" + gt
-						+ line_sep);
+				String comment;
+				if (escapeTagBracket) {
+					comment = getXMLString(tmpN.getNodeValue());
+				} else {
+					comment = tmpN.getNodeValue();
+				}
+				tmpSB.append(line_sep + indentS + lt + "!--" + comment + "--"
+						+ gt + line_sep);
 				prevIsText = false;
 				break;
 			case Node.CDATA_SECTION_NODE:
