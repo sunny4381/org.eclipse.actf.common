@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse ACTF Jxpath Fragment (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.util.jxpath;singleton:=true
-Bundle-Version: 0.0.1
+Bundle-Version: 0.0.1.qualifier
 Fragment-Host: org.eclipse.actf.core
 Require-Bundle: org.eclipse.core.runtime,
  org.apache.commons.jxpath
