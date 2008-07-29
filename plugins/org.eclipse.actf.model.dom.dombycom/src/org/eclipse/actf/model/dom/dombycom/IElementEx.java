@@ -50,9 +50,15 @@ public interface IElementEx extends Element, INodeEx{
 	 *         existing.
 	 */
 	public Element getFormLabel();
+
+	/** 
+	 * @return the attribute value originally specified to the element. If no value is specified, returns null.
+	 * @see org.w3c.dom.Element#getAttribute(java.lang.String)
+	 */
+	public String getAttribute(String name);
 	
 	/**
-	 * @return the attribute value originally specified to the element. If no value is specified, returns null.
+	 * @return the attribute value currently assigned to the element. (same as getAttribute method of IE DOM)
 	 */
-	public String getSpecifiedAttribute(String name);
+	public String getCurrentAttribute(String name);
 }

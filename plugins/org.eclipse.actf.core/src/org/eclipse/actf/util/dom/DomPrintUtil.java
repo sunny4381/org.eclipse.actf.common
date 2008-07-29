@@ -12,6 +12,7 @@ package org.eclipse.actf.util.dom;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
+import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLTitleElement;
@@ -43,7 +44,7 @@ public class DomPrintUtil {
 	private AttributeFilter attrFilter = null;
 
 	public interface AttributeFilter {
-		public boolean acceptNode(Node element, Node attr);
+		public boolean acceptNode(Element element, Node attr);
 	}
 
 	public DomPrintUtil(Document document) {
@@ -55,7 +56,7 @@ public class DomPrintUtil {
 				.replaceAll(GT, ESC_GT);
 	}
 
-	private String getAttributeString(Node element, Node attr) {
+	private String getAttributeString(Element element, Node attr) {
 		if (null == attrFilter || attrFilter.acceptNode(element, attr)) {
 			String value = getXMLString(attr.getNodeValue());
 			String quat = QUAT;
@@ -106,7 +107,7 @@ public class DomPrintUtil {
 					Node attr = attrs.item(i);
 					String value = attr.getNodeValue();
 					if (null != value) {
-						tmpSB.append(getAttributeString(tmpN, attr));
+						tmpSB.append(getAttributeString((Element)tmpN, attr));
 					}
 				}
 				if (tmpN instanceof HTMLTitleElement && !tmpN.hasChildNodes()) {

@@ -101,7 +101,7 @@ public class CurrentStylesImpl implements ICurrentStyles {
 
 		isLink = false;
 		if (TAG_A.equalsIgnoreCase(tagName)) {
-			String href = element.getSpecifiedAttribute(HREF);
+			String href = element.getAttribute(HREF);
 			if (null != href) {
 				if (null != baseUrl) {
 					try {
