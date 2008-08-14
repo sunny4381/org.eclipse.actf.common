@@ -19,9 +19,7 @@ public class HybridConfiguraton extends AbstractConfiguration {
 	 * 
 	 * @author Ann Ford
 	 */
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -6926451284721623066L;
 
 	private XmlConfiguration xmlConfig;
@@ -31,6 +29,7 @@ public class HybridConfiguraton extends AbstractConfiguration {
 		super();
 		xmlConfig = new XmlConfiguration();
 		eclipseConfiguration = new EclipseConfiguration();
+		createSymbolPool(ACTF_ID);
 	}
 
 	@Override
