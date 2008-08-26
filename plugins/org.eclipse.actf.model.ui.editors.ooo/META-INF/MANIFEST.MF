@@ -22,5 +22,9 @@ Bundle-ClassPath: runtimes/accessibility_browser_odf.jar,
  external:C:\Program Files\OpenOffice.org 2.3\program\classes\juh.jar,
  external:C:\Program Files\OpenOffice.org 2.3\program\classes\jurt.jar,
  external:C:\Program Files\OpenOffice.org 2.3\program\classes\ridl.jar,
- external:C:\Program Files\OpenOffice.org 2.3\program\classes\unoil.jar
+ external:C:\Program Files\OpenOffice.org 2.3\program\classes\unoil.jar,
+ external:C:\Program Files\OpenOffice.org 2.4\program\classes\juh.jar,
+ external:C:\Program Files\OpenOffice.org 2.4\program\classes\jurt.jar,
+ external:C:\Program Files\OpenOffice.org 2.4\program\classes\ridl.jar,
+ external:C:\Program Files\OpenOffice.org 2.4\program\classes\unoil.jar 
 Export-Package: org.eclipse.actf.model.ui.editors.ooo.editor
