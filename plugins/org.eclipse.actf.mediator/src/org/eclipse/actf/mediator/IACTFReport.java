@@ -10,6 +10,11 @@
  *******************************************************************************/
 package org.eclipse.actf.mediator;
 
+/**
+ * The interface used by ACTF report generators ({@link IACTFReportGenerator})
+ * to encapsulate a report.
+ * 
+ */
 public interface IACTFReport {
 
 }

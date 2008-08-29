@@ -13,23 +13,54 @@ package org.eclipse.actf.mediator;
 import java.util.EventListener;
 
 /**
- * This listener interface may be implemented in order to receive
- * a {@link MediatorEvent} notification when a {@link Mediator}
- * detects a status change in ACTF components.
+ * This listener interface may be implemented in order to receive a
+ * {@link MediatorEvent} notification when a {@link Mediator} detects a status
+ * change in ACTF components.
  * 
  * @see Mediator#addMediatorEventListener(IMediatorEventListener)
  * @see Mediator#removeMediatorEventListener(IMediatorEventListener)
  * 
  * @since 3.0
  */
-public interface IMediatorEventListener extends EventListener{
-	
+public interface IMediatorEventListener extends EventListener {
+
+	/**
+	 * This method is called when the report ({@link IACTFReprot}) was
+	 * submitted to the {@link Mediator}
+	 * 
+	 * @param event
+	 *            The {@link MediatorEvent} contains information about the
+	 *            event.
+	 */
 	public abstract void reportChanged(MediatorEvent event);
 
+	/**
+	 * This method is called when a report generator ({@link IACTFReprotGenerator})
+	 * was selected by user.
+	 * 
+	 * @param event
+	 *            The {@link MediatorEvent} contains information about the
+	 *            event.
+	 */
 	public abstract void reportGeneratorChanged(MediatorEvent event);
-	
-    public abstract void modelserviceChanged(MediatorEvent event);
-    
-    public abstract void modelserviceInputChanged(MediatorEvent event);
-	
+
+	/**
+	 * This method is called when a model service was selected by user.
+	 * 
+	 * @param event
+	 *            The {@link MediatorEvent} contains information about the
+	 *            event.
+	 */
+	public abstract void modelserviceChanged(MediatorEvent event);
+
+	/**
+	 * This method is called when an input change event was occured in the
+	 * active model service.
+	 * 
+	 * @param event
+	 *            The {@link MediatorEvent} contains information about the
+	 *            event.
+	 */
+	public abstract void modelserviceInputChanged(MediatorEvent event);
+
 }

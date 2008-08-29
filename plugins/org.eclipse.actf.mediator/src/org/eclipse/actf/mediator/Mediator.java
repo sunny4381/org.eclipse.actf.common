@@ -23,6 +23,13 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
 
+/**
+ * A <code>Mediator</code> manages components and dataflows in the ACTF by
+ * collaborating with the Eclipse framework. If <code>Mediator</code> detects
+ * a status change in ACTF components, it will send <code>MediatorEvent</code>
+ * to ACTF components and other registered EventListeners.
+ * 
+ */
 public class Mediator {
 
 	private static Mediator instance = new Mediator();
@@ -36,23 +43,43 @@ public class Mediator {
 
 	private Vector<IMediatorEventListener> mediatorEventLisnterV = new Vector<IMediatorEventListener>();
 
+	/**
+	 * Gets Mediator instance.
+	 * 
+	 * @return Mediator
+	 */
 	public static Mediator getInstance() {
 		return instance;
 	}
-	
-    private Mediator() {
+
+	private Mediator() {
 		init();
 	}
 
-	public void setEvaluationResult(IACTFReportGenerator view,
-			IACTFReport report) {
-		reportMap.put(view, report);
-		reportChanged(new MediatorEvent(this, currentModelServiceHolder, view,
-				report));
+	/**
+	 * Sets the report to Mediator. Other ACTF components will receive the
+	 * <code>MediatorEvent</code> (report changed).
+	 * 
+	 * @param generator
+	 *            generator of the report
+	 * @param report
+	 *            new report to set
+	 */
+	public void setReport(IACTFReportGenerator generator, IACTFReport report) {
+		reportMap.put(generator, report);
+		reportChanged(new MediatorEvent(this, currentModelServiceHolder,
+				generator, report));
 	}
 
-	public IACTFReport getEvaluationResult(IACTFReportGenerator reporter) {
-		return getEvaluationResult(null, reporter);
+	/**
+	 * Gets current report submitted from the report generator.
+	 * 
+	 * @param generator
+	 *            target report generator
+	 * @return current report submitted from the report generator
+	 */
+	public IACTFReport getReport(IACTFReportGenerator generator) {
+		return getEvaluationResult(null, generator);
 	}
 
 	private IACTFReport getEvaluationResult(IModelServiceHolder holder,
@@ -87,14 +114,14 @@ public class Mediator {
 					curRepoter = (IACTFReportGenerator) part;
 					reporterViewChanged(new MediatorEvent(Mediator.this,
 							currentModelServiceHolder, curRepoter,
-							getEvaluationResult(curRepoter)));
+							getReport(curRepoter)));
 				}
 				if (part instanceof IModelServiceHolder
 						&& part != currentModelServiceHolder) {
 					currentModelServiceHolder = (IModelServiceHolder) part;
 					modelserviceChanged(new MediatorEvent(Mediator.this,
 							currentModelServiceHolder, curRepoter,
-							getEvaluationResult(curRepoter)));
+							getReport(curRepoter)));
 				}
 			}
 
@@ -114,7 +141,7 @@ public class Mediator {
 					if (currentModelServiceHolder != null) {
 						viewer.reportChanged(new MediatorEvent(Mediator.this,
 								currentModelServiceHolder, curRepoter,
-								getEvaluationResult(curRepoter)));
+								getReport(curRepoter)));
 					}
 					mediatorEventLisnterV.add(viewer);
 				} else if (part instanceof IACTFReportGenerator) {
@@ -130,7 +157,7 @@ public class Mediator {
 					currentModelServiceHolder = (IModelServiceHolder) part;
 					modelserviceInputChanged(new MediatorEvent(Mediator.this,
 							currentModelServiceHolder, curRepoter,
-							getEvaluationResult(curRepoter)));
+							getReport(curRepoter)));
 				}
 			}
 
@@ -138,10 +165,23 @@ public class Mediator {
 
 	}
 
-	public boolean addMediatorEventListener(IMediatorEventListener listener) {
-		return mediatorEventLisnterV.add(listener);
+	/**
+	 * Registers the <code>IMediatorEventListener</code> to the Mediator.
+	 * 
+	 * @param listener
+	 *            the listener to register
+	 */
+	public void addMediatorEventListener(IMediatorEventListener listener) {
+		mediatorEventLisnterV.add(listener);
 	}
 
+	/**
+	 * Removes the <code>IMediatorEventListener</code> from the Mediator.
+	 * 
+	 * @param listener
+	 *            the listener to remove
+	 * @return true if the listener is removed from the Mediator
+	 */
 	public boolean removeMediatorEventListener(IMediatorEventListener listener) {
 		return mediatorEventLisnterV.remove(listener);
 	}

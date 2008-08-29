@@ -50,9 +50,9 @@ public class MediatorEvent extends EventObject {
 	}
 
 	/**
-	 * Returns the ACTFReporterView that is related to this event.
+	 * Returns the ACTFReportGenerator that is related to this event.
 	 * 
-	 * @return the <code>IACTFReporterView</code> related to this event
+	 * @return the <code>IACTFReportGenerator</code> related to this event
 	 */
 	public IACTFReportGenerator getView() {
 		return view;
