@@ -9,7 +9,7 @@
  *    Hisashi MIYASHITA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.httpproxy.util;
+package org.eclipse.actf.util.httpproxy.internal;
 
 
 public interface IObjectPool {

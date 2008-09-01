@@ -13,10 +13,12 @@
 package org.eclipse.actf.model.flash.bridge.proxy;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.io.PushbackInputStream;
 
 import org.eclipse.actf.model.flash.bridge.impl.WaXcodingConfig;
@@ -30,7 +32,6 @@ import org.eclipse.actf.util.httpproxy.core.IPushbackMessageBody;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoder;
 import org.eclipse.actf.util.httpproxy.util.HTTPUtil;
 import org.eclipse.actf.util.httpproxy.util.Logger;
-import org.eclipse.actf.util.httpproxy.util.ThrowableUtil;
 import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
@@ -117,7 +118,7 @@ public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
 		buf.append("(");
 		buf.append(request.getOriginalRequestURIString());
 		buf.append(")\n");
-		buf.append(ThrowableUtil.stackTraceToString(e));
+		buf.append(stackTraceToString(e));
 		if (LOGGER.isDebugEnabled() && (outFile != null)) {
 			buf.append("The SWF file is secured in ");
 			buf.append(outFile.getAbsolutePath());
@@ -138,6 +139,13 @@ public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
 			}
 		}
 	}
+	
+	private String stackTraceToString(Throwable t) {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(os);
+        t.printStackTrace(ps);
+        return os.toString();
+    }
 
 	public IHTTPResponseMessage transcode(int id, IHTTPRequestMessage request,
 			IHTTPResponseMessage response) {

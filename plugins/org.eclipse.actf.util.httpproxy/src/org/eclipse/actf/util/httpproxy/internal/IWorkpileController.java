@@ -9,17 +9,9 @@
  *    Hisashi MIYASHITA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.httpproxy.util;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+package org.eclipse.actf.util.httpproxy.internal;
 
 
-public class ThrowableUtil {
-    public static String stackTraceToString(Throwable t) {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(os);
-        t.printStackTrace(ps);
-        return os.toString();
-    }
+public interface IWorkpileController {
+    void input(Runnable work);
 }

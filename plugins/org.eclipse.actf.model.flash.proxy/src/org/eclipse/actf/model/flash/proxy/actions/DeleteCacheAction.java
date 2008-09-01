@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.flash.proxy.actions;
 
 import org.eclipse.actf.model.flash.proxy.Messages;
-import org.eclipse.actf.model.flash.proxy.ProxyPlugin;
+import org.eclipse.actf.model.flash.proxy.cache.FlashCacheUtil;
 import org.eclipse.actf.model.flash.proxy.internal.WSTR;
 import org.eclipse.actf.model.flash.proxy.internal.WinInet;
 import org.eclipse.actf.ui.util.ProgressContribution;
@@ -59,7 +59,7 @@ public class DeleteCacheAction implements IWorkbenchWindowActionDelegate {
 
     public void run(IAction action) {
         try {
-            ProxyPlugin.cacheChecked = true;
+            FlashCacheUtil.cacheChecked = true;
             ProgressMonitorDialog dialog;
 
             if (background) {

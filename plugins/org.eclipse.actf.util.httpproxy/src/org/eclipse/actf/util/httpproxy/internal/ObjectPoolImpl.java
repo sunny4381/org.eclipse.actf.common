@@ -10,11 +10,10 @@
  *******************************************************************************/
 
 
-package org.eclipse.actf.util.httpproxy.util.impl;
+package org.eclipse.actf.util.httpproxy.internal;
 
 import java.util.ArrayList;
 
-import org.eclipse.actf.util.httpproxy.util.IObjectPool;
 
 
 
