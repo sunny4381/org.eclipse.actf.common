@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.eclipse.actf.model.dom.sgml.internal.modelgroup.IModelGroup;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.IModelGroup;
 
 class SGMLEntityDeclaration {
 	private String name = null;

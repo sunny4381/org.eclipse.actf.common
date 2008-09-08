@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.model.internal.dom.sgml.impl;
 
-import org.eclipse.actf.model.dom.sgml.internal.modelgroup.IModelGroup;
 import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.IModelGroup;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

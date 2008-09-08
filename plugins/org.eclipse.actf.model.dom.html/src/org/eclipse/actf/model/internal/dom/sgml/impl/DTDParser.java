@@ -18,14 +18,14 @@ import java.util.Stack;
 import java.util.Vector;
 
 import org.eclipse.actf.model.dom.html.ParseException;
-import org.eclipse.actf.model.dom.sgml.internal.modelgroup.AndModelGroup;
-import org.eclipse.actf.model.dom.sgml.internal.modelgroup.IModelGroup;
-import org.eclipse.actf.model.dom.sgml.internal.modelgroup.OptModelGroup;
-import org.eclipse.actf.model.dom.sgml.internal.modelgroup.OrModelGroup;
-import org.eclipse.actf.model.dom.sgml.internal.modelgroup.PlusModelGroup;
-import org.eclipse.actf.model.dom.sgml.internal.modelgroup.RepModelGroup;
-import org.eclipse.actf.model.dom.sgml.internal.modelgroup.SeqModelGroup;
 import org.eclipse.actf.model.internal.dom.sgml.ISGMLConstants;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.AndModelGroup;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.IModelGroup;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.OptModelGroup;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.OrModelGroup;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.PlusModelGroup;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.RepModelGroup;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.SeqModelGroup;
 
 class DTDParser implements ISGMLConstants {
 	private DTDTokenizer tokenizer;
