@@ -13,8 +13,8 @@ package org.eclipse.actf.model.dom.sgml.errorhandler;
 
 import java.io.IOException;
 
-import org.eclipse.actf.model.dom.sgml.ISGMLConstants;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
 
 
 /**
@@ -27,10 +27,10 @@ public interface ITokenErrorHandler {
 	 * @param code
 	 *            error type. This parameter represents tokenizer's state. In
 	 *            other words, where the tokenizer read. <code>Code</code>
-	 *            must be {@link ISGMLConstants#ATTR_VALUE} (Error occurs when a
+	 *            must be {@link IParserError#ATTR_VALUE} (Error occurs when a
 	 *            tokenizer is to read attribute's value),
-	 *            {@link ISGMLConstants#BEFORE_ATTRNAME} (to read attribute's
-	 *            name) or {@link ISGMLConstants#TAG_NAME} (to read tag name).
+	 *            {@link IParserError#BEFORE_ATTRNAME} (to read attribute's
+	 *            name) or {@link IParserError#TAG_NAME} (to read tag name).
 	 *            If string to substitute is diecovered, that can be inserted to
 	 *            current reading position.
 	 * @param parser
@@ -38,8 +38,8 @@ public interface ITokenErrorHandler {
 	 * @param errorStr
 	 *            string that causes the error.
 	 * @return true if error was handled. Otherwise false.
-	 * @see SGMLParser#insert(java.lang.String)
+	 * @see ISGMLParser#insert(java.lang.String)
 	 */
-	public boolean handleError(int code, SGMLParser parser, String errorStr)
+	public boolean handleError(int code, ISGMLParser parser, String errorStr)
 			throws IOException;
 }

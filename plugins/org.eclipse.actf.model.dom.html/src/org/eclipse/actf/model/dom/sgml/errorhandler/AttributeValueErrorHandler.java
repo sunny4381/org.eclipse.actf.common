@@ -13,14 +13,15 @@ package org.eclipse.actf.model.dom.sgml.errorhandler;
 
 import java.io.IOException;
 
-import org.eclipse.actf.model.dom.sgml.ISGMLConstants;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLConstants;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
 
 
 public class AttributeValueErrorHandler implements ITokenErrorHandler, ISGMLConstants {
-	public boolean handleError(int code, SGMLParser parser, String errorStr)
+	public boolean handleError(int code, ISGMLParser parser, String errorStr)
 			throws IOException {
-		if (code != ATTR_VALUE)
+		if (code != IParserError.ATTR_VALUE)
 			return false;
 		int gtIndex = errorStr.indexOf('>');
 		int ltIndex;
@@ -46,7 +47,7 @@ public class AttributeValueErrorHandler implements ITokenErrorHandler, ISGMLCons
 				return false;
 			String nextTag = errorStr.substring(nextTagBegin, nextTagEnd);
 			if (parser.getDTD().getElementDefinition(nextTag) != null) {
-				parser.error(STARTTAG_SYNTAX_ERR,
+				parser.error(IParserError.STARTTAG_SYNTAX_ERR,
 						" attribute value missed closing quotation.");
 				parser.insert(errorStr.substring(0, gtIndex) + closingChar
 						+ errorStr.substring(gtIndex));
@@ -79,7 +80,7 @@ public class AttributeValueErrorHandler implements ITokenErrorHandler, ISGMLCons
 					if (c0 == '=') {
 						parser.insert(errorStr.substring(0, errorPoint)
 								+ closingChar + errorStr.substring(errorPoint));
-						parser.error(STARTTAG_SYNTAX_ERR,
+						parser.error(IParserError.STARTTAG_SYNTAX_ERR,
 								" attribute value missed closing quotation.");
 						return true;
 					}

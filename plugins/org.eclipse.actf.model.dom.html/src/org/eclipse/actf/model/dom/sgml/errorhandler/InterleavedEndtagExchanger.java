@@ -13,12 +13,15 @@ package org.eclipse.actf.model.dom.sgml.errorhandler;
 
 import java.io.IOException;
 
-import org.eclipse.actf.model.dom.html.HTMLParser;
-import org.eclipse.actf.model.dom.sgml.ElementDefinition;
-import org.eclipse.actf.model.dom.sgml.EndTag;
-import org.eclipse.actf.model.dom.sgml.IErrorLogListener;
-import org.eclipse.actf.model.dom.sgml.ParseException;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorLogListener;
+import org.eclipse.actf.model.dom.html.IParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.dom.html.ParseException;
+import org.eclipse.actf.model.internal.dom.html.parser.HTMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.impl.ElementDefinition;
+import org.eclipse.actf.model.internal.dom.sgml.impl.EndTag;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -38,21 +41,21 @@ public class InterleavedEndtagExchanger implements IErrorHandler {
      * <pre>
      *   &lt;center&gt;&lt;font&gt;...&lt;/font&gt;&lt;/center&gt;
      * </pre>
-     * @param code If {@link SGMLParser#SUDDEN_ENDTAG}, tries to exchange.  
+     * @param code If {@link IParserError#SUDDEN_ENDTAG}, tries to exchange.  
      * @param errorNode sudden endtag.  It must be an instance of 
      * {@link EndTag}
      * Otherwise, does nothing.
      */
-    public boolean handleError(int code, SGMLParser parser, Node errorNode)
+    public boolean handleError(int code, IParser parser, Node errorNode)
 	throws ParseException, IOException, SAXException {
-	if (!(code == SUDDEN_ENDTAG && errorNode instanceof EndTag)) {
+	if (!(code == IParserError.SUDDEN_ENDTAG && errorNode instanceof EndTag)) {
 	    return false;
 	}
 	// searches an element without an unomittable endtag.
 	for (Node pNode = parser.getContext();
 	     pNode instanceof Element; pNode = pNode.getParentNode()) {
 	    if (!pNode.getNodeName().equalsIgnoreCase(errorNode.getNodeName())) {
-		ElementDefinition ed = parser.getDTD().getElementDefinition(pNode.getNodeName());
+		ElementDefinition ed = ((ISGMLParser)parser).getDTD().getElementDefinition(pNode.getNodeName());
 		// if found, try to exchange endtags.
 		if (!ed.endTagOmittable() && exchangeEndtag(parser, errorNode, ed.getName())) {
 		    return true;
@@ -64,18 +67,18 @@ public class InterleavedEndtagExchanger implements IErrorHandler {
     /**
      * @param target target endtag's name.
      */
-    private boolean exchangeEndtag(SGMLParser parser, Node errorNode, String target)
+    private boolean exchangeEndtag(IParser parser, Node errorNode, String target)
 	throws ParseException, IOException, SAXException {
 	// makes look ahead buffer
-	Node foBuf[] = new Node[SGMLParser.BUF_SIZ/2];  
+	Node foBuf[] = new Node[parser.getPushbackBufferSize()/2];  
 	int i;
 	// searchs an target endtag and store nodes to buffer simultaneously
-	for (i = 0; i < SGMLParser.BUF_SIZ/2; i++) {
+	for (i = 0; i < parser.getPushbackBufferSize()/2; i++) {
 	    Node fo = parser.getNode();
 	    if (fo instanceof EndTag) {
 		// If found exchange endtags and pushes back them to the parser
 		if (fo.getNodeName().equalsIgnoreCase(target)) {
-		    parser.error(SUDDEN_ENDTAG, errorNode + " and " + fo + 
+		    parser.error(IParserError.SUDDEN_ENDTAG, errorNode + " and " + fo + 
 				 " are interleaved. So exchange it by an error handler.");
 		    parser.pushBackNode(errorNode);
 		    while (i > 0) parser.pushBackNode(foBuf[--i]);

@@ -10,6 +10,12 @@
  *******************************************************************************/
 package org.eclipse.actf.util.dom;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
@@ -19,6 +25,8 @@ import org.w3c.dom.html.HTMLTitleElement;
 import org.w3c.dom.traversal.NodeFilter;
 
 public class DomPrintUtil {
+
+	public static final String UTF8 = "UTF8";
 
 	private static final String LINE_SEP = System.getProperty("line.separator");
 	private static final String EMPTY_STR = "";
@@ -107,7 +115,7 @@ public class DomPrintUtil {
 					Node attr = attrs.item(i);
 					String value = attr.getNodeValue();
 					if (null != value) {
-						tmpSB.append(getAttributeString((Element)tmpN, attr));
+						tmpSB.append(getAttributeString((Element) tmpN, attr));
 					}
 				}
 				if (tmpN instanceof HTMLTitleElement && !tmpN.hasChildNodes()) {
@@ -248,6 +256,26 @@ public class DomPrintUtil {
 
 	public void setAttrFilter(AttributeFilter attrFilter) {
 		this.attrFilter = attrFilter;
+	}
+
+	public void writeToFile(String filePath) throws IOException {
+		writeToFile(new File(filePath), UTF8);
+	}
+
+	public void writeToFile(File file) throws IOException {
+		writeToFile(file, UTF8);
+	}
+
+	public void writeToFile(String filePath, String encode) throws IOException {
+		writeToFile(new File(filePath), encode);
+	}
+
+	public void writeToFile(File file, String encode) throws IOException {
+		PrintWriter tmpPW = new PrintWriter(new OutputStreamWriter(
+				new FileOutputStream(file), encode));
+		tmpPW.println(toXMLString());
+		tmpPW.flush();
+		tmpPW.close();
 	}
 
 }

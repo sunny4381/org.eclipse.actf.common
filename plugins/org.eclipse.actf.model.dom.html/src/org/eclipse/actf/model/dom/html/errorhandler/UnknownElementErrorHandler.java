@@ -13,9 +13,11 @@ package org.eclipse.actf.model.dom.html.errorhandler;
 
 import java.io.IOException;
 
-import org.eclipse.actf.model.dom.sgml.ParseException;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
-import org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.dom.html.ParseException;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -45,16 +47,16 @@ public class UnknownElementErrorHandler implements IErrorHandler {
 		this.publicID = publicID;
 	}
 
-	public boolean handleError(int code, SGMLParser parser, Node errorNode)
+	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException {
-		if (code == UNKNOWN_ELEMENT && errorNode instanceof Element) {
+		if (code == IParserError.UNKNOWN_ELEMENT && errorNode instanceof Element) {
 			for (int i = 0; i < unknownElements.length; i++) {
 				if (errorNode.getNodeName()
 						.equalsIgnoreCase(unknownElements[i])) {
-					parser.error(UNKNOWN_ELEMENT, parser.getDTD()
+					parser.error(IParserError.UNKNOWN_ELEMENT, ((ISGMLParser)parser).getDTD()
 							+ " does not define FRAMESET. "
 							+ " Try to change DTD to " + publicID);
-					parser.setupDTD(publicID);
+					((ISGMLParser)parser).setupDTD(publicID);
 					parser.pushBackNode(errorNode);
 					return true;
 				}

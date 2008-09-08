@@ -15,7 +15,8 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import org.eclipse.actf.model.dom.dombycom.DomByCom;
-import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
+import org.eclipse.actf.model.dom.html.HTMLParserFactory;
+import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
@@ -351,9 +352,9 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		try {
 			File tmpF = BrowserIE_Plugin.getDefault().createTempFile("actf", "html");
 			saveOriginalDocument(tmpF.getAbsolutePath());
-			HtmlParserUtil hpu = new HtmlParserUtil();
-			hpu.parse(new FileInputStream(tmpF));
-			return hpu.getSHDocument();
+			IHTMLParser parser = HTMLParserFactory.createHTMLParser();
+			parser.parse(new FileInputStream(tmpF));
+			return parser.getDocument();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

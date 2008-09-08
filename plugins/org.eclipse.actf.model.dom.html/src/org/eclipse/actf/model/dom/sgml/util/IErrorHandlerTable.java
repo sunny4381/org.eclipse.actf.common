@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.sgml.util;
 
 import java.net.URL;
 
-import org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
 
 public interface IErrorHandlerTable {
     public IErrorHandler[] getErrorHandlers(URL url);

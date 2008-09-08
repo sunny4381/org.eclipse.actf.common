@@ -13,12 +13,14 @@ package org.eclipse.actf.model.dom.html.errorhandler;
 
 import java.io.IOException;
 
-import org.eclipse.actf.model.dom.sgml.ElementDefinition;
-import org.eclipse.actf.model.dom.sgml.EndTag;
-import org.eclipse.actf.model.dom.sgml.ParseException;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
-import org.eclipse.actf.model.dom.sgml.SGMLText;
-import org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.dom.html.ParseException;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.impl.ElementDefinition;
+import org.eclipse.actf.model.internal.dom.sgml.impl.EndTag;
+import org.eclipse.actf.model.internal.dom.sgml.impl.SGMLText;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,7 +33,7 @@ import org.xml.sax.SAXException;
 
 public class HTMLErrorHandler implements IErrorHandler {
 	/**
-	 * Searches proper a parent node of node. Behavier is described as follows.
+	 * Searches proper a parent node of node. Behavior is described as follows.
 	 * <ol>
 	 * <li> If <code>node</code> is LINK, STYLE BASE, ISINDEX or META element,
 	 * add it to last HEAD element.
@@ -50,12 +52,12 @@ public class HTMLErrorHandler implements IErrorHandler {
 	 * </ol>
 	 * @param node illegal child node.
 	 * @return true if found.  Otherwise false.
-	 * @see org.eclipse.actf.model.dom.sgml.SGMLParser#getContext()
-	 * @see org.eclipse.actf.model.dom.sgml.SGMLParser#setContext(org.w3c.dom.Element)
+	 * @see org.eclipse.actf.model.dom.html.IParser#getContext()
+	 * @see org.eclipse.actf.model.dom.html.IParser#setContext(org.w3c.dom.Element)
 	 */
-	public boolean handleError(int code, SGMLParser parser, Node errorNode)
+	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException, SAXException {
-		if (code == ILLEGAL_ATTRIBUTE) {
+		if (code == IParserError.ILLEGAL_ATTRIBUTE) {
 			return false;
 		}
 		String nodeName = errorNode.getNodeName();
@@ -64,7 +66,7 @@ public class HTMLErrorHandler implements IErrorHandler {
 		String contextName = context.getNodeName();
 		NodeList bodies;
 		if (errorNode instanceof Element) {
-			ElementDefinition ed = parser.getDTD().getElementDefinition(
+			ElementDefinition ed = ((ISGMLParser)parser).getDTD().getElementDefinition(
 					nodeName);
 			if (ed == null) {
 				return false;
@@ -149,7 +151,7 @@ public class HTMLErrorHandler implements IErrorHandler {
 				parser.setContext((Element) errorNode);
 				return true;
 			}
-		} else if (code == SUDDEN_ENDTAG) {
+		} else if (code == IParserError.SUDDEN_ENDTAG) {
 			try {
 				java.util.Vector missedEndtags = (java.util.Vector) parser
 						.getExtraErrInfo();

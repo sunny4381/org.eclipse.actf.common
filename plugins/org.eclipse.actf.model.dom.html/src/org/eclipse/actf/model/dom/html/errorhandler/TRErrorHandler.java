@@ -13,10 +13,12 @@ package org.eclipse.actf.model.dom.html.errorhandler;
 
 import java.io.IOException;
 
-import org.eclipse.actf.model.dom.sgml.ElementDefinition;
-import org.eclipse.actf.model.dom.sgml.ParseException;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
-import org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.dom.html.ParseException;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.impl.ElementDefinition;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -26,11 +28,11 @@ import org.xml.sax.SAXException;
  * If start tag of TR is missed and only its end tag exists, provide start tag.
  */
 public class TRErrorHandler implements IErrorHandler {
-	public boolean handleError(int code, SGMLParser parser, Node errorNode)
+	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException, SAXException {
 		Element context;
 		String contextName;
-		if (code == ILLEGAL_CHILD && errorNode instanceof Element
+		if (code == IParserError.ILLEGAL_CHILD && errorNode instanceof Element
 				&& errorNode.getNodeName().equalsIgnoreCase("TD")) {
 			context = parser.getContext();
 			contextName = context.getNodeName();
@@ -38,9 +40,9 @@ public class TRErrorHandler implements IErrorHandler {
 					|| contextName.equalsIgnoreCase("TABLE")) {
 				Element tr = parser.getDocument().createElement(
 						parser.changeDefaultTagCase("TR"));
-				ElementDefinition ed = parser.getDTD().getElementDefinition(
+				ElementDefinition ed = ((ISGMLParser)parser).getDTD().getElementDefinition(
 						contextName);
-				if (ed.contentMatch(parser, context, tr)) {
+				if (ed.contentMatch(((ISGMLParser)parser), context, tr)) {
 					tr.insertBefore(errorNode, null);
 					parser.setContext((Element) errorNode);
 					return true;

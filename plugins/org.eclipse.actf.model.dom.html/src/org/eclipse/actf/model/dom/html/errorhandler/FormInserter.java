@@ -15,23 +15,23 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import org.eclipse.actf.model.dom.sgml.EndTag;
-import org.eclipse.actf.model.dom.sgml.ParseException;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
-import org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.dom.html.ParseException;
+import org.eclipse.actf.model.internal.dom.sgml.impl.EndTag;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
-
 
 /**
  * ErrorHandler implementation for illegally closed form context.
  * 
  */
 public class FormInserter implements IErrorHandler {
-	public boolean handleError(int code, SGMLParser parser, Node errorNode)
+	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException, SAXException {
-		if (code != FLOATING_ENDTAG)
+		if (code != IParserError.FLOATING_ENDTAG)
 			return false;
 		if (errorNode instanceof EndTag
 				&& errorNode.getNodeName().equalsIgnoreCase("FORM")) {

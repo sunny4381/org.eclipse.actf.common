@@ -16,8 +16,8 @@ import java.io.PrintWriter;
 import java.net.URL;
 
 import org.eclipse.actf.model.dom.html.internal.util.UnsynchronizedHashtable;
-import org.eclipse.actf.model.dom.sgml.ElementDefinition;
-import org.eclipse.actf.model.dom.sgml.SGMLDocument;
+import org.eclipse.actf.model.internal.dom.sgml.impl.ElementDefinition;
+import org.eclipse.actf.model.internal.dom.sgml.impl.SGMLDocument;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -27,13 +27,10 @@ import org.w3c.dom.html.HTMLDocument;
 import org.w3c.dom.html.HTMLElement;
 import org.w3c.dom.html.HTMLTitleElement;
 
-
-
 public class SHDocument extends SGMLDocument implements HTMLDocument {
-	/**
-	 * @deprecated
-	 * @see SHDOMImpl#createDocument(java.lang.String,java.lang.String,org.w3c.dom.DocumentType)
-	 */
+
+	private static final long serialVersionUID = 3204066329029237578L;
+
 	public SHDocument() {
 		this((SHDOMImpl) SHDOMImpl.getDOMImplementation());
 	}

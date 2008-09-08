@@ -13,9 +13,10 @@ package org.eclipse.actf.model.dom.html.errorhandler;
 
 import java.io.IOException;
 
-import org.eclipse.actf.model.dom.sgml.ParseException;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
-import org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.dom.html.ParseException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLAnchorElement;
@@ -32,9 +33,9 @@ public class AnchorUnderAnchorHandler implements IErrorHandler {
 						.equalsIgnoreCase("A"));
 	}
 
-	public boolean handleError(int code, SGMLParser parser, Node errorNode)
+	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException, SAXException {
-		if (code == ILLEGAL_CHILD && isAnchor(errorNode)) {
+		if (code == IParserError.ILLEGAL_CHILD && isAnchor(errorNode)) {
 			for (Node node = parser.getContext(); node instanceof Element; node = node
 					.getParentNode()) {
 				if (isAnchor(node)) {

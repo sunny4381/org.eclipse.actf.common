@@ -3,14 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse ACTF HTML Model Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.model.dom.html
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.actf.model.dom.html.HtmlParserPlugin
 Bundle-Vendor: Eclipse.org
-Require-Bundle: org.eclipse.core.runtime
-Eclipse-LazyStart: true
+Eclipse-LazyStart: false
 Export-Package: org.eclipse.actf.model.dom.html,
- org.eclipse.actf.model.dom.html.errorhandler,
- org.eclipse.actf.model.dom.html.impl,
- org.eclipse.actf.model.dom.html.util,
- org.eclipse.actf.model.dom.sgml,
- org.eclipse.actf.model.dom.sgml.errorhandler,
- org.eclipse.actf.model.dom.sgml.util
+ org.eclipse.actf.model.dom.html.errorhandler

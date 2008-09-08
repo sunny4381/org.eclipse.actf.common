@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.model.dom.html.impl;
 
-import org.eclipse.actf.model.dom.sgml.SGMLDOMImpl;
-import org.eclipse.actf.model.dom.sgml.SGMLDocType;
+import org.eclipse.actf.model.internal.dom.sgml.impl.SGMLDOMImpl;
+import org.eclipse.actf.model.internal.dom.sgml.impl.SGMLDocType;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;

@@ -16,12 +16,14 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import org.eclipse.actf.model.dom.html.HTMLParser;
-import org.eclipse.actf.model.dom.sgml.EndTag;
-import org.eclipse.actf.model.dom.sgml.IErrorLogListener;
-import org.eclipse.actf.model.dom.sgml.ParseException;
-import org.eclipse.actf.model.dom.sgml.SGMLDocument;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorLogListener;
+import org.eclipse.actf.model.dom.html.IParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.dom.html.ParseException;
+import org.eclipse.actf.model.internal.dom.html.parser.HTMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLDocument;
+import org.eclipse.actf.model.internal.dom.sgml.impl.EndTag;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -31,9 +33,9 @@ import org.xml.sax.SAXException;
  * A sample implementation class of {@link IErrorHandler}.
  */
 public class RangeExpander implements IErrorHandler {
-	public boolean handleError(int code, SGMLParser parser, Node errorNode)
+	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException, SAXException {
-		if (!(code == SUDDEN_ENDTAG && errorNode instanceof EndTag)) {
+		if (!(code == IParserError.SUDDEN_ENDTAG && errorNode instanceof EndTag)) {
 			return false;
 		}
 		Vector<Element> elementsToBeInserted = new Vector<Element>();
@@ -70,7 +72,7 @@ public class RangeExpander implements IErrorHandler {
 			});
 			parser.setErrorHandler(new RangeExpander());
 			parser.parse(new java.io.FileInputStream(args[0]));
-			((SGMLDocument) parser.getDocument()).printAsSGML(new PrintWriter(
+			((ISGMLDocument) parser.getDocument()).printAsSGML(new PrintWriter(
 					System.out), false);
 		} catch (Exception e) {
 		}

@@ -13,25 +13,26 @@ package org.eclipse.actf.model.dom.html.errorhandler;
 
 import java.io.IOException;
 
-import org.eclipse.actf.model.dom.html.HTMLParser;
-import org.eclipse.actf.model.dom.sgml.EndTag;
-import org.eclipse.actf.model.dom.sgml.ParseException;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
-import org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler;
-import org.eclipse.actf.model.dom.sgml.util.SgmlUtil;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IHTMLParser;
+import org.eclipse.actf.model.dom.html.IParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.dom.html.ParseException;
+import org.eclipse.actf.model.dom.html.NodeUtil;
+import org.eclipse.actf.model.internal.dom.html.parser.HTMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.impl.EndTag;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
 /**
  * ErrorHandler implementation for illegally closed form context. Usually to add
  * an error handler, you uses {@link
- * org.eclipse.actf.model.dom.sgml.SGMLParser#addErrorHandler(org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler)}.
+ * org.eclipse.actf.model.dom.html.IParser#addErrorHandler(org.eclipse.actf.model.dom.html.IErrorHandler)}.
  * However, this error handler conflicts with {@link HTMLErrorHandler} installed
  * to parsers by default. Thus, instead of that method use {@link 
- * #addTo(HTMLParser)}. And to remove this, use {@link #remove()}. Note: This
+ * #addTo(IHTMLParser)}. And to remove this, use {@link #remove()}. Note: This
  * error handler is <em>experimental</em>.
  * 
  */
@@ -43,9 +44,9 @@ public class FormExpander implements IErrorHandler {
 	/**
 	 * Add this error handler to <code>parser</code>
 	 * 
-	 * @see org.eclipse.actf.model.dom.sgml.SGMLParser#addErrorHandler(org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler)
+	 * @see org.eclipse.actf.model.internal.dom.sgml.ISGMLParser#addErrorHandler(org.eclipse.actf.model.dom.html.IErrorHandler)
 	 */
-	public void addTo(HTMLParser parser) {
+	public void addTo(IHTMLParser parser) {
 		IErrorHandler errorHandlers[] = parser.getErrorHandlers();
 		for (int i = 0; i < errorHandlers.length; i++) {
 			if (errorHandlers[i] instanceof HTMLErrorHandler) {
@@ -71,10 +72,10 @@ public class FormExpander implements IErrorHandler {
 	 * Find the last <code>FORM</code> element and relink it to the lowest
 	 * position whereas it covers its start and end tag.
 	 */
-	public boolean handleError(int code, SGMLParser parser, Node errorNode)
+	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException, SAXException {
 		String nodeName = errorNode.getNodeName();
-		if (code == FLOATING_ENDTAG && errorNode instanceof EndTag
+		if (code == IParserError.FLOATING_ENDTAG && errorNode instanceof EndTag
 				&& nodeName.equalsIgnoreCase("FORM")) {
 			// Element context = parser.getContext();
 			NodeList forms = parser.getDocument().getElementsByTagName("FORM");
@@ -98,9 +99,9 @@ public class FormExpander implements IErrorHandler {
 								break outer;
 							}
 						}
-						SgmlUtil.remove(targetForm);
-						SgmlUtil.add(parent, targetForm, targetFirstNode, parent
-								.getLastChild());
+						NodeUtil.remove(targetForm);
+						NodeUtil.add(parent, targetForm, targetFirstNode,
+								parent.getLastChild());
 						if (c != contexts.length - 1)
 							parser.setContext(parent);
 						((EndTag) errorNode).setElement(targetForm);

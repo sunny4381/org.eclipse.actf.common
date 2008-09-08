@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.dom.html.impl;
 
-import org.eclipse.actf.model.dom.sgml.SGMLElement;
+import org.eclipse.actf.model.internal.dom.sgml.impl.SGMLElement;
 import org.w3c.dom.Document;
 import org.w3c.dom.html.HTMLElement;
 

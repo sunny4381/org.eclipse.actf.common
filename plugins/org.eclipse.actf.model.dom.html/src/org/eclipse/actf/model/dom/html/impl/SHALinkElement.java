@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.model.dom.html.impl;
 
+
 abstract class SHALinkElement extends SHElement {
 	SHALinkElement(String name, SHDocument doc) {
 		super(name, doc);

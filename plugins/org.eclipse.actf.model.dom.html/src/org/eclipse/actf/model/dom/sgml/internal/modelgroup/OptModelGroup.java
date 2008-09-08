@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.dom.sgml.internal.modelgroup;
 
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
 import org.w3c.dom.Node;
 
 
@@ -28,7 +28,7 @@ public class OptModelGroup implements IModelGroup {
 		return "(" + child + ")?";
 	}
 
-	public boolean match(SGMLParser parser, Node parent, Node child) {
+	public boolean match(ISGMLParser parser, Node parent, Node child) {
 		boolean ret = this.child.match(parser, parent, child);
 		// System.out.println("opt: "+ret);
 		return ret;

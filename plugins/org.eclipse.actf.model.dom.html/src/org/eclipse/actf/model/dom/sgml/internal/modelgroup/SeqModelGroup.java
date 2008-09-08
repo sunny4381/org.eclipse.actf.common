@@ -13,8 +13,8 @@ package org.eclipse.actf.model.dom.sgml.internal.modelgroup;
 
 import java.util.Hashtable;
 
-import org.eclipse.actf.model.dom.sgml.ISGMLConstants;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
+import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -51,7 +51,7 @@ public class SeqModelGroup extends CompositeModelGroup {
 	}
 
 	// TODO support nested seqModel
-	public boolean match(SGMLParser parser, Node parent, Node child) {
+	public boolean match(ISGMLParser parser, Node parent, Node child) {
 		Hashtable<Node, Integer> map = parser.getSeqMap();
 		Integer current = (Integer) map.get(parent);
 		IModelGroup mg;
@@ -72,7 +72,7 @@ public class SeqModelGroup extends CompositeModelGroup {
 					index++;
 				}
 				if (skippedNum > 0) {
-					parser.error(ISGMLConstants.ILLEGAL_CHILD, "Order of "
+					parser.error(IParserError.ILLEGAL_CHILD, "Order of "
 							+ parent + "'s children is wrong.");
 				}
 

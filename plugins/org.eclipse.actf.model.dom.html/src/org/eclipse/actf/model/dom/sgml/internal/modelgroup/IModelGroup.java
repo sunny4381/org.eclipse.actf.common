@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.dom.sgml.internal.modelgroup;
 
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
 import org.w3c.dom.Node;
 
 
@@ -27,7 +27,7 @@ public interface IModelGroup {
 	 *            node to be tested by this method
 	 * @return true if <code>child</code> matches to <code>parent</code>
 	 */
-	boolean match(SGMLParser parser, Node parent, Node child);
+	boolean match(ISGMLParser parser, Node parent, Node child);
 
 	public boolean optional();
 

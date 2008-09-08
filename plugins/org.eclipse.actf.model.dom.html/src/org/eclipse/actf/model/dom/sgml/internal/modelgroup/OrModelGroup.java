@@ -11,9 +11,9 @@
 
 package org.eclipse.actf.model.dom.sgml.internal.modelgroup;
 
-import org.eclipse.actf.model.dom.sgml.ElementDefinition;
-import org.eclipse.actf.model.dom.sgml.ParseException;
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
+import org.eclipse.actf.model.dom.html.ParseException;
+import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.impl.ElementDefinition;
 import org.w3c.dom.Node;
 
 
@@ -61,7 +61,7 @@ public class OrModelGroup extends CompositeModelGroup {
         return ret;
     }
 
-    public boolean match(SGMLParser parser, Node parent, Node child) {
+    public boolean match(ISGMLParser parser, Node parent, Node child) {
         for (int i = 0; i < childLength; i++) {
             if (children[i].match(parser, parent, child)) {
 //                System.out.println("or: match");

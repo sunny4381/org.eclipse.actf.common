@@ -12,6 +12,7 @@
 package org.eclipse.actf.model.dom.html.impl;
 
 
+
 public abstract class Constructor {
 	abstract SHElement newInstance(String tagName, SHDocument doc);
 }

@@ -11,8 +11,9 @@
 
 package org.eclipse.actf.model.dom.html.errorhandler;
 
-import org.eclipse.actf.model.dom.sgml.SGMLParser;
-import org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IParser;
+import org.eclipse.actf.model.dom.html.IParserError;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -22,8 +23,8 @@ import org.w3c.dom.Node;
  * error handler makes the parser use FRAMESET while parsing.
  */
 public class IgnoreFont implements IErrorHandler {
-	public boolean handleError(int code, SGMLParser parser, Node errorNode) {
-		if (code == ILLEGAL_CHILD && errorNode instanceof Element
+	public boolean handleError(int code, IParser parser, Node errorNode) {
+		if (code == IParserError.ILLEGAL_CHILD && errorNode instanceof Element
 				&& errorNode.getNodeName().equalsIgnoreCase("FONT")) {
 			parser.error(code, errorNode + " is illegal under "
 					+ parser.getContext() + ".  So ignore it.");

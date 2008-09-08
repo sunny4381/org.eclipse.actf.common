@@ -15,7 +15,7 @@ import java.net.URL;
 import java.net.MalformedURLException;
 import java.util.*;
 
-import org.eclipse.actf.model.dom.sgml.errorhandler.IErrorHandler;
+import org.eclipse.actf.model.dom.html.IErrorHandler;
 
 /**
  * For JDK1.2 or later
