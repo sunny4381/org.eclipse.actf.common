@@ -21,4 +21,16 @@
       </page>
        
     </extension>
+
+    <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.eclipse.actf.visualization.ui.views"
+            name="ACTF Visualization">
+      </category>
+      <category
+            id="org.eclipse.actf.ai.ui.views"
+            name="ACTF Alternative Interface">
+      </category>      
+    </extension>
 </plugin>
