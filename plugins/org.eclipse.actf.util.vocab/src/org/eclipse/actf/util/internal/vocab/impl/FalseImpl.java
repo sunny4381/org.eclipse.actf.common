@@ -9,35 +9,30 @@
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.vocab.impl;
+package org.eclipse.actf.util.internal.vocab.impl;
 
-import java.util.ArrayList;
-
-import org.eclipse.actf.util.vocab.IOperator;
+import org.eclipse.actf.util.vocab.IEvalTarget;
 import org.eclipse.actf.util.vocab.IProposition;
 
 
 
+public class FalseImpl implements IProposition {
+    
+    private static FalseImpl instance = new FalseImpl();
 
-public abstract class AbstractOperator implements IOperator {
+    private FalseImpl(){
+    }
+    
+    public boolean eval(IEvalTarget node){
+        return false;
+    }
 
-    private ArrayList<IProposition> props = new ArrayList<IProposition>();
-    
-    public AbstractOperator(IProposition... args){
-        for(IProposition p: args){
-            props.add(p);
-        }
+    public String getName() {
+        return "false";
     }
-    
-    public void add(IProposition prop){
-        props.add(prop);
+
+    public static FalseImpl getInstance() {
+        return instance; 
     }
-    
-    public int size(){
-        return props.size();
-    }
-    
-    public IProposition get(int index){
-        return props.get(index);
-    }
+
 }

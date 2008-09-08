@@ -13,10 +13,10 @@ package org.eclipse.actf.util.vocab;
 
 import java.util.HashMap;
 
-import org.eclipse.actf.util.vocab.impl.AndOperator;
-import org.eclipse.actf.util.vocab.impl.Function;
-import org.eclipse.actf.util.vocab.impl.OrOperator;
-import org.eclipse.actf.util.vocab.preferences.VocabPreferenceConstants;
+import org.eclipse.actf.util.internal.vocab.impl.AndOperator;
+import org.eclipse.actf.util.internal.vocab.impl.Function;
+import org.eclipse.actf.util.internal.vocab.impl.OrOperator;
+import org.eclipse.actf.util.vocab.ui.preferences.VocabPreferenceConstants;
 import org.w3c.dom.Node;
 
 /**

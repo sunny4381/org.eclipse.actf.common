@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.win32.impl;
+package org.eclipse.actf.util.win32;
 
 
 /**

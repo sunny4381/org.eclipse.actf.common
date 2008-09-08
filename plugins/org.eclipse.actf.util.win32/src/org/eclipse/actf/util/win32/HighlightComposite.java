@@ -11,7 +11,6 @@
 
 package org.eclipse.actf.util.win32;
 
-import org.eclipse.actf.util.win32.impl.IIntervalExec;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;

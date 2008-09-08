@@ -9,32 +9,35 @@
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.vocab.impl;
+package org.eclipse.actf.util.internal.vocab.impl;
 
-import org.eclipse.actf.util.vocab.IEvalTarget;
+import java.util.ArrayList;
+
+import org.eclipse.actf.util.vocab.IOperator;
 import org.eclipse.actf.util.vocab.IProposition;
 
 
 
-public class OrOperator extends AbstractOperator {
 
-    public OrOperator(IProposition... args){
-        super(args);
-    }
+public abstract class AbstractOperator implements IOperator {
 
-    public boolean eval(IEvalTarget node){
-        for(int i=0; i<size(); i++){
-            IProposition p = get(i);
-            boolean result = p.eval(node);
-            if(result == true){
-                return true;
-            }
+    private ArrayList<IProposition> props = new ArrayList<IProposition>();
+    
+    public AbstractOperator(IProposition... args){
+        for(IProposition p: args){
+            props.add(p);
         }
-        return false;
     }
-
-    public String getName() {
-        return "or";
+    
+    public void add(IProposition prop){
+        props.add(prop);
     }
-
+    
+    public int size(){
+        return props.size();
+    }
+    
+    public IProposition get(int index){
+        return props.get(index);
+    }
 }

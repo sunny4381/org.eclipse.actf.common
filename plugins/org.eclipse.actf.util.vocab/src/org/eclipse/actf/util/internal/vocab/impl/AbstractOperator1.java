@@ -9,7 +9,7 @@
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.vocab.impl;
+package org.eclipse.actf.util.internal.vocab.impl;
 
 import org.eclipse.actf.util.vocab.IOperator1;
 import org.eclipse.actf.util.vocab.IProposition;

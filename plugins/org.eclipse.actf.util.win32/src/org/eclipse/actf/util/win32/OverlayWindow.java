@@ -14,7 +14,6 @@ package org.eclipse.actf.util.win32;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 
-import org.eclipse.actf.util.win32.impl.IIntervalExec;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;

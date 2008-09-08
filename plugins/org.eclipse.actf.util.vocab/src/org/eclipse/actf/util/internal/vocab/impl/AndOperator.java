@@ -9,20 +9,32 @@
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.vocab.impl;
+package org.eclipse.actf.util.internal.vocab.impl;
 
+import org.eclipse.actf.util.vocab.IEvalTarget;
 import org.eclipse.actf.util.vocab.IProposition;
 
 
 
-public class ImplyOperator extends OrOperator {
+public class AndOperator extends AbstractOperator {
 
-    public ImplyOperator(IProposition left, IProposition right) {
-        super(new NotOperator(left), right);
+    public AndOperator(IProposition... args){
+        super(args);
     }
 
-    @Override
+    public boolean eval(IEvalTarget node){
+        for(int i=0; i<size(); i++){
+            IProposition p = get(i);
+            boolean result = p.eval(node);
+            if(result == false){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public String getName() {
-        return "implies";
+        return "and";
     }
+
 }

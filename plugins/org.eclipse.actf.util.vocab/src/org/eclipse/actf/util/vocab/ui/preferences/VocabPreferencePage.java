@@ -8,7 +8,7 @@
  * Contributors:
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.util.vocab.preferences;
+package org.eclipse.actf.util.vocab.ui.preferences;
 
 import org.eclipse.actf.util.vocab.VocabPlugin;
 import org.eclipse.jface.preference.BooleanFieldEditor;

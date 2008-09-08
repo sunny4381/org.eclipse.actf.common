@@ -8,7 +8,7 @@
  * Contributors:
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.util.vocab.preferences;
+package org.eclipse.actf.util.vocab.ui.preferences;
 
 /**
  * Constant definitions for plug-in preferences

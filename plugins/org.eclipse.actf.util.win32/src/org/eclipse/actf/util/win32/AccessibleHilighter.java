@@ -11,7 +11,6 @@
 
 package org.eclipse.actf.util.win32;
 
-import org.eclipse.actf.util.win32.impl.DrawUtil;
 import org.eclipse.swt.graphics.Rectangle;
 
 

@@ -5,13 +5,13 @@
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.actf.ui.preferences.RootPreferencePage"
-            class="org.eclipse.actf.util.vocab.preferences.VocabPreferencePage"
+            class="org.eclipse.actf.util.vocab.ui.preferences.VocabPreferencePage"
             id="org.eclipse.actf.util.vocab.preferences.VocabPreferencePage"
             name="DOM Vocabulary"/>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
-      <initializer class="org.eclipse.actf.util.vocab.preferences.VocabPreferenceInitializer"/>
+      <initializer class="org.eclipse.actf.util.vocab.ui.preferences.VocabPreferenceInitializer"/>
    </extension>
 
 </plugin>

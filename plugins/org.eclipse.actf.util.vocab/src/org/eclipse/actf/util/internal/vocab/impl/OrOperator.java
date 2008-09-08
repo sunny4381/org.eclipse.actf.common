@@ -9,16 +9,16 @@
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.vocab.impl;
+package org.eclipse.actf.util.internal.vocab.impl;
 
 import org.eclipse.actf.util.vocab.IEvalTarget;
 import org.eclipse.actf.util.vocab.IProposition;
 
 
 
-public class AndOperator extends AbstractOperator {
+public class OrOperator extends AbstractOperator {
 
-    public AndOperator(IProposition... args){
+    public OrOperator(IProposition... args){
         super(args);
     }
 
@@ -26,15 +26,15 @@ public class AndOperator extends AbstractOperator {
         for(int i=0; i<size(); i++){
             IProposition p = get(i);
             boolean result = p.eval(node);
-            if(result == false){
-                return false;
+            if(result == true){
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public String getName() {
-        return "and";
+        return "or";
     }
 
 }
