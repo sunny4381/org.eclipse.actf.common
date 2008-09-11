@@ -20,19 +20,19 @@ import java.net.SocketAddress;
 import java.net.SocketException;
 
 import org.eclipse.actf.util.httpproxy.core.IClientConnection;
-import org.eclipse.actf.util.httpproxy.core.impl.ClientConnectionListener;
-import org.eclipse.actf.util.httpproxy.internal.IObjectPool;
-import org.eclipse.actf.util.httpproxy.internal.IWorkpileController;
-import org.eclipse.actf.util.httpproxy.internal.ObjectPoolImpl;
-import org.eclipse.actf.util.httpproxy.internal.WorkpileControllerImpl;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPLocalServerFactory;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyConnection;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoderFactory;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverriderFactory;
 import org.eclipse.actf.util.httpproxy.proxy.ISecretManager;
-import org.eclipse.actf.util.httpproxy.proxy.impl.ClientStateManager;
-import org.eclipse.actf.util.httpproxy.proxy.impl.HTTPProxyConnection;
 import org.eclipse.actf.util.httpproxy.util.Logger;
+import org.eclipse.actf.util.internal.httpproxy.IObjectPool;
+import org.eclipse.actf.util.internal.httpproxy.IWorkpileController;
+import org.eclipse.actf.util.internal.httpproxy.ObjectPoolImpl;
+import org.eclipse.actf.util.internal.httpproxy.WorkpileControllerImpl;
+import org.eclipse.actf.util.internal.httpproxy.core.ClientConnectionListener;
+import org.eclipse.actf.util.internal.httpproxy.proxy.ClientStateManager;
+import org.eclipse.actf.util.internal.httpproxy.proxy.HTTPProxyConnection;
 
 public class HTTPProxy implements ClientConnectionListener {
 	private static final Logger LOGGER = Logger.getLogger(HTTPProxy.class);

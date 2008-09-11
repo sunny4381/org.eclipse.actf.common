@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.core;
 
-import org.eclipse.actf.util.httpproxy.core.impl.BufferRange;
+import org.eclipse.actf.util.internal.httpproxy.core.BufferRange;
 
 public interface IHTTPRequestMessage extends IHTTPMessage{
 

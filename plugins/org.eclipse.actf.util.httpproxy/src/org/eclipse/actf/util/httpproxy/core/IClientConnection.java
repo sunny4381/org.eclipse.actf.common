@@ -13,8 +13,8 @@ package org.eclipse.actf.util.httpproxy.core;
 import java.io.IOException;
 import java.net.Socket;
 
-import org.eclipse.actf.util.httpproxy.core.impl.ServerConnection;
 import org.eclipse.actf.util.httpproxy.util.TimeoutException;
+import org.eclipse.actf.util.internal.httpproxy.core.ServerConnection;
 
 public interface IClientConnection {
 

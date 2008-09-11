@@ -18,9 +18,9 @@ import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponsePushbackMessage;
-import org.eclipse.actf.util.httpproxy.core.impl.HTTPResponseInMemoryMessage;
-import org.eclipse.actf.util.httpproxy.core.impl.HTTPResponsePushbackMessage;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyConnection;
+import org.eclipse.actf.util.internal.httpproxy.core.HTTPResponseInMemoryMessage;
+import org.eclipse.actf.util.internal.httpproxy.core.HTTPResponsePushbackMessage;
 
 public class HTTPUtil {
 	public static void sendFailedToClient(IHTTPProxyConnection fClient,
