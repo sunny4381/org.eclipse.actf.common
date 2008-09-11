@@ -10,9 +10,9 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.proxy.preferences;
+package org.eclipse.actf.model.internal.flash.proxy.preferences;
 
-import org.eclipse.actf.model.flash.proxy.ProxyPlugin;
+import org.eclipse.actf.model.internal.flash.proxy.ProxyPlugin;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 

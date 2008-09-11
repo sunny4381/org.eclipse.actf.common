@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.proxy.actions;
+package org.eclipse.actf.model.internal.flash.proxy.ui.actions;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IViewActionDelegate;

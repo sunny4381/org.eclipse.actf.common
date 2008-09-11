@@ -10,7 +10,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.proxy.preferences;
+package org.eclipse.actf.model.internal.flash.proxy.preferences;
 
 public class ProxyPreferenceConstants {
 

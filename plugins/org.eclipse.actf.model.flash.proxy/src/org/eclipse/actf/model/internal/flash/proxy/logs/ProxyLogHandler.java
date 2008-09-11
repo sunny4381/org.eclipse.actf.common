@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.proxy.logs;
+package org.eclipse.actf.model.internal.flash.proxy.logs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +20,8 @@ import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import org.eclipse.actf.model.flash.proxy.ProxyPlugin;
-import org.eclipse.actf.model.flash.proxy.views.ProxyLogView;
+import org.eclipse.actf.model.internal.flash.proxy.ProxyPlugin;
+import org.eclipse.actf.model.internal.flash.proxy.ui.views.ProxyLogView;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;

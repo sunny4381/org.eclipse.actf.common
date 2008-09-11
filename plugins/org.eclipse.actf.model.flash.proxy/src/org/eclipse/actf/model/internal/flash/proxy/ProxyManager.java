@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.proxy;
+package org.eclipse.actf.model.internal.flash.proxy;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,7 +29,7 @@ import org.eclipse.actf.model.flash.proxy.internal.INTERNET_PER_CONN_OPTION;
 import org.eclipse.actf.model.flash.proxy.internal.INTERNET_PER_CONN_OPTION_LIST;
 import org.eclipse.actf.model.flash.proxy.internal.WSTR;
 import org.eclipse.actf.model.flash.proxy.internal.WinInet;
-import org.eclipse.actf.model.flash.proxy.logs.ProxyLogHandler;
+import org.eclipse.actf.model.internal.flash.proxy.logs.ProxyLogHandler;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;

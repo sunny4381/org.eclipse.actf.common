@@ -3,26 +3,26 @@
 <plugin>
 
    <extension point="org.eclipse.ui.startup">
-      <startup class="org.eclipse.actf.model.flash.proxy.ProxyStartup"/>
+      <startup class="org.eclipse.actf.model.internal.flash.proxy.ProxyStartup"/>
    </extension>
 
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.actf.ui.preferences.RootPreferencePage"
-            class="org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferencePage"
+            class="org.eclipse.actf.model.internal.flash.proxy.preferences.ProxyPreferencePage"
             id="org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferencePage"
             name="%ProxyPreferencePage.name"/>
    </extension>
    
    <extension
          point="org.eclipse.core.runtime.preferences">
-      <initializer class="org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferenceInitializer"/>
+      <initializer class="org.eclipse.actf.model.internal.flash.proxy.preferences.ProxyPreferenceInitializer"/>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="org.eclipse.actf.model.flash.proxy.views.ProxyLogView"
+            class="org.eclipse.actf.model.internal.flash.proxy.ui.views.ProxyLogView"
             icon="icons/view16/proxylogview.gif"
             id="org.eclipse.actf.model.flash.proxy.views.ProxyLogView"
             name="%ProxyLogView.name"/>
@@ -34,7 +34,7 @@
             id="org.eclipse.actf.model.flash.proxy.actionSet"
             label="Proxy Action Sets">
          <action
-               class="org.eclipse.actf.model.flash.proxy.actions.DeleteCacheAction"
+               class="org.eclipse.actf.model.internal.flash.proxy.ui.actions.DeleteCacheAction"
                id="org.eclipse.actf.model.flash.proxy.actions.DeleteCacheAction"
                label="%DeleteAction.name"
                menubarPath="file/cacheGroup"
@@ -47,7 +47,7 @@
           id="org.eclipse.actf.model.flash.viewerContribution1"
           targetID="org.eclipse.actf.visualization.flash.ui.views.FlashDOMView">
        <action
-             class="org.eclipse.actf.model.flash.proxy.actions.OpenPreferencesAction"
+             class="org.eclipse.actf.model.internal.flash.proxy.ui.actions.OpenPreferencesAction"
              id="org.eclipse.actf.model.flash.proxy.action1"
              label="%ProxyPreferences"
              menubarPath="additions"/>
@@ -56,7 +56,7 @@
           id="org.eclipse.actf.model.flash.viewerContribution2"
           targetID="org.eclipse.actf.model.flash.proxy.views.ProxyLogView">
        <action
-             class="org.eclipse.actf.model.flash.proxy.actions.OpenPreferencesAction"
+             class="org.eclipse.actf.model.internal.flash.proxy.ui.actions.OpenPreferencesAction"
              id="org.eclipse.actf.model.flash.proxy.action2"
              label="%Preferences"
              menubarPath="additions"/>

@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.proxy;
+package org.eclipse.actf.model.internal.flash.proxy;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

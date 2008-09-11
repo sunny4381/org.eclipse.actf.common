@@ -8,12 +8,12 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash.proxy.actions;
+package org.eclipse.actf.model.internal.flash.proxy.ui.actions;
 
-import org.eclipse.actf.model.flash.proxy.Messages;
-import org.eclipse.actf.model.flash.proxy.cache.FlashCacheUtil;
+import org.eclipse.actf.model.flash.proxy.FlashCacheUtil;
 import org.eclipse.actf.model.flash.proxy.internal.WSTR;
 import org.eclipse.actf.model.flash.proxy.internal.WinInet;
+import org.eclipse.actf.model.internal.flash.proxy.Messages;
 import org.eclipse.actf.ui.util.ProgressContribution;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;

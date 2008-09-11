@@ -8,17 +8,17 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash.proxy.views;
+package org.eclipse.actf.model.internal.flash.proxy.ui.views;
 
 
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.logging.Level;
 
-import org.eclipse.actf.model.flash.proxy.Messages;
-import org.eclipse.actf.model.flash.proxy.ProxyPlugin;
-import org.eclipse.actf.model.flash.proxy.logs.ProxyLogHandler;
-import org.eclipse.actf.model.flash.proxy.logs.ProxyLogRecord;
+import org.eclipse.actf.model.internal.flash.proxy.Messages;
+import org.eclipse.actf.model.internal.flash.proxy.ProxyPlugin;
+import org.eclipse.actf.model.internal.flash.proxy.logs.ProxyLogHandler;
+import org.eclipse.actf.model.internal.flash.proxy.logs.ProxyLogRecord;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;

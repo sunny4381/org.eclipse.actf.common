@@ -9,12 +9,12 @@
  *    Takashi ITOH - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash.proxy.cache;
+package org.eclipse.actf.model.flash.proxy;
 
-import org.eclipse.actf.model.flash.proxy.ProxyPlugin;
-import org.eclipse.actf.model.flash.proxy.actions.DeleteCacheAction;
-import org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferenceConstants;
-import org.eclipse.actf.model.flash.proxy.ui.CacheClearDialog;
+import org.eclipse.actf.model.internal.flash.proxy.ProxyPlugin;
+import org.eclipse.actf.model.internal.flash.proxy.preferences.ProxyPreferenceConstants;
+import org.eclipse.actf.model.internal.flash.proxy.ui.CacheClearDialog;
+import org.eclipse.actf.model.internal.flash.proxy.ui.actions.DeleteCacheAction;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Shell;

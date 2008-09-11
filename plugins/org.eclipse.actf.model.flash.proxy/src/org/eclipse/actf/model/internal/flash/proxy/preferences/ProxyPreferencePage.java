@@ -10,13 +10,13 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.proxy.preferences;
+package org.eclipse.actf.model.internal.flash.proxy.preferences;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.flash.proxy.Messages;
-import org.eclipse.actf.model.flash.proxy.ProxyPlugin;
+import org.eclipse.actf.model.internal.flash.proxy.Messages;
+import org.eclipse.actf.model.internal.flash.proxy.ProxyPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;

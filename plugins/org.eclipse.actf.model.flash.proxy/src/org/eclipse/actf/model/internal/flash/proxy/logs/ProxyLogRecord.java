@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.proxy.logs;
+package org.eclipse.actf.model.internal.flash.proxy.logs;
 
 import java.util.logging.Level;
 import java.util.logging.LogRecord;

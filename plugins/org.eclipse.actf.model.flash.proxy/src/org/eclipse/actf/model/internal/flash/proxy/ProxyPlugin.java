@@ -9,12 +9,12 @@
  *    Takashi ITOH - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash.proxy;
+package org.eclipse.actf.model.internal.flash.proxy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferenceConstants;
+import org.eclipse.actf.model.internal.flash.proxy.preferences.ProxyPreferenceConstants;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;

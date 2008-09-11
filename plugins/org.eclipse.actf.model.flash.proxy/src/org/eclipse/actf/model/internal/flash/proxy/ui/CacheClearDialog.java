@@ -9,11 +9,11 @@
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.proxy.ui;
+package org.eclipse.actf.model.internal.flash.proxy.ui;
 
-import org.eclipse.actf.model.flash.proxy.Messages;
-import org.eclipse.actf.model.flash.proxy.ProxyPlugin;
-import org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferenceConstants;
+import org.eclipse.actf.model.internal.flash.proxy.Messages;
+import org.eclipse.actf.model.internal.flash.proxy.ProxyPlugin;
+import org.eclipse.actf.model.internal.flash.proxy.preferences.ProxyPreferenceConstants;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
