@@ -12,8 +12,8 @@
  *******************************************************************************/
 package org.eclipse.actf.model.flash;
 
-import org.eclipse.actf.model.flash.internal.ASBridgeImplV8;
-import org.eclipse.actf.model.flash.internal.FlashStatusUtil;
+import org.eclipse.actf.model.internal.flash.ASBridgeImplV8;
+import org.eclipse.actf.model.internal.flash.FlashStatusUtil;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;

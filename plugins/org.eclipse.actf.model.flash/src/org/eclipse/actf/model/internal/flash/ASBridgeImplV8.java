@@ -8,12 +8,11 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash.internal;
+package org.eclipse.actf.model.internal.flash;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.flash.FlashModelPlugin;
 import org.eclipse.actf.model.flash.IASBridge;
 import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashPlayer;
@@ -21,6 +20,7 @@ import org.eclipse.actf.model.flash.as.ASDeserializer;
 import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.model.flash.as.ASSerializer;
 import org.eclipse.actf.model.flash.bridge.IWaXcoding;
+import org.eclipse.actf.model.flash.bridge.WaXcodingFactory;
 import org.eclipse.actf.util.win32.comclutch.DispatchException;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.swt.widgets.Display;
@@ -80,8 +80,7 @@ public class ASBridgeImplV8 implements IASBridge {
 			String id = getVariable(contentIdPath);
 			if (null == id || id.length() == 0)
 				return false;
-			IWaXcoding waxcoding = FlashModelPlugin.getDefault()
-					.getIWaXcoding();
+			IWaXcoding waxcoding = WaXcodingFactory.getWaXcoding();
 			secret = waxcoding.getSecret(id, false);
 		} catch (Exception e) {
 			e.printStackTrace();

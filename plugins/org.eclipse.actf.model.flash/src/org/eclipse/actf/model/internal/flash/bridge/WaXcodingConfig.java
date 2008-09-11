@@ -9,13 +9,13 @@
  *    Hisashi MIYASHITA - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash.bridge.impl;
+package org.eclipse.actf.model.internal.flash.bridge;
 
 import java.io.InputStream;
 
-import org.eclipse.actf.model.flash.bridge.proxy.HTTPLocalServerSWFFactory;
-import org.eclipse.actf.model.flash.bridge.proxy.ProxyTranscoderSWF;
-import org.eclipse.actf.model.flash.bridge.proxy.SWFBootloader;
+import org.eclipse.actf.model.internal.flash.proxy.HTTPLocalServerSWFFactory;
+import org.eclipse.actf.model.internal.flash.proxy.ProxyTranscoderSWF;
+import org.eclipse.actf.model.internal.flash.proxy.SWFBootloader;
 
 public class WaXcodingConfig {
 

@@ -16,7 +16,7 @@ import java.text.MessageFormat;
 
 import org.eclipse.actf.model.flash.FlashPlayerFactory;
 import org.eclipse.actf.model.flash.IFlashConst;
-import org.eclipse.actf.model.flash.internal.Messages;
+import org.eclipse.actf.model.internal.flash.Messages;
 import org.eclipse.actf.util.win32.comclutch.ComService;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.jface.dialogs.MessageDialog;

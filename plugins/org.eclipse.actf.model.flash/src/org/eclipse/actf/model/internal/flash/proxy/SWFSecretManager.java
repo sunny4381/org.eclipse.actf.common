@@ -10,7 +10,7 @@
  *******************************************************************************/
 
 
-package org.eclipse.actf.model.flash.bridge.proxy;
+package org.eclipse.actf.model.internal.flash.proxy;
 
 import java.security.SecureRandom;
 import java.util.Map;

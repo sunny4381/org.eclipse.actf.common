@@ -10,7 +10,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.bridge.proxy;
+package org.eclipse.actf.model.internal.flash.proxy;
 
 import java.io.IOException;
 import java.io.PushbackInputStream;

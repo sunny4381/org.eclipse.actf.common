@@ -10,7 +10,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.bridge.proxy;
+package org.eclipse.actf.model.internal.flash.proxy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -21,9 +21,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PushbackInputStream;
 
-import org.eclipse.actf.model.flash.bridge.impl.WaXcodingConfig;
 import org.eclipse.actf.model.flash.transcoder.ISwfTranscoder;
 import org.eclipse.actf.model.flash.transcoder.ISwfTranscoderFactory;
+import org.eclipse.actf.model.internal.flash.bridge.WaXcodingConfig;
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;

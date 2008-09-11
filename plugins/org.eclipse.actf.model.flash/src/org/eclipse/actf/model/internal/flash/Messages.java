@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.internal;
+package org.eclipse.actf.model.internal.flash;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

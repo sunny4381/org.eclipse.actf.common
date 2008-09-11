@@ -10,7 +10,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *    Shin SAITO - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash.internal;
+package org.eclipse.actf.model.internal.flash;
 
 import java.net.URLDecoder;
 import java.text.MessageFormat;

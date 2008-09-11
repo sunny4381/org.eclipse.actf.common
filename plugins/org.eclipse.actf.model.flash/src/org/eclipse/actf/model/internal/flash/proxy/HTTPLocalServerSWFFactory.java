@@ -8,19 +8,24 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash.bridge.proxy;
+package org.eclipse.actf.model.internal.flash.proxy;
 
-import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoder;
-import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoderFactory;
+import java.io.InputStream;
 
+import org.eclipse.actf.util.httpproxy.proxy.IHTTPLocalServer;
+import org.eclipse.actf.util.httpproxy.proxy.IHTTPLocalServerFactory;
 
-public class ProxyTranscoderSWFFactory implements IHTTPProxyTranscoderFactory {
+public class HTTPLocalServerSWFFactory implements IHTTPLocalServerFactory {
 
-	public ProxyTranscoderSWFFactory() {
+	public static void setBridgeInitSwf(InputStream is){
+		HTTPLocalServerSWF.setBridgeInitSwf(is);
 	}
 	
-	public IHTTPProxyTranscoder newInstance(int id) {
-		return ProxyTranscoderSWF.newInstance(id);
+	public HTTPLocalServerSWFFactory() {
+	}
+	
+	public IHTTPLocalServer newInstance() {
+		return new HTTPLocalServerSWF();
 	}
 
 }

@@ -10,16 +10,16 @@
  *    Kentarou FUKUDA -initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.flash.bridge.impl;
+package org.eclipse.actf.model.internal.flash.bridge;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.eclipse.actf.model.flash.bridge.IWaXcoding;
-import org.eclipse.actf.model.flash.bridge.proxy.HTTPLocalServerSWFFactory;
-import org.eclipse.actf.model.flash.bridge.proxy.ProxyTranscoderSWFFactory;
-import org.eclipse.actf.model.flash.bridge.proxy.SWFBootloaderFactory;
-import org.eclipse.actf.model.flash.bridge.proxy.SWFSecretManager;
+import org.eclipse.actf.model.internal.flash.proxy.HTTPLocalServerSWFFactory;
+import org.eclipse.actf.model.internal.flash.proxy.ProxyTranscoderSWFFactory;
+import org.eclipse.actf.model.internal.flash.proxy.SWFBootloaderFactory;
+import org.eclipse.actf.model.internal.flash.proxy.SWFSecretManager;
 import org.eclipse.actf.util.httpproxy.ExternalProxyConfig;
 import org.eclipse.actf.util.httpproxy.HTTPProxy;
 import org.eclipse.actf.util.httpproxy.ProxyConfig;

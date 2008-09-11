@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.flash.bridge.proxy;
+package org.eclipse.actf.model.internal.flash.proxy;
 
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverriderFactory;
