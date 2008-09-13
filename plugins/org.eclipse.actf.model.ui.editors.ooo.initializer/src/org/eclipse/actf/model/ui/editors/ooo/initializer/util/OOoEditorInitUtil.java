@@ -57,6 +57,7 @@ public class OOoEditorInitUtil {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
+	@SuppressWarnings("restriction")
 	public static String getOpenOfficePath() throws IllegalArgumentException {
 
 		final String entry = "SOFTWARE\\OpenOffice.org\\UNO\\InstallPath";
