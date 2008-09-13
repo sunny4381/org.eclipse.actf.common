@@ -8,7 +8,7 @@
  * Contributors:
  *    Norimasa HAYASHIDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.ui.editors.ooo.internal.util;
+package org.eclipse.actf.model.internal.ui.editors.ooo.util;
 
 import java.io.File;
 import java.net.MalformedURLException;

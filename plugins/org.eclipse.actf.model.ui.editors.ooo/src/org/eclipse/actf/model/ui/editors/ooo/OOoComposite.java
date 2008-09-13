@@ -10,7 +10,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editors.ooo.editor;
+package org.eclipse.actf.model.ui.editors.ooo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,16 +20,16 @@ import org.eclipse.actf.model.dom.odf.ODFParser;
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.util.converter.ODFConverter;
 import org.eclipse.actf.model.dom.odf.util.converter.ODFConverterCreator;
+import org.eclipse.actf.model.internal.ui.editors.ooo.OOoEditorScrollManager;
+import org.eclipse.actf.model.internal.ui.editors.ooo.OOoEditorToolbar;
+import org.eclipse.actf.model.internal.ui.editors.ooo.OOoWindowComposite;
+import org.eclipse.actf.model.internal.ui.editors.ooo.util.ODFException;
+import org.eclipse.actf.model.internal.ui.editors.ooo.util.OOoNavigation;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
-import org.eclipse.actf.model.ui.editors.ooo.editor.impl.OOoEditorScrollManager;
-import org.eclipse.actf.model.ui.editors.ooo.editor.impl.OOoEditorToolbar;
-import org.eclipse.actf.model.ui.editors.ooo.editor.impl.OOoWindowComposite;
 import org.eclipse.actf.model.ui.editors.ooo.initializer.util.OOoEditorInitUtil;
-import org.eclipse.actf.model.ui.editors.ooo.internal.util.ODFException;
-import org.eclipse.actf.model.ui.editors.ooo.internal.util.OOoNavigation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;

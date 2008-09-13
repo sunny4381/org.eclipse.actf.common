@@ -10,11 +10,10 @@
  *******************************************************************************/
 
 
-package org.eclipse.actf.model.ui.editors.ooo.editor.impl;
+package org.eclipse.actf.model.internal.ui.editors.ooo;
 
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.ModelUIPlugin;
-import org.eclipse.actf.model.ui.editors.ooo.OOoEditorPlugin;
 import org.eclipse.actf.model.ui.util.ModelServiceMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;

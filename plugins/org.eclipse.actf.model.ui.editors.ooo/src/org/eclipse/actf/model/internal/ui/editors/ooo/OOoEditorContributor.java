@@ -9,7 +9,7 @@
  *    Norimasa HAYASHIDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editors.ooo.editor.impl;
+package org.eclipse.actf.model.internal.ui.editors.ooo;
 
 import org.eclipse.actf.model.ui.editors.ooo.actions.OpenODFAction;
 import org.eclipse.jface.action.IToolBarManager;

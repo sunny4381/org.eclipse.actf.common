@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 
-package org.eclipse.actf.model.ui.editors.ooo.editor;
+package org.eclipse.actf.model.ui.editors.ooo;
 
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.IModelServiceHolder;

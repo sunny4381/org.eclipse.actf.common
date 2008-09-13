@@ -8,7 +8,7 @@
  * Contributors:
  *    Tatsuya ISHIHARA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.ui.editors.ooo.editor.impl;
+package org.eclipse.actf.model.internal.ui.editors.ooo;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,11 +17,11 @@ import org.eclipse.actf.model.dom.odf.ODFParser;
 import org.eclipse.actf.model.dom.odf.ODFConstants.ContentType;
 import org.eclipse.actf.model.dom.odf.manifest.ManifestConstants;
 import org.eclipse.actf.model.dom.odf.util.ODFFileUtils;
-import org.eclipse.actf.model.ui.editors.ooo.internal.util.BootstrapForOOoComposite;
-import org.eclipse.actf.model.ui.editors.ooo.internal.util.ODFException;
-import org.eclipse.actf.model.ui.editors.ooo.internal.util.ODFUtils;
-import org.eclipse.actf.model.ui.editors.ooo.internal.util.OOoNavigation;
-import org.eclipse.actf.model.ui.editors.ooo.internal.util.OOoUIControls;
+import org.eclipse.actf.model.internal.ui.editors.ooo.util.BootstrapForOOoComposite;
+import org.eclipse.actf.model.internal.ui.editors.ooo.util.ODFException;
+import org.eclipse.actf.model.internal.ui.editors.ooo.util.ODFUtils;
+import org.eclipse.actf.model.internal.ui.editors.ooo.util.OOoNavigation;
+import org.eclipse.actf.model.internal.ui.editors.ooo.util.OOoUIControls;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.DisposeEvent;

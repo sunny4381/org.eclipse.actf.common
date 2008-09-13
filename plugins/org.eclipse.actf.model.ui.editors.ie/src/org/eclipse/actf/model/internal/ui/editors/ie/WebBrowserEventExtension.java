@@ -97,7 +97,7 @@ public class WebBrowserEventExtension {
         
         if (exs == null) return;
         for (int i = 0; i < exs.length; i++) {
-            exs[i].getListener().myDocumentComplete(iWebBrowser);
+            exs[i].getListener().rootDocumentComplete(iWebBrowser);
         }        
     }
     
@@ -133,7 +133,7 @@ public class WebBrowserEventExtension {
         
         if(exs ==null) return;
         for (int i = 0; i < exs.length; i++) {
-            exs[i].getListener().myRefresh(webBrowser);
+            exs[i].getListener().refreshStart(webBrowser);
         }                
     }
 
@@ -144,7 +144,7 @@ public class WebBrowserEventExtension {
         
         if(exs ==null) return;
         for (int i = 0; i < exs.length; i++) {
-            exs[i].getListener().myRefreshComplete(webBrowser);
+            exs[i].getListener().refreshComplete(webBrowser);
         }                        
     }
 

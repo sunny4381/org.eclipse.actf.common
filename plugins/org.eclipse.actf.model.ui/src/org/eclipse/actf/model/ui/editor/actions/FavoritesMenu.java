@@ -15,9 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.actf.model.ui.internal.FavoritesChangeEvent;
-import org.eclipse.actf.model.ui.internal.FavoritesChangeListener;
-import org.eclipse.actf.model.ui.internal.FavoritesUtil;
+import org.eclipse.actf.model.internal.ui.FavoritesChangeEvent;
+import org.eclipse.actf.model.internal.ui.FavoritesChangeListener;
+import org.eclipse.actf.model.internal.ui.FavoritesUtil;
 import org.eclipse.actf.model.ui.util.ModelServiceMessages;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
@@ -42,7 +42,7 @@ public class FavoritesMenu extends MenuManager implements FavoritesChangeListene
         
         this.useExistingEditor = useExistingEditor;
         
-        Map favoritesMap = FavoritesUtil.getFavoritesMap();
+        Map<String, String> favoritesMap = FavoritesUtil.getFavoritesMap();
 
         AddFavoritesAction favoritesAddAction = new AddFavoritesAction(window, favoritesMap);
         add(favoritesAddAction);
@@ -62,8 +62,8 @@ public class FavoritesMenu extends MenuManager implements FavoritesChangeListene
 		updateAllFavoritesItems(fce.getFavoritesMap());
 	}
 
-	private void updateAllFavoritesItems(Map favoritesMap) {
-		Iterator favoritesIt = favoritesMap.keySet().iterator();
+	private void updateAllFavoritesItems(Map<String, String> favoritesMap) {
+		Iterator<String> favoritesIt = favoritesMap.keySet().iterator();
 		
 		removeAllFavoritesItemAction();
 		while (favoritesIt.hasNext()) {

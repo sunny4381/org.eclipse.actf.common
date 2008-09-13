@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.internal;
+package org.eclipse.actf.model.internal.ui;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -105,7 +105,7 @@ public class FavoritesUtil {
 		Map<String, String> favoritesMap = new TreeMap<String, String>();
 
 		if (INSTANCE.favoritesProp != null) {
-			Set keySet = INSTANCE.favoritesProp.keySet();
+			Set<Object> keySet = INSTANCE.favoritesProp.keySet();
 			for (Object key : keySet) {
 				favoritesMap.put((String) key, INSTANCE.favoritesProp
 						.getProperty((String) key));
@@ -115,12 +115,12 @@ public class FavoritesUtil {
 		return favoritesMap;
 	}
 
-	public static void saveFavoritesMap(Map favoritesMap) {
+	public static void saveFavoritesMap(Map<String, String> favoritesMap) {
 
 		if (INSTANCE.favoritesProp != null) {
 			INSTANCE.favoritesProp.clear();
 
-			Iterator favoritesIt = favoritesMap.keySet().iterator();
+			Iterator<String> favoritesIt = favoritesMap.keySet().iterator();
 			String key;
 			while (favoritesIt.hasNext()) {
 				key = (String) favoritesIt.next();

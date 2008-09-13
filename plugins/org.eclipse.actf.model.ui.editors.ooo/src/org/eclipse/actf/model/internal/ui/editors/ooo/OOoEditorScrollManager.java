@@ -9,13 +9,13 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editors.ooo.editor.impl;
+package org.eclipse.actf.model.internal.ui.editors.ooo;
 
 import org.eclipse.actf.model.dom.odf.ODFConstants.ContentType;
 import org.eclipse.actf.model.dom.odf.util.ODFFileUtils;
+import org.eclipse.actf.model.internal.ui.editors.ooo.util.ODFException;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
 import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
-import org.eclipse.actf.model.ui.editors.ooo.internal.util.ODFException;
 import org.eclipse.actf.model.ui.util.ScrollBarSizeUtil;
 
 import com.sun.star.accessibility.XAccessibleAction;

@@ -4,12 +4,12 @@
       <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="org.eclipse.actf.model.ui.editors.ooo.editor.OOoEditor"
-            contributorClass="org.eclipse.actf.model.ui.editors.ooo.editor.impl.OOoEditorContributor"
+            class="org.eclipse.actf.model.ui.editors.ooo.OOoEditor"
+            contributorClass="org.eclipse.actf.model.internal.ui.editors.ooo.OOoEditorContributor"
             default="false"
             extensions="odt, odp, ods"
             icon="icons/exclawhite16.gif"
-            id="org.eclipse.actf.model.ui.editors.ooo.editor.OOoEditor"
+            id="org.eclipse.actf.model.ui.editors.ooo.OOoEditor"
             name="%odf.editor.title"/>
    </extension>
 </plugin>

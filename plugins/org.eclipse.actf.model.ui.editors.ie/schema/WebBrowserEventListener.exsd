@@ -56,6 +56,9 @@
                <documentation>
                   
                </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTFEventListener"/>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>

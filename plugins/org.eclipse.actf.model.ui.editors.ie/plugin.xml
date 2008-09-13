@@ -10,7 +10,7 @@
             default="true"
             extensions="html, htm, xhtml, mht"
             icon="icons/bl_24_02.gif"
-            id="org.eclipse.actf.model.ui.editors.ie.editor.WebBrowserEditor"
+            id="org.eclipse.actf.model.ui.editors.ie.WebBrowserEditor"
             name="%browser.ie.title"/>
       </extension>
 </plugin>

@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.internal;
+package org.eclipse.actf.model.internal.ui;
 
 import java.net.URL;
 import java.util.ArrayList;

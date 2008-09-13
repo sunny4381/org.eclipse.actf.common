@@ -13,9 +13,9 @@ package org.eclipse.actf.model.ui.editor.actions;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.eclipse.actf.model.ui.editor.dialogs.FavoritesArrangeDialog;
-import org.eclipse.actf.model.ui.internal.FavoritesChangeEvent;
-import org.eclipse.actf.model.ui.internal.FavoritesUtil;
+import org.eclipse.actf.model.internal.ui.FavoritesChangeEvent;
+import org.eclipse.actf.model.internal.ui.FavoritesUtil;
+import org.eclipse.actf.model.internal.ui.editor.dialogs.FavoritesArrangeDialog;
 import org.eclipse.actf.model.ui.util.ModelServiceMessages;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -27,7 +27,7 @@ public class ArrangeFavoritesAction extends FavoritesAction {
 
 	private IWorkbenchWindow _window;
 
-	public ArrangeFavoritesAction(IWorkbenchWindow window, Map favoritesMap) {
+	public ArrangeFavoritesAction(IWorkbenchWindow window, Map<String, String> favoritesMap) {
 		this._window = window;
 
 		setId(ID);

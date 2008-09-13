@@ -12,18 +12,15 @@ package org.eclipse.actf.model.ui.editor.actions;
 
 import java.util.Map;
 
+import org.eclipse.actf.model.internal.ui.FavoritesChangeEvent;
+import org.eclipse.actf.model.internal.ui.FavoritesUtil;
+import org.eclipse.actf.model.internal.ui.editor.dialogs.FavoritesAddDialog;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
-import org.eclipse.actf.model.ui.editor.dialogs.FavoritesAddDialog;
-import org.eclipse.actf.model.ui.internal.FavoritesChangeEvent;
-import org.eclipse.actf.model.ui.internal.FavoritesUtil;
 import org.eclipse.actf.model.ui.util.ModelServiceMessages;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.IWorkbenchWindow;
-
-
-
 
 public class AddFavoritesAction extends FavoritesAction {
 
@@ -31,7 +28,8 @@ public class AddFavoritesAction extends FavoritesAction {
 
 	private IWorkbenchWindow _window;
 
-	public AddFavoritesAction(IWorkbenchWindow window, Map favoritesMap) {
+	public AddFavoritesAction(IWorkbenchWindow window,
+			Map<String, String> favoritesMap) {
 		this._window = window;
 
 		setId(ID);
@@ -40,25 +38,28 @@ public class AddFavoritesAction extends FavoritesAction {
 
 	public void run() {
 		if (null != this._window) {
-            
-            IModelService modelService = ModelServiceUtils.getActiveModelService();
-            if(modelService==null){
-                return;
-            }
-            
-            String title = modelService.getURL();
-            if(modelService instanceof IWebBrowserACTF){
-                title = ((IWebBrowserACTF)modelService).getLocationName();
-            }
-            Map<String, String> tmpMap = FavoritesUtil.getFavoritesMap();
-			FavoritesAddDialog addDialog = new FavoritesAddDialog(this._window.getShell(), tmpMap, title);
+
+			IModelService modelService = ModelServiceUtils
+					.getActiveModelService();
+			if (modelService == null) {
+				return;
+			}
+
+			String title = modelService.getURL();
+			if (modelService instanceof IWebBrowserACTF) {
+				title = ((IWebBrowserACTF) modelService).getLocationName();
+			}
+			Map<String, String> tmpMap = FavoritesUtil.getFavoritesMap();
+			FavoritesAddDialog addDialog = new FavoritesAddDialog(this._window
+					.getShell(), tmpMap, title);
 
 			int ret = addDialog.open();
-			if (ret==IDialogConstants.OK_ID) {
+			if (ret == IDialogConstants.OK_ID) {
 				String url = modelService.getURL();
 				tmpMap.put(addDialog.getName(), url);
 				FavoritesUtil.saveFavoritesMap(tmpMap);
-				FavoritesChangeEvent fce = new FavoritesChangeEvent(this, tmpMap);
+				FavoritesChangeEvent fce = new FavoritesChangeEvent(this,
+						tmpMap);
 				fireFavoritesChanged(fce);
 			}
 		}

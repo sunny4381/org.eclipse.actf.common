@@ -18,13 +18,13 @@ public interface IWebBrowserACTFEventListener {
     void navigateComplete(IWebBrowserACTF webBrowser, String url);
     void titleChange(IWebBrowserACTF webBrowser, String title);
     void progressChange(IWebBrowserACTF webBrowser, int progress, int progressMax);
-    void myDocumentComplete(IWebBrowserACTF webBrowser);
+    void rootDocumentComplete(IWebBrowserACTF webBrowser);
     void dispose();
     void focusChange(IWebBrowserACTF webBrowser);
     void browserDisposed(IWebBrowserACTF webBrowser, String title);
     void beforeNavigate(IWebBrowserACTF webBrowser, String url, String targetFrameName, boolean isInNavigation);
-    void myRefresh(IWebBrowserACTF webBrowser);
-    void myRefreshComplete(IWebBrowserACTF webBrowser);
+    void refreshStart(IWebBrowserACTF webBrowser);
+    void refreshComplete(IWebBrowserACTF webBrowser);
     void navigateStop(IWebBrowserACTF webBrowser);
     void focusGainedOfAddressText(IWebBrowserACTF webBrowser);
     void focusLostOfAddressText(IWebBrowserACTF webBrowser);

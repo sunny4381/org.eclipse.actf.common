@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editor.dialogs;
+package org.eclipse.actf.model.internal.ui.editor.dialogs;
 
 import java.util.Map;
 
@@ -25,62 +25,63 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+public class FavoritesAddDialog extends Dialog {
 
-public class FavoritesAddDialog extends Dialog{
-
-	private Map _map;
+	private Map<String, String> _map;
 
 	private String _name;
 
 	private Text _nameText;
 
-	public FavoritesAddDialog(Shell shell, Map map, String name) {
-        super(shell);
+	public FavoritesAddDialog(Shell shell, Map<String, String> map, String name) {
+		super(shell);
 		this._map = map;
 		this._name = name;
 	};
 
-    public String getName(){
-        return _name;
-    }
-    
-        
+	public String getName() {
+		return _name;
+	}
 
-    protected void okPressed() {
-      _name = _nameText.getText();
-        if (_name.equals("")) {
-            MessageDialog.openError(getShell(),"Error",ModelServiceMessages.getString("DialogAddFavorite.Text_Empty_Alert"));
-            return;
-        } else if (_map.containsKey(_name)) {
-            MessageDialog.openError(getShell(),"Error",ModelServiceMessages.getString("DialogAddFavorite.Text_Exist_Alert"));
-            return;
-        }
+	protected void okPressed() {
+		_name = _nameText.getText();
+		if (_name.equals("")) {
+			MessageDialog.openError(getShell(), "Error", ModelServiceMessages
+					.getString("DialogAddFavorite.Text_Empty_Alert"));
+			return;
+		} else if (_map.containsKey(_name)) {
+			MessageDialog.openError(getShell(), "Error", ModelServiceMessages
+					.getString("DialogAddFavorite.Text_Exist_Alert"));
+			return;
+		}
 
-        super.okPressed();
-    }
+		super.okPressed();
+	}
 
-    protected Control createDialogArea(Composite parent) {
-		Composite composite = (Composite)super.createDialogArea(parent);
+	protected Control createDialogArea(Composite parent) {
+		Composite composite = (Composite) super.createDialogArea(parent);
 		composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		GridLayout gridLayout1 = new GridLayout();
 		gridLayout1.numColumns = 2;
 		composite.setLayout(gridLayout1);
 
 		Label label = new Label(composite, SWT.NONE);
-		label.setText(ModelServiceMessages.getString("DialogAddFavorite.Name_Label"));
+		label.setText(ModelServiceMessages
+				.getString("DialogAddFavorite.Name_Label"));
 
 		this._nameText = new Text(composite, SWT.BORDER);
 		this._nameText.setText(_name);
 		GridData gridData = new GridData();
 		gridData.widthHint = 250;
 		this._nameText.setLayoutData(gridData);
-        
-        return(composite);
+
+		return (composite);
 	};
 
 	protected void configureShell(Shell newShell) {
-        super.configureShell(newShell);
-		newShell.setText(ModelServiceMessages.getString("DialogAddFavorite.Title"));
+		super.configureShell(newShell);
+		newShell.setText(ModelServiceMessages
+				.getString("DialogAddFavorite.Title"));
 		newShell.setLocation(200, 200);
 	}
 }

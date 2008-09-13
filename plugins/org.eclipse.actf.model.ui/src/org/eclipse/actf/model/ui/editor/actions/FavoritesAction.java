@@ -12,8 +12,8 @@ package org.eclipse.actf.model.ui.editor.actions;
 
 import java.util.Vector;
 
-import org.eclipse.actf.model.ui.internal.FavoritesChangeEvent;
-import org.eclipse.actf.model.ui.internal.FavoritesChangeListener;
+import org.eclipse.actf.model.internal.ui.FavoritesChangeEvent;
+import org.eclipse.actf.model.internal.ui.FavoritesChangeListener;
 import org.eclipse.jface.action.Action;
 
 

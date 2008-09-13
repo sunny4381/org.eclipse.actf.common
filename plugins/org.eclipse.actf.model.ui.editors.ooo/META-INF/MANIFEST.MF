@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse ACTF ODF Browser Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.model.ui.editors.ooo;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.actf.model.ui.editors.ooo.OOoEditorPlugin
+Bundle-Activator: org.eclipse.actf.model.internal.ui.editors.ooo.OOoEditorPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -27,4 +27,4 @@ Bundle-ClassPath: runtimes/accessibility_browser_odf.jar,
  external:C:\Program Files\OpenOffice.org 2.4\program\classes\jurt.jar,
  external:C:\Program Files\OpenOffice.org 2.4\program\classes\ridl.jar,
  external:C:\Program Files\OpenOffice.org 2.4\program\classes\unoil.jar 
-Export-Package: org.eclipse.actf.model.ui.editors.ooo.editor
+Export-Package: org.eclipse.actf.model.ui.editors.ooo

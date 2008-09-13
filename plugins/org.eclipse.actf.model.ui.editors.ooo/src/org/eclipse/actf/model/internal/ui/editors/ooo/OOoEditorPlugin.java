@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.ui.editors.ooo;
+package org.eclipse.actf.model.internal.ui.editors.ooo;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
