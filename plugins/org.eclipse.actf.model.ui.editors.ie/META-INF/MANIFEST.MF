@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse ACTF Web Browser IE Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.model.ui.editors.ie;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.actf.model.ui.editors.ie.BrowserIE_Plugin
+Bundle-Activator: org.eclipse.actf.model.internal.ui.editors.ie.BrowserIE_Plugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -16,5 +16,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.ui,
  org.eclipse.actf.util.vocab
 Eclipse-LazyStart: true
-Export-Package: org.eclipse.actf.model.ui.editors.ie.editor,
- org.eclipse.actf.model.ui.editors.ie.events
+Export-Package: org.eclipse.actf.model.ui.editors.ie

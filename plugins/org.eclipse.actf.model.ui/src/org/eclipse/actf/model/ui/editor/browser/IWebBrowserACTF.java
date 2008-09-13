@@ -93,6 +93,6 @@ public interface IWebBrowserACTF extends IModelService {
 
 	public abstract IWebBrowserStyleInfo getStyleInfo();
 	
-	int getIWebBrowser2();
+	int getBrowserAddress();
         
 }
