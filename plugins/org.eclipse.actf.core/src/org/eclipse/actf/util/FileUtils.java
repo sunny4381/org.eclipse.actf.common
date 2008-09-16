@@ -32,6 +32,9 @@ import org.osgi.framework.Bundle;
 
 public class FileUtils {
 
+	/**
+	 * Line separator. (System.getProperty("line.separator"))
+	 */
 	public static final String LINE_SEP = System.getProperty("line.separator");
 
 	private static final int BUFFER_SIZE = 8192;
@@ -69,6 +72,13 @@ public class FileUtils {
 		return filter;
 	} // formFilter
 
+	/**
+	 * Replace "%20" in URL string with white space " "
+	 * 
+	 * @param target
+	 *            the target URL String
+	 * @return replaced URL string
+	 */
 	public static String replaceWhiteSpaceInUrl(String target) {
 		StringBuffer tmpSB = new StringBuffer();
 		int i;
@@ -204,11 +214,24 @@ public class FileUtils {
 		}
 	} // copyFile
 
-	public static synchronized boolean saveToFile(Bundle bundle, IPath file,
-			boolean substituteArgs, String savePath, boolean overWrite) {
+	/**
+	 * Copy file in bundle to specified path
+	 * 
+	 * @param bundle
+	 *            the target bundle
+	 * @param file
+	 *            the target file path
+	 * @param savePath
+	 *            the target path to copy the file
+	 * @param overWrite
+	 *            allow to overwrite the existing file or not
+	 * @return file was copied or not
+	 */
+	public static synchronized boolean copyFile(Bundle bundle, IPath file,
+			String savePath, boolean overWrite) {
 		try {
-			saveToFile(FileLocator.openStream(bundle, file, substituteArgs),
-					savePath, overWrite);
+			saveToFile(FileLocator.openStream(bundle, file, false), savePath,
+					overWrite);
 			return true;
 		} catch (IOException e1) {
 			// e1.printStackTrace();
@@ -222,24 +245,36 @@ public class FileUtils {
 		}
 	}
 
-	public static synchronized void saveToFile(InputStream is, String savePath,
-			boolean overWrite) {
+	/**
+	 * Save target input stream to specified path
+	 * 
+	 * @param is
+	 *            the target input stream
+	 * @param savePath
+	 *            the target path to store the file
+	 * @param overWrite
+	 *            allow to overwrite the existing file or not
+	 * @return file was saved or not
+	 */
+	public static synchronized boolean saveToFile(InputStream is,
+			String savePath, boolean overWrite) {
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
 		byte[] buffer = new byte[BUFFER_SIZE];
 		int size;
+		boolean flag = true;
 		try {
 			File file = new File(savePath);
-			if (!overWrite && file.exists())
-				return;
-
+			if (!overWrite && file.exists()) {
+				return false;
+			}
 			bis = new BufferedInputStream(is);
 			bos = new BufferedOutputStream(new FileOutputStream(savePath));
 			while ((size = bis.read(buffer)) > 0) {
 				bos.write(buffer, 0, size);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			flag = false;
 		} finally {
 			if (bis != null) {
 				try {
@@ -256,6 +291,7 @@ public class FileUtils {
 				}
 			}
 		}
+		return flag;
 	}
 
 	/**
@@ -344,6 +380,13 @@ public class FileUtils {
 		}
 	} // findFiles
 
+	/**
+	 * Confirm availability of the directory
+	 * 
+	 * @param path
+	 *            target directory path
+	 * @return true if the target path is writable directory
+	 */
 	public static boolean isAvailableDirectory(String path) {
 		File testDir = new File(path);
 		if ((!testDir.isDirectory() || !testDir.canWrite())

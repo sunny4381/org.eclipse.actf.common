@@ -13,36 +13,50 @@ package org.eclipse.actf.util.xpath;
 
 import java.lang.reflect.Method;
 
-
-
+/**
+ * Factory class to obtain XPathService utility.
+ */
 public abstract class XPathServiceFactory {
-    private static XPathServiceFactory enable(String name) {
-        try {
-            Class clazz = Class.forName(name);
-            Method newInstanceMethod = clazz.getMethod("newInstance");
-            Object instance = newInstanceMethod.invoke(null);
-            if (instance instanceof XPathServiceFactory) {
-                return (XPathServiceFactory) instance;
-            }
-        } catch (Exception e) {
-        }
-        return null;
-    }
-    
-    static {
-        setFactory(enable("org.eclipse.actf.util.xpath.jaxp.XPathServiceFactoryImpl"));
-        setFactory(enable("org.eclipse.actf.util.jxpath.XPathServiceFactoryImpl"));
-    }
-    private static XPathServiceFactory factory;
-    public static void setFactory(XPathServiceFactory f) {
-        if (f != null) {
-            factory = f;
-        }
-    }
+	@SuppressWarnings("unchecked")
+	private static XPathServiceFactory enable(String name) {
+		try {
+			Class clazz = Class.forName(name);
+			Method newInstanceMethod = clazz.getMethod("newInstance");
+			Object instance = newInstanceMethod.invoke(null);
+			if (instance instanceof XPathServiceFactory) {
+				return (XPathServiceFactory) instance;
+			}
+		} catch (Exception e) {
+		}
+		return null;
+	}
 
-    public static XPathService newService() {
-        return factory.getService();
-    }
-    
-    protected abstract XPathService getService();
+	static {
+		setFactory(enable("org.eclipse.actf.util.xpath.jaxp.XPathServiceFactoryImpl"));
+		setFactory(enable("org.eclipse.actf.util.jxpath.XPathServiceFactoryImpl"));
+	}
+	private static XPathServiceFactory factory;
+
+	/**
+	 * Set XPathServiceFactory
+	 * 
+	 * @param f
+	 *            the target XPathServiceFactory
+	 */
+	public static void setFactory(XPathServiceFactory f) {
+		if (f != null) {
+			factory = f;
+		}
+	}
+
+	/**
+	 * Returns XPathService instance
+	 * 
+	 * @return XPathService instance
+	 */
+	public static XPathService newService() {
+		return factory.getService();
+	}
+
+	protected abstract XPathService getService();
 }

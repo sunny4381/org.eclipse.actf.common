@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,9 @@ package org.eclipse.actf.util.xpath;
 
 import org.w3c.dom.Node;
 
+/**
+ * Utility class for creating XPath of the target Node.
+ */
 public class XPathCreator {
 
 	private static final String TEXT_NODE_NAME = "#text";
@@ -21,6 +24,13 @@ public class XPathCreator {
 	private static final String LEFT_BRACKET = "[";
 	private static final String SLASH = "/";
 
+	/**
+	 * Return XPath (child path sequence) of the target Node.
+	 * 
+	 * @param target
+	 *            the target Node
+	 * @return XPath (child path sequence)
+	 */
 	public static String childPathSequence(Node target) {
 		StringBuffer tmpSB = new StringBuffer();
 

@@ -13,10 +13,21 @@ package org.eclipse.actf.util.dom;
 import org.w3c.dom.Node;
 import org.w3c.dom.traversal.NodeFilter;
 
+/**
+ * Implementation class of NodeFilter. This filter uses whatToShow attributes to
+ * define the filter behavior.
+ */
 public class WhatToShowNodeFilter implements NodeFilter {
 
 	private int filter;
 
+	/**
+	 * Constructor of WhatToShowNodeFilter
+	 * 
+	 * @param whatToShow
+	 *            the attribute determines which types of node are presented.
+	 *            The values are defined in the NodeFilter interface.
+	 */
 	public WhatToShowNodeFilter(int whatToShow) {
 		this.filter = whatToShow;
 	}

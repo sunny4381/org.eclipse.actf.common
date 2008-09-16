@@ -15,14 +15,21 @@ package org.eclipse.actf.util.dom;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * Utility class working as an empty NodeList
+ */
 public class EmptyNodeListImpl implements NodeList {
 
 	private static final NodeList INSTANCE = new EmptyNodeListImpl();
 
-	public static NodeList getInstance(){
+	/**
+	 * Return an empty NodeList instance
+	 * @return empty NodeList
+	 */
+	public static NodeList getInstance() {
 		return INSTANCE;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 

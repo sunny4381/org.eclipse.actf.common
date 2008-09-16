@@ -17,6 +17,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.TreeWalker;
 
+/**
+ * Implementation class of TreeWalker.
+ * 
+ */
 public class TreeWalkerImpl implements TreeWalker {
 
 	private Node walkerRoot;
@@ -28,6 +32,19 @@ public class TreeWalkerImpl implements TreeWalker {
 	private boolean noFilter = true;
 	private HashMap<Node, Node> parentMap = new HashMap<Node, Node>();
 
+	/**
+	 * @param root
+	 * @param whatToShow
+	 *            the attribute determines which types of node are presented via
+	 *            the TreeWalker. The values are defined in the NodeFilter
+	 *            interface.
+	 * @param filter
+	 *            the filter used to screen nodes
+	 * @param entityReferenceExpansion
+	 *            the flag to determine whether the children of entity reference
+	 *            nodes are visible to TreeWalker.
+	 * @throws DOMException
+	 */
 	public TreeWalkerImpl(Node root, int whatToShow, NodeFilter filter,
 			boolean entityReferenceExpansion) throws DOMException {
 		if (null == root) {

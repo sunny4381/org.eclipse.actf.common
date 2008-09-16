@@ -178,7 +178,7 @@ public class ODFParser {
 		return null;
 	}
 
-	public void extractFile(String odfName, String entry, String outputFileName) {
+	public void copyFile(String odfName, String entry, String outputFileName) {
 		InputStream is = getFileInputStream(odfName, entry);
 		FileUtils.saveToFile(is, outputFileName, true);
 	}

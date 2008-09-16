@@ -443,7 +443,7 @@ public class TextExtractorImpl implements TextExtractor {
 		ODFParser parser = new ODFParser();
 		Document doc = curElem.getOwnerDocument();
 		if (doc instanceof ODFDocument) {
-			parser.extractFile(((ODFDocument) doc).getURL(), href,
+			parser.copyFile(((ODFDocument) doc).getURL(), href,
 					outputFileName);
 		}
 	}

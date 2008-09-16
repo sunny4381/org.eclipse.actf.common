@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,29 +35,33 @@ import java.util.Vector;
  * Escape sequence(fin) "ESC ( J" "ESC ( H" "ESC ( B" "ESC ( I" etc.
  */
 
+/**
+ * Utility class for detecting Japanese encoding.
+ */
 public class JapaneseEncodingDetector {
-	public static final int J_SJIS = 0;
+	private static final int J_SJIS = 0;
 
-	public static final int J_EUC = 1;
+	private static final int J_EUC = 1;
 
-	public static final int J_JIS = 2;
+	private static final int J_JIS = 2;
 
-	public static final int J_MIX = 3;
+	@SuppressWarnings("unused")
+	private static final int J_MIX = 3;
 
-	public static final int J_UTF8 = 4;
+	private static final int J_UTF8 = 4;
 
-	public static final int LATIN1 = 5;
+	private static final int LATIN1 = 5;
 
 	// TODO SJIS, EUC_JP, ISO2022JP
-	public static final String JIS = "ISO-2022-JP";
+	private static final String JIS = "ISO-2022-JP";
 
-	public static final String EUC = "EUC-JP";
+	private static final String EUC = "EUC-JP";
 
-	public static final String SJIS = "Shift_JIS";
+	private static final String SJIS = "Shift_JIS";
 
-	public static final String UTF_8 = "UTF8";
+	private static final String UTF_8 = "UTF8";
 
-	public static final String ISO_8859_1 = "ISO-8859-1";
+	private static final String ISO_8859_1 = "ISO-8859-1";
 
 	// JIS escape sequence
 	//
@@ -172,8 +176,14 @@ public class JapaneseEncodingDetector {
 
 	private InputStream is;
 
-	private Vector eucRemoveV = new Vector();
+	private Vector<Integer> eucRemoveV = new Vector<Integer>();
 
+	/**
+	 * Constructor for Japanese encoding detector.
+	 * 
+	 * @param is
+	 *            the target input stream
+	 */
 	public JapaneseEncodingDetector(InputStream is) {
 		this.is = is;
 	}
@@ -194,15 +204,32 @@ public class JapaneseEncodingDetector {
 		}
 	}
 
+	/**
+	 * Return input stream that includes content of the target input stream.
+	 * Need to call detect method before calling this method.
+	 * 
+	 * @return input stream that includes content of the target input stream
+	 */
 	public InputStream getInputStream() {
 		return (new ByteArrayInputStream(buf, 0, length));
 	}
 
+	/**
+	 * Return length of the target input stream.
+	 * 
+	 * @return length of the target input stream
+	 */
 	public int getLength() {
 		return length;
 	}
 
-	public byte[] getByteBuf() {
+	/**
+	 * Return byte array that includes content of the target input stream. Need
+	 * to call detect method before calling this method.
+	 * 
+	 * @return byte array that includes content of the target input stream
+	 */
+	public byte[] getByteArray() {
 		byte bytebuf[] = new byte[length];
 		System.arraycopy(buf, 0, bytebuf, 0, length);
 		return (bytebuf);
@@ -435,6 +462,12 @@ public class JapaneseEncodingDetector {
 
 	}
 
+	/**
+	 * Return detected Japanese encoding of the target input stream.
+	 * 
+	 * @return detected encoding
+	 * @throws IOException
+	 */
 	public String detect() throws IOException {
 		length = 0;
 		errorJIS = 0;
@@ -457,7 +490,9 @@ public class JapaneseEncodingDetector {
 
 		// Check Kanji Character set SJIS/JIS/EUC
 		// boolean isJis = false;
+		@SuppressWarnings("unused")
 		int nSJisError = 0;
+		@SuppressWarnings("unused")
 		int nEucError = 0;
 
 		// int nSJis = 0;
@@ -504,9 +539,10 @@ public class JapaneseEncodingDetector {
 			return (toString(ret));
 		}
 
-		System.out.println("SJIS: " + errorSJIS + "(" + nSJisError + ") EUC: "
-				+ errorEUC + "(" + nEucError + ") UTF-8: " + errorUTF8
-				+ " LATIN1: " + errorLATIN1 + " JIS: " + errorJIS);
+		// System.out.println("SJIS: " + errorSJIS + "(" + nSJisError + ") EUC:
+		// "
+		// + errorEUC + "(" + nEucError + ") UTF-8: " + errorUTF8
+		// + " LATIN1: " + errorLATIN1 + " JIS: " + errorJIS);
 
 		ret = J_UTF8;
 		if (errorSJIS < 100 && errorSJIS < errorEUC && errorSJIS < errorUTF8
@@ -528,7 +564,7 @@ public class JapaneseEncodingDetector {
 				&& errorJIS < errorLATIN1) {
 			ret = J_JIS;
 		}
-		System.out.println("estimation: " + toString(ret));
+		// System.out.println("estimation: " + toString(ret));
 		return (toString(ret));
 	}
 
@@ -556,6 +592,7 @@ public class JapaneseEncodingDetector {
 		return (c == E_KISYU_1ST);
 	}
 
+	@SuppressWarnings("unused")
 	private boolean isEUC1st(byte c) {
 		return (c == E_KANA_1ST || c == E_HOJO_1ST || (E_KANJI_BEGIN <= c && c <= E_KANJI_END));
 	}
@@ -604,8 +641,11 @@ public class JapaneseEncodingDetector {
 		return (U_PAYLOAD_BEGIN <= c && c <= U_PAYLOAD_END);
 	}
 
+	/**
+	 * @param args
+	 */
 	public static void main(String args[]) {
-		String target = "tmp/jed.html";
+		String target = "tmp/jed.txt";
 
 		try {
 			InputStream is = new FileInputStream(target);

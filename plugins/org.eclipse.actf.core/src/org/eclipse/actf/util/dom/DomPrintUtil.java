@@ -24,8 +24,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLTitleElement;
 import org.w3c.dom.traversal.NodeFilter;
 
+/**
+ * Utility class to print out DOM
+ */
 public class DomPrintUtil {
 
+	/**
+	 * Default encoding of this utility. (UTF8)
+	 */
 	public static final String UTF8 = "UTF8";
 
 	private static final String LINE_SEP = System.getProperty("line.separator");
@@ -51,10 +57,30 @@ public class DomPrintUtil {
 
 	private AttributeFilter attrFilter = null;
 
+	/**
+	 * AttributeFilter defines the behavior of a filter that is used for
+	 * converting attributes of each Element into String.
+	 */
 	public interface AttributeFilter {
+
+		/**
+		 * Check whether a specified attribute is converted into String.
+		 * 
+		 * @param element
+		 *            the target Element
+		 * @param attr
+		 *            the target attribute
+		 * @return true to print the attribute, false to ignore the attribute
+		 */
 		public boolean acceptNode(Element element, Node attr);
 	}
 
+	/**
+	 * Constructor of DOM print utility.
+	 * 
+	 * @param document
+	 *            the target document
+	 */
 	public DomPrintUtil(Document document) {
 		this.document = document;
 	}
@@ -87,6 +113,11 @@ public class DomPrintUtil {
 		return false;
 	}
 
+	/**
+	 * Returns XML text converted from the target DOM
+	 * 
+	 * @return String format XML converted from the target DOM
+	 */
 	public String toXMLString() {
 		StringBuffer tmpSB = new StringBuffer(8192);
 
@@ -229,47 +260,131 @@ public class DomPrintUtil {
 		return tmpSB.toString();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return toXMLString();
 	}
 
+	/**
+	 * Set whatToShow attribute to TreeWalker used in the utility.
+	 * 
+	 * @param whatToShow
+	 *            the attribute determines which types of node are presented via
+	 *            the TreeWalker. The values are defined in the NodeFilter
+	 *            interface.
+	 * @see TreeWalkerImpl
+	 */
 	public void setWhatToShow(int whatToShow) {
 		this.whatToShow = whatToShow;
 	}
 
+	/**
+	 * Set NodeFilter to TreeWalker used in the utility.
+	 * 
+	 * @param nodeFilter
+	 *            the filter used to screen nodes
+	 * @see TreeWalkerImpl
+	 */
 	public void setNodeFilter(NodeFilter nodeFilter) {
 		this.nodeFilter = nodeFilter;
 	}
 
+	/**
+	 * Set the entity reference expansion flag to TreeWalker used in the
+	 * utility.
+	 * 
+	 * @param entityReferenceExpansion
+	 *            the flag to determine whether the children of entity reference
+	 *            nodes are visible to TreeWalker.
+	 * @see TreeWalkerImpl
+	 */
 	public void setEntityReferenceExpansion(boolean entityReferenceExpansion) {
 		this.entityReferenceExpansion = entityReferenceExpansion;
 	}
 
+	/**
+	 * Set the number of space characters used for indent
+	 * 
+	 * @param indent
+	 *            the number of space characters used for indent
+	 */
 	public void setIndent(boolean indent) {
 		this.indent = indent;
 	}
 
+	/**
+	 * Determine to escape Tag bracket ('<','>') or not. Please set true if you
+	 * want to print out DOM into &lt;pre&gt; section of HTML.
+	 * 
+	 * @param escapeTagBracket
+	 *            if true, print Tag bracket as escaped format ({@literal '&lt;',
+	 *            '&gt;'})
+	 * 
+	 */
 	public void setEscapeTagBracket(boolean escapeTagBracket) {
 		this.escapeTagBracket = escapeTagBracket;
 	}
 
+	/**
+	 * Set AttributeFilter to define the behavior for printing attributes of
+	 * each Element.
+	 * 
+	 * @param attrFilter
+	 *            the AttributeFilter to set
+	 */
 	public void setAttrFilter(AttributeFilter attrFilter) {
 		this.attrFilter = attrFilter;
 	}
 
+	/**
+	 * Print out the target Document.
+	 * 
+	 * @param filePath
+	 *            the target file path
+	 * @throws IOException
+	 */
 	public void writeToFile(String filePath) throws IOException {
 		writeToFile(new File(filePath), UTF8);
 	}
 
+	/**
+	 * Print out the target Document.
+	 * 
+	 * @param file
+	 *            the target File
+	 * @throws IOException
+	 */
 	public void writeToFile(File file) throws IOException {
 		writeToFile(file, UTF8);
 	}
 
+	/**
+	 * Print out the target Document in specified encoding
+	 * 
+	 * @param filePath
+	 *            the target file path
+	 * @param encode
+	 *            the target encoding
+	 * @throws IOException
+	 */
 	public void writeToFile(String filePath, String encode) throws IOException {
 		writeToFile(new File(filePath), encode);
 	}
 
+	/**
+	 * Print out the target Document in specified encoding
+	 * 
+	 * @param file
+	 *            the target file
+	 * @param encode
+	 *            the target encoding
+	 * @throws IOException
+	 */
 	public void writeToFile(File file, String encode) throws IOException {
 		PrintWriter tmpPW = new PrintWriter(new OutputStreamWriter(
 				new FileOutputStream(file), encode));

@@ -15,9 +15,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
 
+/**
+ * Implementation class of NodeIterator
+ */
 public class NodeIteratorImpl implements NodeIterator {
 
-	private IDocumentTraversal document;
 	private Node root;
 	private Node current = null;
 	private int whatToShow;
@@ -31,20 +33,26 @@ public class NodeIteratorImpl implements NodeIterator {
 	private TreeWalkerImpl treeWalker;
 
 	/**
+	 * Constructor of NodeIterator
 	 * 
+	 * @param root
+	 *            the root node of the NodeIterator
+	 * @param whatToShow
+	 *            the attribute that determines which types of node are
+	 *            presented. The values are defined in the NodeFilter interface.
+	 * @param filter
+	 *            the NodeFilter used to screen nodes
+	 * @param entityReferenceExpansion
+	 *            the flag to determine whether the children of entity reference
+	 *            nodes are visible to TreeWalker.
+	 * @throws DOMException
 	 */
-	public NodeIteratorImpl(IDocumentTraversal document, Node root,
-			int whatToShow, NodeFilter filter, boolean entityReferenceExpansion)
-			throws DOMException {
+	public NodeIteratorImpl(Node root, int whatToShow, NodeFilter filter,
+			boolean entityReferenceExpansion) throws DOMException {
 		if (null == root) {
 			throw new DOMException(DOMException.NOT_FOUND_ERR,
 					"Root can't be a null.");
 		}
-		if (null == document) {
-			throw new DOMException(DOMException.NOT_FOUND_ERR,
-					"Document can't be a null.");
-		}
-		this.document = document;
 		this.root = root;
 		this.whatToShow = whatToShow;
 		this.filter = filter;
@@ -73,7 +81,6 @@ public class NodeIteratorImpl implements NodeIterator {
 	 * @see org.w3c.dom.traversal.NodeIterator#detach()
 	 */
 	public void detach() {
-		document.removeNodeIterator(this);
 
 		isDetach = true;
 		root = null;
@@ -216,6 +223,12 @@ public class NodeIteratorImpl implements NodeIterator {
 		return null;
 	}
 
+	/**
+	 * Call this method before remove Node from target document
+	 * 
+	 * @param target
+	 *            the target Node to be removed
+	 */
 	public void prepareNodeRemove(Node target) {
 		Node tmpN = checkParent(target);
 		if (null != tmpN) {
