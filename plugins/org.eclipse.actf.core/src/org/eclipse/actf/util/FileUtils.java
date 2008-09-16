@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.eclipse.actf.core.config.IConfiguration;
 import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -397,4 +398,21 @@ public class FileUtils {
 		return true;
 	}
 
+	/**
+	 * Create the ACTF temporary directory which is a subdirectory of the value of java.io.tmpdir
+	 * Checking is done to ensure a File.separator is added if needed.
+	 * This should be used by all components requiring the ACTF temp directory
+	 * 
+	 * @return a String representing the name of the directory
+	 */
+	public static String getActfTempDir() {
+		String tempDir = System.getProperty("java.io.tmpdir");
+		if (tempDir != null) {
+			if (!tempDir.endsWith(File.separator)) {
+				tempDir += File.separator;
+			}
+			tempDir += IConfiguration.ACTF_ID;
+		}
+		return tempDir;
+	}
 }

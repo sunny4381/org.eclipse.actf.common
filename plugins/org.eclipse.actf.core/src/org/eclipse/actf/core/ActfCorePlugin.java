@@ -17,6 +17,7 @@ import java.io.InputStream;
 import org.eclipse.actf.core.config.IConfiguration;
 import org.eclipse.actf.core.runtime.IRuntimeContext;
 import org.eclipse.actf.core.runtime.RuntimeContextFactory;
+import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.logging.AbstractReporter;
 import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.logging.LoggingUtil;
@@ -205,7 +206,7 @@ if (isDebugging(option)) {
 	protected String setupDefaultTraceStream () {
 		boolean success = true;
 		String traceFile = null;
-		String traceDir = System.getProperty("java.io.tmpdir") + IConfiguration.ACTF_ID;
+		String traceDir = FileUtils.getActfTempDir();
 		File traceDirFile = new File(traceDir);
 		
 		if (!traceDirFile.exists()) {
@@ -219,8 +220,15 @@ if (isDebugging(option)) {
 		
 		if (success) {
 			traceFile = traceDir + File.separator + getDefaultTraceFilename();
-		}else {
-			traceFile = System.getProperty("java.io.tmpdir") + getDefaultTraceFilename();
+		} else {
+			traceFile = System.getProperty("java.io.tmpdir");
+			if (traceFile != null) {
+				if (!traceFile.endsWith("/")) {
+					traceFile += "/";
+				}
+				traceFile += getDefaultTraceFilename();
+			}
+
 		}
 		
 		return traceFile;
