@@ -96,7 +96,7 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         ACTF provides a &lt;samp&gt;FlashElementFactory&lt;/samp&gt;. It provides an Element implementation that enables to access Object Model of Flash content. Please see &lt;samp&gt;org.eclipse.actf.model.dom.dombycom.flash&lt;/samp&gt; plugin for more details.
+         ACTF provides a &lt;samp&gt;FlashElementFactory&lt;/samp&gt;. It provides an Element implementation that enables to access Object Model of Flash content. Please see &lt;samp&gt;org.eclipse.actf.model.dom.dombycom.flash&lt;/samp&gt; plugin for more details. (If you include the plugin, the FlashElementFactory will be automatically registerd to this extension.)
       </documentation>
    </annotation>
 
