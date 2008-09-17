@@ -3,10 +3,10 @@
 <schema targetNamespace="org.eclipse.actf.model.dom.dombycom">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.actf.model.dom.dombycom" id="elementFactory" name="elementFactory"/>
+         <meta.schema plugin="org.eclipse.actf.model.dom.dombycom" id="elementFactory" name="Element Factory"/>
       </appInfo>
       <documentation>
-         [Enter description of this extension point.]
+         This extension point is used to add Element Factories to this (DOM by COM) plugin.
       </documentation>
    </annotation>
 
@@ -18,21 +18,21 @@
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  a fully qualified identifier of the target extension point
                </documentation>
             </annotation>
          </attribute>
          <attribute name="id" type="string">
             <annotation>
                <documentation>
-                  
+                  an optional identifier of the extension instance
                </documentation>
             </annotation>
          </attribute>
          <attribute name="name" type="string">
             <annotation>
                <documentation>
-                  
+                  an optional name of the extension instance
                </documentation>
                <appInfo>
                   <meta.attribute translatable="true"/>
@@ -47,7 +47,7 @@
          <attribute name="implementations" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the name of a class that implements &lt;samp&gt;org.eclipse.actf.model.dom.dombycom.IObjectElementFactory&lt;/samp&gt;.
                </documentation>
                <appInfo>
                   <meta.attribute kind="java" basedOn=":org.eclipse.actf.model.dom.dombycom.IObjectElementFactory"/>
@@ -62,7 +62,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         
       </documentation>
    </annotation>
 
@@ -71,7 +71,14 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         [Enter extension point usage example here.]
+         &lt;pre&gt;
+   &lt;extension
+         point=&quot;org.eclipse.actf.model.dom.dombycom.elementFactory&quot;&gt;
+      &lt;objectElementFactory
+            implementations=&quot;org.eclipse.actf.model.dom.dombycom.impl.flash.FlashElementFactory&quot;&gt;
+      &lt;/objectElementFactory&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
       </documentation>
    </annotation>
 
@@ -80,7 +87,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         [Enter API information here.]
+         The contributor will add new Element factory for Object Elements by using &lt;samp&gt;objectElementFactory&lt;/samp&gt;. &lt;samp&gt;implementations&lt;/samp&gt; is required attribute for &lt;samp&gt;objectElementFactory&lt;/samp&gt;, and the specified class must implement &lt;samp&gt;org.eclipse.actf.model.dom.dombycom.IObjectElementFactory&lt;/samp&gt;.
       </documentation>
    </annotation>
 
@@ -89,7 +96,7 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         [Enter information about supplied implementation of this extension point.]
+         ACTF provides a &lt;samp&gt;FlashElementFactory&lt;/samp&gt;. It provides an Element implementation that enables to access Object Model of Flash content. Please see &lt;samp&gt;org.eclipse.actf.model.dom.dombycom.flash&lt;/samp&gt; plugin for more details.
       </documentation>
    </annotation>
 
