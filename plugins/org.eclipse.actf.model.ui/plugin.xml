@@ -2,4 +2,5 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension-point id="browserFavorites" name="Web Browser Favorites" schema="schema/browserFavorites.exsd"/>
+   <extension-point id="webBrowserEventListener" name="Web Browser Event Listener" schema="schema/webBrowserEventListener.exsd"/>
 </plugin>

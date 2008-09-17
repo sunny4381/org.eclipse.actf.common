@@ -11,7 +11,6 @@
 
 package org.eclipse.actf.model.ui.editors.ie;
 
-import org.eclipse.actf.model.internal.ui.editors.ie.WebBrowserEventExtension;
 import org.eclipse.actf.model.internal.ui.editors.ie.WebBrowserIEImpl;
 import org.eclipse.actf.model.internal.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.internal.ui.editors.ie.events.IWindowClosedEventListener;
@@ -20,6 +19,7 @@ import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.editor.DummyEditorInput;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.editor.browser.WebBrowserEventUtil;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -63,7 +63,7 @@ public class WebBrowserEditor extends EditorPart implements IModelServiceHolder 
 					IWebBrowserACTF browser = (IWebBrowserACTF) ((WebBrowserEditor) newEditor)
 							.getModelService();
 					param.setBrowserAddress(browser.getBrowserAddress());
-					WebBrowserEventExtension.newWindow(browser);
+					WebBrowserEventUtil.newWindow(browser);
 				} else {
 					// TODO
 				}
@@ -90,11 +90,11 @@ public class WebBrowserEditor extends EditorPart implements IModelServiceHolder 
 	}
 
 	public void dispose() {
-		WebBrowserEventExtension.browserDisposed(webBrowser, getPartName());
+		WebBrowserEventUtil.browserDisposed(webBrowser, getPartName());
 	}
 
 	public void setFocus() {
-		WebBrowserEventExtension.focusChange(webBrowser);
+		WebBrowserEventUtil.focusChange(webBrowser);
 	}
 
 	public void doSave(IProgressMonitor monitor) {

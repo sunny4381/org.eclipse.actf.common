@@ -9,50 +9,49 @@
  *    Hisashi MIYASHITA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.internal.ui.editors.ie;
+package org.eclipse.actf.model.ui.editor.browser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
-import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTFEventListener;
+import org.eclipse.actf.model.ui.ModelUIPlugin;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 
 
 
-public class WebBrowserEventExtension {
+public class WebBrowserEventUtil {
     private static final String TAG_LISTENER = "listener";
     // private static final String ATTR_ID = "id";
     private static final String ATTR_CLASS = "class";
 
-    private static WebBrowserEventExtension[] cachedExtensions;
+    private static WebBrowserEventUtil[] cachedExtensions;
 
-    public static WebBrowserEventExtension[] getExtensions() {
+    private static WebBrowserEventUtil[] getExtensions() {
         if (cachedExtensions != null) return cachedExtensions;
 
         IExtension[] extensions = Platform.getExtensionRegistry()
-            .getExtensionPoint(BrowserIE_Plugin.PLUGIN_ID, "WebBrowserEventListener")
+            .getExtensionPoint(ModelUIPlugin.PLUGIN_ID, "webBrowserEventListener")
             .getExtensions();
-        List<WebBrowserEventExtension> l = new ArrayList<WebBrowserEventExtension>();
+        List<WebBrowserEventUtil> l = new ArrayList<WebBrowserEventUtil>();
         for (int i = 0; i < extensions.length; i++) {
             IConfigurationElement[] configElements =
                 extensions[i].getConfigurationElements();
             for (int j = 0; j < configElements.length; j++) {
-                WebBrowserEventExtension ex = parseExtension(configElements[j], l.size());
+                WebBrowserEventUtil ex = parseExtension(configElements[j], l.size());
                 if (ex != null) l.add(ex);
             }
         }
-        cachedExtensions = (WebBrowserEventExtension[]) l.toArray(new WebBrowserEventExtension[l.size()]);
+        cachedExtensions = (WebBrowserEventUtil[]) l.toArray(new WebBrowserEventUtil[l.size()]);
         return cachedExtensions;
     }
 
-    private static WebBrowserEventExtension parseExtension(IConfigurationElement configElement, int idx) {
+    private static WebBrowserEventUtil parseExtension(IConfigurationElement configElement, int idx) {
         if (!configElement.getName().equals(TAG_LISTENER))
             return null;
         try {
-            return new WebBrowserEventExtension(configElement, idx);
+            return new WebBrowserEventUtil(configElement, idx);
         } catch (Exception e) {
         }
         return null;
@@ -67,7 +66,7 @@ public class WebBrowserEventExtension {
     }
 
     public static void navigateComplete(IWebBrowserACTF iWebBrowser, String url) {
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if (exs == null) return;
         for (int i = 0; i < exs.length; i++) {
             exs[i].getListener().navigateComplete(iWebBrowser, url);
@@ -75,7 +74,7 @@ public class WebBrowserEventExtension {
     }
 
     public static void titleChange(IWebBrowserACTF iWebBrowser, String title) {
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if (exs == null) return;
         for (int i = 0; i < exs.length; i++) {
             exs[i].getListener().titleChange(iWebBrowser, title);
@@ -83,7 +82,7 @@ public class WebBrowserEventExtension {
     }
     
     public static void progressChange(IWebBrowserACTF iWebBrowser, int progress, int progressMax){
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if(exs == null) return;
         for (int i=0; i < exs.length; i++){
             exs[i].getListener().progressChange(iWebBrowser, progress, progressMax);
@@ -91,7 +90,7 @@ public class WebBrowserEventExtension {
     }
     
     public static void myDocumentComplete(IWebBrowserACTF iWebBrowser){
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         
         //System.out.println("myDocumentComplete");
         
@@ -102,7 +101,7 @@ public class WebBrowserEventExtension {
     }
     
     public static void focusChange(IWebBrowserACTF iWebBrowser){
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if (exs == null) return;
         for (int i = 0; i < exs.length; i++) {
             exs[i].getListener().focusChange(iWebBrowser);
@@ -110,7 +109,7 @@ public class WebBrowserEventExtension {
     }
     
     public static void browserDisposed(IWebBrowserACTF iWebBrowser, String title){
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if(exs ==null) return;
         for (int i = 0; i < exs.length; i++) {
             exs[i].getListener().browserDisposed(iWebBrowser, title);
@@ -119,7 +118,7 @@ public class WebBrowserEventExtension {
     }
     
     public static void beforeNavigate(IWebBrowserACTF iWebBrowser, String url, String targetFrameName, boolean isInNavigation){
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if(exs ==null) return;
         for (int i = 0; i < exs.length; i++) {
             exs[i].getListener().beforeNavigate(iWebBrowser, url, targetFrameName, isInNavigation);
@@ -127,7 +126,7 @@ public class WebBrowserEventExtension {
     }
     
     public static void myRefresh(IWebBrowserACTF webBrowser) {
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         
         //System.out.println("myRefresh");
         
@@ -138,7 +137,7 @@ public class WebBrowserEventExtension {
     }
 
     public static void myRefreshComplete(IWebBrowserACTF webBrowser) {
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
 
         //System.out.println("myRefreshComplete");
         
@@ -149,7 +148,7 @@ public class WebBrowserEventExtension {
     }
 
     public static void navigateStop(IWebBrowserACTF webBrowser) {
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if(exs ==null) return;
         for (int i = 0; i < exs.length; i++) {
             exs[i].getListener().navigateStop(webBrowser);
@@ -157,7 +156,7 @@ public class WebBrowserEventExtension {
     }
     
     public static void focusGainedOfAddressText(IWebBrowserACTF webBrowser) {
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if(exs ==null) return;
         for (int i = 0; i < exs.length; i++) {
             exs[i].getListener().focusGainedOfAddressText(webBrowser);
@@ -165,7 +164,7 @@ public class WebBrowserEventExtension {
     }
     
     public static void focusLostOfAddressText(IWebBrowserACTF webBrowser) {
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if(exs ==null) return;
         for (int i = 0; i < exs.length; i++) {
             exs[i].getListener().focusLostOfAddressText(webBrowser);
@@ -173,7 +172,7 @@ public class WebBrowserEventExtension {
     }
     
     public static void newWindow(IWebBrowserACTF webBrowser){
-        WebBrowserEventExtension[] exs = getExtensions();
+        WebBrowserEventUtil[] exs = getExtensions();
         if(exs ==null) return;
         for (int i = 0; i < exs.length; i++) {
             exs[i].getListener().newWindow(webBrowser);
@@ -184,7 +183,7 @@ public class WebBrowserEventExtension {
     private final IConfigurationElement configElement;
     private IWebBrowserACTFEventListener listener;
 
-    private WebBrowserEventExtension(IConfigurationElement configElement, int idx) {
+    private WebBrowserEventUtil(IConfigurationElement configElement, int idx) {
         this.configElement = configElement;
     }
 

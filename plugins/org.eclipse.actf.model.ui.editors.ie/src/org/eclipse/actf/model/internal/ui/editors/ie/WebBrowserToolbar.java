@@ -14,6 +14,7 @@ package org.eclipse.actf.model.internal.ui.editors.ie;
 
 import org.eclipse.actf.model.ui.ModelUIPlugin;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.editor.browser.WebBrowserEventUtil;
 import org.eclipse.actf.model.ui.util.ModelServiceMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
@@ -81,14 +82,14 @@ public class WebBrowserToolbar extends Composite {
             public void focusLost(FocusEvent arg0) {
                 _isFocusOnText = false;
                 if (browser != null) {
-                    WebBrowserEventExtension.focusLostOfAddressText(browser);
+                    WebBrowserEventUtil.focusLostOfAddressText(browser);
                 }
             }
 
             public void focusGained(FocusEvent arg0) {
                 _addressText.selectAll();
                 if (browser != null) {
-                    WebBrowserEventExtension.focusGainedOfAddressText(browser);
+                    WebBrowserEventUtil.focusGainedOfAddressText(browser);
                 }
             }
         });

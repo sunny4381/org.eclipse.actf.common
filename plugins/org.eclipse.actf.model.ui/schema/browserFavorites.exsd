@@ -1,12 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.actf.common">
+<schema targetNamespace="org.eclipse.actf.model.ui">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.actf.common" id="browserFavorites" name="Web Browser Favorites"/>
+         <meta.schema plugin="org.eclipse.actf.model.ui" id="browserFavorites" name="Web Browser Favorites"/>
       </appInfo>
       <documentation>
-         [Enter description of this extension point.]
+         This extension point is used to add initial Browser Favorites. Favorites information needs to be written in properties file format. Please specify the name of favorites as key and store the URL in value.
+
+&lt;pre&gt;
+Eclipse.org\ home=http\://www.eclipse.org/
+&lt;/pre&gt;
       </documentation>
    </annotation>
 
@@ -18,21 +22,21 @@
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  a fully qualified identifier of the target extension point
                </documentation>
             </annotation>
          </attribute>
          <attribute name="id" type="string">
             <annotation>
                <documentation>
-                  
+                  an optional identifier of the extension instance
                </documentation>
             </annotation>
          </attribute>
          <attribute name="name" type="string">
             <annotation>
                <documentation>
-                  
+                  an optional name of the extension instance
                </documentation>
                <appInfo>
                   <meta.attribute translatable="true"/>
@@ -47,7 +51,7 @@
          <attribute name="prefFile" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  specify the resource of properties file that include browser favorites information.
                </documentation>
                <appInfo>
                   <meta.attribute kind="resource"/>
@@ -62,7 +66,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         
       </documentation>
    </annotation>
 
@@ -71,7 +75,12 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         [Enter extension point usage example here.]
+         &lt;pre&gt;
+   &lt;extension
+         point=&quot;org.eclipse.actf.model.ui.browserFavorites&quot;&gt;
+      &lt;favorites prefFile=&quot;favorites.properties&quot;/&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
       </documentation>
    </annotation>
 
@@ -80,7 +89,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         [Enter API information here.]
+         The contributor will specify the properties file that include browser favorites information as a resource.
       </documentation>
    </annotation>
 
@@ -89,7 +98,7 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         [Enter information about supplied implementation of this extension point.]
+         The example use case of this extension point is in &lt;samp&gt;org.eclipse.actf.examples.aibrowser&lt;/samp&gt; plugin.
       </documentation>
    </annotation>
 

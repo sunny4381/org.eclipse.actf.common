@@ -36,6 +36,7 @@ import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo;
+import org.eclipse.actf.model.ui.editor.browser.WebBrowserEventUtil;
 import org.eclipse.actf.model.ui.util.ScrollBarSizeUtil;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.swt.SWT;
@@ -164,7 +165,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		if (!_inReload) {
 			_inReload = true;
 			_inJavascript = false;
-			WebBrowserEventExtension.myRefresh(WebBrowserIEImpl.this);
+			WebBrowserEventUtil.myRefresh(WebBrowserIEImpl.this);
 		}
 		browserComposite.refresh();
 	}
@@ -418,14 +419,14 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 				_inReload = false;
 			}
 		}
-		WebBrowserEventExtension.beforeNavigate(this, target, param
+		WebBrowserEventUtil.beforeNavigate(this, target, param
 				.getTargetFrameName(), _inNavigation);
 
 	}
 
 	public void documentComplete(DocumentCompleteParameters param) {
 		if (param.isTopWindow()) {
-			WebBrowserEventExtension.myDocumentComplete(this);
+			WebBrowserEventUtil.myDocumentComplete(this);
 			// System.out.println("myDocComplete");
 			_inNavigation = false;
 			_inJavascript = false;
@@ -435,7 +436,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	}
 
 	public void navigateComplete2(NavigateComplete2Parameters param) {
-		WebBrowserEventExtension.navigateComplete(this, param.getUrl());
+		WebBrowserEventUtil.navigateComplete(this, param.getUrl());
 		toolbar
 				.setAddressTextString(browserComposite.getLocationURL()/* param.getUrl() */);
 		DebugPrintUtil.debugPrintln("NavigateComplete2");
@@ -462,7 +463,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	public void progressChange(ProgressChangeParameters param) {
 		int prog = param.getProgress();
 		int progMax = param.getProgressMax();
-		WebBrowserEventExtension.progressChange(this, prog, progMax);
+		WebBrowserEventUtil.progressChange(this, prog, progMax);
 		DebugPrintUtil.debugPrintln("Stop: " + _inStop + " Reload: "
 				+ _inReload + " inJavaScript: " + _inJavascript
 				+ " navigation: " + _inNavigation);
@@ -470,13 +471,13 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 			if (prog == 0 && progMax == 0) {
 				_inStop = false;
 				DebugPrintUtil.debugPrintln("stop fin");
-				WebBrowserEventExtension.navigateStop(this);
+				WebBrowserEventUtil.navigateStop(this);
 			}
 		} else if (_inReload) {
 			if (prog == 0 && progMax == 0) {
 				_inReload = false;
 				DebugPrintUtil.debugPrintln("reload fin");
-				WebBrowserEventExtension.myRefreshComplete(this);
+				WebBrowserEventUtil.myRefreshComplete(this);
 			}
 		} else if (_inJavascript) {
 			if (prog == -1 && progMax == -1) {
@@ -487,7 +488,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 			// 0/0 is complete
 			_inReload = true;
 			DebugPrintUtil.debugPrintln("reload");
-			WebBrowserEventExtension.myRefresh(this);
+			WebBrowserEventUtil.myRefresh(this);
 		}
 	}
 
@@ -498,14 +499,14 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	public void titleChange(TitleChangeParameters param) {
 		try {
 			String title = param.getText();
-			WebBrowserEventExtension.titleChange(this, title);
+			WebBrowserEventUtil.titleChange(this, title);
 			DebugPrintUtil.debugPrintln("TitleChange");
 			if (!(_inNavigation || _inStop)) {
 				if (!_inReload) {
 					_inReload = true;
 					_inJavascript = false;
 					DebugPrintUtil.debugPrintln("reload");
-					WebBrowserEventExtension.myRefresh(this);
+					WebBrowserEventUtil.myRefresh(this);
 				}
 			}
 			_holder.setEditorTitle(title);
