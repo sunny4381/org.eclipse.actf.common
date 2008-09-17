@@ -31,14 +31,41 @@ import org.eclipse.actf.model.dom.odf.table.TableRowElement;
 import org.eclipse.actf.model.dom.odf.table.TableRowsElement;
 import org.eclipse.actf.model.dom.odf.text.SequenceElement;
 import org.eclipse.actf.model.dom.odf.text.TextConstants;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 	private static final long serialVersionUID = -1072814785496953249L;
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService
+			.compile("./*[namespace-uri()='"
+					+ TableConstants.TABLE_NAMESPACE_URI
+					+ "' and local-name()='"
+					+ TableConstants.ELEMENT_TABLE_HEADER_COLUMNS + "']");
+	private static final Object EXP2 = xpathService
+			.compile("./*[namespace-uri()='"
+					+ TableConstants.TABLE_NAMESPACE_URI
+					+ "' and local-name()='"
+					+ TableConstants.ELEMENT_TABLE_HEADER_ROWS + "']");
+	private static final Object EXP3 = xpathService
+			.compile("following-sibling::*[namespace-uri()='"
+					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
+					+ TextConstants.ELEMENT_P + "'][1]"
+					+ "/*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI
+					+ "' and local-name()='" + TextConstants.ELEMENT_SEQUENCE
+					+ "']");
+	private static final Object EXP4 = xpathService
+			.compile("preceding-sibling::*[namespace-uri()='"
+					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
+					+ TextConstants.ELEMENT_P + "'][1]"
+					+ "/*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI
+					+ "' and local-name()='" + TextConstants.ELEMENT_SEQUENCE
+					+ "']");
 
 	protected TableElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
@@ -280,26 +307,15 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 	}
 
 	public NodeList getTableHeaderColumns() {
-		return XPathUtil.evalXPathNodeList(this, "./*[namespace-uri()='"
-				+ TableConstants.TABLE_NAMESPACE_URI + "' and local-name()='"
-				+ TableConstants.ELEMENT_TABLE_HEADER_COLUMNS + "']");
+		return xpathService.evalForNodeList(EXP1, this);
 	}
 
 	public NodeList getTableHeaderRows() {
-		return XPathUtil.evalXPathNodeList(this, "./*[namespace-uri()='"
-				+ TableConstants.TABLE_NAMESPACE_URI + "' and local-name()='"
-				+ TableConstants.ELEMENT_TABLE_HEADER_ROWS + "']");
+		return xpathService.evalForNodeList(EXP2, this);
 	}
 
 	public SequenceElement getTextSequenceElement() {
-		NodeList fnl = XPathUtil.evalXPathNodeList(this,
-				"following-sibling::*[namespace-uri()='"
-						+ TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='" + TextConstants.ELEMENT_P
-						+ "'][1]" + "/*[namespace-uri()='"
-						+ TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='"
-						+ TextConstants.ELEMENT_SEQUENCE + "']");
+		NodeList fnl = xpathService.evalForNodeList(EXP3, this);
 		if ((fnl != null) && (fnl.getLength() == 1))
 			return (SequenceElement) fnl.item(0);
 		if ((fnl != null) && (fnl.getLength() > 1)) {
@@ -308,14 +324,7 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 					.printStackTrace();
 		}
 
-		NodeList pnl = XPathUtil.evalXPathNodeList(this,
-				"preceding-sibling::*[namespace-uri()='"
-						+ TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='" + TextConstants.ELEMENT_P
-						+ "'][1]" + "/*[namespace-uri()='"
-						+ TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='"
-						+ TextConstants.ELEMENT_SEQUENCE + "']");
+		NodeList pnl = xpathService.evalForNodeList(EXP4, this);
 		if ((pnl != null) && (pnl.getLength() == 1))
 			return (SequenceElement) pnl.item(0);
 		if ((pnl != null) && (pnl.getLength() > 1)) {

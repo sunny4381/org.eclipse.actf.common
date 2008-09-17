@@ -44,15 +44,44 @@ import org.eclipse.actf.model.dom.odf.table.TableRowElement;
 import org.eclipse.actf.model.dom.odf.text.PElement;
 import org.eclipse.actf.model.dom.odf.text.SequenceElement;
 import org.eclipse.actf.model.dom.odf.text.TextConstants;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-
 public class AccessibilityFixEngine {
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService
+			.compile("./ancestor::*[namespace-uri()='"
+					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
+					+ TextConstants.ELEMENT_SECTION + "']"
+					+ "[attribute::*[namespace-uri()='"
+					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
+					+ TextConstants.ATTR_DISPLAY + "']='"
+					+ TextConstants.ATTR_DISPLAY_VALUE_NONE + "']");
+	private static final Object EXP2 = xpathService
+			.compile("./ancestor::*[(namespace-uri()='"
+					+ TableConstants.TABLE_NAMESPACE_URI
+					+ "' and local-name()='"
+					+ TableConstants.ELEMENT_TABLE_CELL + "')"
+					+ " or (namespace-uri()='"
+					+ TableConstants.TABLE_NAMESPACE_URI
+					+ "' and local-name()='"
+					+ TableConstants.ELEMENT_COVERED_TABLE_CELL + "')]");
+	private static final Object EXP3 = xpathService
+			.compile("./ancestor::*[namespace-uri()='"
+					+ TableConstants.TABLE_NAMESPACE_URI
+					+ "' and local-name()='" + TableConstants.ELEMENT_TABLE
+					+ "']" + "[parent::*[namespace-uri()='"
+					+ OfficeConstants.OFFICE_NAMESPACE_URI
+					+ "' and local-name()='"
+					+ OfficeConstants.ELEMENT_SPREADSHEET + "']]");
+
 	private double odfVersion = -1.0;
 
 	public AccessibilityFixEngine() {
@@ -390,30 +419,14 @@ public class AccessibilityFixEngine {
 	}
 
 	public boolean isInvisibleElement(ODFElement elem) {
-		NodeList nl = XPathUtil
-				.evalXPathNodeList(elem, "./ancestor::*[namespace-uri()='"
-						+ TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='"
-						+ TextConstants.ELEMENT_SECTION + "']"
-						+ "[attribute::*[namespace-uri()='"
-						+ TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='" + TextConstants.ATTR_DISPLAY
-						+ "']='" + TextConstants.ATTR_DISPLAY_VALUE_NONE + "']");
+		NodeList nl = xpathService.evalForNodeList(EXP1, elem);
 		if ((nl != null) && (nl.getLength() > 0))
 			return true;
 		return false;
 	}
 
 	public String getInvisibleSectionName(ODFElement elem) {
-		NodeList nl = XPathUtil
-				.evalXPathNodeList(elem, "./ancestor::*[namespace-uri()='"
-						+ TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='"
-						+ TextConstants.ELEMENT_SECTION + "']"
-						+ "[attribute::*[namespace-uri()='"
-						+ TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='" + TextConstants.ATTR_DISPLAY
-						+ "']='" + TextConstants.ATTR_DISPLAY_VALUE_NONE + "']");
+		NodeList nl = xpathService.evalForNodeList(EXP1, elem);
 		if ((nl != null) && (nl.getLength() > 0)) {
 			if (nl.item(0) instanceof Element) {
 				Element section = (Element) nl.item(0);
@@ -453,16 +466,7 @@ public class AccessibilityFixEngine {
 					|| (target instanceof CoveredTableCellElement)) {
 				cell = (IStylable) target;
 			} else {
-				NodeList cellList = XPathUtil.evalXPathNodeList(target,
-						"./ancestor::*[(namespace-uri()='"
-								+ TableConstants.TABLE_NAMESPACE_URI
-								+ "' and local-name()='"
-								+ TableConstants.ELEMENT_TABLE_CELL + "')"
-								+ " or (namespace-uri()='"
-								+ TableConstants.TABLE_NAMESPACE_URI
-								+ "' and local-name()='"
-								+ TableConstants.ELEMENT_COVERED_TABLE_CELL
-								+ "')]");
+				NodeList cellList = xpathService.evalForNodeList(EXP2, target);
 				if ((cellList != null) && (cellList.getLength() == 1)) {
 					Node node = cellList.item(0);
 					if ((node instanceof TableCellElement)
@@ -474,15 +478,7 @@ public class AccessibilityFixEngine {
 			if (cell == null)
 				return false;
 
-			NodeList tableList = XPathUtil.evalXPathNodeList(target,
-					"./ancestor::*[namespace-uri()='"
-							+ TableConstants.TABLE_NAMESPACE_URI
-							+ "' and local-name()='"
-							+ TableConstants.ELEMENT_TABLE + "']"
-							+ "[parent::*[namespace-uri()='"
-							+ OfficeConstants.OFFICE_NAMESPACE_URI
-							+ "' and local-name()='"
-							+ OfficeConstants.ELEMENT_SPREADSHEET + "']]");
+			NodeList tableList = xpathService.evalForNodeList(EXP3, target);
 			if ((tableList != null) && (tableList.getLength() == 1)) {
 				Node node = tableList.item(0);
 				if (node instanceof TableElement) {

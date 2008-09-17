@@ -15,14 +15,13 @@ import java.io.Serializable;
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.office.DocumentStylesElement;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.TypeInfo;
-
 
 public class ODFElementImpl extends ODFNodeImpl implements ODFElement,
 		Serializable {
@@ -36,12 +35,12 @@ public class ODFElementImpl extends ODFNodeImpl implements ODFElement,
 			String elemLocalName, String attrNamespaceURI,
 			String attrLocalName, String attrValue) {
 		Element root = getOwnerDocument().getDocumentElement();
-		NodeList nl = XPathUtil.evalXPathNodeList(root,
+		NodeList nl = XPathServiceFactory.newService().evalPathForNodeList(
 				".//*[namespace-uri()='" + elemNamespaceURI
 						+ "' and local-name()='" + elemLocalName + "']"
 						+ "[attribute::*[namespace-uri()='" + attrNamespaceURI
 						+ "' and local-name()='" + attrLocalName + "']='"
-						+ attrValue + "']");
+						+ attrValue + "']", root);
 		if ((nl != null) && (nl.getLength() != 0)) {
 			return (ODFElement) nl.item(0);
 		}

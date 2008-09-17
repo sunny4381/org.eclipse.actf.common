@@ -17,14 +17,29 @@ import org.eclipse.actf.model.dom.odf.draw.DrawConstants;
 import org.eclipse.actf.model.dom.odf.draw.FrameElement;
 import org.eclipse.actf.model.dom.odf.draw.ImageElement;
 import org.eclipse.actf.model.dom.odf.draw.ImageMapElement;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 
 class ImageMapElementImpl extends EmbedDrawingObjectElementImpl implements
 		ImageMapElement {
 	private static final long serialVersionUID = -8706135729383317676L;
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService
+			.compile("./*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+					+ "' and local-name()='" + DrawConstants.ELEMENT_IMAGE
+					+ "']");
+	private static final Object EXP2 = xpathService.compile("./*["
+			+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+			+ "' and local-name()='" + DrawConstants.ELEMENT_AREA_CIRCLE + "')"
+			+ " or (namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+			+ "' and local-name()='" + DrawConstants.ELEMENT_AREA_POLYGON
+			+ "')" + " or (namespace-uri()='"
+			+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
+			+ DrawConstants.ELEMENT_AREA_RECTANGLE + "')" + "]");
 
 	protected ImageMapElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
@@ -33,10 +48,7 @@ class ImageMapElementImpl extends EmbedDrawingObjectElementImpl implements
 	public ImageElement getImageElements() {
 		FrameElement frame = getFrameElement();
 		if (frame != null) {
-			NodeList nl = XPathUtil.evalXPathNodeList(this,
-					"./*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-							+ "' and local-name()='"
-							+ DrawConstants.ELEMENT_IMAGE + "']");
+			NodeList nl = xpathService.evalForNodeList(EXP1, this);
 			if ((nl != null) && (nl.getLength() == 1))
 				return (ImageElement) nl.item(0);
 			if ((nl != null) && (nl.getLength() > 1)) {
@@ -49,13 +61,6 @@ class ImageMapElementImpl extends EmbedDrawingObjectElementImpl implements
 	}
 
 	public NodeList getAreaElements() {
-		return XPathUtil.evalXPathNodeList(this, "./*[" + "(namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_AREA_CIRCLE + "')"
-				+ " or (namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-				+ "' and local-name()='" + DrawConstants.ELEMENT_AREA_POLYGON
-				+ "')" + " or (namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_AREA_RECTANGLE + "')" + "]");
+		return xpathService.evalForNodeList(EXP2, this);
 	}
 }

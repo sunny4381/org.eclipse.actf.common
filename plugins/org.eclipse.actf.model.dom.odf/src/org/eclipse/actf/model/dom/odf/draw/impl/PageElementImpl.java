@@ -27,14 +27,66 @@ import org.eclipse.actf.model.dom.odf.office.BodyElement;
 import org.eclipse.actf.model.dom.odf.office.DocumentContentElement;
 import org.eclipse.actf.model.dom.odf.presentation.NotesElement;
 import org.eclipse.actf.model.dom.odf.presentation.PresentationConstants;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 class PageElementImpl extends ODFElementImpl implements PageElement {
 	private static final long serialVersionUID = 8198841362223795490L;
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+
+	private static final Object EXP1 = xpathService
+			.compile("./*[(namespace-uri()='"
+					+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
+					+ DrawConstants.ELEMENT_RECT + "') or"
+					+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+					+ "' and local-name()='" + DrawConstants.ELEMENT_LINE
+					+ "') or" + "(namespace-uri()='"
+					+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
+					+ DrawConstants.ELEMENT_POLYLINE + "') or"
+					+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+					+ "' and local-name()='" + DrawConstants.ELEMENT_POLYGON
+					+ "') or" + "(namespace-uri()='"
+					+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
+					+ DrawConstants.ELEMENT_REGULAR_POLYGON + "') or"
+					+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+					+ "' and local-name()='" + DrawConstants.ELEMENT_PATH
+					+ "') or" + "(namespace-uri()='"
+					+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
+					+ DrawConstants.ELEMENT_CIRCLE + "') or"
+					+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+					+ "' and local-name()='" + DrawConstants.ELEMENT_ELLIPSE
+					+ "') or" + "(namespace-uri()='"
+					+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
+					+ DrawConstants.ELEMENT_G + "') or" + "(namespace-uri()='"
+					+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
+					+ DrawConstants.ELEMENT_PAGE_THUMBNAIL + "') or"
+					+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+					+ "' and local-name()='" + DrawConstants.ELEMENT_MEASURE
+					+ "') or" + "(namespace-uri()='"
+					+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
+					+ DrawConstants.ELEMENT_CAPTION + "') or"
+					+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+					+ "' and local-name()='" + DrawConstants.ELEMENT_CONNECTOR
+					+ "') or" + "(namespace-uri()='"
+					+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
+					+ DrawConstants.ELEMENT_CUSTOM_SHAPE + "') or"
+					+ "(namespace-uri()='" + Dr3dConstants.DR3D_NAMESPACE_URI
+					+ "' and local-name()='" + Dr3dConstants.ELEMENT_SCENE
+					+ "')]");
+	private static final Object EXP2 = xpathService
+			.compile("./*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+					+ "' and local-name()='" + DrawConstants.ELEMENT_PAGE
+					+ "']");
+	private static final Object EXP3 = xpathService
+			.compile("./*[namespace-uri()='"
+					+ PresentationConstants.PRESENTATION_NAMESPACE_URI
+					+ "' and local-name()='"
+					+ PresentationConstants.ELEMENT_NOTES + "']");
 
 	private ContentBaseElement contentElement = null;
 
@@ -60,10 +112,8 @@ class PageElementImpl extends ODFElementImpl implements PageElement {
 		if (contentElement == null)
 			return -1;
 
-		NodeList list = XPathUtil.evalXPathNodeList(contentElement,
-				"./*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-						+ "' and local-name()='" + DrawConstants.ELEMENT_PAGE
-						+ "']");
+		NodeList list = XPathServiceFactory.newService().evalForNodeList(EXP2,
+				contentElement);
 		for (int i = 0; i < list.getLength(); i++) {
 			if (list.item(i).equals(this)) {
 				return i;
@@ -184,49 +234,11 @@ class PageElementImpl extends ODFElementImpl implements PageElement {
 	 * "draw:caption" "draw:connector" "draw:custom-shape" "dr3d:scene"
 	 */
 	public NodeList getDrawingObjectElements() {
-		return XPathUtil.evalXPathNodeList(this, "./*[(namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_RECT + "') or" + "(namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_LINE + "') or" + "(namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_POLYLINE + "') or"
-				+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-				+ "' and local-name()='" + DrawConstants.ELEMENT_POLYGON
-				+ "') or" + "(namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_REGULAR_POLYGON + "') or"
-				+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-				+ "' and local-name()='" + DrawConstants.ELEMENT_PATH + "') or"
-				+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-				+ "' and local-name()='" + DrawConstants.ELEMENT_CIRCLE
-				+ "') or" + "(namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_ELLIPSE + "') or"
-				+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-				+ "' and local-name()='" + DrawConstants.ELEMENT_G + "') or"
-				+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-				+ "' and local-name()='" + DrawConstants.ELEMENT_PAGE_THUMBNAIL
-				+ "') or" + "(namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_MEASURE + "') or"
-				+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-				+ "' and local-name()='" + DrawConstants.ELEMENT_CAPTION
-				+ "') or" + "(namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_CONNECTOR + "') or"
-				+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-				+ "' and local-name()='" + DrawConstants.ELEMENT_CUSTOM_SHAPE
-				+ "') or" + "(namespace-uri()='"
-				+ Dr3dConstants.DR3D_NAMESPACE_URI + "' and local-name()='"
-				+ Dr3dConstants.ELEMENT_SCENE + "')]");
+		return xpathService.evalForNodeList(EXP1, this);
 	}
 
 	public NotesElement getPresentationNotesElement() {
-		NodeList nl = XPathUtil.evalXPathNodeList(this, "./*[namespace-uri()='"
-				+ PresentationConstants.PRESENTATION_NAMESPACE_URI
-				+ "' and local-name()='" + PresentationConstants.ELEMENT_NOTES
-				+ "']");
+		NodeList nl = xpathService.evalForNodeList(EXP3, this);
 		if ((nl != null) && (nl.getLength() == 1))
 			return (NotesElement) nl.item(0);
 		else if ((nl != null) && (nl.getLength() > 1)) {

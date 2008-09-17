@@ -17,54 +17,53 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.eclipse.actf.util.dom.EmptyNodeListImpl;
 import org.eclipse.actf.util.xpath.XPathService;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-
-
 class XPathServiceImpl extends XPathService {
-    private static final XPathFactory xf = XPathFactory.newInstance();
-    
-    private XPath getXPath() {
-        return xf.newXPath();
-    }
+	private static final XPathFactory xf = XPathFactory.newInstance();
 
-    @Override
-    public Object compile(String path) {
-        try {
-            return getXPath().compile(path);
-        } catch (XPathExpressionException e) {
-            return null; 
-        }
-    }
+	private XPath getXPath() {
+		return xf.newXPath();
+	}
 
-    @Override
-    public NodeList evalForNodeList(Object compiled, Node ctx) {
-        XPathExpression xpe = (XPathExpression) compiled;
-        try {
-            return (NodeList) xpe.evaluate(ctx, XPathConstants.NODESET);
-        } catch (XPathExpressionException e) {
-            return null;
-        }
-    }
+	@Override
+	public Object compile(String path) {
+		try {
+			return getXPath().compile(path);
+		} catch (XPathExpressionException e) {
+			return null;
+		}
+	}
 
-    @Override
-    public String evalForString(Object compiled, Node ctx) {
-        XPathExpression xpe = (XPathExpression) compiled;
-        try {
-            return (String) xpe.evaluate(ctx, XPathConstants.STRING);
-        } catch (XPathExpressionException e) {
-            return null;
-        }
-    }
+	@Override
+	public NodeList evalForNodeList(Object compiled, Node ctx) {
+		try {
+			XPathExpression xpe = (XPathExpression) compiled;
+			return (NodeList) xpe.evaluate(ctx, XPathConstants.NODESET);
+		} catch (Exception e) {
+			return EmptyNodeListImpl.getInstance();
+		}
+	}
 
-    public static XPathService newInstance() {
-        if (xf == null) return null;
-        return new XPathServiceImpl();
-    }
+	@Override
+	public String evalForString(Object compiled, Node ctx) {
+		try {
+			XPathExpression xpe = (XPathExpression) compiled;
+			return (String) xpe.evaluate(ctx, XPathConstants.STRING);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
-    private XPathServiceImpl() {
-    }
+	public static XPathService newInstance() {
+		if (xf == null)
+			return null;
+		return new XPathServiceImpl();
+	}
+
+	private XPathServiceImpl() {
+	}
 }

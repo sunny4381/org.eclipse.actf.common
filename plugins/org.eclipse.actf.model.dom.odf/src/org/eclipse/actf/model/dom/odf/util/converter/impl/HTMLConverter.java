@@ -72,12 +72,12 @@ import org.eclipse.actf.model.dom.odf.text.TabElement;
 import org.eclipse.actf.model.dom.odf.text.TextConstants;
 import org.eclipse.actf.model.dom.odf.util.converter.ODFConverter;
 import org.eclipse.actf.model.dom.odf.xlink.XLinkConstants;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 
 public class HTMLConverter implements ODFConverter {
 	private static final String HTML_ENCODING = "UTF8";
@@ -711,13 +711,28 @@ public class HTMLConverter implements ODFConverter {
 		writeCssValueByTableCellPropertiesElement(writer, styleElem);
 	}
 
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService
+			.compile(".//*[namespace-uri()='"
+					+ StyleConstants.STYLE_NAMESPACE_URI
+					+ "' and local-name()='"
+					+ StyleConstants.ELEMENT_DEFAULT_STYLE + "']");
+	private static final Object EXP2 = xpathService
+			.compile(".//*[namespace-uri()='"
+					+ StyleConstants.STYLE_NAMESPACE_URI
+					+ "' and local-name()='" + StyleConstants.ELEMENT_STYLE
+					+ "']");
+	private static final Object EXP3 = xpathService
+			.compile(".//*[namespace-uri()='"
+					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
+					+ TextConstants.ELEMENT_LIST_STYLE + "']");
+
 	private void writeCssByStyleDefaultStyleElement(PrintWriter writer,
 			ODFDocument doc) {
 		Element root = doc.getDocumentElement();
-		NodeList styleDefaultStyleList = XPathUtil.evalXPathNodeList(root,
-				".//*[namespace-uri()='" + StyleConstants.STYLE_NAMESPACE_URI
-						+ "' and local-name()='"
-						+ StyleConstants.ELEMENT_DEFAULT_STYLE + "']");
+		NodeList styleDefaultStyleList = xpathService.evalForNodeList(EXP1,
+				root);
 		for (int i = 0; i < styleDefaultStyleList.getLength(); i++) {
 			DefaultStyleElement styleElem = (DefaultStyleElement) styleDefaultStyleList
 					.item(i);
@@ -740,10 +755,7 @@ public class HTMLConverter implements ODFConverter {
 
 	private void writeCssByStyleStyleElement(PrintWriter writer, ODFDocument doc) {
 		Element root = doc.getDocumentElement();
-		NodeList styleStyleList = XPathUtil.evalXPathNodeList(root,
-				".//*[namespace-uri()='" + StyleConstants.STYLE_NAMESPACE_URI
-						+ "' and local-name()='" + StyleConstants.ELEMENT_STYLE
-						+ "']");
+		NodeList styleStyleList = xpathService.evalForNodeList(EXP2, root);
 		for (int i = 0; i < styleStyleList.getLength(); i++) {
 			StyleElement styleElem = (StyleElement) styleStyleList.item(i);
 			String styleName = styleElem.getName();
@@ -756,10 +768,7 @@ public class HTMLConverter implements ODFConverter {
 
 	private void writeCssByListStyleElement(PrintWriter writer, ODFDocument doc) {
 		Element root = doc.getDocumentElement();
-		NodeList listStyleList = XPathUtil.evalXPathNodeList(root,
-				".//*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='"
-						+ TextConstants.ELEMENT_LIST_STYLE + "']");
+		NodeList listStyleList = xpathService.evalForNodeList(EXP3, root);
 		for (int i = 0; i < listStyleList.getLength(); i++) {
 			ListStyleElement styleElem = (ListStyleElement) listStyleList
 					.item(i);

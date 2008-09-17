@@ -19,13 +19,20 @@ import org.eclipse.actf.model.dom.odf.svg.DescElement;
 import org.eclipse.actf.model.dom.odf.svg.TitleElement;
 import org.eclipse.actf.model.dom.odf.text.SequenceElement;
 import org.eclipse.actf.model.dom.odf.text.TextConstants;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-
 public abstract class EmbedDrawingObjectElementImpl extends
 		DrawingObjectBaseElementImpl implements EmbedDrawingObjectElement {
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object exp1 = xpathService
+			.compile("../*[namespace-uri()='"
+					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
+					+ TextConstants.ELEMENT_SEQUENCE + "']");
 
 	protected EmbedDrawingObjectElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
@@ -62,10 +69,7 @@ public abstract class EmbedDrawingObjectElementImpl extends
 		if (frame == null)
 			return null;
 
-		NodeList nl = XPathUtil.evalXPathNodeList(frame,
-				"../*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='"
-						+ TextConstants.ELEMENT_SEQUENCE + "']");
+		NodeList nl = xpathService.evalForNodeList(exp1, frame);
 		if ((nl != null) && (nl.getLength() == 1))
 			return (SequenceElement) nl.item(0);
 		if ((nl != null) && (nl.getLength() > 1)) {

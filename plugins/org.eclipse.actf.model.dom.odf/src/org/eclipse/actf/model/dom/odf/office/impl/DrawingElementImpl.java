@@ -18,13 +18,20 @@ import org.eclipse.actf.model.dom.odf.draw.DrawConstants;
 import org.eclipse.actf.model.dom.odf.draw.PageElement;
 import org.eclipse.actf.model.dom.odf.office.DrawingElement;
 import org.eclipse.actf.model.dom.odf.range.IContentRange;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-
 class DrawingElementImpl extends ODFElementImpl implements DrawingElement {
 	private static final long serialVersionUID = -1324161975256395109L;
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService
+			.compile("./*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
+					+ "' and local-name()='" + DrawConstants.ELEMENT_PAGE
+					+ "']");
 
 	protected DrawingElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
@@ -40,9 +47,7 @@ class DrawingElementImpl extends ODFElementImpl implements DrawingElement {
 	}
 
 	public PageElement getPage(long idx) {
-		NodeList nl = XPathUtil.evalXPathNodeList(this, "./*[namespace-uri()='"
-				+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
-				+ DrawConstants.ELEMENT_PAGE + "']");
+		NodeList nl = xpathService.evalForNodeList(EXP1, this);
 		if ((idx < 0) || (idx >= nl.getLength())) {
 			new ODFException("invalid page index").printStackTrace();
 			return null;
@@ -51,11 +56,7 @@ class DrawingElementImpl extends ODFElementImpl implements DrawingElement {
 	}
 
 	public long getPageSize() {
-		return XPathUtil.evalXPathNodeList(
-				this,
-				"./*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
-						+ "' and local-name()='" + DrawConstants.ELEMENT_PAGE
-						+ "']").getLength();
+		return xpathService.evalForNodeList(EXP1, this).getLength();
 	}
 
 	public PageElement createPage(long idx) {

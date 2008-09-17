@@ -23,30 +23,34 @@ import org.eclipse.actf.model.dom.odf.text.ListLevelStyleBulletElement;
 import org.eclipse.actf.model.dom.odf.text.ListLevelStyleNumberElement;
 import org.eclipse.actf.model.dom.odf.text.ListStyleElement;
 import org.eclipse.actf.model.dom.odf.text.TextConstants;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 class ListElementImpl extends ODFStylableElementImpl implements ListElement {
 	private static final long serialVersionUID = -1816073361921569606L;
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService
+			.compile("./*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI
+					+ "' and local-name()='list-item']");
 
 	protected ListElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
 	}
 
 	public long getSize() {
-		return XPathUtil.evalXPathNodeList(
-				this,
-				"./*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='list-item']").getLength();
+		return xpathService.evalForNodeList(EXP1, this).getLength();
 	}
 
 	public ListItemElement getItem(long idx) {
-		NodeList nodeList = XPathUtil.evalXPathNodeList(this,
+		NodeList nodeList = xpathService.evalPathForNodeList(
 				"./*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI
-						+ "' and local-name()='list-item'][" + (idx + 1) + "]");
+						+ "' and local-name()='list-item'][" + (idx + 1) + "]",
+				this);
 		if ((nodeList != null) && (nodeList.getLength() == 1)
 				&& (nodeList.item(0) instanceof ListItemElement))
 			return (ListItemElement) nodeList.item(0);

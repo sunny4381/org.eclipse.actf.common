@@ -27,14 +27,26 @@ import org.eclipse.actf.model.dom.odf.svg.SVGConstants;
 import org.eclipse.actf.model.dom.odf.svg.TitleElement;
 import org.eclipse.actf.model.dom.odf.table.TableElement;
 import org.eclipse.actf.model.dom.odf.text.TextConstants;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 public abstract class DrawingObjectElementImpl extends
 		DrawingObjectBaseElementImpl implements DrawingObjectElement {
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService
+			.compile("./*[(namespace-uri()='" + SVGConstants.SVG_NAMESPACE_URI
+					+ "' and local-name()='" + SVGConstants.ELEMENT_TITLE
+					+ "')]");
+
+	private static final Object EXP2 = xpathService
+			.compile("./*[(namespace-uri()='" + SVGConstants.SVG_NAMESPACE_URI
+					+ "' and local-name()='" + SVGConstants.ELEMENT_DESC
+					+ "')]");
 
 	protected DrawingObjectElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
@@ -210,10 +222,7 @@ public abstract class DrawingObjectElementImpl extends
 	}
 
 	public TitleElement getSVGTitleElement() {
-		NodeList nl = XPathUtil.evalXPathNodeList(this,
-				"./*[(namespace-uri()='" + SVGConstants.SVG_NAMESPACE_URI
-						+ "' and local-name()='" + SVGConstants.ELEMENT_TITLE
-						+ "')]");
+		NodeList nl = xpathService.evalForNodeList(EXP1, this);
 		if ((nl != null) && (nl.getLength() == 1))
 			return (TitleElement) nl.item(0);
 		if ((nl != null) && (nl.getLength() > 1)) {
@@ -225,10 +234,7 @@ public abstract class DrawingObjectElementImpl extends
 	}
 
 	public DescElement getSVGDescElement() {
-		NodeList nl = XPathUtil.evalXPathNodeList(this,
-				"./*[(namespace-uri()='" + SVGConstants.SVG_NAMESPACE_URI
-						+ "' and local-name()='" + SVGConstants.ELEMENT_DESC
-						+ "')]");
+		NodeList nl = xpathService.evalForNodeList(EXP2, this);
 		if ((nl != null) && (nl.getLength() == 1))
 			return (DescElement) nl.item(0);
 		if ((nl != null) && (nl.getLength() > 1)) {

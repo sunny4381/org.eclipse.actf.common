@@ -19,10 +19,9 @@ import org.eclipse.actf.model.dom.odf.form.FixedTextElement;
 import org.eclipse.actf.model.dom.odf.form.FormConstants;
 import org.eclipse.actf.model.dom.odf.form.FormControlElement;
 import org.eclipse.actf.model.dom.odf.office.OfficeConstants;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 
 class ControlElementImpl extends DrawingObjectElementImpl implements
 		ControlElement {
@@ -41,7 +40,7 @@ class ControlElementImpl extends DrawingObjectElementImpl implements
 	}
 
 	public FormControlElement getFormControlElement() {
-		NodeList nl = XPathUtil.evalXPathNodeList(this,
+		NodeList nl = XPathServiceFactory.newService().evalPathForNodeList(
 				"ancestor::*/*[namespace-uri()='"
 						+ OfficeConstants.OFFICE_NAMESPACE_URI
 						+ "' and local-name()='"
@@ -52,7 +51,7 @@ class ControlElementImpl extends DrawingObjectElementImpl implements
 						+ "']/*[attribute::*[namespace-uri()='"
 						+ FormConstants.FORM_NAMESPACE_URI
 						+ "' and local-name()='id']='" + getAttrDrawControl()
-						+ "']");
+						+ "']", this);
 
 		if ((nl != null) && (nl.getLength() == 1)) {
 			Element control = (Element) nl.item(0);
@@ -77,7 +76,7 @@ class ControlElementImpl extends DrawingObjectElementImpl implements
 
 	public FixedTextElement getFormLabelFixedTextElement() {
 		String drawControl = getAttrDrawControl();
-		NodeList nl = XPathUtil.evalXPathNodeList(this,
+		NodeList nl = XPathServiceFactory.newService().evalPathForNodeList(
 				"ancestor::*/*[namespace-uri()='"
 						+ OfficeConstants.OFFICE_NAMESPACE_URI
 						+ "' and local-name()='"
@@ -92,7 +91,7 @@ class ControlElementImpl extends DrawingObjectElementImpl implements
 						+ "'][attribute::*[namespace-uri()='"
 						+ FormConstants.FORM_NAMESPACE_URI
 						+ "' and local-name()='" + FormConstants.ATTR_FOR
-						+ "']='" + drawControl + "']");
+						+ "']='" + drawControl + "']", this);
 		if ((nl != null) && (nl.getLength() == 1)) {
 			Element text = (Element) nl.item(0);
 			if (text instanceof FixedTextElement) {

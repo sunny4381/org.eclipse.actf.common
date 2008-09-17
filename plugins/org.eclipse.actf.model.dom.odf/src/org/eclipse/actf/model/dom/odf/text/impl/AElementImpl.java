@@ -26,13 +26,25 @@ import org.eclipse.actf.model.dom.odf.text.AElement;
 import org.eclipse.actf.model.dom.odf.text.BookmarkElement;
 import org.eclipse.actf.model.dom.odf.text.TextConstants;
 import org.eclipse.actf.model.dom.odf.xlink.XLinkConstants;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-
 class AElementImpl extends ODFElementImpl implements AElement {
 	private static final long serialVersionUID = 884129871818293857L;
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService
+			.compile(".//*[namespace-uri()='"
+					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
+					+ TextConstants.ELEMENT_H + "']"
+					+ "[parent::*[namespace-uri()!='"
+					+ TextConstants.TEXT_NAMESPACE_URI + "' or local-name()!='"
+					+ TextConstants.ELEMENT_LIST_ITEM + "'][namespace-uri()!='"
+					+ TextConstants.TEXT_NAMESPACE_URI + "' or local-name()!='"
+					+ TextConstants.ELEMENT_LIST_HEADER + "']]");
 
 	protected AElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
@@ -118,8 +130,8 @@ class AElementImpl extends ODFElementImpl implements AElement {
 		if (XLinkConstants.LINK_TYPE_SIMPLE.equals(type)) {
 			String href = getHref();
 			if ((href.startsWith("#")) && (href.endsWith("|outline"))) { // link
-																			// for
-																			// header
+				// for
+				// header
 				String outlineContents = href.substring(1, href.length() - 8);
 				// calculate list level of heading element
 				// if level==1, it is not included within list structure
@@ -142,8 +154,7 @@ class AElementImpl extends ODFElementImpl implements AElement {
 				// search heading element from list structure, if list level is
 				// more than 1
 				if (level > 1) {
-					NodeList nl = XPathUtil.evalXPathNodeList(
-							getOwnerDocument().getDocumentElement(),
+					NodeList nl = xpathService.evalPathForNodeList(
 							".//*[namespace-uri()='"
 									+ TextConstants.TEXT_NAMESPACE_URI
 									+ "' and local-name()='"
@@ -152,7 +163,8 @@ class AElementImpl extends ODFElementImpl implements AElement {
 									+ TextConstants.TEXT_NAMESPACE_URI
 									+ "' and local-name()='"
 									+ TextConstants.ATTR_OUTLINE_LEVEL + "']='"
-									+ level + "']");
+									+ level + "']", getOwnerDocument()
+									.getDocumentElement());
 					if (nl != null) {
 						for (int i = 0; i < nl.getLength(); i++) {
 							ODFElement elem = (ODFElement) nl.item(i);
@@ -167,20 +179,8 @@ class AElementImpl extends ODFElementImpl implements AElement {
 
 				// search heading element from heading elements which are not
 				// included in list structure
-				NodeList hElemList = XPathUtil.evalXPathNodeList(
-						getOwnerDocument().getDocumentElement(),
-						".//*[namespace-uri()='"
-								+ TextConstants.TEXT_NAMESPACE_URI
-								+ "' and local-name()='"
-								+ TextConstants.ELEMENT_H + "']"
-								+ "[parent::*[namespace-uri()!='"
-								+ TextConstants.TEXT_NAMESPACE_URI
-								+ "' or local-name()!='"
-								+ TextConstants.ELEMENT_LIST_ITEM
-								+ "'][namespace-uri()!='"
-								+ TextConstants.TEXT_NAMESPACE_URI
-								+ "' or local-name()!='"
-								+ TextConstants.ELEMENT_LIST_HEADER + "']]");
+				NodeList hElemList = xpathService.evalForNodeList(EXP1,
+						getOwnerDocument().getDocumentElement());
 				int indexEndPos = href.indexOf('.');
 				if (indexEndPos != -1) {
 					int index = -1;
@@ -218,17 +218,17 @@ class AElementImpl extends ODFElementImpl implements AElement {
 					}
 				}
 			} else if ((href.startsWith("#")) && (href.endsWith("|graphic"))) { // link
-																				// for
-																				// graphic
-																				// object
+				// for
+				// graphic
+				// object
 				String drawName = href.substring(1, href.length() - 8);
 				return findElementByAttrValue(DrawConstants.DRAW_NAMESPACE_URI,
 						DrawConstants.ELEMENT_FRAME,
 						DrawConstants.DRAW_NAMESPACE_URI,
 						DrawConstants.ATTR_NAME, drawName);
 			} else if ((href.startsWith("#")) && (href.endsWith("|table"))) { // link
-																				// for
-																				// table
+				// for
+				// table
 				String tableName = href.substring(1, href.length() - 6);
 				return findElementByAttrValue(
 						TableConstants.TABLE_NAMESPACE_URI,
@@ -236,29 +236,29 @@ class AElementImpl extends ODFElementImpl implements AElement {
 						TableConstants.TABLE_NAMESPACE_URI,
 						TableConstants.ATTR_NAME, tableName);
 			} else if ((href.startsWith("#")) && (href.endsWith("|frame"))) { // link
-																				// for
-																				// frame
+				// for
+				// frame
 				String frameName = href.substring(1, href.length() - 6);
 				return findElementByAttrValue(DrawConstants.DRAW_NAMESPACE_URI,
 						DrawConstants.ELEMENT_FRAME,
 						DrawConstants.DRAW_NAMESPACE_URI,
 						DrawConstants.ATTR_NAME, frameName);
 			} else if ((href.startsWith("#")) && (href.endsWith("|ole"))) { // link
-																			// for
-																			// OLE
-																			// object
+				// for
+				// OLE
+				// object
 				String oleName = href.substring(1, href.length() - 4);
 				return findElementByAttrValue(DrawConstants.DRAW_NAMESPACE_URI,
 						DrawConstants.ELEMENT_FRAME,
 						DrawConstants.DRAW_NAMESPACE_URI,
 						DrawConstants.ATTR_NAME, oleName);
 			} else if ((href.startsWith("#")) && (href.endsWith("|region"))) { // link
-																				// for
-																				// section,
-																				// or
-																				// table
-																				// of
-																				// contents
+				// for
+				// section,
+				// or
+				// table
+				// of
+				// contents
 				String regionName = href.substring(1, href.length() - 7);
 				ODFElement elem = findElementByAttrValue(
 						TextConstants.TEXT_NAMESPACE_URI,

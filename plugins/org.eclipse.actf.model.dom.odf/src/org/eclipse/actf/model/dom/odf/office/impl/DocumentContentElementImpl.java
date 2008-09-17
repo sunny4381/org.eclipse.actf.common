@@ -19,14 +19,22 @@ import org.eclipse.actf.model.dom.odf.office.DocumentContentElement;
 import org.eclipse.actf.model.dom.odf.office.FontFaceDeclsElement;
 import org.eclipse.actf.model.dom.odf.office.OfficeConstants;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 
 class DocumentContentElementImpl extends ODFElementImpl implements
 		DocumentContentElement {
 	private static final long serialVersionUID = -6010974975405611664L;
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService
+			.compile("./*[namespace-uri()='"
+					+ OfficeConstants.OFFICE_NAMESPACE_URI
+					+ "' and local-name()='" + OfficeConstants.ELEMENT_BODY
+					+ "']");
 
 	protected DocumentContentElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
@@ -67,10 +75,7 @@ class DocumentContentElementImpl extends ODFElementImpl implements
 	}
 
 	public BodyElement getBodyElement() {
-		NodeList body = XPathUtil.evalXPathNodeList(this,
-				"./*[namespace-uri()='" + OfficeConstants.OFFICE_NAMESPACE_URI
-						+ "' and local-name()='" + OfficeConstants.ELEMENT_BODY
-						+ "']");
+		NodeList body = xpathService.evalForNodeList(EXP1, this);
 		if ((body == null) || (body.getLength() != 1)) {
 			new ODFException("ODF document must have one office:body element")
 					.printStackTrace();

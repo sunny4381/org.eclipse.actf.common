@@ -18,6 +18,7 @@ import java.util.List;
 import org.apache.commons.jxpath.CompiledExpression;
 import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.Pointer;
+import org.eclipse.actf.util.dom.EmptyNodeListImpl;
 import org.eclipse.actf.util.xpath.XPathService;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -57,14 +58,15 @@ class XPathServiceImpl extends XPathService {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public NodeList evalForNodeList(Object compiled, Node base) {
         CompiledExpression ce = (CompiledExpression) compiled;
         JXPathContext bctx = JXPathContext.newContext(base.getOwnerDocument());
         Pointer ptr = new DOMExNodePointer(base, null);
         JXPathContext ctx = bctx.getRelativeContext(ptr);
         Iterator it = ce.iteratePointers(ctx);
-        if (!it.hasNext()) return null;
+        if (!it.hasNext()) return EmptyNodeListImpl.getInstance();
         List<Node> result = new ArrayList<Node>();
         do {
             Pointer pt = (Pointer) it.next();

@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.util.xpath;
 
+import org.eclipse.actf.util.dom.EmptyNodeListImpl;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -65,7 +66,7 @@ public abstract class XPathService {
 	public NodeList evalPathForNodeList(String path, Node ctx) {
 		Object compiled = compile(path);
 		if (compiled == null)
-			return null;
+			return EmptyNodeListImpl.getInstance();
 		return evalForNodeList(compiled, ctx);
 	}
 
