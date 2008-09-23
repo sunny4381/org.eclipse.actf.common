@@ -18,10 +18,10 @@ org.eclipse.actf.validation/debug/trace = true
 org.eclipse.actf.validation/debug/trace/stream = c:/actfval.out
 org.eclipse.actf.validation/debug/trace/level = 0
 
-org.eclipse.actf.validation.javapp/debug = true
-org.eclipse.actf.validation.javapp/debug/trace = true
-org.eclipse.actf.validation.javapp/debug/trace/stream = c:/actfjava.out
-org.eclipse.actf.validation.javapp/debug/trace/level = 0
+org.eclipse.actf.javaco.core/debug = true
+org.eclipse.actf.javaco.core/debug/trace = true
+org.eclipse.actf.javaco.core/debug/trace/stream = c:/actfjava.out
+org.eclipse.actf.javaco.core/debug/trace/level = 0
 
 org.eclipse.actf.webelo.core/debug = true
 org.eclipse.actf.webelo.core/debug/trace = true

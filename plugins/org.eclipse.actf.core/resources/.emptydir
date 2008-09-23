@@ -1,1 +1,1 @@
-TODO needed to avoid failure of Java App with ACTF Validation; see org.eclipse.actf.validation.javapp.ui.preferences.ModelJavaPreferenceInitializer.getResourcePath(String[])
+TODO needed to avoid failure of Java App with ACTF Validation; see org.eclipse.actf.javaco.ui.preferences.ModelJavaPreferenceInitializer.getResourcePath(String[])
