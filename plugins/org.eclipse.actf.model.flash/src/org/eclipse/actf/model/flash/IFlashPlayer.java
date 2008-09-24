@@ -22,6 +22,8 @@ public interface IFlashPlayer extends IASBridge {
 	public abstract String getStatus();
 
 	public abstract String getPlayerVersion();
+	
+	public abstract String getContentURL();
 
 	public abstract void setPlayerProperty(String propertyName, String value);
 
@@ -30,7 +32,7 @@ public interface IFlashPlayer extends IASBridge {
 	public abstract int getWindow();
 
 	public abstract String getWMode();
-	
+
 	public int getSWFVersion();
 
 	/**
@@ -40,8 +42,8 @@ public interface IFlashPlayer extends IASBridge {
 	public abstract boolean isReady();
 
 	/**
-	 * @return whether this Flash object is visible or not.
-	 *         Invisible means that the Flash object is in window-less mode.
+	 * @return whether this Flash object is visible or not. Invisible means that
+	 *         the Flash object is in window-less mode.
 	 */
 	public abstract boolean isVisible();
 

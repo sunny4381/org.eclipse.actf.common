@@ -16,6 +16,7 @@ public interface IFlashConst {
 	public static final String CLSID_FLASH = "{D27CDB6E-AE6D-11CF-96B8-444553540000}";
 	public static final int INVALID_DEPTH = -16384;
 	public static final String PLAYER_VERSION = "$version";
+	public static final String CONTENT_URL = "_url";
 
 	// Browser Ready State
 	public static final String READY_STATE = "readyState";

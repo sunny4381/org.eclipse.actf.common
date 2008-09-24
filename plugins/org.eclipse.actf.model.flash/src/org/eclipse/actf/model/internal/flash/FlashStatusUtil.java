@@ -18,21 +18,23 @@ import org.eclipse.actf.model.flash.IFlashPlayer;
 
 public class FlashStatusUtil {
 
-
 	// messages for status text
-	private static final String STATUS_OK = Messages.getString("flash.player_ok"); //$NON-NLS-1$
+	private static final String STATUS_OK = Messages
+			.getString("flash.player_ok"); //$NON-NLS-1$
 	private static final String STATUS_NG = Messages
 			.getString("flash.player_embed"); //$NON-NLS-1$
 	private static final String STATUS_NA = Messages
 			.getString("flash.player_no_xcode"); //$NON-NLS-1$
 	private static final String STATUS_WAIT = Messages
 			.getString("flash.player_loading"); //$NON-NLS-1$	
+	private static final String STATUS_HTTPS = Messages
+			.getString("flash.player_https");
 
 	// constants for check
 	private static final String OBJECT = "OBJECT";
 	private static final String TAG_NAME = "tagName";
+	private static final String HTTPS = "https://";
 
-	
 	public static String getStatus(IFlashPlayer player) {
 		if (null == player) {
 			return null;
@@ -43,8 +45,8 @@ public class FlashStatusUtil {
 			return STATUS_OK;
 		}
 
-		//TODO check swf version here
-		
+		// TODO check swf version here
+
 		String tagName = player.getPlayerProperty(TAG_NAME);
 		if (!OBJECT.equalsIgnoreCase(tagName)) {
 			return STATUS_NG;
@@ -52,6 +54,10 @@ public class FlashStatusUtil {
 
 		if (!player.isReady()) {
 			return STATUS_WAIT;
+		}
+
+		if (player.getContentURL().startsWith(HTTPS)) {
+			return STATUS_HTTPS;
 		}
 
 		return STATUS_NA;

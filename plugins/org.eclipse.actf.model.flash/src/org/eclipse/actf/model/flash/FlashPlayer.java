@@ -447,6 +447,19 @@ public class FlashPlayer implements IFlashPlayer {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getContentURL()
+	 */
+	public String getContentURL() {
+		String result = getVariable(CONTENT_URL);
+		if (result != null) {
+			return result;
+		}
+		return "";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IFlashPlayer#getSWFVersion()
 	 */
 	public int getSWFVersion() {
