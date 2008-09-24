@@ -10,16 +10,35 @@
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.core;
 
-public interface IHTTPResponseMessage extends IHTTPMessage{
+/**
+ * A HTTP response message.
+ */
+public interface IHTTPResponseMessage extends IHTTPMessage {
 
 	public static final byte[] EMPTY_BODY = new byte[0];
 
+	/**
+	 * Gets the status code of this response message.
+	 * @return status code as a String
+	 */
 	public abstract String getStatusCodeAsString();
 
+	/**
+	 * Gets the status code of this response message.
+	 * @return status code as an array of bytes
+	 */
 	public abstract byte[] getStatusCodeAsBytes();
 
+	/**
+	 * Gets the reason phrase of this response message.
+	 * @return reason phrase as a String
+	 */
 	public abstract String getReasonPhraseAsString();
 
+	/**
+	 * Gets the reason phrase of this response message.
+	 * @return reason phrase as an array of bytes
+	 */
 	public abstract byte[] getReasonPhraseAsBytes();
 
 }

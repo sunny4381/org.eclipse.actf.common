@@ -12,8 +12,15 @@ package org.eclipse.actf.util.httpproxy.core;
 
 import java.io.PushbackInputStream;
 
-public interface IPushbackMessageBody extends IMessageBody{
+/**
+ * Body of a HTTP request/response message which can provide {@link PushbackInputStream}.
+ */
+public interface IPushbackMessageBody extends IMessageBody {
 
+	/**
+	 * Returns a {@link PushbackInputStream} for this message body.
+	 * @return a {@link PushbackInputStream} for this message body.
+	 */
 	// Caution!!!! Without pushback option, body will be invalidated.
 	public abstract PushbackInputStream getMessageBodyPushBackInputStream();
 

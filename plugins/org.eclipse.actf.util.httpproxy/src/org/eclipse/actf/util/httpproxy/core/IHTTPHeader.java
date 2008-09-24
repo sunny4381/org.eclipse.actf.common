@@ -14,6 +14,9 @@ package org.eclipse.actf.util.httpproxy.core;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * HTTP header information of a HTTP request/request message.
+ */
 public interface IHTTPHeader {
 
 	public static final String METHOD_OPTIONS = "OPTIONS";
@@ -86,24 +89,72 @@ public interface IHTTPHeader {
 			.getBytes();
 	public static final byte[] ACCEPT_ENCODING_A = ACCEPT_ENCODING.getBytes();
 
+	/**
+	 * Marks whether this header entry is removed or not.
+	 * The removed header entry will not be written by {@link #writeLine(OutputStream)}.
+	 * @param removed true when to mark removed, false if not.
+	 */
 	public abstract void setRemoved(boolean removed);
 
+	/**
+	 * Returns true if this header entry is marked as removed.
+	 * The removed header entry will not be written by {@link #writeLine(OutputStream)}.
+	 * @return true if this header entry is marked as removed
+	 */
 	public abstract boolean isRemoved();
 
+	/**
+	 * Compares field name.
+	 * @param name
+	 * @return true if the filed name equals to the specified name
+	 */
 	public abstract boolean isFieldNameEqualsTo(byte[] name);
 
+	/**
+	 * Compares field value.
+	 * @param value
+	 * @return true if the field value equals to the specified value
+	 */
 	public abstract boolean isFieldValueEqualsTo(byte[] value);
 
+	/**
+	 * Get name of this header. 
+	 * @return name of this header as an array of bytes
+	 */
 	public abstract byte[] getName();
 
+	/**
+	 * Get value of this header.
+	 * @return value of this header as an array of bytes
+	 */
 	public abstract byte[] getValue();
 
+	/**
+	 * Set value of this header.
+	 * @param value
+	 */
 	public abstract void setValue(byte[] value);
 
+	/**
+	 * Compares value of this header.
+	 * @param value
+	 * @return true if the value of this header equals to the specified value
+	 */
 	public abstract boolean compareValue(byte[] value);
 
+	/**
+	 * Compares value of this header ignoring case. 
+	 * @param value
+	 * @return true if the value of this header equals to the specified value (case ignored)
+	 */
 	public abstract boolean compareValueIgnoreCase(byte[] value);
 
+	/**
+	 * Writes an HTTP header line for this entry.
+	 * Nothing will be written if the removed flag is set to true.
+	 * @param out
+	 * @throws IOException
+	 */
 	public abstract void writeLine(OutputStream out) throws IOException;
 
 }

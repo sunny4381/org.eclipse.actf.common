@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.util;
 
+/**
+ * This exception is thrown when an operation (e.g. read and write) did not completes within a specific time. 
+ */
 public class TimeoutException extends Exception {
     private static final long serialVersionUID = 2697832049495326392L;
 

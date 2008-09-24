@@ -19,7 +19,9 @@ import java.io.StringWriter;
 import java.util.Properties;
 import java.util.logging.Level;
 
-
+/**
+ * Utility class for logging.
+ */  
 public class Logger {
     public static void setConfigPropertyName(String name) {
         PROP_LOGGING_CONFIGURATION = name;
@@ -327,6 +329,11 @@ public class Logger {
         fDelegate.finest(createMessage(msg));
     }
 
+    /**
+     * Write a log message for debug.
+     * @param msg log message
+     * @param e 
+     */
     public void debug2(String msg, Throwable e) {
         StringBuffer sb = new StringBuffer();
         sb.append(msg);

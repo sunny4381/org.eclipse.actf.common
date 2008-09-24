@@ -12,20 +12,36 @@ package org.eclipse.actf.util.httpproxy.core;
 
 import java.io.InputStream;
 
+/**
+ * Body of a HTTP request/response message.
+ */
 public interface IMessageBody {
 
 	/**
 	 * Returns content length of this message body. If no content length is
-	 * specified, e.g. when chunked encoding, -1 is returned.
+	 * specified or it is chunked encoding, -1 is returned.
 	 * 
-	 * return content length, or -1 if no content length is specified.
+	 * @return content length, or -1 if no content length is specified.
 	 */	
 	public abstract int getContentLength();
 
+	/**
+	 * Returns whether the encoding of this message body is chunked encoding.
+	 * @return true if the encoding of this message body is chunked encoding
+	 */
 	public abstract boolean isChunkedEncoding();
 
+	/**
+	 * Returns an input stream for this message body whose read methods 
+	 * keep retrying to read even when SocketTimeoutExceptions are thrown.  
+	 * @return input stream for this message body
+	 */
 	public abstract InputStream getMessageBodyTimeoutInputStream();
 
+	/**
+	 * Returns an input stream for this message body.
+	 * @return input stream for this message body
+	 */
 	public abstract InputStream getMessageBodyInputStream();
 
 }

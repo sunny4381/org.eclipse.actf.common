@@ -34,6 +34,9 @@ import org.eclipse.actf.util.internal.httpproxy.core.ClientConnectionListener;
 import org.eclipse.actf.util.internal.httpproxy.proxy.ClientStateManager;
 import org.eclipse.actf.util.internal.httpproxy.proxy.HTTPProxyConnection;
 
+/**
+ * HTTPProxy is the class for the server instance of HTTP proxy.
+ */
 public class HTTPProxy implements ClientConnectionListener {
 	private static final Logger LOGGER = Logger.getLogger(HTTPProxy.class);
 
@@ -216,6 +219,15 @@ public class HTTPProxy implements ClientConnectionListener {
 				+ USAGE_PARAMS);
 	}
 
+	/**
+	 * Returns a new instance of this class.
+	 * 
+	 * @param config Configuration for the instance
+	 * @param externalProxyConfig 
+	 * @param logName 
+	 * @param configIS
+	 * @return
+	 */
 	public static HTTPProxy newProxy(ProxyConfig config, ExternalProxyConfig externalProxyConfig, String logName,
 			InputStream configIS) {
 		try {
@@ -231,6 +243,8 @@ public class HTTPProxy implements ClientConnectionListener {
 	}
 
 	/**
+	 * A sample bootstrap code for stand-alone HTTP proxy process.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
