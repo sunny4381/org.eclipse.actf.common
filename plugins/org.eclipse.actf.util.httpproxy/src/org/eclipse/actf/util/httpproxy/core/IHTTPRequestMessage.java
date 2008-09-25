@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.core;
 
-import org.eclipse.actf.util.internal.httpproxy.core.BufferRange;
 
 /**
  * A HTTP request message.
@@ -21,7 +20,7 @@ public interface IHTTPRequestMessage extends IHTTPMessage {
 	 * Gets the HTTP method field of this request message.
 	 * @return buffer range that indicates the HTTP method field
 	 */
-	public abstract BufferRange getMethod();
+	public abstract IBufferRange getMethod();
 
 	/**
 	 * Gets the HTTP method field of this request message.
@@ -39,7 +38,7 @@ public interface IHTTPRequestMessage extends IHTTPMessage {
 	 * Gets the request URI field of this request message.
 	 * @return buffer range that indicates the Request URI field
 	 */
-	public abstract BufferRange getRequestURI();
+	public abstract IBufferRange getRequestURI();
 
 	/**
 	 * Sets the request URI field of this request message.
@@ -63,7 +62,7 @@ public interface IHTTPRequestMessage extends IHTTPMessage {
 	 * Gets the HTTP version field of this request message.
 	 * @return buffer range that indicates the HTTP version field
 	 */
-	public abstract BufferRange getHTTPVersion();
+	public abstract IBufferRange getHTTPVersion();
 
 	/**
 	 * Compares the method field of this request message with the specified value.

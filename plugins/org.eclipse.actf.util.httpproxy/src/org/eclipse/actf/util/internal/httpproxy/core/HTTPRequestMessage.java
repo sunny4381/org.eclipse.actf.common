@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.eclipse.actf.util.httpproxy.core.IBufferRange;
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
 import org.eclipse.actf.util.httpproxy.core.IMessageBody;
@@ -28,10 +29,10 @@ public class HTTPRequestMessage extends HTTPMessage implements IHTTPRequestMessa
     //                  CRLF
     //                  [ message-body ]
 
-    private BufferRange fMethod;
-    private BufferRange fRequestURI;
+    private IBufferRange fMethod;
+    private IBufferRange fRequestURI;
     private String modifiedRequestURI;
-    private BufferRange fHTTPVersion;
+    private IBufferRange fHTTPVersion;
 
     public HTTPRequestMessage(long serial) {
         super(serial);
@@ -43,7 +44,7 @@ public class HTTPRequestMessage extends HTTPMessage implements IHTTPRequestMessa
     /* (non-Javadoc)
 	 * @see org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage#getMethod()
 	 */
-    public BufferRange getMethod() {
+    public IBufferRange getMethod() {
         return fMethod;
     }
 
@@ -64,7 +65,7 @@ public class HTTPRequestMessage extends HTTPMessage implements IHTTPRequestMessa
     /* (non-Javadoc)
 	 * @see org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage#getRequestURI()
 	 */
-    public BufferRange getRequestURI() {
+    public IBufferRange getRequestURI() {
         if (modifiedRequestURI != null) return null;
         return fRequestURI;
     }
@@ -94,7 +95,7 @@ public class HTTPRequestMessage extends HTTPMessage implements IHTTPRequestMessa
     /* (non-Javadoc)
 	 * @see org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage#getHTTPVersion()
 	 */
-    public BufferRange getHTTPVersion() {
+    public IBufferRange getHTTPVersion() {
         return fHTTPVersion;
     }
 

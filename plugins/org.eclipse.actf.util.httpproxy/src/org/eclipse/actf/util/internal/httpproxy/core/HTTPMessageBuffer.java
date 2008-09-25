@@ -14,6 +14,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.eclipse.actf.util.httpproxy.core.IBufferRange;
+
 
 public class HTTPMessageBuffer extends ByteArrayOutputStream {
     public static final int DEFAULT_INITIAL_BUFFER_SIZE = 1024;
@@ -39,11 +41,11 @@ public class HTTPMessageBuffer extends ByteArrayOutputStream {
         return super.count;
     }
 
-    public String getAsString(BufferRange range) {
+    public String getAsString(IBufferRange range) {
         return new String(super.buf, range.getStart(), range.getLength());
     }
 
-    public byte[] getAsBytes(BufferRange range) {
+    public byte[] getAsBytes(IBufferRange range) {
         int len = range.getLength();
         if (len <= 0) {
             return new byte[0];
@@ -53,11 +55,11 @@ public class HTTPMessageBuffer extends ByteArrayOutputStream {
         return bytes;
     }
         
-    public final void writeTo(OutputStream out, BufferRange range) throws IOException {
+    public final void writeTo(OutputStream out, IBufferRange range) throws IOException {
         out.write(super.buf, range.getStart(), range.getLength());
     }
 
-    public boolean equals(BufferRange range, byte[] data) {
+    public boolean equals(IBufferRange range, byte[] data) {
         int len = data.length;
         if (len != range.getLength()) {
             return false;
@@ -72,7 +74,7 @@ public class HTTPMessageBuffer extends ByteArrayOutputStream {
         return true;
     }
 
-    public boolean equalsIgnoreCase(BufferRange range, byte[] data) {
+    public boolean equalsIgnoreCase(IBufferRange range, byte[] data) {
         int len = data.length;
         if (len != range.getLength()) {
             return false;

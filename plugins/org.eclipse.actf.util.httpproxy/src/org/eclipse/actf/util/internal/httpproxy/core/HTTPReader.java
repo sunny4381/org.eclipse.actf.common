@@ -19,6 +19,7 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.actf.util.httpproxy.core.IBufferRange;
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.util.Logger;
 import org.eclipse.actf.util.httpproxy.util.TimeoutException;
@@ -155,7 +156,7 @@ public abstract class HTTPReader {
     
     protected HeaderInBuffer readHeader(long timeout, HTTPMessageBuffer buf) throws IOException, TimeoutException {
         // Read 'field-name'
-        BufferRange fieldName = new BufferRange();
+        IBufferRange fieldName = new BufferRange();
         readNextToken(timeout, buf, fieldName, ':');
         if (fLastByte == EOF || fLastByte == LF) {
             return null;
@@ -168,7 +169,7 @@ public abstract class HTTPReader {
         skipSpaces(timeout, buf);
                         
         // Read 'field-value'
-        BufferRange fieldValue = new BufferRange();
+        IBufferRange fieldValue = new BufferRange();
         readNextToken(timeout, buf, fieldValue);
         while (hasContinuedLine(timeout)) {
             readContinuedLine(timeout, buf, fieldValue);
@@ -179,7 +180,7 @@ public abstract class HTTPReader {
         return header;
     }
         
-    private final int readContinuedLine(long timeout, HTTPMessageBuffer buf, BufferRange range) throws IOException, TimeoutException {
+    private final int readContinuedLine(long timeout, HTTPMessageBuffer buf, IBufferRange range) throws IOException, TimeoutException {
         // Read until CRLF
         int start = buf.getLength();
         boolean cr = false;
@@ -223,11 +224,11 @@ public abstract class HTTPReader {
         fIn.unread(fLastByte);
     }
 
-    protected final int readNextToken(long timeout, HTTPMessageBuffer buf, BufferRange marker) throws IOException, TimeoutException {
+    protected final int readNextToken(long timeout, HTTPMessageBuffer buf, IBufferRange marker) throws IOException, TimeoutException {
         return readNextToken(timeout, buf, marker, (char) 0);
     }
         
-    protected final int readNextToken(long timeout, HTTPMessageBuffer buf, BufferRange marker, char delim) throws IOException, TimeoutException {
+    protected final int readNextToken(long timeout, HTTPMessageBuffer buf, IBufferRange marker, char delim) throws IOException, TimeoutException {
         int start = buf.getLength();
         nextByte(timeout, buf);
         int length = 0;

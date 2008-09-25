@@ -13,11 +13,13 @@ package org.eclipse.actf.util.internal.httpproxy.core;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.eclipse.actf.util.httpproxy.core.IBufferRange;
+
 
 public final class HeaderInBuffer extends HTTPHeader {
     private HTTPMessageBuffer fBuffer;
-    private BufferRange fName;
-    private BufferRange fValue;
+    private IBufferRange fName;
+    private IBufferRange fValue;
     private byte[] fReplacedValue;
 	
     public HeaderInBuffer() {
@@ -26,7 +28,7 @@ public final class HeaderInBuffer extends HTTPHeader {
         fReplacedValue = null;
     }
 	
-    public void init(HTTPMessageBuffer buffer, BufferRange name, BufferRange value) {
+    public void init(HTTPMessageBuffer buffer, IBufferRange name, IBufferRange value) {
         fBuffer = buffer;
         fName = name;
         fValue = value;
@@ -39,11 +41,11 @@ public final class HeaderInBuffer extends HTTPHeader {
         fReplacedValue = null;
     }
 	
-    public BufferRange getNameAsBufferRange() {
+    public IBufferRange getNameAsBufferRange() {
         return fName;
     }
 	
-    public BufferRange getValueAsBufferRange() {
+    public IBufferRange getValueAsBufferRange() {
         return fValue;
     }
 	

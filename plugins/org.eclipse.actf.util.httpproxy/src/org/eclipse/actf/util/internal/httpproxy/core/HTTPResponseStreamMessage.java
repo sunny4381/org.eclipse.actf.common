@@ -13,6 +13,8 @@ package org.eclipse.actf.util.internal.httpproxy.core;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.eclipse.actf.util.httpproxy.core.IBufferRange;
+
 
 public class HTTPResponseStreamMessage extends HTTPResponseMessage {
     // Request = Status-Line
@@ -23,9 +25,9 @@ public class HTTPResponseStreamMessage extends HTTPResponseMessage {
     //                  [ message-body ]
     // Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF
 
-    private BufferRange fHTTPVersion;
-    private BufferRange fStatusCode;
-    private BufferRange fReasonPhrase;
+    private IBufferRange fHTTPVersion;
+    private IBufferRange fStatusCode;
+    private IBufferRange fReasonPhrase;
 
     public HTTPResponseStreamMessage(long serial) {
         super(serial);
@@ -34,7 +36,7 @@ public class HTTPResponseStreamMessage extends HTTPResponseMessage {
         fReasonPhrase = new BufferRange();
     }
         
-    public BufferRange getHTTPVersion() {
+    public IBufferRange getHTTPVersion() {
         return fHTTPVersion;
     }
         
@@ -46,7 +48,7 @@ public class HTTPResponseStreamMessage extends HTTPResponseMessage {
         return getBuffer().getAsBytes(fHTTPVersion);
     }
         
-    public BufferRange getStatusCode() {
+    public IBufferRange getStatusCode() {
         return fStatusCode;
     }
         
@@ -58,7 +60,7 @@ public class HTTPResponseStreamMessage extends HTTPResponseMessage {
         return getBuffer().getAsBytes(fStatusCode);
     }
         
-    public BufferRange getReasonPhrase() {
+    public IBufferRange getReasonPhrase() {
         return fReasonPhrase;
     }
 

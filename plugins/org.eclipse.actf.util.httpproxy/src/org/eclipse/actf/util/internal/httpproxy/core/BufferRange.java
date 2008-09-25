@@ -10,34 +10,54 @@
  *******************************************************************************/
 package org.eclipse.actf.util.internal.httpproxy.core;
 
-public class BufferRange {
+import org.eclipse.actf.util.httpproxy.core.IBufferRange;
+
+public class BufferRange implements IBufferRange {
     private int fStart;
     private int fLength;
         
     public BufferRange() {
     }
         
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.util.internal.httpproxy.core.IBufferRange#reset()
+	 */
     public void reset() {
         fStart = 0;
         fLength = 0;
     }
         
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.util.internal.httpproxy.core.IBufferRange#setStart(int)
+	 */
     public void setStart(int start) {
         fStart = start;
     }
         
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.util.internal.httpproxy.core.IBufferRange#setLength(int)
+	 */
     public void setLength(int length) {
         fLength = length;
     }
         
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.util.internal.httpproxy.core.IBufferRange#getStart()
+	 */
     public int getStart() {
         return fStart;
     }
         
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.util.internal.httpproxy.core.IBufferRange#getLength()
+	 */
     public int getLength() {
         return fLength;
     }
         
+    /* (non-Javadoc)
+	 * @see org.eclipse.actf.util.internal.httpproxy.core.IBufferRange#toString()
+	 */
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append('[').append(Integer.toString(fStart));
