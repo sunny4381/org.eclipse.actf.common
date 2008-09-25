@@ -71,7 +71,8 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         &lt;pre&gt;
+         The following is an example of an extension definition:
+&lt;pre&gt;
    &lt;extension
          point=&quot;org.eclipse.actf.model.ui.webBrowserEventListener&quot;&gt;
       &lt;listener
