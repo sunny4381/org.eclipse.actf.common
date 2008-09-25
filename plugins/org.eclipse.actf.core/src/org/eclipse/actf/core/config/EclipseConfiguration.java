@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *  Ann Ford - initial API and implementation
+ *  IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.core.config;
 

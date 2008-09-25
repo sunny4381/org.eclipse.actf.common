@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Mike Squillace - initial API and implementation
+ *    IBM Corporation - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
