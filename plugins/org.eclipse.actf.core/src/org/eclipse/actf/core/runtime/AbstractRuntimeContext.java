@@ -6,7 +6,7 @@
 * http://www.eclipse.org/legal/epl-v10.html
 *
 * Contributors:
-*  <a href="mailto:masquill@us.ibm.com>Mike Squillace</a> - initial API and implementation
+* IBM Corporation - initial API and implementation
 *******************************************************************************/ 
 
 
