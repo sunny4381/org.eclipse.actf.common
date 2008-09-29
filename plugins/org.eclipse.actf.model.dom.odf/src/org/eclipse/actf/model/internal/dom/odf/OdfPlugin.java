@@ -8,18 +8,29 @@
  * Contributors:
  *    Tatsuya ISHIHARA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.dom.odf;
+package org.eclipse.actf.model.internal.dom.odf;
 
 import org.eclipse.core.runtime.Plugin;
 
+/**
+ * The activator class controls the plug-in life cycle
+ */
 public class OdfPlugin extends Plugin {
-
+	// The shared instance
 	private static OdfPlugin plugin;
 
+	/**
+	 * The constructor
+	 */	
 	public OdfPlugin() {
 		plugin = this;
 	}
 
+	/**
+	 * Returns the shared instance
+	 * 
+	 * @return the shared instance
+	 */	
 	public static OdfPlugin getDefault() {
 		return plugin;
 	}
