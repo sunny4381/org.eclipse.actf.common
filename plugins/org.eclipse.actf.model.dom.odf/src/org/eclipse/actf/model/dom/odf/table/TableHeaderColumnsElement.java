@@ -14,7 +14,9 @@ import java.util.List;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
-
+/**
+ * Interface for <table:table-header-columns> element.
+ */
 public interface TableHeaderColumnsElement extends ODFElement {
 	public int getTableIndex();
 

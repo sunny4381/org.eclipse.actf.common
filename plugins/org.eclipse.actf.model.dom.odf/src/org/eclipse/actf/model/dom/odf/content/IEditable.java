@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.content;
 
+/**
+ * ODF elements that have text contents should implements this interface.
+ */
 public interface IEditable {
 	public Object getValue();
 

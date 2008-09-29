@@ -10,5 +10,8 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.office;
 
+/**
+ * Interface for <office:presentation> element.
+ */
 public interface PresentationElement extends DrawingElement {
 }

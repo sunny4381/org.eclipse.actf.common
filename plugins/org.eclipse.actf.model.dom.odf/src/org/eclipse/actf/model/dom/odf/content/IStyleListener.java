@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.content;
 
+/**
+ * Listener class to detect ODF style change should implement this interface.
+ * Currently this interface is not implemented yet.
+ */
 public interface IStyleListener {
 	public void onStyle(IStylable target, String topic);
 }

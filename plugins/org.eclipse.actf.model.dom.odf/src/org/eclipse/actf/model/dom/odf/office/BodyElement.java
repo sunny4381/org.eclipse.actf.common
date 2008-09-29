@@ -13,6 +13,9 @@ package org.eclipse.actf.model.dom.odf.office;
 import org.eclipse.actf.model.dom.odf.base.ContentBaseElement;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <office:body> element.
+ */
 public interface BodyElement extends ODFElement {
 	public ContentBaseElement getContent();
 }

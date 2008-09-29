@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.draw;
 
 import org.eclipse.actf.model.dom.odf.base.EmbedDrawingObjectElement;
 
+/**
+ * Interface for <draw:object> element.
+ */
 public interface ObjectElement extends EmbedDrawingObjectElement {
 	public String getAttrDrawNotifyOnUpdateOfRanges();
 

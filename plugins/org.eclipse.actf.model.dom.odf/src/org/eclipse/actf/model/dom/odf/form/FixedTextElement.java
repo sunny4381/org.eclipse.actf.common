@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.form;
 
+/**
+ * Interface for <form:fixed-text> element.
+ */
 public interface FixedTextElement extends FormControlElement {
 	public String getAttrFormFor();
 }

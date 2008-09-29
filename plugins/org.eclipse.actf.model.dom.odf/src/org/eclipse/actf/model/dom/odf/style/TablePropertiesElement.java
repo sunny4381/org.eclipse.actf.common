@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.style;
 
+/**
+ * Interface for <style:table-properties> element.
+ */
 public interface TablePropertiesElement extends StylePropertiesBase {
 	public boolean getAttrTableDisplay();
 

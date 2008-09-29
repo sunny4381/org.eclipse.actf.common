@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.text;
 
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 
+/**
+ * Interface for <text:list-style> element.
+ */
 public interface ListStyleElement extends StyleElement {
 	public long getListLevelStyleBulletSize();
 

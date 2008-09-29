@@ -13,6 +13,9 @@ package org.eclipse.actf.model.dom.odf.base;
 import org.eclipse.actf.model.dom.odf.svg.DescElement;
 import org.eclipse.actf.model.dom.odf.svg.TitleElement;
 
+/**
+ * All graphics ODF elements should implement this interface.
+ */
 public interface DrawingObjectBaseElement extends ODFElement {
 	public TitleElement getSVGTitleElement();
 

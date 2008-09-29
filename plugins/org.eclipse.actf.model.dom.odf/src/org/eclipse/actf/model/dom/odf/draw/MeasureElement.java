@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.draw;
 
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
+/**
+ * Interface for <draw:measure> element.
+ */
 public interface MeasureElement extends DrawingObjectElement {
 }

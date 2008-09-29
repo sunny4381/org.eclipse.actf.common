@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.style;
 
+/**
+ * Interface for <style:table-column-properties> element.
+ */
 public interface TableColumnPropertiesElement extends StylePropertiesBase {
 	public String getAttrFormatBreakBefore();
 

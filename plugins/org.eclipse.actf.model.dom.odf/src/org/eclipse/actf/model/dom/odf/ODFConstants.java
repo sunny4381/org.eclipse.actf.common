@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf;
 
+/**
+ * ODFConstants defines the constant values used by ODF DOM API
+ */
 public final class ODFConstants {
 	public enum ContentType {
 		WRITE, SPREADSHEET, PRESENTATION, DRAW, CHART, NONE

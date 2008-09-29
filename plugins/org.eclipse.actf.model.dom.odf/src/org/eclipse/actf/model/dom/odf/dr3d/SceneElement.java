@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.dr3d;
 
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
+/**
+ * Interface for <dr3d:scene> element.
+ */
 public interface SceneElement extends DrawingObjectElement {
 }

@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.draw;
 
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
+/**
+ * Interface for <draw:line> element.
+ */
 public interface LineElement extends DrawingObjectElement {
 }

@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.base;
 
 import org.w3c.dom.Attr;
 
+/**
+ * The extended interface of the {@link Attr}.
+ */
 public interface ODFAttr extends ODFNode, Attr {
 }

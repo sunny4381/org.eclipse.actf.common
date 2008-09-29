@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.form;
 
+/**
+ * FormConstants defines the constant values used by form namespace of ODF DOM API
+ */
 public final class FormConstants {
 	static public final String FORM_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:form:1.0";
 

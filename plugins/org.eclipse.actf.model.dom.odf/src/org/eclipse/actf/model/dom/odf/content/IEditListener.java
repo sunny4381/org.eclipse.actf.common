@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.content;
 
+/**
+ * Listener class to detect ODF content change should implement this interface.
+ * Currently this interface is not implemented yet.
+ */ 
 public interface IEditListener {
 	public void onEdit(IEditable target, String topic);
 }

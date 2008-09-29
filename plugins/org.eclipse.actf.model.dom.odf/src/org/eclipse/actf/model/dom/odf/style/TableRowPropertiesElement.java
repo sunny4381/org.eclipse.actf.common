@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.style;
 
+/**
+ * Interface for <style:table-row-properties> element.
+ */
 public interface TableRowPropertiesElement extends StylePropertiesBase {
 	public String getAttrStyleRowHeight();
 

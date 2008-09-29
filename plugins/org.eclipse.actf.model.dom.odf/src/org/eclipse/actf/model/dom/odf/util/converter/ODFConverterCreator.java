@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.util.converter;
 
 import org.eclipse.actf.model.dom.odf.util.converter.impl.HTMLConverter;
 
+/**
+ * Factory class to create ODF converter class
+ */
 public class ODFConverterCreator {
 	static public ODFConverter createHTMLConverter() {
 		return (ODFConverter) (new HTMLConverter());

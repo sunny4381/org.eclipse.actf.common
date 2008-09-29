@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.text;
 
+/**
+ * ODF elements that have text contents should implements this interface.
+ */
 public interface ITextContent {
 	public String getType();
 }

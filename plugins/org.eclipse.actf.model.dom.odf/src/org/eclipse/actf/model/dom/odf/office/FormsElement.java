@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.office;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <office:forms> element.
+ */
 public interface FormsElement extends ODFElement {
 }

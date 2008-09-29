@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.form;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * ODF elements representing form controls should implement this interface.
+ */
 public interface FormControlElement extends ODFElement {
 	public String getAttrFormLabel();
 

@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.text;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <text:table-of-content-source> element.
+ */
 public interface TableOfContentSourceElement extends ODFElement {
 }

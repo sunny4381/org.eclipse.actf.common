@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.office;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <office:document-styles> element.
+ */
 public interface DocumentStylesElement extends ODFElement {
 	double getAttrOfficeVersion();
 }

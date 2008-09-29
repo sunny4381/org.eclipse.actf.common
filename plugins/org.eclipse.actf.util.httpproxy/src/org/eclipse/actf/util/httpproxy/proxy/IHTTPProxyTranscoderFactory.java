@@ -10,6 +10,16 @@
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.proxy;
 
+/**
+ * Factory of HTTP proxy transcoders.
+ * @see IHTTPProxyTranscoder
+ */
 public interface IHTTPProxyTranscoderFactory {
+	/**
+	 * Creates new instance of HTTP proxy transcoder.
+	 * @param id 
+	 * @return a HTTP proxy transcoder object
+	 * @see IHTTPProxyTranscoder
+	 */
 	IHTTPProxyTranscoder newInstance(int id);
 }

@@ -15,7 +15,18 @@ package org.eclipse.actf.util.httpproxy.proxy;
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
 
+/**
+ * Transcoder of HTTP response message.
+ */
 public interface IHTTPProxyTranscoder {
+	/**
+	 * Transforms an HTTP response message.
+	 * 
+	 * @param id
+	 * @param request an HTTP request message
+	 * @param response an HTTP response message
+	 * @return transcoded HTTP response message
+	 */
 	public IHTTPResponseMessage transcode(int id, IHTTPRequestMessage request,
 			IHTTPResponseMessage response);
 }

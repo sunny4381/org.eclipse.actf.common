@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.base;
 
 import org.w3c.dom.Element;
 
+/**
+ * The extended interface of the {@link Element}.
+ */
 public interface ODFElement extends Element {
 }

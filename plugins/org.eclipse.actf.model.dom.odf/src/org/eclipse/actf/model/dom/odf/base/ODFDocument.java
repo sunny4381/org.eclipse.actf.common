@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.base;
 
 import org.w3c.dom.Document;
 
+/**
+ * The extended interface of the {@link Document}.
+ */
 public interface ODFDocument extends Document {
 	public String getURL();
 

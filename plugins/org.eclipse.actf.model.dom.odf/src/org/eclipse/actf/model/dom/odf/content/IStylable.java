@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.content;
 
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 
+/**
+ * ODF elements that refers style elements should implements this interface.
+ */
 public interface IStylable {
 	public void setStyle(StyleElement style);
 

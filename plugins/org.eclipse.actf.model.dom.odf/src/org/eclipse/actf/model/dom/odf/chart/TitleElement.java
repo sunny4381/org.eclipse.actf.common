@@ -14,7 +14,9 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IEditable;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
-
+/**
+ * Interface for <chart:title> element.
+ */
 public interface TitleElement extends ODFElement, IStylable, IEditable {
 	public String getAttrSvgX();
 

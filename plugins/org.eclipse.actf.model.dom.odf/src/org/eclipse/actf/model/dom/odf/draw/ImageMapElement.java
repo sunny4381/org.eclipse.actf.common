@@ -13,7 +13,9 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.EmbedDrawingObjectElement;
 import org.w3c.dom.NodeList;
 
-
+/**
+ * Interface for <draw:image-map> element.
+ */
 public interface ImageMapElement extends EmbedDrawingObjectElement {
 	public ImageElement getImageElements();
 

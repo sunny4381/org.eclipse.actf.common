@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.text;
 
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
+/**
+ * Interface for <text:table-of-content> element.
+ */
 public interface TableOfContentElement extends ITextElementContainer {
 }

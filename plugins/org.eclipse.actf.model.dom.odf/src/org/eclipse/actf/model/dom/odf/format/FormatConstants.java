@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.format;
 
+/**
+ * FormatConstants defines the constant values used by XSL format namespace of ODF DOM API
+ */
 public final class FormatConstants {
 	static public final String FORMAT_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0";
 

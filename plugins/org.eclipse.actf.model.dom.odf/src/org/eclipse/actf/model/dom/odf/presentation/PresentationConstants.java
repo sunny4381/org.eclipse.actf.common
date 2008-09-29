@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.presentation;
 
+/**
+ * PresentationConstants defines the constant values used by presentation namespace of ODF DOM API
+ */
 public final class PresentationConstants {
 	static public final String PRESENTATION_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:presentation:1.0";
 

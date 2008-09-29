@@ -10,12 +10,25 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.base;
 
+import org.eclipse.actf.model.dom.odf.ODFConstants;
 import org.eclipse.actf.model.dom.odf.ODFConstants.ContentType;
 import org.eclipse.actf.model.dom.odf.range.IContentRange;
 
-
+/**
+ * ODF elements that has <office:body> element as parent should implement this interface.
+ */
 public interface ContentBaseElement extends ODFElement {
+	/**
+	 * Returns content type defined in {@link ODFConstants#ContentType}.
+	 * 
+	 * @return ODF document type
+	 */
 	public ContentType getContentType();
 
+	/**
+	 * Returns newly created range class.
+	 * 
+	 * @return new range instance
+	 */
 	IContentRange createRange();
 }

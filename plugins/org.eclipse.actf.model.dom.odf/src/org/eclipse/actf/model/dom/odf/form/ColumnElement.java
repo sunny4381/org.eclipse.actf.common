@@ -10,5 +10,8 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.form;
 
+/**
+ * Interface for <form:column> element.
+ */
 public interface ColumnElement extends FormControlElement {
 }

@@ -13,7 +13,9 @@ package org.eclipse.actf.model.dom.odf.table;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
-
+/**
+ * Interface for <table:table-column> element.
+ */
 public interface TableColumnElement extends ODFElement, IStylable {
 	public String getAttrTableStyleName();
 

@@ -14,7 +14,9 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IEditable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
-
+/**
+ * Interface for <text:a> element.
+ */
 public interface AElement extends IEditable, ODFElement, ITextElementContainer,
 		ITextContent {
 	public String getAttrOfficeTitle();

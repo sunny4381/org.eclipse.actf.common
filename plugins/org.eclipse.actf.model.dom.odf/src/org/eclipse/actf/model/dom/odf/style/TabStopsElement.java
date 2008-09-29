@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.style;
 
+/**
+ * Interface for <style:tab-stops> element.
+ */
 public interface TabStopsElement extends StylePropertiesBase {
 	public long getSize();
 

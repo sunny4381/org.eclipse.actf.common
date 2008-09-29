@@ -10,5 +10,8 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.form;
 
+/**
+ * Interface for <form:formatted-text> element.
+ */
 public interface FormattedTextElement extends FormControlElement {
 }

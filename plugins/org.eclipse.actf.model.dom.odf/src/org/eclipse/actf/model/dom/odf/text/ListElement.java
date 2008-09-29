@@ -15,7 +15,9 @@ import org.eclipse.actf.model.dom.odf.content.IStylable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 
-
+/**
+ * Interface for <text:list> element.
+ */
 public interface ListElement extends ODFElement, IStylable,
 		ITextElementContainer {
 	public long getSize();

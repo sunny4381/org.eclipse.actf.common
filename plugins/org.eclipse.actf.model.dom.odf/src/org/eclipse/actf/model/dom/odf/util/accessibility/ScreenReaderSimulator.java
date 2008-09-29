@@ -14,7 +14,9 @@ import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.util.converter.TextExtractor;
 
-
+/**
+ * Screen reader simulator class should implement this interface
+ */
 public interface ScreenReaderSimulator extends TextExtractor {
 	void setDocument(ODFDocument document);
 

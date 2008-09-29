@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.text;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <text:s> element.
+ */
 public interface SElement extends ODFElement {
 	public int getAttrTextC();
 }

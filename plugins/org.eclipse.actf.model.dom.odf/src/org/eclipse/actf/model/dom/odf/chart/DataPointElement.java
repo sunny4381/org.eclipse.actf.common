@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.chart;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <chart:data-point> element.
+ */
 public interface DataPointElement extends ODFElement {
 	public int getAttrChartRepeated();
 }

@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.table;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <table:table-columns> element.
+ */
 public interface TableColumnsElement extends ODFElement {
 }

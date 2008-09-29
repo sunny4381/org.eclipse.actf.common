@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf;
 
+/**
+ * When a ODF parser meets an unexpected and unrecoverable error, ODFException is thrown
+ */
 public class ODFException extends Exception {
 	private static final long serialVersionUID = -5189990975068451718L;
 

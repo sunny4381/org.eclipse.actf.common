@@ -10,7 +10,15 @@
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.proxy;
 
-
+/**
+ * Factory of HTTP local server objects.
+ */
 public interface IHTTPLocalServerFactory {
+	/**
+	 * Creates new instance of HTTP local server.
+	 * 
+	 * @return a HTTP local server object
+	 * @see IHTTPLocalServer
+	 */
 	public IHTTPLocalServer newInstance();
 }

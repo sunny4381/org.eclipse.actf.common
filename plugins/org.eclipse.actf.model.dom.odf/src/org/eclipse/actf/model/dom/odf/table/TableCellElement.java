@@ -14,7 +14,9 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
-
+/**
+ * Interface for <table:table-cell> element.
+ */
 public interface TableCellElement extends ODFElement, IStylable,
 		ITextElementContainer {
 	public String getAttrTableStyleName();

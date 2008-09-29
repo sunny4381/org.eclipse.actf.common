@@ -10,5 +10,8 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.form;
 
+/**
+ * Interface for <form:text> element.
+ */
 public interface TextElement extends FormControlElement {
 }

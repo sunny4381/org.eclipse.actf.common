@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.table;
 
+/**
+ * TableConstants defines the constant values used by table namespace of ODF DOM API
+ */
 public final class TableConstants {
 	static public final String TABLE_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:table:1.0";
 

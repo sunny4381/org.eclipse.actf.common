@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.style;
 
+/**
+ * Interface for <style:drawing-page-properties> element.
+ */
 public interface DrawingPagePropertiesElement extends StylePropertiesBase {
 	public boolean getAttrPresentationDisplayHeader();
 

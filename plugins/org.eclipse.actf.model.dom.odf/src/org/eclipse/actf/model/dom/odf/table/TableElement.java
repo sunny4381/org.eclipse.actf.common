@@ -19,7 +19,9 @@ import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.text.SequenceElement;
 import org.w3c.dom.NodeList;
 
-
+/**
+ * Interface for <table:table> element.
+ */
 public interface TableElement extends ODFElement, IStylable,
 		ITextElementContainer {
 	public String getAttrTableStyleName();

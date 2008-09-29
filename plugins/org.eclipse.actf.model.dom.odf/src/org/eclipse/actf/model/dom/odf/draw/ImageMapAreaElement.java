@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.draw;
 
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
+/**
+ * ODF elements that has <draw:image-map> as parent should implement this interface.
+ */
 public interface ImageMapAreaElement extends DrawingObjectElement {
 }

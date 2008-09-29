@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.dr3d;
 
+/**
+ * Dr3dConstants defines the constant values used by dr3d namespace of ODF DOM API
+ */
 public final class Dr3dConstants {
 	static public final String DR3D_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0";
 

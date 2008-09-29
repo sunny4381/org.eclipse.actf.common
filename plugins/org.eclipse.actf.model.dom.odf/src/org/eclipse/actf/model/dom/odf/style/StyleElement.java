@@ -13,7 +13,9 @@ package org.eclipse.actf.model.dom.odf.style;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStyleListener;
 
-
+/**
+ * Interface for <style:style> element.
+ */
 public interface StyleElement extends ODFElement {
 	public String getAttrStyleMasterPageName();
 

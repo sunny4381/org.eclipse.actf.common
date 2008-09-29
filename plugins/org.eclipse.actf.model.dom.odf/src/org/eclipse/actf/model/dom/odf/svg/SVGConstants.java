@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.svg;
 
+/**
+ * SVGConstants defines the constant values used by SVG namespace of ODF DOM API
+ */
 public final class SVGConstants {
 	static public final String SVG_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0";
 

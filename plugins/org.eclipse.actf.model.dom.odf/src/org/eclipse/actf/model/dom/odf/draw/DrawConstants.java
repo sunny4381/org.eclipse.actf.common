@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.draw;
 
+/**
+ * DrawConstants defines the constant values used by drawing namespace of ODF DOM API
+ */
 public final class DrawConstants {
 	static public final String DRAW_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0";
 

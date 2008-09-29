@@ -15,7 +15,9 @@ import java.io.Writer;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
-
+/**
+ * Class that extract text contents should implements this interface
+ */
 public interface TextExtractor {
 	boolean extractContent(Writer writer, File dir, ODFElement elem,
 			boolean enableStyle);

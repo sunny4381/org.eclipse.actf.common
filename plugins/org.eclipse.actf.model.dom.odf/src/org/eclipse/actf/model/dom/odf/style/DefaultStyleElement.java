@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.style;
 
+/**
+ * Interface for <style:default-style> element.
+ */
 public interface DefaultStyleElement extends StyleElement {
 	String getAttrStyleFamily();
 }

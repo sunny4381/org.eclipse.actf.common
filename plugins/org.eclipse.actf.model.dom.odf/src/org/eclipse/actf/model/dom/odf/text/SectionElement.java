@@ -15,7 +15,9 @@ import org.eclipse.actf.model.dom.odf.content.IEditable;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
-
+/**
+ * Interface for <text:section> element.
+ */
 public interface SectionElement extends ODFElement, IStylable, IEditable,
 		ITextContent, ITextElementContainer {
 }

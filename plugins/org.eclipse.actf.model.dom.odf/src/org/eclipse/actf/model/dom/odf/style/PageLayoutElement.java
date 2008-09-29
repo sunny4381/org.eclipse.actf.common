@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.style;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <style:page-layout> element.
+ */
 public interface PageLayoutElement extends ODFElement {
 	public String getAttrStyleName();
 }

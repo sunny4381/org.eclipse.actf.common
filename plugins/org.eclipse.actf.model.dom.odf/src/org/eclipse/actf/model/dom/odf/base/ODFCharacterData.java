@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.base;
 
 import org.w3c.dom.CharacterData;
 
+/**
+ * The extended interface of the {@link CharacterData}.
+ */
 public interface ODFCharacterData extends ODFNode, CharacterData {
 }

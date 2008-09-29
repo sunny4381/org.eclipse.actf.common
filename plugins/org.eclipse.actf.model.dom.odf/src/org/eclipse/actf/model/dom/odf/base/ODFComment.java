@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.base;
 
 import org.w3c.dom.Comment;
 
+/**
+ * The extended interface of the {@link Comment}.
+ */
 public interface ODFComment extends ODFCharacterData, Comment {
 }

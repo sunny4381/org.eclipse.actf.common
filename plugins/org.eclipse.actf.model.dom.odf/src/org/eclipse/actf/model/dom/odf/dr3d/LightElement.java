@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.dr3d;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <dr3d:light> element.
+ */
 public interface LightElement extends ODFElement {
 	public String getAttrDr3dDiffuseColor();
 

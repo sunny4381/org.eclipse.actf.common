@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.chart;
 
+/**
+ * ChartConstants defines the constant values used by chart namespace of ODF DOM API
+ */
 public final class ChartConstants {
 	static public final String CHART_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:chart:1.0";
 

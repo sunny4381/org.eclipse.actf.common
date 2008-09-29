@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.style;
 
+/**
+ * StyleConstants defines the constant values used by style namespace of ODF DOM API
+ */
 public final class StyleConstants {
 	static public final String STYLE_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:style:1.0";
 

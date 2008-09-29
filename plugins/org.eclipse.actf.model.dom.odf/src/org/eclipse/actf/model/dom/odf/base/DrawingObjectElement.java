@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.base;
 
 import org.eclipse.actf.model.dom.odf.draw.TextBoxElement;
 
+/**
+ * Graphics ODF elements that do not have <draw:frame> as parent should implement this interface.
+ */
 public interface DrawingObjectElement extends DrawingObjectBaseElement {
 	public String getAttrDrawCaptionId();
 

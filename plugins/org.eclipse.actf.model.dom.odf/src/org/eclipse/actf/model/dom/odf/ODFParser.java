@@ -38,7 +38,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-
+/**
+ * ODFParser is used when parsing ODF documents.
+ */
 public class ODFParser {
 
 	private InputStream getFileInputStream(String odfName, String fileName) {
@@ -120,6 +122,15 @@ public class ODFParser {
 		return odfDoc;
 	}
 
+	/**
+	 * Parses a ODF document and return document. 
+	 *
+	 * @param odfName
+	 *            file path of ODF document to parse
+	 * @param xmlName
+	 *            XML file name compressed in ODF file
+	 * @return Document.
+	 */	
 	public ODFDocument getDocument(String odfName, String xmlName) {
 		ODFDocument odfDoc = null;
 		try {
@@ -135,6 +146,13 @@ public class ODFParser {
 		return odfDoc;
 	}
 
+	/**
+	 * Parses a ODF document and return document interface of "content.xml". 
+	 *
+	 * @param odfName
+	 *            file path of ODF document to parse
+	 * @return Document.
+	 */	
 	public ODFDocument getDocument(String odfName) {
 		ODFDocument contentDoc = getDocument(odfName,
 				ODFConstants.ODF_CONTENT_FILENAME);
@@ -149,6 +167,13 @@ public class ODFParser {
 		return contentDoc;
 	}
 
+	/**
+	 * Returns file name list compressed in ODF document. 
+	 *
+	 * @param odfName
+	 *            file path of ODF document to parse
+	 * @return file name list.
+	 */		
 	public String[] getFileEntries(String odfName) {
 		ZipFile zipFile = null;
 
@@ -178,6 +203,16 @@ public class ODFParser {
 		return null;
 	}
 
+	/**
+	 * Extract and copy file compressed in ODF document. 
+	 *
+	 * @param odfName
+	 *            file path of ODF document to parse
+	 * @param entry
+	 *            file name compressed in ODF document
+	 * @param outputFileName
+	 *            file path to copy file extracted from ODF document
+	 */			
 	public void copyFile(String odfName, String entry, String outputFileName) {
 		InputStream is = getFileInputStream(odfName, entry);
 		FileUtils.saveToFile(is, outputFileName, true);

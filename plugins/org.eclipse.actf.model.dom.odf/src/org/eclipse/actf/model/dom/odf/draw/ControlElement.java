@@ -14,7 +14,9 @@ import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 import org.eclipse.actf.model.dom.odf.form.FixedTextElement;
 import org.eclipse.actf.model.dom.odf.form.FormControlElement;
 
-
+/**
+ * Interface for <draw:control> element.
+ */
 public interface ControlElement extends DrawingObjectElement {
 	public String getAttrDrawControl();
 

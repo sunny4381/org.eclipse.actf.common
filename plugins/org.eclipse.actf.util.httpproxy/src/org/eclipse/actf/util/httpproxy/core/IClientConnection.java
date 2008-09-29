@@ -39,8 +39,8 @@ public interface IClientConnection {
 	public abstract Socket getClientSocket();
 
 	/**
-	 * TODO: Fill javadoc comment
-	 * @return
+	 * Gets index of the current server group.
+	 * @return index of the current server group
 	 */
 	public abstract int getCurrentServerGroupIndex();
 
@@ -90,7 +90,7 @@ public interface IClientConnection {
 			throws InterruptedException, IOException;
 
 	/**
-	 * TODO: Fill javadoc comment
+	 * Allow to establish tunnel for connect request
 	 * @param req
 	 * @param sc
 	 * @param timeout
@@ -103,7 +103,7 @@ public interface IClientConnection {
 			TimeoutException, IOException;
 
 	/**
-	 * TODO: Fill javadoc comment
+	 * Reject to establish tunnel for connect request
 	 * @param req
 	 * @param timeout
 	 * @throws InterruptedException

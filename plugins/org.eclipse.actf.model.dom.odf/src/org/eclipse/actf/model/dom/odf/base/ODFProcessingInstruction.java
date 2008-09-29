@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.base;
 
 import org.w3c.dom.ProcessingInstruction;
 
+/**
+ * The extended interface of the {@link ProcessingInstruction}.
+ */
 public interface ODFProcessingInstruction extends ODFNode,
 		ProcessingInstruction {
 }

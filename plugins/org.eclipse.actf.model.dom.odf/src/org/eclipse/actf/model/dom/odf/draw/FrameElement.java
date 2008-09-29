@@ -14,7 +14,9 @@ import java.util.Iterator;
 
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
-
+/**
+ * Interface for <draw:frame> element.
+ */
 public interface FrameElement extends DrawingObjectElement {
 	public String getAttrTableEndCellAddress();
 

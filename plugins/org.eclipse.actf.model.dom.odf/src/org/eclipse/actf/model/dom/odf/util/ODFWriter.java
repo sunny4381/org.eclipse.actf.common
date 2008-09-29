@@ -34,11 +34,13 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.actf.model.dom.odf.ODFConstants;
-import org.eclipse.actf.model.dom.odf.OdfPlugin;
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
+import org.eclipse.actf.model.internal.dom.odf.OdfPlugin;
 import org.eclipse.core.runtime.IPath;
 
-
+/**
+ * Utility class to save ODF document
+ */
 public class ODFWriter {
 	private void addFileToZip(ZipOutputStream zos, String inputDir, File file)
 			throws IOException, Exception {

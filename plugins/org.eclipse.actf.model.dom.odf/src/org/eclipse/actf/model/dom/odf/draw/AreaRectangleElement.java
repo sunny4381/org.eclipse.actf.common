@@ -10,5 +10,8 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.draw;
 
+/**
+ * Interface for <draw:area-rectangle> element.
+ */
 public interface AreaRectangleElement extends ImageMapAreaElement {
 }

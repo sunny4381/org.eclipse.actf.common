@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.number;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <number:text> element.
+ */
 public interface TextElement extends ODFElement {
 }

@@ -16,12 +16,33 @@ import java.net.Socket;
 
 import org.eclipse.actf.util.httpproxy.core.IClientConnection;
 
+/**
+ * 
+ */
 public interface IHTTPProxyConnection extends IClientConnection {
 
+	/**
+	 * Gets the secret manager for this proxy connection.
+	 * 
+	 * @return secret manager for this proxy connection
+	 */
 	public abstract ISecretManager getSecretManager();
 
+	/**
+	 * Gets the TCP port number on which this proxy connection is listening. 
+	 * @return listening TCP port number
+	 */
 	public abstract int getListenPort();
 
+	/**
+	 * Initializes this proxy connection.
+	 * 
+	 * @param clientStateManager client state manager
+	 * @param clientSock TCP socket for client connection 
+	 * @param keepAlive number of milliseconds until the timeout of each network I/O operation 
+	 * @param initServerGroupIdx index of initial server group 
+	 * @throws IOException
+	 */
 	public abstract void init(IClientStateManager clientStateManager,
 			Socket clientSock, long keepAlive, int initServerGroupIdx)
 			throws IOException;

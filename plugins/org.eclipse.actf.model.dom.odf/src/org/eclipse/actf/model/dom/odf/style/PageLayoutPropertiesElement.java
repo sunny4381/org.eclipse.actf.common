@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.style;
 
+/**
+ * Interface for <style:page-layout-properties> element.
+ */
 public interface PageLayoutPropertiesElement extends StylePropertiesBase {
 	public String getAttrFormatMarginTop();
 

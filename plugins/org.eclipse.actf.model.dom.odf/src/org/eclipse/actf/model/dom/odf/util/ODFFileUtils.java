@@ -13,6 +13,9 @@ package org.eclipse.actf.model.dom.odf.util;
 import org.eclipse.actf.model.dom.odf.ODFConstants;
 import org.eclipse.actf.model.dom.odf.ODFConstants.ContentType;
 
+/**
+ * Utility class used by ODF file read and write classes
+ */
 public class ODFFileUtils {
 	public static boolean isODFFile(String sUrl) {
 		if (sUrl == null)

@@ -13,7 +13,9 @@ package org.eclipse.actf.model.dom.odf.base;
 import org.eclipse.actf.model.dom.odf.draw.FrameElement;
 import org.eclipse.actf.model.dom.odf.text.SequenceElement;
 
-
+/**
+ * Graphics ODF elements that have <draw:frame> as parent should implement this interface.
+ */
 public interface EmbedDrawingObjectElement extends DrawingObjectBaseElement {
 	public FrameElement getFrameElement();
 

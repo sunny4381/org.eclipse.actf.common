@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.form;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <form:date> element.
+ */
 public interface DateElement extends ODFElement {
 }

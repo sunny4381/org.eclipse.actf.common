@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.style;
 
+/**
+ * Interface for <style:text-properties> element.
+ */
 public interface TextPropertiesElement extends StylePropertiesBase {
 	public String getAttrStyleFontName();
 

@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.anim;
 
+/**
+ * AnimConstants defines the constant values used by animation namespace of ODF DOM API
+ */
 public final class AnimConstants {
 	static public final String ANIM_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:animation:1.0";
 

@@ -13,6 +13,8 @@ package org.eclipse.actf.model.dom.odf.svg;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IEditable;
 
-
+/**
+ * Interface for <svg:title> element.
+ */
 public interface TitleElement extends ODFElement, IEditable {
 }

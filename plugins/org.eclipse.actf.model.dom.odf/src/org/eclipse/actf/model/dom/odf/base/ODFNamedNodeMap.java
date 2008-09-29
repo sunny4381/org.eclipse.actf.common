@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.base;
 
 import org.w3c.dom.NamedNodeMap;
 
+/**
+ * The extended interface of the {@link NamedNodeMap}.
+ */
 public interface ODFNamedNodeMap extends NamedNodeMap {
 }

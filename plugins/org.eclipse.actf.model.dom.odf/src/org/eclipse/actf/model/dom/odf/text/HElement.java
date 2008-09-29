@@ -15,7 +15,9 @@ import org.eclipse.actf.model.dom.odf.content.IEditable;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
-
+/**
+ * Interface for <text:h> element.
+ */
 public interface HElement extends ODFElement, IStylable, IEditable,
 		ITextElementContainer {
 	public int getAttrTextOutlineLevel();

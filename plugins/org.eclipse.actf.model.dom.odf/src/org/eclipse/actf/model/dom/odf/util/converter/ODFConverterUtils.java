@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.dom.odf.util.converter;
 
+/**
+ * Utility class used by ODF converter classes
+ */
 public class ODFConverterUtils {
 	public static String convertXMLCharacter(String val) {
 		String newVal = val.replaceAll("&", "&amp;");

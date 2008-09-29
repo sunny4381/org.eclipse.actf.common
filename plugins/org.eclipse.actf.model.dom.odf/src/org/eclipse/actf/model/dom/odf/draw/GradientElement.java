@@ -12,6 +12,9 @@ package org.eclipse.actf.model.dom.odf.draw;
 
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
+/**
+ * Interface for <draw:gradient> element.
+ */
 public interface GradientElement extends ODFElement {
 	public String getAttrDrawName();
 

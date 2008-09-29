@@ -12,5 +12,8 @@ package org.eclipse.actf.model.dom.odf.base;
 
 import org.w3c.dom.Text;
 
+/**
+ * The extended interface of the {@link Text}.
+ */
 public interface ODFText extends ODFCharacterData, Text {
 }

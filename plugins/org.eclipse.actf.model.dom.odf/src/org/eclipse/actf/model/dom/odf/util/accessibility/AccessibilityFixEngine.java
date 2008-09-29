@@ -52,6 +52,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
+/**
+ * Utility class to fix ODF accessibility problems
+ */
 public class AccessibilityFixEngine {
 
 	private static final XPathService xpathService = XPathServiceFactory
