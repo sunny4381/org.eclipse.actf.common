@@ -75,7 +75,7 @@ public class Yield {
 	 * duration
 	 * 
 	 * @param duration
-	 *            target duration in ml second
+	 *            target duration in msec
 	 */
 	public static void forWhile(int duration) {
 		long end = System.currentTimeMillis() + duration;
