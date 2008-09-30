@@ -29,7 +29,7 @@ public class OOoEditorInitPlugin extends AbstractUIPlugin {
 	 * The constructor
 	 */
 	public OOoEditorInitPlugin() {		
-		OOoEditorInitUtil.init();
+		OOoEditorInitUtil.isOOoInstalled(false);
 		plugin = this;
 	}
 

@@ -15,14 +15,20 @@ import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.internal.win32.TCHAR;
 import org.eclipse.ui.PlatformUI;
 
+/**
+ * Utility class for OpenOffice.org (OOo) Editor.
+ */
 public class OOoEditorInitUtil {
 
 	private static boolean IS_INITIALIZED = false;
-	
-	public static boolean init() {
-		return isOOoInstalled(false);
-	}
 
+	/**
+	 * check existence of OOo.
+	 * 
+	 * @param showHelp
+	 *            if true and OOo does not exist, Help page will be shown
+	 * @return true if OOo exists
+	 */
 	static public boolean isOOoInstalled(boolean showHelp) {
 
 		if (IS_INITIALIZED) {
@@ -52,9 +58,9 @@ public class OOoEditorInitUtil {
 	}
 
 	/**
-	 * get OpenOffice (later than 2.0) path
+	 * get OpenOffice.org (later than 2.0) path
 	 * 
-	 * @return
+	 * @return the install path of OpenOffice.org
 	 * @throws IllegalArgumentException
 	 */
 	@SuppressWarnings("restriction")
@@ -85,10 +91,6 @@ public class OOoEditorInitUtil {
 				OS.RegCloseKey(hKey[0]);
 			}
 		}
-	}
-
-	public static boolean isInitialized() {
-		return IS_INITIALIZED;
 	}
 
 }

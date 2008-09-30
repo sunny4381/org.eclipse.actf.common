@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.actf.model.ui.editors.ooo.initializer.kicker;
 
-
-//Dummy interface to start OOoEditorInitializer Plug-in before the OOoEditor Plug-in
-//(by using LazyStart)
+/**
+ * Dummy interface to start OOoEditorInitializer Plug-in before the OOoEditor
+ * Plug-in (by using LazyStart)
+ */
 public interface IOOoEditorInitializerKicker {
 
 }

@@ -3,10 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse ACTF Win32 Toolkit (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.util.win32
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.actf.util.win32.Win32Plugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.actf.util.win32.comclutch
-Eclipse-LazyStart: true
+Eclipse-LazyStart: false
 Export-Package: org.eclipse.actf.util.win32
