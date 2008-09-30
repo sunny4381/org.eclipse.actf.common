@@ -10,7 +10,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editors.ooo;
+package org.eclipse.actf.model.internal.ui.editors.ooo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,9 +20,6 @@ import org.eclipse.actf.model.dom.odf.ODFParser;
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.util.converter.ODFConverter;
 import org.eclipse.actf.model.dom.odf.util.converter.ODFConverterCreator;
-import org.eclipse.actf.model.internal.ui.editors.ooo.OOoEditorScrollManager;
-import org.eclipse.actf.model.internal.ui.editors.ooo.OOoEditorToolbar;
-import org.eclipse.actf.model.internal.ui.editors.ooo.OOoWindowComposite;
 import org.eclipse.actf.model.internal.ui.editors.ooo.util.ODFException;
 import org.eclipse.actf.model.internal.ui.editors.ooo.util.OOoNavigation;
 import org.eclipse.actf.model.ui.IModelService;

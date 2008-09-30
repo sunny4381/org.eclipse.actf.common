@@ -32,14 +32,29 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
+/**
+ * The Editor implementation to open Web content by using Internet Explorer. It
+ * also provide access to HTML DOM via {@link IModelService}. The model service
+ * also implements {@link IWebBrowserACTF}.
+ * 
+ * @see IModelServiceHolder
+ * @see IModelService
+ * @see IWebBrowserACTF
+ */
 public class WebBrowserEditor extends EditorPart implements IModelServiceHolder {
 
+	/**
+	 * ID of this Editor
+	 */
 	public static final String ID = WebBrowserEditor.class.getName();
 
 	WebBrowserIEImpl webBrowser;
 
 	IEditorInput input;
 
+	/**
+	 * Creates a new Internet Explorer Editor.
+	 */
 	public WebBrowserEditor() {
 		super();
 	}
