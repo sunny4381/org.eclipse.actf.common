@@ -16,7 +16,6 @@ import org.eclipse.actf.model.internal.ui.editors.ooo.OOoComposite;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.editor.DummyEditorInput;
-import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
