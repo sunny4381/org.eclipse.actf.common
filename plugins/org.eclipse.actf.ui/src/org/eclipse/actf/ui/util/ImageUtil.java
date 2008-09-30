@@ -14,8 +14,24 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 
+/**
+ * Utility class to save {@link Image} into file.
+ */
 public class ImageUtil {
 
+	/**
+	 * Save target {@link Image} to file.
+	 * 
+	 * @param image
+	 *            target Image to save
+	 * @param savePath
+	 *            target path in String format
+	 * @param format
+	 *            this parameter can have one of the format type defined at
+	 *            {@link FileFormat}
+	 * 
+	 * @return
+	 */
 	public static synchronized boolean saveImageToFile(Image image,
 			String savePath, int format) {
 		ImageLoader loader = new ImageLoader();

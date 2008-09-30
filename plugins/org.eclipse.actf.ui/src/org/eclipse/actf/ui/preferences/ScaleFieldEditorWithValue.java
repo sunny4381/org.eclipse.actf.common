@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Scale;
 
+/**
+ * A field editor for an integer type preference. It obtain current Scale value
+ * from {@link IScaleValueLabelProvider} and show the value as a Label.
+ * 
+ * @see ScaleFieldEditor
+ */
 public class ScaleFieldEditorWithValue extends ScaleFieldEditor {
 
 	private Label valueLabel;
@@ -37,12 +43,48 @@ public class ScaleFieldEditorWithValue extends ScaleFieldEditor {
 		}
 	}
 
+	/**
+	 * Create a new scale field editor with min/max/current value Labels. The
+	 * current Scale value is converted to String by using
+	 * {@link IScaleValueLabelProvider}. Default
+	 * {@link IScaleValueLabelProvider} will convert current value by using
+	 * Integer.toString().
+	 * 
+	 * @param name
+	 *            the name of the preference this field editor works on
+	 * @param labelText
+	 *            the label text of the field editor
+	 * @param parent
+	 *            the parent of the field editor's control
+	 */
 	public ScaleFieldEditorWithValue(String name, String labelText,
 			Composite parent) {
 		super(name, labelText, parent);
 		scaleValueLabelProvider = new DefaultScaleValueLabelProvider();
 	}
 
+	/**
+	 * Create a new scale field editor with min/max/current value Labels. The
+	 * current Scale value is converted to String by using
+	 * {@link IScaleValueLabelProvider}. Default
+	 * {@link IScaleValueLabelProvider} will convert current value by using
+	 * Integer.toString().
+	 * 
+	 * @param name
+	 *            the name of the preference this field editor works on
+	 * @param labelText
+	 *            the label text of the field editor
+	 * @param parent
+	 *            the parent of the field editor's control
+	 * @param min
+	 *            the value used for Scale.setMinimum(int).
+	 * @param max
+	 *            the value used for Scale.setMaximum(int).
+	 * @param increment
+	 *            the value used for Scale.setIncrement(int).
+	 * @param pageIncrement
+	 *            the value used for Scale.setPageIncrement(int).
+	 */
 	public ScaleFieldEditorWithValue(String name, String labelText,
 			Composite parent, int min, int max, int increment, int pageIncrement) {
 		super(name, labelText, parent, min, max, increment, pageIncrement);
@@ -99,6 +141,11 @@ public class ScaleFieldEditorWithValue extends ScaleFieldEditor {
 		((GridData) maxLabel.getLayoutData()).horizontalSpan = numColumns - 3;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.preference.ScaleFieldEditor#getNumberOfControls()
+	 */
 	@Override
 	public int getNumberOfControls() {
 		return super.getNumberOfControls() + 2;
@@ -116,18 +163,25 @@ public class ScaleFieldEditorWithValue extends ScaleFieldEditor {
 		valueLabel.setText(scaleValueLabelProvider.getScaleValueText(scale));
 	}
 
-	public Label getMaxLabel() {
+	protected Label getMaxLabel() {
 		return maxLabel;
 	}
 
-	public Label getMinLabel() {
+	protected Label getMinLabel() {
 		return minLabel;
 	}
 
-	public Label getValueLabel() {
+	protected Label getValueLabel() {
 		return valueLabel;
 	}
 
+	/**
+	 * Set new {@link IScaleValueLabelProvider} to be used to obtain current
+	 * Scale value.
+	 * 
+	 * @param scaleValueLabelProvider
+	 *            target {@link IScaleValueLabelProvider}
+	 */
 	public void setScaleValueLabelProvider(
 			IScaleValueLabelProvider scaleValueLabelProvider) {
 		if (scaleValueLabelProvider != null) {

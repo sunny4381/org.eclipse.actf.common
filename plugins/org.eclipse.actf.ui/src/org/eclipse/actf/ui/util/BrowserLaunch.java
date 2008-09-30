@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,40 +16,46 @@ import java.net.URLDecoder;
 
 import org.eclipse.swt.program.Program;
 
-
-
+/**
+ * Utility class to launch the default browser in the Operation System.
+ */
 public class BrowserLaunch {
-    public static void launch(final String url) {
-        if (url == null)
-            return;
-        
-        new Thread(new Runnable(){
-            public void run() {
-                // System.out.println(convertURL(url));
-                Program.launch(convertURL(url));
-            }
-        }).start();
-    }
-    
-    private static final String FILE_STR = "file:///";
+	/**
+	 * Open target URL with the default browser in the Operation System.
+	 * 
+	 * @param url
+	 *            target URL
+	 */
+	public static void launch(final String url) {
+		if (url == null)
+			return;
 
-    private static String convertURL(String url) {
-        if (url.startsWith(FILE_STR)) {
-            url = url.substring(FILE_STR.length());
+		new Thread(new Runnable() {
+			public void run() {
+				// System.out.println(convertURL(url));
+				Program.launch(convertURL(url));
+			}
+		}).start();
+	}
 
-            int index = url.lastIndexOf("#");
-            if (index != -1)
-                url = url.substring(0, index);
-            
-            try {
-                url = URLDecoder.decode(url, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            url.replace('/', '\\');
-        }
-        return url;
-    }
-    
-    
+	private static final String FILE_STR = "file:///";
+
+	private static String convertURL(String url) {
+		if (url.startsWith(FILE_STR)) {
+			url = url.substring(FILE_STR.length());
+
+			int index = url.lastIndexOf("#");
+			if (index != -1)
+				url = url.substring(0, index);
+
+			try {
+				url = URLDecoder.decode(url, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			url.replace('/', '\\');
+		}
+		return url;
+	}
+
 }
