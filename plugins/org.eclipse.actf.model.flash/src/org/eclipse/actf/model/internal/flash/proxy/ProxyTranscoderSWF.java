@@ -29,10 +29,10 @@ import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponsePushbackMessage;
 import org.eclipse.actf.util.httpproxy.core.IPushbackMessageBody;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoder;
 import org.eclipse.actf.util.httpproxy.util.HTTPUtil;
 import org.eclipse.actf.util.httpproxy.util.Logger;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
 	private static final Logger LOGGER = Logger.getLogger(ProxyTranscoderSWF.class);

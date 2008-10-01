@@ -24,6 +24,7 @@ import java.util.HashMap;
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPLocalServer;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyConnection;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoder;
@@ -31,7 +32,6 @@ import org.eclipse.actf.util.httpproxy.proxy.ISecretManager;
 import org.eclipse.actf.util.httpproxy.util.HTTPUtil;
 import org.eclipse.actf.util.httpproxy.util.Logger;
 import org.eclipse.actf.util.httpproxy.util.ParseURI;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 public class HTTPLocalServerSWF implements IHTTPLocalServer {
     private static final boolean LOCAL_FILE_ACCESS = false;

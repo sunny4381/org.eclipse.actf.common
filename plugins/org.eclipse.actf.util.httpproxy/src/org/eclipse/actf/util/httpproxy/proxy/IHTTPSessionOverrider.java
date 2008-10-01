@@ -15,17 +15,45 @@ import java.io.IOException;
 
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 
+/**
+ * Interface to override HTTP Session in the proxy
+ */
 public interface IHTTPSessionOverrider {
 
+	/**
+	 * Return the processed {@link IHTTPRequestMessage}
+	 * 
+	 * @return processed {@link IHTTPRequestMessage}
+	 */
 	public abstract IHTTPRequestMessage getSessionRequest();
 
+	/**
+	 * Return the processed {@link IHTTPResponseMessage}
+	 * @return processed {@link IHTTPResponseMessage}
+	 */
 	public abstract IHTTPResponseMessage getSessionResponse();
 
+	/**
+	 * Check if the request is target of this overrider.
+	 * @param csm 
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
 	public abstract boolean replaceRequest(IClientStateManager csm,
 			IHTTPRequestMessage request) throws IOException;
 
+	/**
+	 * @param csm
+	 * @param request
+	 * @param response
+	 * @param timeout
+	 * @return
+	 * @throws IOException
+	 * @throws TimeoutException
+	 */
 	public abstract boolean replaceResponse(IClientStateManager csm,
 			IHTTPRequestMessage request, IHTTPResponseMessage response,
 			int timeout) throws IOException, TimeoutException;

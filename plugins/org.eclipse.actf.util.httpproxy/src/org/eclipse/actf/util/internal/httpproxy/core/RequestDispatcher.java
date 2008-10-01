@@ -17,8 +17,8 @@ import org.eclipse.actf.util.httpproxy.core.IClientConnection;
 import org.eclipse.actf.util.httpproxy.core.IHTTPMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 import org.eclipse.actf.util.httpproxy.util.Logger;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 
 public abstract class RequestDispatcher extends Thread {

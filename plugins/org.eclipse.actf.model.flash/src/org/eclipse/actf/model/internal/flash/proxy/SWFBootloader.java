@@ -27,13 +27,13 @@ import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponsePushbackMessage;
 import org.eclipse.actf.util.httpproxy.core.IPushbackMessageBody;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 import org.eclipse.actf.util.httpproxy.proxy.IClientStateManager;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider;
 import org.eclipse.actf.util.httpproxy.util.CacheMap;
 import org.eclipse.actf.util.httpproxy.util.HTTPUtil;
 import org.eclipse.actf.util.httpproxy.util.Logger;
 import org.eclipse.actf.util.httpproxy.util.ParseURI;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 public class SWFBootloader implements IHTTPSessionOverrider {
 	private static final Logger LOGGER = Logger.getLogger(SWFBootloader.class);

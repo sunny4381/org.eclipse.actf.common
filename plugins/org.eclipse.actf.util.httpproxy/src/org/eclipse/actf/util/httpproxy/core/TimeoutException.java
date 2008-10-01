@@ -8,19 +8,29 @@
  * Contributors:
  *    Hideki TAI - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.util.httpproxy.util;
+package org.eclipse.actf.util.httpproxy.core;
 
 /**
- * This exception is thrown when an operation (e.g. read and write) did not completes within a specific time. 
+ * This exception is thrown when an operation (e.g. read and write) did not
+ * completes within a specific time.
  */
 public class TimeoutException extends Exception {
-    private static final long serialVersionUID = 2697832049495326392L;
+	private static final long serialVersionUID = 2697832049495326392L;
 
-    public TimeoutException() {
-        super();
-    }
-        
-    public TimeoutException(String msg) {
-        super(msg);
-    }
+	/**
+	 * Constructor of the exception.
+	 */
+	public TimeoutException() {
+		super();
+	}
+
+	/**
+	 * COnstuctor of the exception.
+	 * 
+	 * @param msg
+	 *            exception message
+	 */
+	public TimeoutException(String msg) {
+		super(msg);
+	}
 }

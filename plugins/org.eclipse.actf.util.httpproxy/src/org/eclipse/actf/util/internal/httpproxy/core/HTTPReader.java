@@ -21,8 +21,8 @@ import java.util.List;
 
 import org.eclipse.actf.util.httpproxy.core.IBufferRange;
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 import org.eclipse.actf.util.httpproxy.util.Logger;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 
 public abstract class HTTPReader {

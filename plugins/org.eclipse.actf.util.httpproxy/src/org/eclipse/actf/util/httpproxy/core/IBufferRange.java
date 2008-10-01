@@ -11,18 +11,44 @@
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.core;
 
+/**
+ * Interface for keeping start position and length of target content
+ */
 public interface IBufferRange {
 
+	/**
+	 * Reset start position and length to zero.
+	 */
 	public abstract void reset();
 
+	/**
+	 * Set start position of the target content in the buffer.
+	 * 
+	 * @param start
+	 *            start position
+	 */
 	public abstract void setStart(int start);
 
+	/**
+	 * Set length of the target content.
+	 * 
+	 * @param length
+	 *            length
+	 */
 	public abstract void setLength(int length);
 
+	/**
+	 * Get start position of the target content in buffer.
+	 * 
+	 * @return start position
+	 */
 	public abstract int getStart();
 
+	/**
+	 * Get length of the target content.
+	 * 
+	 * @return length
+	 */
 	public abstract int getLength();
-
-	public abstract String toString();
 
 }

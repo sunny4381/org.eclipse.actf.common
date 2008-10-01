@@ -12,7 +12,7 @@ package org.eclipse.actf.util.internal.httpproxy.core;
 
 import java.util.Comparator;
 
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 
 
 public class FixedSizeQueue {

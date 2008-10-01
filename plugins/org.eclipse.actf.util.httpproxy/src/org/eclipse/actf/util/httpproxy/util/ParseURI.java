@@ -12,7 +12,14 @@
 package org.eclipse.actf.util.httpproxy.util;
 
 
+/**
+ *
+ */
 public class ParseURI {
+    /**
+     * @param uri
+     * @return
+     */
     static public String getAuthority(String uri) {
         int pos = uri.indexOf(':');
         if (uri.length() <= (pos + 3)) {
@@ -32,6 +39,10 @@ public class ParseURI {
         }
     }
 
+    /**
+     * @param uri
+     * @return
+     */
     static public String getAbsolutePath(String uri) {
         int pos = uri.indexOf(':');
         if (uri.length() <= (pos + 3)) {
@@ -51,6 +62,10 @@ public class ParseURI {
         }
     }
 
+    /**
+     * @param hostStr
+     * @return
+     */
     static public String parseHost(String hostStr) {
         int sepIdx = hostStr.indexOf(':');
         if (sepIdx < 0) {
@@ -60,6 +75,11 @@ public class ParseURI {
         }
     }
 
+    /**
+     * @param hostStr
+     * @param defaultPort
+     * @return
+     */
     static public int parsePort(String hostStr, int defaultPort) {
         int sepIdx = hostStr.indexOf(':');
         if (sepIdx < 0) {
@@ -74,6 +94,10 @@ public class ParseURI {
         }
     }
 
+    /**
+     * @param uri
+     * @return
+     */
     static public String eliminateQuery(String uri) {
         int idx = uri.indexOf('?');
         if (idx < 0) return uri;

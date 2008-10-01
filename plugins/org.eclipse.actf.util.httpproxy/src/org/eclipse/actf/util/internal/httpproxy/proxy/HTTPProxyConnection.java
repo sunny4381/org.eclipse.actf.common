@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.net.Socket;
 
 import org.eclipse.actf.util.httpproxy.ExternalProxyConfig;
-import org.eclipse.actf.util.httpproxy.HTTPProxy;
 import org.eclipse.actf.util.httpproxy.proxy.IClientStateManager;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyConnection;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoderFactory;
 import org.eclipse.actf.util.httpproxy.proxy.ISecretManager;
+import org.eclipse.actf.util.internal.httpproxy.HTTPProxy;
 import org.eclipse.actf.util.internal.httpproxy.core.ClientConnection;
 import org.eclipse.actf.util.internal.httpproxy.core.ServerConnection;
 

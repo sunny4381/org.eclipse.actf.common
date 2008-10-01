@@ -14,7 +14,6 @@ package org.eclipse.actf.util.httpproxy.core;
 import java.io.IOException;
 import java.io.PushbackInputStream;
 
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 /**
  * A HTTP response message which can provide {@link IPushbackMessageBody}.

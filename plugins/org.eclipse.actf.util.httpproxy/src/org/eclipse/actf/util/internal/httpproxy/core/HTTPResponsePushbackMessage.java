@@ -21,7 +21,7 @@ import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponsePushbackMessage;
 import org.eclipse.actf.util.httpproxy.core.IMessageBody;
 import org.eclipse.actf.util.httpproxy.core.IPushbackMessageBody;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 
 
 public class HTTPResponsePushbackMessage extends HTTPResponseInMemoryMessage implements IHTTPResponsePushbackMessage{

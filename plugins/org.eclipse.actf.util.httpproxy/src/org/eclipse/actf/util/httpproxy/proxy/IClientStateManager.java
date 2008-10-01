@@ -11,11 +11,29 @@
  *******************************************************************************/
 package org.eclipse.actf.util.httpproxy.proxy;
 
+/**
+ * Interface to hold client state in {@link IHTTPProxyConnection}
+ */
 public interface IClientStateManager {
 
 	// We should use read-write lock instead of mutex.
+	/**
+	 * Put client state as a set of key and value
+	 * 
+	 * @param stateKey
+	 *            key of the state
+	 * @param stateValue
+	 *            value of the state
+	 */
 	public abstract void put(Object stateKey, Object stateValue);
 
+	/**
+	 * Get client state value
+	 * 
+	 * @param stateKey
+	 *            key of the target state
+	 * @return value of the target state
+	 */
 	public abstract Object get(Object stateKey);
 
 }

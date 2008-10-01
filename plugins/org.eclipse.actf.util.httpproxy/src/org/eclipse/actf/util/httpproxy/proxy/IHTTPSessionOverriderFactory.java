@@ -11,12 +11,15 @@
 package org.eclipse.actf.util.httpproxy.proxy;
 
 /**
- * Factory of {@link IHTTPSessionOverrider}.
+ * Factory of {@link IHTTPSessionOverrider} that is used to override HTTP
+ * Session in the proxy
  */
 public interface IHTTPSessionOverriderFactory {
 	/**
 	 * Creates new instance of HTTP session overrider.
-	 * @param id 
+	 * 
+	 * @param id
+	 *            ID of the instance
 	 * @return a HTTP session overrider object
 	 * @see IHTTPSessionOverrider
 	 */

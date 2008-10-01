@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 /**
  * A HTTP request/response message.

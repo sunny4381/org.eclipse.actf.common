@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,12 +9,21 @@
  *    Hisashi MIYASHITA - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.util.httpproxy.proxy;
+package org.eclipse.actf.util.httpproxy;
+
+import org.eclipse.actf.util.httpproxy.proxy.ISecretManager;
 
 /**
- * Utility class used for confirmation of correct server-client combination.
+ * IHTTPProxy is the interface for the HTTP proxy.
  */
-public interface ISecretManager {
+public interface IHTTPProxy {
+
+	/**
+	 * Get listen port of the proxy
+	 * 
+	 * @return listen port
+	 */
+	public abstract int getListenPort();
 
 	/**
 	 * Get secret String that is used for confirmation of correct server-client
@@ -26,14 +35,18 @@ public interface ISecretManager {
 	 *            if true, the secret will be removed after invoking this method
 	 * @return secret, or null if the corresponding value is not available for
 	 *         the target key
+	 * @see ISecretManager
 	 */
 	public abstract String getSecret(String id, boolean remove);
 
 	/**
-	 * Request to generate secret
-	 * 
-	 * @return secret as array of byte
+	 * Start the proxy.
 	 */
-	public abstract byte[] requestSecret();
+	public abstract void startThread();
+
+	/**
+	 * Stop the proxy.
+	 */
+	public abstract void stopThread();
 
 }

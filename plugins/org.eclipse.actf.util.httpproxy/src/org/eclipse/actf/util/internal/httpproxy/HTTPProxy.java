@@ -9,16 +9,18 @@
  *    Hisashi MIYASHITA - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.util.httpproxy;
+package org.eclipse.actf.util.internal.httpproxy;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketException;
 
+import org.eclipse.actf.util.httpproxy.ExternalProxyConfig;
+import org.eclipse.actf.util.httpproxy.IHTTPProxy;
+import org.eclipse.actf.util.httpproxy.ProxyConfig;
 import org.eclipse.actf.util.httpproxy.core.IClientConnection;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPLocalServerFactory;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyConnection;
@@ -26,10 +28,6 @@ import org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoderFactory;
 import org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverriderFactory;
 import org.eclipse.actf.util.httpproxy.proxy.ISecretManager;
 import org.eclipse.actf.util.httpproxy.util.Logger;
-import org.eclipse.actf.util.internal.httpproxy.IObjectPool;
-import org.eclipse.actf.util.internal.httpproxy.IWorkpileController;
-import org.eclipse.actf.util.internal.httpproxy.ObjectPoolImpl;
-import org.eclipse.actf.util.internal.httpproxy.WorkpileControllerImpl;
 import org.eclipse.actf.util.internal.httpproxy.core.ClientConnectionListener;
 import org.eclipse.actf.util.internal.httpproxy.proxy.ClientStateManager;
 import org.eclipse.actf.util.internal.httpproxy.proxy.HTTPProxyConnection;
@@ -37,7 +35,7 @@ import org.eclipse.actf.util.internal.httpproxy.proxy.HTTPProxyConnection;
 /**
  * HTTPProxy is the class for the server instance of HTTP proxy.
  */
-public class HTTPProxy implements ClientConnectionListener {
+public class HTTPProxy implements ClientConnectionListener, IHTTPProxy {
 	private static final Logger LOGGER = Logger.getLogger(HTTPProxy.class);
 
 	private final IWorkpileController wpc;
@@ -53,40 +51,62 @@ public class HTTPProxy implements ClientConnectionListener {
 	private final IObjectPool connectionPool;
 
 	private final ISecretManager secretManager;
-	
+
 	private final IHTTPSessionOverriderFactory sessionOverriderFactory;
-	
+
 	private final IHTTPProxyTranscoderFactory proxyTranscoderFactory;
-	
+
 	private final IHTTPLocalServerFactory localServerFactory;
-	
+
 	private ExternalProxyConfig externalProxyConfig;
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ISecretManager getSecretManager() {
 		return secretManager;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.util.httpproxy.IHTTPProxy#getListenPort()
+	 */
 	public int getListenPort() {
 		return fServerSock.getLocalPort();
 	}
-	
-	public ExternalProxyConfig getExternalProxyConfig(){
+
+	/**
+	 * @return
+	 */
+	public ExternalProxyConfig getExternalProxyConfig() {
 		return externalProxyConfig;
 	}
-		
+
+	/**
+	 * @return
+	 */
 	public IHTTPSessionOverriderFactory getSessionOverriderFactory() {
 		return sessionOverriderFactory;
 	}
 
+	/**
+	 * @return
+	 */
 	public IHTTPProxyTranscoderFactory getProxyTranscoderFactory() {
 		return proxyTranscoderFactory;
-	}	
+	}
 
+	/**
+	 * @return
+	 */
 	public IHTTPLocalServerFactory getLocalServerFactory() {
 		return localServerFactory;
 	}
 
-	private HTTPProxy(ProxyConfig config, ExternalProxyConfig externalProxyConfig) throws IOException {
+	public HTTPProxy(ProxyConfig config, ExternalProxyConfig externalProxyConfig)
+			throws IOException {
 		Logger.setConfigPropertyName("WaXcoding.conf.logging");
 		this.externalProxyConfig = externalProxyConfig;
 		wpc = new WorkpileControllerImpl("WaXcoding");
@@ -98,8 +118,8 @@ public class HTTPProxy implements ClientConnectionListener {
 		fQueueSize = config.getMaxQueueSize();
 		connectionPool = new ObjectPoolImpl("WaXcoding-clientconnections");
 		for (int i = 0; i < config.getMaxConnection(); i++) {
-			IHTTPProxyConnection obj = new HTTPProxyConnection(this, fQueueSize,
-					config.getTimeout());
+			IHTTPProxyConnection obj = new HTTPProxyConnection(this,
+					fQueueSize, config.getTimeout());
 			connectionPool.add(obj);
 		}
 		secretManager = config.getSecretManager();
@@ -108,8 +128,14 @@ public class HTTPProxy implements ClientConnectionListener {
 		localServerFactory = config.getLocalServerFactory();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.util.httpproxy.IHTTPProxy#getSecret(java.lang.String,
+	 *      boolean)
+	 */
 	public String getSecret(String id, boolean remove) {
-		if(null==secretManager){
+		if (null == secretManager) {
 			return null;
 		}
 		return secretManager.getSecret(id, remove);
@@ -197,6 +223,11 @@ public class HTTPProxy implements ClientConnectionListener {
 
 	private ProxyThread proxyThread;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.util.httpproxy.IHTTPProxy#startThread()
+	 */
 	public void startThread() {
 		if (proxyThread != null)
 			return;
@@ -204,6 +235,11 @@ public class HTTPProxy implements ClientConnectionListener {
 		proxyThread.start();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.util.httpproxy.IHTTPProxy#stopThread()
+	 */
 	public void stopThread() {
 		proxyThread.exit();
 		proxyThread = null;
@@ -217,29 +253,6 @@ public class HTTPProxy implements ClientConnectionListener {
 		}
 		System.err.println("Usage: java " + HTTPProxy.class.getName()
 				+ USAGE_PARAMS);
-	}
-
-	/**
-	 * Returns a new instance of this class.
-	 * 
-	 * @param config Configuration for the instance
-	 * @param externalProxyConfig 
-	 * @param logName 
-	 * @param configIS
-	 * @return
-	 */
-	public static HTTPProxy newProxy(ProxyConfig config, ExternalProxyConfig externalProxyConfig, String logName,
-			InputStream configIS) {
-		try {
-			Logger.configure(logName, configIS);
-		} catch (Exception e) {
-		}
-		try {
-			HTTPProxy proxy = new HTTPProxy(config, externalProxyConfig);
-			return proxy;
-		} catch (IOException e) {
-			return null;
-		}
 	}
 
 	/**
@@ -259,24 +272,13 @@ public class HTTPProxy implements ClientConnectionListener {
 
 		ProxyConfig config = new ProxyConfig();
 		ExternalProxyConfig externalProxyConfig = new ExternalProxyConfig();
-//		WaXcodingConfig waxConfig = WaXcodingConfig.getInstance();
-		
+
 		try {
-			Logger.configure("HTTPProxy");
+			Logger.configure();
 		} catch (Exception e) {
 			e.printStackTrace();
 			// System.exit(1);
 		}
-
-//		try {
-//			waxConfig.setSWFBootloaderFlag(false);
-//			final File imposedSWFPath = new File("bridgeSWF/imposed.swf");
-//			SWFTranscoder.setSWFTranscodingImposedFile(new FileInputStream(
-//					imposedSWFPath));
-//		} catch (FileNotFoundException e1) {
-//			e1.printStackTrace();
-//			System.exit(1);
-//		}
 
 		try {
 			HTTPProxy proxy = new HTTPProxy(config, externalProxyConfig);

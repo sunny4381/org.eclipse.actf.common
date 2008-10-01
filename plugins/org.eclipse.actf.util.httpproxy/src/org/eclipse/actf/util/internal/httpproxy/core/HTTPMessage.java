@@ -22,8 +22,8 @@ import java.util.List;
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPMessage;
 import org.eclipse.actf.util.httpproxy.core.IMessageBody;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 import org.eclipse.actf.util.httpproxy.util.Logger;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 public abstract class HTTPMessage implements IHTTPMessage {
 	static final Logger LOGGER = Logger.getLogger(HTTPMessage.class);

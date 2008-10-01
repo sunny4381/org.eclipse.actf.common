@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 import org.eclipse.actf.util.httpproxy.util.Logger;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 
 public class HTTPRequestReader extends HTTPMessageReader {

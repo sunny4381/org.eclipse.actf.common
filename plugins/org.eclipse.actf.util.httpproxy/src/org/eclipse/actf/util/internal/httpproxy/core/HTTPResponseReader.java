@@ -13,8 +13,8 @@ package org.eclipse.actf.util.internal.httpproxy.core;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 import org.eclipse.actf.util.httpproxy.util.Logger;
-import org.eclipse.actf.util.httpproxy.util.TimeoutException;
 
 
 public class HTTPResponseReader extends HTTPMessageReader {
