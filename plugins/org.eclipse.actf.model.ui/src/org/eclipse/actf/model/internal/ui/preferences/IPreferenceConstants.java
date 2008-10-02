@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editor.preferences;
+package org.eclipse.actf.model.internal.ui.preferences;
 
 
 public interface IPreferenceConstants {

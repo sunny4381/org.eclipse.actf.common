@@ -9,10 +9,8 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-
 package org.eclipse.actf.model.internal.ui.editors.ie;
 
-import org.eclipse.actf.model.ui.ModelUIPlugin;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editor.browser.WebBrowserEventUtil;
 import org.eclipse.actf.model.ui.util.ModelServiceMessages;
@@ -32,145 +30,153 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-
 public class WebBrowserToolbar extends Composite {
 
-    // TODO move to base plugin
+	// TODO move to base plugin
 
-    private Text _addressText;
+	private Text _addressText;
 
-    private boolean _isFocusOnText;
+	private boolean _isFocusOnText;
 
-    private IWebBrowserACTF browser;
+	private IWebBrowserACTF browser;
 
-    public WebBrowserToolbar(IWebBrowserACTF browser, Composite parent, int style) {
-        super(parent, style);
+	public WebBrowserToolbar(IWebBrowserACTF browser, Composite parent,
+			int style) {
+		super(parent, style);
 
-        this.browser = browser;
-        
-        setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        GridLayout gridLayout = new GridLayout();
-        gridLayout.marginBottom = 1;
-        gridLayout.verticalSpacing = 0;
-        gridLayout.marginWidth = 0;
-        gridLayout.marginHeight = 0;
-        gridLayout.horizontalSpacing = 0;
-        gridLayout.numColumns = 3;
-        setLayout(gridLayout);
+		this.browser = browser;
 
-        initLayout();
-    }
+		setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		GridLayout gridLayout = new GridLayout();
+		gridLayout.marginBottom = 1;
+		gridLayout.verticalSpacing = 0;
+		gridLayout.marginWidth = 0;
+		gridLayout.marginHeight = 0;
+		gridLayout.horizontalSpacing = 0;
+		gridLayout.numColumns = 3;
+		setLayout(gridLayout);
 
-    private void initLayout() {
-        Label addressLabel = new Label(this, SWT.NONE);
-        addressLabel.setLayoutData(new GridData());
-        addressLabel.setText(" " + ModelServiceMessages.getString("WebBrowser.Address")); //$NON-NLS-1$ //$NON-NLS-2$
-        addressLabel.addTraverseListener(new TraverseListener() {
-            public void keyTraversed(TraverseEvent arg0) {
-                if (arg0.stateMask == SWT.ALT && (arg0.character == 'd' || arg0.character == 'D')) {
-                    _addressText.setFocus();
-                    _addressText.selectAll();
-                }
-            }
-        });
+		initLayout();
+	}
 
-        this._addressText = new Text(this, SWT.SINGLE | SWT.BORDER);
-        GridData gridData = new GridData(SWT.CENTER, SWT.CENTER, true, false);
-        gridData.widthHint = 1024;
-        _addressText.setLayoutData(gridData);
-        this._addressText.addFocusListener(new FocusAdapter() {
-            public void focusLost(FocusEvent arg0) {
-                _isFocusOnText = false;
-                if (browser != null) {
-                    WebBrowserEventUtil.focusLostOfAddressText(browser);
-                }
-            }
+	private void initLayout() {
+		Label addressLabel = new Label(this, SWT.NONE);
+		addressLabel.setLayoutData(new GridData());
+		addressLabel
+				.setText(" " + ModelServiceMessages.getString("WebBrowser.Address")); //$NON-NLS-1$ //$NON-NLS-2$
+		addressLabel.addTraverseListener(new TraverseListener() {
+			public void keyTraversed(TraverseEvent arg0) {
+				if (arg0.stateMask == SWT.ALT
+						&& (arg0.character == 'd' || arg0.character == 'D')) {
+					_addressText.setFocus();
+					_addressText.selectAll();
+				}
+			}
+		});
 
-            public void focusGained(FocusEvent arg0) {
-                _addressText.selectAll();
-                if (browser != null) {
-                    WebBrowserEventUtil.focusGainedOfAddressText(browser);
-                }
-            }
-        });
+		this._addressText = new Text(this, SWT.SINGLE | SWT.BORDER);
+		GridData gridData = new GridData(SWT.CENTER, SWT.CENTER, true, false);
+		gridData.widthHint = 1024;
+		_addressText.setLayoutData(gridData);
+		this._addressText.addFocusListener(new FocusAdapter() {
+			public void focusLost(FocusEvent arg0) {
+				_isFocusOnText = false;
+				if (browser != null) {
+					WebBrowserEventUtil.focusLostOfAddressText(browser);
+				}
+			}
 
-        this._addressText.addMouseListener(new MouseAdapter() {
-            public void mouseUp(MouseEvent arg0) {
-                if (!_isFocusOnText) {
-                    _addressText.selectAll();
-                    _isFocusOnText = true;
-                }
-            }
+			public void focusGained(FocusEvent arg0) {
+				_addressText.selectAll();
+				if (browser != null) {
+					WebBrowserEventUtil.focusGainedOfAddressText(browser);
+				}
+			}
+		});
 
-            public void mouseDoubleClick(MouseEvent e) {
-                _addressText.selectAll();
-            }
-        });
+		this._addressText.addMouseListener(new MouseAdapter() {
+			public void mouseUp(MouseEvent arg0) {
+				if (!_isFocusOnText) {
+					_addressText.selectAll();
+					_isFocusOnText = true;
+				}
+			}
 
-        // TODO use action
+			public void mouseDoubleClick(MouseEvent e) {
+				_addressText.selectAll();
+			}
+		});
 
-        this._addressText.addKeyListener(new KeyListener() {
-            public void keyPressed(KeyEvent e) {
-                if (e.character == SWT.CR) {
-                    if (browser != null) {
-                        browser.open(_addressText.getText());
-                        // TODO: Remaining the focus on the address field causes navigation problem on aiBrowser
-                        // As a makeshift, we move the focus to the toolbar parent but we should reconsider
-                        // this treatment.
-                        WebBrowserToolbar.this.forceFocus();
-                    }
-                }
-            }
+		// TODO use action
 
-            public void keyReleased(KeyEvent e) {
-            }
-        });
+		this._addressText.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e) {
+				if (e.character == SWT.CR) {
+					if (browser != null) {
+						browser.open(_addressText.getText());
+						// TODO: Remaining the focus on the address field causes
+						// navigation problem on aiBrowser
+						// As a makeshift, we move the focus to the toolbar
+						// parent but we should reconsider
+						// this treatment.
+						WebBrowserToolbar.this.forceFocus();
+					}
+				}
+			}
 
-        Button searchButton = new Button(this, SWT.NULL);
-        searchButton.setLayoutData(getButtonsGridData());
-        searchButton.setText(ModelServiceMessages.getString("WebBrowser.Go")); //$NON-NLS-1$
-        searchButton.setToolTipText(ModelServiceMessages.getString("WebBrowser.Go_tp")); //$NON-NLS-1$
-        //TODO
-        searchButton.setImage(BrowserIE_Plugin.imageDescriptorFromPlugin(ModelUIPlugin.PLUGIN_ID, "icons/browser/go.png").createImage());
-        searchButton.addMouseListener(new MouseAdapter() {
-            public void mouseUp(MouseEvent e) {
-                if (browser != null) {
-                    browser.open(_addressText.getText());
-                }
-            }
-        });
-        // _compositeParent.getShell().setDefaultButton(searchButton);
-    }
+			public void keyReleased(KeyEvent e) {
+			}
+		});
 
-    private GridData getButtonsGridData() {
-        GridData gridData = new GridData();
-        gridData.heightHint = 32;
-        gridData.widthHint = 32;
-        gridData.horizontalAlignment = GridData.HORIZONTAL_ALIGN_CENTER;
+		Button searchButton = new Button(this, SWT.NULL);
+		searchButton.setLayoutData(getButtonsGridData());
+		searchButton.setText(ModelServiceMessages.getString("WebBrowser.Go")); //$NON-NLS-1$
+		searchButton.setToolTipText(ModelServiceMessages
+				.getString("WebBrowser.Go_tp")); //$NON-NLS-1$
+		// TODO
+		searchButton.setImage(BrowserIE_Plugin.imageDescriptorFromPlugin(
+				"org.eclipse.actf.model.ui", "icons/browser/go.png")
+				.createImage());
+		searchButton.addMouseListener(new MouseAdapter() {
+			public void mouseUp(MouseEvent e) {
+				if (browser != null) {
+					browser.open(_addressText.getText());
+				}
+			}
+		});
+		// _compositeParent.getShell().setDefaultButton(searchButton);
+	}
 
-        return gridData;
-    }
+	private GridData getButtonsGridData() {
+		GridData gridData = new GridData();
+		gridData.heightHint = 32;
+		gridData.widthHint = 32;
+		gridData.horizontalAlignment = GridData.HORIZONTAL_ALIGN_CENTER;
 
-    public String getAddressTextString() {
-        return _addressText.getText();
-    }
-    
-    public void setAddressTextString(String targetS) {
-        _addressText.setText(targetS);
-    }
-    
-    public void setFocusToAddressText(boolean selectAll) {
-        if (!isVisible()) setVisible(true);
-        _addressText.setFocus();
-        if (selectAll) {
-            _addressText.selectAll();
-        } else {
-            _addressText.setSelection(0);
-        }
-    }
+		return gridData;
+	}
 
-    public void showAddressText(boolean flag) {
-        this.setVisible(flag);
-    }
+	public String getAddressTextString() {
+		return _addressText.getText();
+	}
+
+	public void setAddressTextString(String targetS) {
+		_addressText.setText(targetS);
+	}
+
+	public void setFocusToAddressText(boolean selectAll) {
+		if (!isVisible())
+			setVisible(true);
+		_addressText.setFocus();
+		if (selectAll) {
+			_addressText.selectAll();
+		} else {
+			_addressText.setSelection(0);
+		}
+	}
+
+	public void showAddressText(boolean flag) {
+		this.setVisible(flag);
+	}
 
 }

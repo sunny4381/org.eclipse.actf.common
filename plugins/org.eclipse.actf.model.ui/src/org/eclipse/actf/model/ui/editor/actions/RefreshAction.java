@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.model.ui.editor.actions;
 
+import org.eclipse.actf.model.internal.ui.ModelUIPlugin;
 import org.eclipse.actf.model.ui.IModelService;
-import org.eclipse.actf.model.ui.ModelUIPlugin;
 import org.eclipse.actf.model.ui.editor.browser.DefaultWebBrowserNavigationEventListener;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserNavigationEventListener;

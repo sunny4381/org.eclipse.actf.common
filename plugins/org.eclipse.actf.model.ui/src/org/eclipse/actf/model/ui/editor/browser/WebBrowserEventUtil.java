@@ -14,7 +14,7 @@ package org.eclipse.actf.model.ui.editor.browser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.ui.ModelUIPlugin;
+import org.eclipse.actf.model.internal.ui.ModelUIPlugin;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: ACTF Model UI Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.model.ui;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.actf.model.ui.ModelUIPlugin
+Bundle-Activator: org.eclipse.actf.model.internal.ui.ModelUIPlugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

@@ -8,9 +8,9 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.ui;
+package org.eclipse.actf.model.internal.ui;
 
-import org.eclipse.actf.model.ui.editor.preferences.IPreferenceConstants;
+import org.eclipse.actf.model.internal.ui.preferences.IPreferenceConstants;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

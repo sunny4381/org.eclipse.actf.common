@@ -23,8 +23,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.eclipse.actf.model.ui.ModelUIPlugin;
-import org.eclipse.actf.model.ui.editor.preferences.IPreferenceConstants;
+import org.eclipse.actf.model.internal.ui.preferences.IPreferenceConstants;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
