@@ -11,35 +11,180 @@
 
 package org.eclipse.actf.model.ui;
 
-
-
-
+/**
+ * Interface to scroll {@link IModelService}
+ */
 public interface IModelServiceScrollManager {
-    static int NONE = -1;
-    static int ABSOLUTE_COORDINATE = 0;
-    static int INCREMENTAL = 1;
-    static int PAGE = 2;
-    
-    int getScrollType();
-    
-    void absoluteCoordinateScroll(int y, boolean waitRendering);
-    void absoluteCoordinateScroll(int x, int y, boolean waitRendering);
-    
-    int incrementScrollX(boolean waitRendering);
-    int decrementScrollX(boolean waitRendering);
-    int incrementScrollY(boolean waitRendering);
-    int decrementScrollY(boolean waitRendering);
-    int incrementLargeScrollX(boolean waitRendering);
-    int decrementLargeScrollX(boolean waitRendering);
-    int incrementLargeScrollY(boolean waitRendering);
-    int decrementLargeScrollY(boolean waitRendering);
-    
-    int incrementPageScroll(boolean waitRendering);
-    int decrementPageScroll(boolean waitRendering);
-    
-    int jumpToPage(int pageNumber, boolean waitRendering);
-    int getCurrentPageNumber();
-    int getLastPageNumber();
-    
-    ModelServiceSizeInfo getSize(boolean isWhole);
+	/**
+	 * Scroll type: not supported
+	 */
+	static int NONE = -1;
+	/**
+	 * Scroll type: absolute coordinate
+	 */
+	static int ABSOLUTE_COORDINATE = 0;
+	/**
+	 * Scroll type: incremental
+	 */
+	static int INCREMENTAL = 1;
+	/**
+	 * Scroll type: page by page
+	 */
+	static int PAGE = 2;
+
+	/**
+	 * Get scroll type of the {@link IModelService}
+	 * 
+	 * @return scroll type
+	 */
+	int getScrollType();
+
+	/**
+	 * Scroll to y
+	 * 
+	 * @param y
+	 *            target Y coordinate
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 */
+	void absoluteCoordinateScroll(int y, boolean waitRendering);
+
+	/**
+	 * Scroll to (x,y)
+	 * 
+	 * @param x
+	 *            target X coordinate
+	 * @param y
+	 *            target Y coordinate
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 */
+	void absoluteCoordinateScroll(int x, int y, boolean waitRendering);
+
+	/**
+	 * Incremental scroll (horizontal)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int incrementScrollX(boolean waitRendering);
+
+	/**
+	 * Decremental scroll (horizontal)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int decrementScrollX(boolean waitRendering);
+
+	/**
+	 * Incremental scroll (vertical)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int incrementScrollY(boolean waitRendering);
+
+	/**
+	 * Decremental scroll (vertical)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int decrementScrollY(boolean waitRendering);
+
+	/**
+	 * Incremental large scroll (horizontal)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int incrementLargeScrollX(boolean waitRendering);
+
+	/**
+	 * Decremental large scroll (horizontal)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int decrementLargeScrollX(boolean waitRendering);
+
+	/**
+	 * Incremental large scroll (vertical)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int incrementLargeScrollY(boolean waitRendering);
+
+	/**
+	 * Decremental large scroll (vertical)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int decrementLargeScrollY(boolean waitRendering);
+
+	/**
+	 * Incremental page scroll (Page up)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int incrementPageScroll(boolean waitRendering);
+
+	/**
+	 * Decremental page scroll (Page down)
+	 * 
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return scroll size, or -1 if not supported
+	 */
+	int decrementPageScroll(boolean waitRendering);
+
+	/**
+	 * Jump to specified page
+	 * 
+	 * @param pageNumber
+	 *            target page number
+	 * @param waitRendering
+	 *            if true, wait a finish of rendering
+	 * @return resulting page number
+	 */
+	int jumpToPage(int pageNumber, boolean waitRendering);
+
+	/**
+	 * Get current page number of the content
+	 * 
+	 * @return current page number
+	 */
+	int getCurrentPageNumber();
+
+	/**
+	 * Get page number of the last page of the content
+	 * 
+	 * @return page number of the last page
+	 */
+	int getLastPageNumber();
+
+	/**
+	 * Get screen size of {@link IModelService}
+	 * 
+	 * @param isWhole
+	 *            <ul>
+	 *            <li>true: try to calculate entire area of the content</li>
+	 *            <li>false: current visible area size</li>
+	 *            </ul>
+	 * @return screen size of {@link IModelService}
+	 */
+	ModelServiceSizeInfo getSize(boolean isWhole);
 }

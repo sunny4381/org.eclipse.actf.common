@@ -10,14 +10,30 @@
  *******************************************************************************/
 package org.eclipse.actf.model.ui;
 
-
+/**
+ * ImagePositionInfo stores position information of images
+ */
 public class ImagePositionInfo {
-	int x=0;
-	int y=0;
-	int width=0;
-	int height=0;
-	String url="";
-	
+	int x = 0;
+	int y = 0;
+	int width = 0;
+	int height = 0;
+	String url = "";
+
+	/**
+	 * Constructor of {@link ImagePositionInfo}
+	 * 
+	 * @param x
+	 *            X position
+	 * @param y
+	 *            Y position
+	 * @param width
+	 *            width
+	 * @param height
+	 *            height
+	 * @param url
+	 *            image URL
+	 */
 	public ImagePositionInfo(int x, int y, int width, int height, String url) {
 		this.x = x;
 		this.y = y;
@@ -26,44 +42,79 @@ public class ImagePositionInfo {
 		this.url = url;
 	}
 
+	/**
+	 * @return height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Set height
+	 * @param height
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
+	/**
+	 * @return URL of image as String
+	 */
 	public String getUrl() {
 		return url;
 	}
 
+	/**
+	 * Set URL of image
+	 * @param url
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
+	/**
+	 * @return width
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Set width
+	 * @param width
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	/**
+	 * @return X position
+	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * Set X position
+	 * @param x
+	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
+	/**
+	 * @return Y position
+	 */
 	public int getY() {
 		return y;
 	}
 
+	/**
+	 * Set Y position
+	 * @param y
+	 */
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 }

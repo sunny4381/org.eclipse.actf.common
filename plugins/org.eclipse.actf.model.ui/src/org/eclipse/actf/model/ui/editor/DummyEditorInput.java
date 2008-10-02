@@ -11,60 +11,78 @@
 
 package org.eclipse.actf.model.ui.editor;
 
+import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 
-
-
+/**
+ * Dummy Editor Input for Editors of ACTF {@link IModelService} implementation.
+ * This class is used for open external resources, such as Web site, etc.
+ * 
+ * @see IModelService
+ */
 public class DummyEditorInput implements IEditorInput {
 
-    private String name = "";
+	private String name = "";
 
-    private String url = "";
+	private String url = "";
 
-    public DummyEditorInput(String url, String name) {
-        setUrl(url);
-        if (name != null) {
-            this.name = name;
-        }
+	/**
+	 * 
+	 * @param url
+	 *            target content URL
+	 * @param name
+	 *            the name of this Editor input
+	 */
+	public DummyEditorInput(String url, String name) {
+		setUrl(url);
+		if (name != null) {
+			this.name = name;
+		}
 
-    }
+	}
 
-    public boolean exists() {
-        System.out.println("exists");
-        return false;
-    }
+	public boolean exists() {
+		System.out.println("exists");
+		return false;
+	}
 
-    public ImageDescriptor getImageDescriptor() {
-        return null;
-    }
+	public ImageDescriptor getImageDescriptor() {
+		return null;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public IPersistableElement getPersistable() {
-        return null;
-    }
+	public IPersistableElement getPersistable() {
+		return null;
+	}
 
-    public String getToolTipText() {
-        return "";
-    }
+	public String getToolTipText() {
+		return "";
+	}
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public Object getAdapter(Class adapter) {
-        return null;
-    }
+		return null;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	/**
+	 * Get target content URL as String. ACTF {@link IModelService}
+	 * implementations will open the URL.
+	 * 
+	 * @return target content URL as String
+	 */
+	public String getUrl() {
+		return url;
+	}
 
-    protected void setUrl(String url) {
-        if (url != null) {
-            this.url = url;
-        }
-    }
+	protected void setUrl(String url) {
+		if (url != null) {
+			this.url = url;
+		}
+	}
 
 }
