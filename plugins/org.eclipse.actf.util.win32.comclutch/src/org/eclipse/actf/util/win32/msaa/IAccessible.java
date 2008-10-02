@@ -12,6 +12,10 @@ package org.eclipse.actf.util.win32.msaa;
 
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
+/**
+ * Wrapper for IAccessible object
+ * see http://msdn.microsoft.com/en-us/library/accessibility.iaccessible.aspx
+ */
 public interface IAccessible extends IDispatch{
 	String getAccKeyboardShortcut(int child);
 

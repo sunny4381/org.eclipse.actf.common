@@ -12,10 +12,14 @@
 package org.eclipse.actf.util.win32.comclutch;
 
 
+/**
+ * Wrapper for IUrlHistoryStg2 object
+ * see http://msdn.microsoft.com/en-us/library/aa767716(VS.85).aspx
+ */
 public interface BrowserHistory {
     /**
-     * @param url
-     * @return
+     * @param url the URL to be checked
+     * @return whether the URL is already visited or not 
      */
     boolean isVisited(String url);
 }

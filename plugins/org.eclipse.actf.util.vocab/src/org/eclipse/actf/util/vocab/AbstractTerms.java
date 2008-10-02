@@ -22,186 +22,416 @@ import org.w3c.dom.Node;
  */
 public abstract class AbstractTerms {
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isClickable()
+	 */
 	public boolean isClickable(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isEditable()
+	 */
 	public boolean isEditable(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#hasContent()
+	 */
 	public boolean hasContent(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isEnabled()
+	 */
 	public boolean isEnabled(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isInputable()
+	 */
 	public boolean isInputable(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isSelectable()
+	 */
 	public boolean isSelectable(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isButton()
+	 */
 	public boolean isButton(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isCheckbox()
+	 */
 	public boolean isCheckbox(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isLabel()
+	 */
 	public boolean isLabel(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isLink()
+	 */
 	public boolean isLink(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isRadio()
+	 */
 	public boolean isRadio(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isCombobox()
+	 */
 	public boolean isCombobox(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isSubmit()
+	 */
 	public boolean isSubmit(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isTextarea()
+	 */
 	public boolean isTextarea(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isTextbox()
+	 */
 	public boolean isTextbox(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isPassword()
+	 */
 	public boolean isPassword(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isValidNode()
+	 */
 	public boolean isValidNode(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isVisibleNode()
+	 */
 	public boolean isVisibleNode(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isEmbeddedObject()
+	 */
 	public boolean isEmbeddedObject(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isImage()
+	 */
 	public boolean isImage(IEvalTarget target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isMultilineEdit()
+	 */
 	public boolean isMultilineEdit(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isReducible()
+	 */
 	public boolean isReducible(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isConnectable()
+	 */
 	public boolean isConnectable(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#find()
+	 */
 	public boolean find(String str, boolean exact, IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#startsWith()
+	 */
 	public boolean startsWith(String str, boolean exact, IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isHeading()
+	 */
 	public boolean isHeading(int level, IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#nodeLocation()
+	 */
 	public boolean nodeLocation(Node refNode, boolean backward, IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isHeadingJumpPoint()
+	 */
 	public boolean isHeadingJumpPoint(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#hasReadingContent()
+	 */
 	public boolean hasReadingContent(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isListItemJumpPoint()
+	 */
 	public boolean isListItemJumpPoint(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isBlockJumpPointF()
+	 */
 	public boolean isBlockJumpPointF(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isBlockJumpPointB()
+	 */
 	public boolean isBlockJumpPointB(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isFileEdit()
+	 */
 	public boolean isFileEdit(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isChecked()
+	 */
 	public boolean isChecked(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isListItem()
+	 */
 	public boolean isListItem(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isListTop()
+	 */
 	public boolean isListTop(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isSelectOption()
+	 */
 	public boolean isSelectOption(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isVisitedLink()
+	 */
 	public boolean isVisitedLink(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isMultiSelectable()
+	 */
 	public boolean isMultiSelectable(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isAccessKey()
+	 */
 	public boolean isAccessKey(char key, IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isMedia()
+	 */
 	public boolean isMedia(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isFlashTopNode()
+	 */
 	public boolean isFlashTopNode(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isFlashLastNode()
+	 */
 	public boolean isFlashLastNode(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isMSAAFlash()
+	 */
 	public boolean isMSAAFlash(IEvalTarget node) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isReachable()
+	 */
 	public boolean isReachable(IEvalTarget node, Node target) {
 		return false;
 	}
 
+	/**
+	 * @param target the node to be evaluated
+	 * @return whether the node matches the condition
+	 * @see Vocabulary#isAlterable()
+	 */
 	public boolean isAlterable(IEvalTarget target) {
 		return false;
 	}

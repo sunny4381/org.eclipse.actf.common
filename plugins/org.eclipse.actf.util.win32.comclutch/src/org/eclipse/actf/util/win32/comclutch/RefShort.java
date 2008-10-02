@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * @see RefContainer
+ */
 public class RefShort extends RefContainer{
 	public RefShort(ResourceManager rm){
 		super(rm, SIZEOF_SHORT);

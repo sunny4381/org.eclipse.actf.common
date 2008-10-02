@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * @see RefContainer
+ */
 public class RefFloat extends RefContainer{
 	public RefFloat(ResourceManager rm){
 		super(rm, SIZEOF_FLOAT);

@@ -12,6 +12,10 @@
 package org.eclipse.actf.util.win32.comclutch;
 
 
+/**
+ * Wrapper for IEnumUnknown object
+ * see http://msdn.microsoft.com/en-us/library/ms683764(VS.85).aspx
+ */
 public interface IEnumUnknown extends IUnknown {
     IUnknown[] next(int num);
     boolean skip(int num);

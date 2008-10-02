@@ -12,6 +12,10 @@
 package org.eclipse.actf.util.win32.comclutch;
 
 
+/**
+ * Wrapper for IOleContainer object
+ * see http://msdn.microsoft.com/en-us/library/ms690103(VS.85).aspx
+ */
 public interface IOleContainer extends IUnknown {
     public static final int OLECONTF_EMBEDDINGS    = 1; 
     public static final int OLECONTF_LINKS         = 2; 

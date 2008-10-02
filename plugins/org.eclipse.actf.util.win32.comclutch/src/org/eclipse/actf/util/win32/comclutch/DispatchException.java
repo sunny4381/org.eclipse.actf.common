@@ -10,10 +10,16 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * It will be thrown when a error occurs in invocation.
+ */
 public class DispatchException extends ComException {
-    private static final long serialVersionUID = 7228964243884764857L;
+	private static final long serialVersionUID = 7228964243884764857L;
 
-    public DispatchException(String message) {
-        super(message);
-    }
+	/**
+	 * @param message
+	 */
+	public DispatchException(String message) {
+		super(message);
+	}
 }

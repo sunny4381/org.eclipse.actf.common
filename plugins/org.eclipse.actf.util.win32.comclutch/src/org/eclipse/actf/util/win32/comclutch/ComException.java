@@ -10,9 +10,15 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * Super class of exceptions used in comclutch
+ */
 public class ComException extends RuntimeException {
     private static final long serialVersionUID = -2301515803949560900L;
 
+    /**
+     * @param message
+     */
     public ComException(String message) {
         super(message);
     }

@@ -13,6 +13,10 @@ package org.eclipse.actf.util.win32.comclutch;
 import org.eclipse.actf.util.win32.comclutch.impl.IDispatchImpl;
 import org.eclipse.actf.util.win32.comclutch.impl.IUnknownImpl;
 
+/**
+ * TODO:
+ * (For event handling)
+ */
 public abstract class Handler extends IUnknownImpl implements IDispatch {
     public abstract Object defaultHandler(Object[] args);
 

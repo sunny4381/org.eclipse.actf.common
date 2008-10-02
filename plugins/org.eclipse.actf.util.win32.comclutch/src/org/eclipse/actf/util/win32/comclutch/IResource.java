@@ -10,13 +10,38 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * IResource interface defines the methods to be implemented by classes
+ * treats native resources
+ */
 public interface IResource {
-    ResourceManager getResourceManager();
-    void addResource(IResource target);
-    IResource findInResource(long ptr);
+	/**
+	 * @return the resource manager of the resource
+	 */
+	ResourceManager getResourceManager();
 
-    boolean isPermanent();
+	/**
+	 * call {@link ResourceManager#addResource(IResource)} with the target
+	 */
+	void addResource(IResource target);
 
-    long getPtr();
-    void release();
+	/**
+	 * call {@link ResourceManager#findInResource(long)} with the ptr
+	 */
+	IResource findInResource(long ptr);
+
+	/**
+	 * @return the resource is permanent object or not
+	 */
+	boolean isPermanent();
+
+	/**
+	 * @return the native reference pointer of the resource
+	 */
+	long getPtr();
+
+	/**
+	 * call {@link ResourceManager#removeResource(IResource)} with this
+	 */
+	void release();
 }

@@ -12,6 +12,9 @@ package org.eclipse.actf.util.win32.comclutch;
 
 import org.eclipse.actf.util.win32.comclutch.impl.IUnknownImpl;
 
+/**
+ * @see RefContainer
+ */
 public class RefIUnknown extends RefContainer {
 	public RefIUnknown(ResourceManager rm) {
 		super(rm, SIZEOF_IUNKOWN);

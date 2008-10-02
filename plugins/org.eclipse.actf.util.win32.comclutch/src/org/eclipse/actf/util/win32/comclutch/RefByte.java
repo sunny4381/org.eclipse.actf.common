@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * @see RefContainer
+ */
 public class RefByte extends RefContainer{
 	public RefByte(ResourceManager rm){
 		super(rm, SIZEOF_BYTE);

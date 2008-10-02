@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * @see RefContainer
+ */
 public class RefDouble extends RefContainer{
 	public RefDouble(ResourceManager rm){
 		super(rm, SIZEOF_DOUBLE);

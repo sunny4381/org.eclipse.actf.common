@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * @see RefContainer
+ */
 public class RefObject extends RefContainer{
 	public RefObject(ResourceManager rm){
 		super(rm, SIZEOF_OBJECT);

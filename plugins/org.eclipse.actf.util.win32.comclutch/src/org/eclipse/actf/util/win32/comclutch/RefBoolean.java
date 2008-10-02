@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * @see RefContainer
+ */
 public class RefBoolean extends RefContainer{
 	public RefBoolean(ResourceManager rm){
 		super(rm, SIZEOF_BOOLEAN);

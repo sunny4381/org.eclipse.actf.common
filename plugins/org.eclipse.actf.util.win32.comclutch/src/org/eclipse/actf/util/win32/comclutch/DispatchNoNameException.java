@@ -10,9 +10,15 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * not used
+ */
 public class DispatchNoNameException extends DispatchException {
     private static final long serialVersionUID = -8294736447782292553L;
 
+    /**
+     * @param message
+     */
     public DispatchNoNameException(String message) {
         super(message);
     }

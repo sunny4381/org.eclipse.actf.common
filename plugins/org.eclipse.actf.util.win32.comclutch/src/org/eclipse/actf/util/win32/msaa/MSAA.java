@@ -13,6 +13,10 @@ package org.eclipse.actf.util.win32.msaa;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 
+/**
+ * MSAA is utility for Microsoft Active Accessibility Interface
+ * see http://msdn.microsoft.com/en-us/library/ms697707.aspx
+ */
 public class MSAA {
 
 	public static final int CHILDID_SELF = 0;
@@ -41,18 +45,44 @@ public class MSAA {
     public static final int ROLE_SYSTEM_RADIOBUTTON = 0x2d;
 	
 	
+	/**
+	 * Wrapper for GetRoleText method
+	 * see http://msdn.microsoft.com/en-us/library/ms696193(VS.85).aspx
+	 * @param accRole the object role constants
+	 * @return the text string
+	 */
 	public static String getRoleText(int accRole) {
 		return _getRoleText(accRole);
 	}
 
+	/**
+	 * Wrapper for WindowFromAccessibleObject method
+	 * see http://msdn.microsoft.com/en-us/library/ms697201(VS.85).aspx
+	 * @param ptr the pointer to the IAccessible 
+	 * @return the window handle to be retrieved from the pointer
+	 */
 	public static long WindowFromAccessibleObject(long ptr) {
 		return _WindowFromAccessibleObject(ptr);
 	}
 
+	/**
+	 * Wrapper for AccessibleChildren method
+	 * see http://msdn.microsoft.com/en-us/library/ms697243(VS.85).aspx
+	 * @param idisp the parent object
+	 * @param start the index of the first child
+	 * @param count the amount of children to retrieve
+	 * @return the array of children
+	 */
 	public static Object[] getAccessibleChildren(IDispatch idisp, int start, int count) {
 		return _getAccessibleChildren(idisp, idisp.getPtr(), start, count);
 	} 
 	
+	/**
+	 * Wrapper for AccessibleObjectFromWindow method
+	 * see http://msdn.microsoft.com/en-us/library/ms696137(VS.85).aspx
+	 * @param hwnd the window handle
+	 * @return the pointer to the IAccessible object
+	 */
 	public static long getAccessibleObjectFromWindow(long hwnd) {
 		return _AcessibleObjectFromWindow(hwnd);
 	}

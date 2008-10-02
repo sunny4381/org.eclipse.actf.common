@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * @see RefContainer
+ */
 public class RefVoid extends RefContainer{
 	public RefVoid(ResourceManager rm){
 		super(rm, SIZEOF_VOIDPTR);

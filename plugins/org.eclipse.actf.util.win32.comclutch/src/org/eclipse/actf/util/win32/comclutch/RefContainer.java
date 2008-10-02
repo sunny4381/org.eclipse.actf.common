@@ -12,6 +12,13 @@ package org.eclipse.actf.util.win32.comclutch;
 
 import org.eclipse.actf.util.win32.comclutch.impl.IResourceImpl;
 
+/**
+ * RefContainer is abstract class of referenced variables.
+ * The instance of the RefContainer is used for call by reference.
+ * You don't have to care about the resource management, because
+ * the ResourceManager treat the resource life cycle.
+ * You can release the resource if you don't need to keep it.
+ */
 public abstract class RefContainer extends IResourceImpl {
 
 	protected static final int SIZEOF_BOOLEAN = 1;
@@ -54,15 +61,21 @@ public abstract class RefContainer extends IResourceImpl {
 	protected native void _setValueForVoidPtr(long ptr, long value);
 	protected native void _setValueForString(long ptr, String value);
 	
-	public RefContainer(ResourceManager rm, int size) {
+	protected RefContainer(ResourceManager rm, int size) {
         super(rm, false);
 		ptr = _calloc(size);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.util.win32.comclutch.IResource#getPtr()
+	 */
 	public long getPtr() {
 		return ptr;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.util.win32.comclutch.impl.IResourceImpl#release()
+	 */
 	public void release() {
 		_free(ptr);
 	}

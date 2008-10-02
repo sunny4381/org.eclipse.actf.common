@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * @see RefContainer
+ */
 public class RefString extends RefContainer{
     // T.B.D.
     public RefString(ResourceManager rm){

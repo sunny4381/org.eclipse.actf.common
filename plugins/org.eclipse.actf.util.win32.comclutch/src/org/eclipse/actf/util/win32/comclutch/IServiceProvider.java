@@ -12,6 +12,10 @@ package org.eclipse.actf.util.win32.comclutch;
 
 import java.util.UUID;
 
+/**
+ * Wrapper for IServiceProvider object
+ * see http://msdn.microsoft.com/en-us/library/system.iserviceprovider.aspx
+ */
 public interface IServiceProvider extends IUnknown {
 	IUnknown queryService(UUID guidService, UUID riid);
 }

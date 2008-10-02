@@ -219,6 +219,7 @@ public class Vocabulary {
 		add("Selectable", new IsSelectable());
 		add("MultiSelectable", new IsMultiSelectable());
 		add("Selectable", or("Combobox", "Radio"));
+		add("Editable", or("Inputable", "Selectable", "MultiSelectable"));
 		add("ValidNode", new IsValidNode());
 		add("HasContent", new HasContent());
 		add("HasReadingContent", new HasReadingContent());
@@ -262,6 +263,11 @@ public class Vocabulary {
 	// return ret;
 	// }
 
+	/**
+	 * @param args
+	 *            the instances of IPropsition to be concatenated by "OR"
+	 * @return the result of the logical OR operation
+	 */
 	public static IProposition or(IProposition... args) {
 		OrOperator ret = new OrOperator();
 		for (IProposition ip : args) {
@@ -270,6 +276,11 @@ public class Vocabulary {
 		return ret;
 	}
 
+	/**
+	 * @param args
+	 *            the instances of IPropsition to be concatenated by "AND"
+	 * @return the result of the logical AND operation
+	 */
 	public static IProposition and(IProposition... args) {
 		AndOperator ret = new AndOperator();
 		for (IProposition ip : args) {
@@ -356,198 +367,411 @@ public class Vocabulary {
 		return propMap.get(name);
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is clickable or not
+	 */
 	public static IProposition isClickable() {
 		return get("Clickable");
 	}
 
+	/**
+	 * Having content means that the element has content to be displayed in the
+	 * aiBrowser
+	 * 
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node has content
+	 */
 	public static IProposition hasContent() {
 		return get("HasContent");
 	}
 
+	/**
+	 * text box, text area, password, combo box, check box, radio button, and so on.
+	 * 
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node can be edited.
+	 */
 	public static IProposition isEditable() {
 		return get("Editable");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node has some options to be selected.
+	 */
 	public static IProposition isSelectable() {
 		return get("Selectable");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is embedded object.
+	 */
 	public static IProposition isEmbeddedObject() {
 		return get("EmbeddedObject");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is valid for aiBrowser's tree item.
+	 */
 	public static IProposition isValidNode() {
 		return get("ValidNode");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is visible or not.
+	 */
 	public static IProposition isVisibleNode() {
 		return get("VisibleNode");
 	}
 
+	/**
+	 * text box, text area, password
+	 * 
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node can be input text.
+	 */
 	public static IProposition isInputable() {
 		return get("Inputable");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is button or not.
+	 */
 	public static IProposition isButton() {
 		return get("Button");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is list item or not
+	 */
 	public static IProposition isListItem() {
 		return get("ListItem");
 	}
 
+	/**
+	 * OL, UL, DL tags
+	 * 
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is list element or not
+	 */
 	public static IProposition isListTop() {
 		return get("ListTop");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is check box or not
+	 */
 	public static IProposition isCheckbox() {
 		return get("Checkbox");
 	}
-
+	
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is checked or not
+	 */
 	public static IProposition isChecked() {
 		return get("Checked");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is label element or not
+	 */
 	public static IProposition isLabel() {
 		return get("Label");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is anchor element or not
+	 */
 	public static IProposition isLink() {
 		return get("Link");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is visited link or not
+	 */
 	public static IProposition isVisitedLink() {
 		return get("VisitedLink");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is radio button or not
+	 */
 	public static IProposition isRadio() {
 		return get("Radio");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is submit button or not
+	 */
 	public static IProposition isSubmit() {
 		return get("Submit");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is file edit or not
+	 */
 	public static IProposition isFileEdit() {
 		return get("FileEdit");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is combo box or not
+	 */
 	public static IProposition isCombobox() {
 		return get("Combobox");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is text area or not
+	 */
 	public static IProposition isTextarea() {
 		return get("Textarea");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is text box or not
+	 */
 	public static IProposition isTextbox() {
 		return get("Textbox");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is password or not
+	 */
 	public static IProposition isPassword() {
 		return get("Password");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is option of select form or not
+	 */
 	public static IProposition isSelectOption() {
 		return get("SelectOption");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is image element or not
+	 */
 	public static IProposition isImage() {
 		return get("Image");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is text edit control having multiple lines
+	 */
 	public static IProposition isMultilineEdit() {
 		return get("MultilineEdit");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node can be omitted to create simplified tree by fennec auto translator
+	 */
 	public static IProposition isReducible() {
 		return get("Reducible");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is heading element or not
+	 */
 	public static IProposition isHeading() {
 		return get("Heading");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is heading level 1 element or not
+	 */
 	public static IProposition isHeading1() {
 		return get("Heading1");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is heading level 2 element or not
+	 */
 	public static IProposition isHeading2() {
 		return get("Heading2");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is heading level 3 element or not
+	 */
 	public static IProposition isHeading3() {
 		return get("Heading3");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is heading level 4 element or not
+	 */
 	public static IProposition isHeading4() {
 		return get("Heading4");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is heading level 5 element or not
+	 */
 	public static IProposition isHeading5() {
 		return get("Heading5");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is heading level 6 element or not
+	 */
 	public static IProposition isHeading6() {
 		return get("Heading6");
 	}
 
+	/**
+	 * @param str the string to be found
+	 * @param exact if true then case-sensitive
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node has the string
+	 */
 	public static IProposition find(String str, boolean exact) {
 		return new FindProposition(str, exact);
 	}
 
+	/**
+	 * @param str the string to be found
+	 * @param exact if true then case-sensitive
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node has string which starts with str
+	 */
 	public static IProposition startsWith(String str, boolean exact) {
 		return new StartsWithProposition(str, exact);
 	}
-
+	
+	/**
+	 * @param refNode the reference node to be compared
+	 * @param backward the target node is appeared before the refNode or not
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is appeared before or after the reference node
+	 */
 	public static IProposition nodeLocation(Node refNode, boolean backward) {
 		return new NodeLocationProposition(refNode, backward);
 	}
 
+	/**
+	 * @param key the character of the access key
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node has the access key
+	 */
 	public static IProposition isAccessKey(char key) {
 		return new IsAccessKey(key);
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node can be read with next sibling or not
+	 */
 	public static IProposition isConnectable() {
 		return get("Connectable");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node has content can be read.
+	 */
 	public static IProposition hasReadingContent() {
 		return get("HasReadingContent");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is suitable for block jump point in forward direction
+	 */
 	public static IProposition isBlockJumpPointF() {
 		return get("BlockJumpPointF");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is suitable for block jump point in backward direction
+	 */
 	public static IProposition isBlockJumpPointB() {
 		return get("BlockJumpPointB");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is multi selectable list
+	 */
 	public static IProposition isMultiSelectable() {
 		return get("MultiSelectable");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is sound or video object
+	 */
 	public static IProposition isMedia() {
 		return get("Media");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is Flash element
+	 */
 	public static IProposition isFlashTopNode() {
 		return get("FlashTopNode");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is the last node of Flash element
+	 */
 	public static IProposition isFlashLastNode() {
 		return get("FlashLastNode");
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node is Flash element from MSAA
+	 */
 	public static IProposition isMSAAFlash() {
 		return get("MSAAFlash");
 	}
 
+	/**
+	 * @param baseNode the node to be checked for reaching
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node can be read with next element in HTML level.
+	 */
 	public static IProposition isReachable(Node baseNode) {
 		return new IsReachable(baseNode);
 	}
 
+	/**
+	 * @return the instance of {@link IProposition} which evaluates whether a
+	 *         node can be added alternative text
+	 */
 	public static IProposition isAlterable() {
 		return get("Alterable");
 	}
@@ -556,6 +780,9 @@ public class Vocabulary {
 		MSAA, FLASH_DOM, NO_FLASH
 	}
 
+	/**
+	 * @return the mode for normal Flash
+	 */
 	public static FlashMode getNormalFlashMode() {
 		String mode = VocabPlugin.getDefault().getPreferenceStore().getString(
 				VocabPreferenceConstants.NORMAL_FLASH);
@@ -568,6 +795,9 @@ public class Vocabulary {
 		return FlashMode.NO_FLASH;
 	}
 
+	/**
+	 * @return the mode for windowless flash mode
+	 */
 	public static FlashMode getWindowlessFlashMode() {
 		String mode = VocabPlugin.getDefault().getPreferenceStore().getString(
 				VocabPreferenceConstants.WNDLESS_FLASH);
@@ -578,26 +808,41 @@ public class Vocabulary {
 		return FlashMode.NO_FLASH;
 	}
 
+	/**
+	 * @return whether the system reads no alt image
+	 */
 	public static boolean isReadNoAltImage() {
 		return VocabPlugin.getDefault().getPreferenceStore().getBoolean(
 				VocabPreferenceConstants.READ_NO_ALT);
 	}
 
+	/**
+	 * @return whether the system read null alt image
+	 */
 	public static boolean isReadNullAltImage() {
 		return VocabPlugin.getDefault().getPreferenceStore().getBoolean(
 				VocabPreferenceConstants.READ_NULL_ALT);
 	}
 
+	/**
+	 * @return whether the system reads no alt image link
+	 */
 	public static boolean isReadNoAltImageLink() {
 		return VocabPlugin.getDefault().getPreferenceStore().getBoolean(
 				VocabPreferenceConstants.READ_NO_ALT_LINK);
 	}
 
+	/**
+	 * @return whether the system reads null alt image link
+	 */
 	public static boolean isReadNullAltImageLink() {
 		return VocabPlugin.getDefault().getPreferenceStore().getBoolean(
 				VocabPreferenceConstants.READ_NULL_ALT_LINK);
 	}
 
+	/**
+	 * @return
+	 */
 	public static boolean isSkipIconLink() {
 		return VocabPlugin.getDefault().getPreferenceStore().getBoolean(
 				VocabPreferenceConstants.SKIP_ICON_LINK);

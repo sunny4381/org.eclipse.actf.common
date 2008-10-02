@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
+/**
+ * @see RefContainer
+ */
 public class RefInt extends RefContainer{
 	public RefInt(ResourceManager rm){
 		super(rm, SIZEOF_INT);

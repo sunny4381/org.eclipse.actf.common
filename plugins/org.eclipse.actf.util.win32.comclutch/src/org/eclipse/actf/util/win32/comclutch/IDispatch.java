@@ -10,16 +10,55 @@
  *******************************************************************************/
 package org.eclipse.actf.util.win32.comclutch;
 
-
+/**
+ * Wrapper for IDispatch object
+ * see http://msdn.microsoft.com/en-us/library/ms221608.aspx
+ * 
+ * IDispatch interface defines the methods to be used for method invocation and
+ * property operations with instances of native IDispatch.
+ */
 public interface IDispatch extends IUnknown {
-    void cacheDispIDs(String[] names);
+	/**
+	 * cache IDs corresponding to the names
+	 * @param names the names of properties and methods
+	 */
+	void cacheDispIDs(String[] names);
 
-    Object invoke(String method, Object[] args);
-    Object invoke0(String method);
-    Object invoke1(String method, Object arg1);
+	/**
+	 * @param method the method name
+	 * @param args the array of arguments
+	 * @return the result of the native invocation
+	 */
+	Object invoke(String method, Object[] args);
 
-    Object get(String prop);
-    void put(String prop, Object val);
+	/**
+	 * @param method the method name
+	 * @return the result of the native invocation
+	 */
+	Object invoke0(String method);
 
-    IDispatch newIDispatch(long ptr);
+	/**
+	 * @param method the method name
+	 * @param arg1 the argument
+	 * @return the result of the native invocation
+	 */
+	Object invoke1(String method, Object arg1);
+
+	/**
+	 * @param prop the property name
+	 * @return the value of the property
+	 */
+	Object get(String prop);
+
+	/**
+	 * @param prop the property name
+	 * @param val the value to be set to the property
+	 */
+	void put(String prop, Object val);
+
+	/**
+	 * @param ptr
+	 * @return It will be called from native code
+	 */
+	IDispatch newIDispatch(long ptr);
 }
