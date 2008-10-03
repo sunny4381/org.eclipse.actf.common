@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.ui.editor.actions;
+package org.eclipse.actf.model.internal.ui.editor.actions;
 
 import java.util.Map;
 
@@ -22,6 +22,10 @@ import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 
+/**
+ * Action to add location of the current active {@link IModelService} as a
+ * favorites
+ */
 public class AddFavoritesAction extends FavoritesAction {
 
 	public static final String ID = AddFavoritesAction.class.getName();

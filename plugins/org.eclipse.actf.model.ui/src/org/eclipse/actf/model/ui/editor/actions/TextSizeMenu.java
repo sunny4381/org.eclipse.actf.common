@@ -14,33 +14,39 @@ import org.eclipse.actf.model.ui.util.ModelServiceMessages;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.IWorkbenchWindow;
 
-
+/**
+ * MenuManager for text size control
+ */
 public class TextSizeMenu extends MenuManager {
 
-	private static final String[] MENUTEXTS = { 
+	private static final String[] MENUTEXTS = {
 			ModelServiceMessages.getString("MenuConst.Largest_3"),
-            ModelServiceMessages.getString("MenuConst.Large_4"), 
-            ModelServiceMessages.getString("MenuConst.Medium_5"),
-            ModelServiceMessages.getString("MenuConst.Small_6"), 
-            ModelServiceMessages.getString("MenuConst.Smallest_7") 
-	};
+			ModelServiceMessages.getString("MenuConst.Large_4"),
+			ModelServiceMessages.getString("MenuConst.Medium_5"),
+			ModelServiceMessages.getString("MenuConst.Small_6"),
+			ModelServiceMessages.getString("MenuConst.Smallest_7") };
 
+	/**
+	 * Constructor of the class
+	 * 
+	 * @param window
+	 *            target {@link IWorkbenchWindow}
+	 */
 	public TextSizeMenu(IWorkbenchWindow window) {
 		super(ModelServiceMessages.getString("MenuConst.&Font_2"));
 
 		int menuNum = 5;
 		TextSizeAction[] displayTextSizeAction = new TextSizeAction[menuNum];
-		
-	//	int currFontSize = ADesignerWebPlugin.getDefault().getPartLeftWebBrowser().getFontSize();
-		int fontSize = 5;		
+
+		int fontSize = 5;
 		for (int i = 0; i < menuNum; i++) {
 			displayTextSizeAction[i] = new TextSizeAction(window);
 			displayTextSizeAction[i].setText(MENUTEXTS[i]);
 			add(displayTextSizeAction[i]);
 			fontSize--;
 			displayTextSizeAction[i].setFontSize(fontSize);
-		//	if(currFontSize == fontSize){
-			//}
-		}		
+			// if(currFontSize == fontSize){
+			// }
+		}
 	}
 }

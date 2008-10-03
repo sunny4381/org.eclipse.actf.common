@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,37 +20,51 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 
+/**
+ * Action to invoke disableScriptDebugger method of the current active
+ * {@link IWebBrowserACTF}
+ */
+public class DisableDebugMessageAction extends Action implements
+		IPropertyChangeListener {
+	private String message = ModelServiceMessages
+			.getString("WebBrowser.Script");
+	private String message_tp = ModelServiceMessages
+			.getString("WebBrowser.Script_tp");
 
+	/**
+	 * Constructor of the action with image icon.
+	 */
+	public DisableDebugMessageAction() {
+		this(true);
+	}
 
+	/**
+	 * Constructor of the action.
+	 * 
+	 * @param flag
+	 *            if true, set image icon to the Action
+	 */
+	public DisableDebugMessageAction(boolean flag) {
+		super("script", AS_CHECK_BOX);
+		setText(message);
+		setToolTipText(message_tp);
+		// TODO refer current setting
+		setChecked(true);
+		if (flag)
+			setImageDescriptor(ModelUIPlugin
+					.getImageDescriptor("icons/toolbar/scriptDebug.png"));
+	}
 
-public class DisableDebugMessageAction extends Action implements IPropertyChangeListener {
-    private String message = ModelServiceMessages.getString("WebBrowser.Script");
-    private String message_tp = ModelServiceMessages.getString("WebBrowser.Script_tp");
+	public void run() {
 
+		IModelService modelService = ModelServiceUtils.getActiveModelService();
+		if (modelService != null && modelService instanceof IWebBrowserACTF) {
+			((IWebBrowserACTF) modelService).setDisableScriptDebugger(this
+					.isChecked());
+		}
+	}
 
-    public DisableDebugMessageAction() {
-        this(true);
-    }
-
-    public DisableDebugMessageAction(boolean flag) {
-        super("script", AS_CHECK_BOX);
-        setText(message);
-        setToolTipText(message_tp);
-        //TODO refer current setting
-        setChecked(true);
-        if(flag)
-            setImageDescriptor(ModelUIPlugin.getImageDescriptor("icons/toolbar/scriptDebug.png"));
-    }
-
-    public void run() {
-        
-        IModelService modelService = ModelServiceUtils.getActiveModelService();
-        if (modelService != null && modelService instanceof IWebBrowserACTF) {
-            ((IWebBrowserACTF) modelService).setDisableScriptDebugger(this.isChecked());
-        }
-    }
-
-    public void propertyChange(PropertyChangeEvent event) {
-        this.setChecked(((Action)event.getSource()).isChecked());
-    }
+	public void propertyChange(PropertyChangeEvent event) {
+		this.setChecked(((Action) event.getSource()).isChecked());
+	}
 }

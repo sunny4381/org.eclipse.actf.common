@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,35 +22,50 @@ import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.ui.ISharedImages;
 
-
-
-
+/**
+ * Action to invoke goForward method of the current active
+ * {@link IWebBrowserACTF}
+ */
 public class GoForwardAction extends Action {
-    private String message = ModelServiceMessages.getString("WebBrowser.Forward_5");
-    private String message_tp = ModelServiceMessages.getString("WebBrowser.Forward_5_tp");
+	private String message = ModelServiceMessages
+			.getString("WebBrowser.Forward_5");
+	private String message_tp = ModelServiceMessages
+			.getString("WebBrowser.Forward_5_tp");
 
-    private IWebBrowserNavigationEventListener defaultListener = new DefaultWebBrowserNavigationEventListener();    
-    
-    public GoForwardAction() {
-        this(true);
-    }
+	private IWebBrowserNavigationEventListener defaultListener = new DefaultWebBrowserNavigationEventListener();
 
-    public GoForwardAction(boolean flag) {
-        setText(message);
-        setToolTipText(message_tp);
-        if (flag)
-            setImageDescriptor(PlatformUIUtil.getSharedImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
-    }
+	/**
+	 * Constructor of the action with image icon.
+	 */
+	public GoForwardAction() {
+		this(true);
+	}
 
-    public void run() {
-        IModelService modelService = ModelServiceUtils.getActiveModelService();
-        if (modelService != null && modelService instanceof IWebBrowserACTF) {
-            WebBrowserNavigationEvent event = new WebBrowserNavigationEvent(this, ((IWebBrowserACTF) modelService));
-            if (IWebBrowserACTF.WebBrowserNavigationEventListnerHolder.LISTENER != null) {
-                IWebBrowserACTF.WebBrowserNavigationEventListnerHolder.LISTENER.goForward(event);
-            } else {
-                defaultListener.goForward(event);
-            }
-        }
-    }
+	/**
+	 * Constructor of the action.
+	 * 
+	 * @param flag
+	 *            if true, set image icon to the Action
+	 */
+	public GoForwardAction(boolean flag) {
+		setText(message);
+		setToolTipText(message_tp);
+		if (flag)
+			setImageDescriptor(PlatformUIUtil
+					.getSharedImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
+	}
+
+	public void run() {
+		IModelService modelService = ModelServiceUtils.getActiveModelService();
+		if (modelService != null && modelService instanceof IWebBrowserACTF) {
+			WebBrowserNavigationEvent event = new WebBrowserNavigationEvent(
+					this, ((IWebBrowserACTF) modelService));
+			if (IWebBrowserACTF.WebBrowserNavigationEventListnerHolder.LISTENER != null) {
+				IWebBrowserACTF.WebBrowserNavigationEventListnerHolder.LISTENER
+						.goForward(event);
+			} else {
+				defaultListener.goForward(event);
+			}
+		}
+	}
 }

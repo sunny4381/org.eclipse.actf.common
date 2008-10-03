@@ -165,7 +165,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		if (!_inReload) {
 			_inReload = true;
 			_inJavascript = false;
-			WebBrowserEventUtil.myRefresh(WebBrowserIEImpl.this);
+			WebBrowserEventUtil.refreshStart(WebBrowserIEImpl.this);
 		}
 		browserComposite.refresh();
 	}
@@ -426,7 +426,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 	public void documentComplete(DocumentCompleteParameters param) {
 		if (param.isTopWindow()) {
-			WebBrowserEventUtil.myDocumentComplete(this);
+			WebBrowserEventUtil.rootDocumentComplete(this);
 			// System.out.println("myDocComplete");
 			_inNavigation = false;
 			_inJavascript = false;
@@ -477,7 +477,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 			if (prog == 0 && progMax == 0) {
 				_inReload = false;
 				DebugPrintUtil.debugPrintln("reload fin");
-				WebBrowserEventUtil.myRefreshComplete(this);
+				WebBrowserEventUtil.refreshComplete(this);
 			}
 		} else if (_inJavascript) {
 			if (prog == -1 && progMax == -1) {
@@ -488,7 +488,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 			// 0/0 is complete
 			_inReload = true;
 			DebugPrintUtil.debugPrintln("reload");
-			WebBrowserEventUtil.myRefresh(this);
+			WebBrowserEventUtil.refreshStart(this);
 		}
 	}
 
@@ -506,7 +506,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 					_inReload = true;
 					_inJavascript = false;
 					DebugPrintUtil.debugPrintln("reload");
-					WebBrowserEventUtil.myRefresh(this);
+					WebBrowserEventUtil.refreshStart(this);
 				}
 			}
 			_holder.setEditorTitle(title);

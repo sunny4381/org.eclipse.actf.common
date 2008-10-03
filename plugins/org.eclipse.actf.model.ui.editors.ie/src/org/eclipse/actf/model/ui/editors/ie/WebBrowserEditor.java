@@ -109,7 +109,7 @@ public class WebBrowserEditor extends EditorPart implements IModelServiceHolder 
 	}
 
 	public void setFocus() {
-		WebBrowserEventUtil.focusChange(webBrowser);
+		WebBrowserEventUtil.getFocus(webBrowser);
 	}
 
 	public void doSave(IProgressMonitor monitor) {

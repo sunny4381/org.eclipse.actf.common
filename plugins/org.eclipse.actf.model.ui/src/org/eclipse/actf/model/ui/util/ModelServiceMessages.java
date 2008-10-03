@@ -14,21 +14,32 @@ package org.eclipse.actf.model.ui.util;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-
-
+/**
+ * Utility class to obtain commonly used messages for ACTF Model Services
+ */
 public class ModelServiceMessages {
-    private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
 
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
+			.getBundle(BUNDLE_NAME);
 
-    private ModelServiceMessages() {
-    }
+	private ModelServiceMessages() {
+	}
 
-    public static String getString(String key) {
-        try {
-            return RESOURCE_BUNDLE.getString(key);
-        } catch (MissingResourceException e) {
-            return '!' + key + '!';
-        }
-    }
+	/**
+	 * Gets a string for the given key from the resource bundle of this plugin.
+	 * 
+	 * @param key
+	 *            target key
+	 * 
+	 * @return the string for the given key, or '!'+key+'!' if not available
+	 * @see ResourceBundle#getString(String)
+	 */
+	public static String getString(String key) {
+		try {
+			return RESOURCE_BUNDLE.getString(key);
+		} catch (MissingResourceException e) {
+			return '!' + key + '!';
+		}
+	}
 }

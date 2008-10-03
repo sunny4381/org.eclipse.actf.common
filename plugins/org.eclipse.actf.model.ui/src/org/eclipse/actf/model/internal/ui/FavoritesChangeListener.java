@@ -12,7 +12,15 @@ package org.eclipse.actf.model.internal.ui;
 
 import java.util.EventListener;
 
-
+/**
+ * 
+ */
 public interface FavoritesChangeListener extends EventListener {
-	  public void favoritesChanged(FavoritesChangeEvent e);
+	/**
+	 * This method will be invoked internally if the favorite items are changed
+	 * 
+	 * @param e
+	 *            information about favorite change
+	 */
+	public void favoritesChanged(FavoritesChangeEvent e);
 }

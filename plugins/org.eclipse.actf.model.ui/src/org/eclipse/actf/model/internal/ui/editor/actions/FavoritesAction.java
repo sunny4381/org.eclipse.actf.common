@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.ui.editor.actions;
+package org.eclipse.actf.model.internal.ui.editor.actions;
 
 import java.util.Vector;
 

@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.model.ui.editor.actions;
+package org.eclipse.actf.model.internal.ui.editor.actions;
 
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.ui.IWorkbenchWindow;

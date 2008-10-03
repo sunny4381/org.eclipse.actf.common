@@ -26,210 +26,263 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-
-
-
+/**
+ * Utility class to manage ACTF model services (implementation of
+ * {@link IModelService})
+ */
 public class ModelServiceUtils {
 
-    private static class EditorNotFoundException extends Exception {
-        private static final long serialVersionUID = -5760127077107164112L;
+	private static class EditorNotFoundException extends Exception {
+		private static final long serialVersionUID = -5760127077107164112L;
 
-    }
-
-    public static IEditorPart launch(String targetUrl) {
-        IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
-        if (activePage == null) {
-            return null;
-        }
-
-        if (targetUrl != null && targetUrl.length() != 0) {
-            IEditorReference[] editorRefs = activePage.getEditorReferences();
-            for (int i = 0; i < editorRefs.length; i++) {
-                IWorkbenchPart part = editorRefs[i].getPart(false);
-                if (part instanceof IModelServiceHolder) {
-                    IModelService modelService = ((IModelServiceHolder) part).getModelService();
-                    if (targetUrl.equals(modelService.getURL())) {
-                        activePage.activate(part);
-                        // reload?
-                        return null;
-                    }
-                }
-            }
-
-            targetUrl = targetUrl.trim();
-
-            try {
-                return(launch(targetUrl, getEditorId(targetUrl)));
-            } catch (EditorNotFoundException e) {
-                System.err.println("Editor not found: " + targetUrl);
-            }
-        }
-        return null;
-    }
-
-    private static String getEditorId(String targetUrl) throws EditorNotFoundException {
-        // TODO support multiple editor, dialog, preference
-        IEditorRegistry editors = PlatformUI.getWorkbench().getEditorRegistry();
-        IEditorDescriptor editor;
-
-        if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
-            editor = editors.getDefaultEditor(targetUrl);
-            if (editor == null) {
-                editor = editors.getDefaultEditor("default.html");
-            }
-        } else {
-            editor = editors.getDefaultEditor("default.html");
-
-        }
-        if (editor == null) {
-            throw new EditorNotFoundException();
-        }
-
-        return (editor.getId());
-    }
-
-    public static IEditorPart launch(String targetUrl, String id) {
-
-        // TODO check current url
-        IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
-        if (activePage == null) {
-            return null;
-        }
-        if (targetUrl != null) {
-            targetUrl = targetUrl.trim();
-        }else{
-            targetUrl = "";
-        }
-
-        IEditorPart blankEditorPart = getBlankBrowserEditorPart(id);
-        if (blankEditorPart != null) {
-            activePage.activate(blankEditorPart);
-            if (targetUrl != null) {
-                ((IModelServiceHolder) blankEditorPart).getModelService().open(targetUrl);
-                return blankEditorPart;
-            }
-        } else {
-            IEditorReference[] editorRefs = activePage.getEditorReferences();
-            for (int i = 0; i < editorRefs.length; i++) {
-                if (editorRefs[i].getId().equals(id)) {
-                    IWorkbenchPart part = editorRefs[i].getPart(false);
-                    if (part instanceof IModelServiceHolder) {
-                        IModelService modelService = ((IModelServiceHolder) part).getModelService();
-                        if (targetUrl.equals(modelService.getURL())) {
-                            activePage.activate(part);
-                            return (IEditorPart)part;
-                        }
-                    }
-                }
-            }
-
-            try {
-                String editorName = "";
-                IEditorRegistry editors = PlatformUI.getWorkbench().getEditorRegistry();
-                IEditorDescriptor editorDesc = editors.findEditor(id);
-                if (editorDesc != null) {
-                    editorName = editorDesc.getLabel();
-                    return activePage.openEditor(
-                            new DummyEditorInput(targetUrl, editorName), id);
-                } else {
-                    System.err.println("Editor not found: " + id);
-                }
-            } catch (PartInitException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    private static IEditorPart getBlankBrowserEditorPart(String id) {
-        IEditorReference[] editors = PlatformUIUtil.getActivePage()
-                .getEditorReferences();
-        for (int i = 0; i < editors.length; i++) {
-            if (editors[i].getId().equals(id)) {
-                IWorkbenchPart part = editors[i].getPart(false);
-                if (part instanceof IModelServiceHolder) {
-                    IModelService modelService = ((IModelServiceHolder) part).getModelService();
-                    System.out.println(modelService.getURL());
-                    if (modelService.getURL() == null)
-                        return (IEditorPart)part;
-                    if (modelService instanceof IWebBrowserACTF
-                            && ("about:blank".equals(modelService.getURL()) || ("".equals(modelService.getURL()))))
-                        return (IEditorPart)part;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static void openInExistingEditor(String targetUrl) {
-        targetUrl = targetUrl.trim();
-        String editorId;
-
-        try {
-            editorId = getEditorId(targetUrl);
-        } catch (EditorNotFoundException e) {
-            System.err.println("Editor not found: " + targetUrl);
-            return;
-        }
-        IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
-        if (activePage == null) {
-            return;
-        }
-        if (activateEditorPart(editorId)) {
-            IEditorPart editor = activePage.getActiveEditor();
-            if (editor instanceof IModelServiceHolder) {
-                ((IModelServiceHolder) editor).getModelService().open(targetUrl);
-            } else {
-                launch(targetUrl);
-            }
-        } else {
-            launch(targetUrl);
-        }
-
-    }
-
-    public static boolean activateEditorPart(String id) {
-        if (id != null) {
-            IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
-            if (activePage == null) {
-                return false;
-            }
-            IEditorPart editor = activePage.getActiveEditor();
-            if (editor != null && editor.getSite().getId().equals(id)) {
-                return true;
-            }
-
-            IEditorReference[] editors = activePage.getEditorReferences();
-            for (int i = 0; i < editors.length; i++) {
-                System.out.println(editors[i].getId());
-                if (editors[i].getId().equals(id)) {
-                    editor = editors[i].getEditor(false);
-                    if (editor != null) {
-                        activePage.activate(editor);
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-	public static IModelServiceHolder getActiveModelServiceHolder() {
-	    IEditorPart editor = PlatformUIUtil.getActiveEditor();
-	    if (editor != null && editor instanceof IModelServiceHolder) {
-	        return (IModelServiceHolder) editor;
-	    }
-	
-	    DebugPrintUtil.devOrDebugPrintln("editor: " + editor + " isn't IModelServiceHolder");
-	
-	    return null;
 	}
 
+	/**
+	 * Find and launch an Editor associated with the target URL
+	 * 
+	 * @param targetUrl
+	 *            target URL
+	 * @return {@link IEditorPart} implements {@link IModelServiceHolder}, or
+	 *         null if not available
+	 */
+	public static IEditorPart launch(String targetUrl) {
+		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
+		if (activePage == null) {
+			return null;
+		}
+
+		if (targetUrl != null && targetUrl.length() != 0) {
+			IEditorReference[] editorRefs = activePage.getEditorReferences();
+			for (int i = 0; i < editorRefs.length; i++) {
+				IWorkbenchPart part = editorRefs[i].getPart(false);
+				if (part instanceof IModelServiceHolder) {
+					IModelService modelService = ((IModelServiceHolder) part)
+							.getModelService();
+					if (targetUrl.equals(modelService.getURL())) {
+						activePage.activate(part);
+						// reload?
+						return null;
+					}
+				}
+			}
+
+			targetUrl = targetUrl.trim();
+
+			try {
+				return (launch(targetUrl, getEditorId(targetUrl)));
+			} catch (EditorNotFoundException e) {
+				System.err.println("Editor not found: " + targetUrl);
+			}
+		}
+		return null;
+	}
+
+	private static String getEditorId(String targetUrl)
+			throws EditorNotFoundException {
+		// TODO support multiple editor, dialog, preference
+		IEditorRegistry editors = PlatformUI.getWorkbench().getEditorRegistry();
+		IEditorDescriptor editor;
+
+		if (!targetUrl.startsWith("http://")
+				&& !targetUrl.startsWith("https://")) {
+			editor = editors.getDefaultEditor(targetUrl);
+			if (editor == null) {
+				editor = editors.getDefaultEditor("default.html");
+			}
+		} else {
+			editor = editors.getDefaultEditor("default.html");
+
+		}
+		if (editor == null) {
+			throw new EditorNotFoundException();
+		}
+
+		return (editor.getId());
+	}
+
+	/**
+	 * Launch an Editor
+	 * 
+	 * @param targetUrl
+	 *            target URL
+	 * @param id
+	 *            ID of target Editor
+	 * @return {@link IEditorPart}, or null if not available
+	 */
+	public static IEditorPart launch(String targetUrl, String id) {
+
+		// TODO check current url
+		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
+		if (activePage == null) {
+			return null;
+		}
+		if (targetUrl != null) {
+			targetUrl = targetUrl.trim();
+		} else {
+			targetUrl = "";
+		}
+
+		IEditorPart blankEditorPart = getBlankBrowserEditorPart(id);
+		if (blankEditorPart != null) {
+			activePage.activate(blankEditorPart);
+			if (targetUrl != null) {
+				((IModelServiceHolder) blankEditorPart).getModelService().open(
+						targetUrl);
+				return blankEditorPart;
+			}
+		} else {
+			IEditorReference[] editorRefs = activePage.getEditorReferences();
+			for (int i = 0; i < editorRefs.length; i++) {
+				if (editorRefs[i].getId().equals(id)) {
+					IWorkbenchPart part = editorRefs[i].getPart(false);
+					if (part instanceof IModelServiceHolder) {
+						IModelService modelService = ((IModelServiceHolder) part)
+								.getModelService();
+						if (targetUrl.equals(modelService.getURL())) {
+							activePage.activate(part);
+							return (IEditorPart) part;
+						}
+					}
+				}
+			}
+
+			try {
+				String editorName = "";
+				IEditorRegistry editors = PlatformUI.getWorkbench()
+						.getEditorRegistry();
+				IEditorDescriptor editorDesc = editors.findEditor(id);
+				if (editorDesc != null) {
+					editorName = editorDesc.getLabel();
+					return activePage.openEditor(new DummyEditorInput(
+							targetUrl, editorName), id);
+				} else {
+					System.err.println("Editor not found: " + id);
+				}
+			} catch (PartInitException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	private static IEditorPart getBlankBrowserEditorPart(String id) {
+		IEditorReference[] editors = PlatformUIUtil.getActivePage()
+				.getEditorReferences();
+		for (int i = 0; i < editors.length; i++) {
+			if (editors[i].getId().equals(id)) {
+				IWorkbenchPart part = editors[i].getPart(false);
+				if (part instanceof IModelServiceHolder) {
+					IModelService modelService = ((IModelServiceHolder) part)
+							.getModelService();
+					System.out.println(modelService.getURL());
+					if (modelService.getURL() == null)
+						return (IEditorPart) part;
+					if (modelService instanceof IWebBrowserACTF
+							&& ("about:blank".equals(modelService.getURL()) || (""
+									.equals(modelService.getURL()))))
+						return (IEditorPart) part;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Try to open the target URL in existing {@link IEditorPart}. If
+	 * appropriate Editor is not available, launch new {@link IEditorPart}.
+	 * 
+	 * @param targetUrl
+	 *            target URL
+	 */
+	public static void openInExistingEditor(String targetUrl) {
+		targetUrl = targetUrl.trim();
+		String editorId;
+
+		try {
+			editorId = getEditorId(targetUrl);
+		} catch (EditorNotFoundException e) {
+			System.err.println("Editor not found: " + targetUrl);
+			return;
+		}
+		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
+		if (activePage == null) {
+			return;
+		}
+		if (activateEditorPart(editorId)) {
+			IEditorPart editor = activePage.getActiveEditor();
+			if (editor instanceof IModelServiceHolder) {
+				((IModelServiceHolder) editor).getModelService()
+						.open(targetUrl);
+			} else {
+				launch(targetUrl);
+			}
+		} else {
+			launch(targetUrl);
+		}
+
+	}
+
+	/**
+	 * Activate {@link IEditorPart}
+	 * 
+	 * @param id
+	 *            ID of target {@link IEditorPart}
+	 * @return true if activation is successfully finished
+	 */
+	public static boolean activateEditorPart(String id) {
+		if (id != null) {
+			IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
+			if (activePage == null) {
+				return false;
+			}
+			IEditorPart editor = activePage.getActiveEditor();
+			if (editor != null && editor.getSite().getId().equals(id)) {
+				return true;
+			}
+
+			IEditorReference[] editors = activePage.getEditorReferences();
+			for (int i = 0; i < editors.length; i++) {
+				System.out.println(editors[i].getId());
+				if (editors[i].getId().equals(id)) {
+					editor = editors[i].getEditor(false);
+					if (editor != null) {
+						activePage.activate(editor);
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get {@link IModelServiceHolder} from the current active
+	 * {@link IEditorPart}
+	 * 
+	 * @return active {@link IModelServiceHolder}
+	 */
+	public static IModelServiceHolder getActiveModelServiceHolder() {
+		IEditorPart editor = PlatformUIUtil.getActiveEditor();
+		if (editor != null && editor instanceof IModelServiceHolder) {
+			return (IModelServiceHolder) editor;
+		}
+
+		DebugPrintUtil.devOrDebugPrintln("editor: " + editor
+				+ " isn't IModelServiceHolder");
+
+		return null;
+	}
+
+	/**
+	 * Get {@link IModelService} from the current active {@link IEditorPart}
+	 * 
+	 * @return active {@link IModelService}
+	 */
 	public static IModelService getActiveModelService() {
 		IModelServiceHolder holder = getActiveModelServiceHolder();
 		if (holder != null) {
-		    return (holder.getModelService());
+			return (holder.getModelService());
 		}
 		return null;
 	}

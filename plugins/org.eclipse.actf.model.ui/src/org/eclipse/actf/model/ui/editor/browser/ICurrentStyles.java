@@ -14,115 +14,113 @@ import java.net.URL;
 
 import org.eclipse.swt.graphics.Rectangle;
 
+/**
+ * Interface for current style information of the Element
+ */
 public interface ICurrentStyles {
 
 	/**
-	 * @return
+	 * @return XPath (child path sequence) of the element
 	 */
 	public abstract String getXPath();
-	
+
 	/**
-	 * @return
+	 * @return tag name of the element
 	 */
 	public abstract String getTagName();
 
-
 	/**
-	 * @return
+	 * @return get {@link Rectangle} of the element
 	 */
 	public abstract Rectangle getRectangle();
 
-	
 	/**
-	 * @return
+	 * @return true if the element is link
 	 */
 	public abstract boolean isLink();
 
 	/**
-	 * @return
+	 * @return the destination URL of the link
 	 */
 	public abstract URL getLinkURL();
-	
-	
+
 	/**
-	 * @return
+	 * @return background color
 	 */
 	public abstract String getBackgroundColor();
 
 	/**
-	 * @return
+	 * @return background repeat
 	 */
 	public abstract String getBackgroundRepeat();
 
 	/**
-	 * @return
+	 * @return foreground color
 	 */
 	public abstract String getColor();
 
-//	/**
-//	 * @return
-//	 */
-//	public abstract String getCssText();	//style
-//	
-//	/**
-//	 * @return
-//	 */
-//	public abstract String getFontWeight(); //style
+	// /**
+	// * @return
+	// */
+	// public abstract String getCssText(); //style
+	//	
+	// /**
+	// * @return
+	// */
+	// public abstract String getFontWeight(); //style
 
-	
 	/**
-	 * @return
+	 * @return display
 	 */
 	public abstract String getDisplay();
 
 	/**
-	 * @return
+	 * @return font family
 	 */
 	public abstract String getFontFamily();
 
 	/**
-	 * @return
+	 * @return font size
 	 */
 	public abstract String getFontSize();
 
 	/**
-	 * @return
+	 * @return font style
 	 */
 	public abstract String getFontStyle();
 
 	/**
-	 * @return
+	 * @return font variant
 	 */
 	public abstract String getFontVariant();
 
 	/**
-	 * @return
+	 * @return letter spacing
 	 */
 	public abstract String getLetterSpacing();
 
 	/**
-	 * @return
+	 * @return line height
 	 */
 	public abstract String getLineHeight();
 
 	/**
-	 * @return
+	 * @return position
 	 */
 	public abstract String getPosition();
 
 	/**
-	 * @return
+	 * @return text align
 	 */
 	public abstract String getTextAlign();
 
 	/**
-	 * @return
+	 * @return text decoration
 	 */
 	public abstract String getTextDecoration();
 
-
 	/**
-	 * @return
+	 * @return visibility
 	 */
 	public abstract String getVisibility();
 
