@@ -16,7 +16,7 @@ import org.eclipse.actf.model.ui.IModelServiceHolder;
 
 /**
  * A <code>MediatorEvent</code> is sent by a {@link Mediator} to
- * {@link IMediatorEventListener}'s when the <code>Mediator</code>
+ * {@link IMediatorEventListener}s when the <code>Mediator</code>
  * detects a status change in ACTF components. This notification typically 
  * occurs when the user activates an ACTF Model Service (usually Editor that
  * implements <code>IModelService</code>) or an ACTF Reporter Views 

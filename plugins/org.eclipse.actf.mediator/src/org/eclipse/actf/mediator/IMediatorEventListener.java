@@ -20,7 +20,6 @@ import java.util.EventListener;
  * @see Mediator#addMediatorEventListener(IMediatorEventListener)
  * @see Mediator#removeMediatorEventListener(IMediatorEventListener)
  * 
- * @since 3.0
  */
 public interface IMediatorEventListener extends EventListener {
 
