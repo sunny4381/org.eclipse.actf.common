@@ -16,6 +16,11 @@ import java.util.Set;
 
 import org.eclipse.actf.model.flash.as.ASObject;
 
+/**
+ * Interface to implement wrapper class for ActionScript Node class. This Node
+ * class wraps all type of ActionScript entities (primitive values, special
+ * visual objects, and other object instances) and its derived information.
+ */
 public interface IASNode {
 
 	/**
@@ -101,29 +106,75 @@ public interface IASNode {
 
 	/**
 	 * @param visual
-	 * @return
+	 *            <ul>
+	 *            <li>true: use visual structure (use AS
+	 *            <code>getInnerNodes</code> method)</li>
+	 *            <li>false: use object structure</li>
+	 *            </ul>
+	 *            
+	 * @return true if the node has child
 	 */
 	public abstract boolean hasChild(boolean visual);
 
 	/**
 	 * @param visual
+	 *            <ul>
+	 *            <li>true: use visual structure (use AS
+	 *            <code>getInnerNodes</code> method)</li>
+	 *            <li>false: use object structure</li>
+	 *            </ul>
 	 * @param debugMode
-	 * @return
+	 *            <ul>
+	 *            <li>true: check all entities including the internal
+	 *            variables. Apparent parent-child relationships are used as
+	 *            specified, even if there are circular references.</li>
+	 *            <li>false: check without the internal variables. Circular
+	 *            references are removed.</li>
+	 *            </ul>
+	 * 
+	 * @return true if the node has child
 	 */
 	public abstract boolean hasChild(boolean visual, boolean debugMode);
 
 	/**
 	 * @param visual
+	 *            <ul>
+	 *            <li>true: use visual structure (use AS
+	 *            <code>getInnerNodes</code> method)</li>
+	 *            <li>false: use object structure</li>
+	 *            </ul>
 	 * @param informative
-	 * @return
+	 *            <ul>
+	 *            <li>true: filter out invisible (i.e. the type of number,
+	 *            string, function or boolean) properties and methods.</li>
+	 *            <li>false: all result (without filter)</li>
+	 *            </ul>
+	 * @return children of the node as {@link IASNode} array
 	 */
 	public abstract IASNode[] getChildren(boolean visual, boolean informative);
 
 	/**
 	 * @param visual
+	 *            <ul>
+	 *            <li>true: use visual structure (use AS
+	 *            <code>getInnerNodes</code> method)</li>
+	 *            <li>false: use object structure</li>
+	 *            </ul>
 	 * @param informative
+	 *            <ul>
+	 *            <li>true: filter out invisible (i.e. the type of number,
+	 *            string, function or boolean) properties and methods.</li>
+	 *            <li>false: all result (without filter)</li>
+	 *            </ul>
 	 * @param debugMode
-	 * @return
+	 *            <ul>
+	 *            <li>true: list all entities including the internal variables.
+	 *            Apparent parent-child relationships are used as specified,
+	 *            even if there are circular references.</li>
+	 *            <li>false: list children without the internal variables.
+	 *            Circular references are removed.</li>
+	 *            </ul>
+	 * @return children of the node as {@link IASNode} array
 	 */
 	public abstract IASNode[] getChildren(boolean visual, boolean informative,
 			boolean debugMode);
@@ -152,7 +203,8 @@ public interface IASNode {
 	public abstract Set<String> getKeys();
 
 	/**
-	 * @return
+	 * @return whether the node is Button component and its onRelease handler is
+	 *         defined.
 	 */
 	public abstract boolean hasOnRelease();
 

@@ -14,59 +14,69 @@ import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
 /**
- *
+ * Interface to provide access to FlashPlayer and it's content.
+ * 
+ * @see IASBridge
  */
 public interface IFlashPlayer extends IASBridge {
 
 	/**
-	 * @return
+	 * @return native MSAA object of the FlashPlayer as {@link FlashMSAAObject}
 	 */
 	public abstract FlashMSAAObject getAccessible();
 
 	/**
-	 * @return
+	 * @return IDispatch object of the FlashPlayer
 	 */
 	public abstract IDispatch getDispatch();
 
 	/**
-	 * @return
+	 * @return status message
 	 */
 	public abstract String getStatus();
 
 	/**
-	 * @return
+	 * @return version of FlashPlayer
 	 */
 	public abstract String getPlayerVersion();
-	
+
 	/**
-	 * @return
+	 * @return URL of Flash content
 	 */
 	public abstract String getContentURL();
 
 	/**
+	 * Set Property to FlashPlayer Node
+	 * 
 	 * @param propertyName
+	 *            target property name
 	 * @param value
+	 *            property value to set
 	 */
 	public abstract void setPlayerProperty(String propertyName, String value);
 
 	/**
+	 * Get Property from FlashPlayer Node
+	 * 
 	 * @param propertyName
-	 * @return
+	 *            target property name
+	 * @return property value
 	 */
 	public abstract String getPlayerProperty(String propertyName);
 
 	/**
-	 * @return
+	 * @return window handle of FlashPlayer
+	 * @see FlashMSAAObject#getWindow()
 	 */
 	public abstract int getWindow();
 
 	/**
-	 * @return
+	 * @return WMode of the FlashPlayer
 	 */
 	public abstract String getWMode();
 
 	/**
-	 * @return
+	 * @return SWF version of current content
 	 */
 	public int getSWFVersion();
 
@@ -74,17 +84,11 @@ public interface IFlashPlayer extends IASBridge {
 	 * @return whether the HTML document that the FlashPlayer belongs to is
 	 *         ready or not.
 	 */
-	/**
-	 * @return
-	 */
 	public abstract boolean isReady();
 
 	/**
 	 * @return whether this Flash object is visible or not. Invisible means that
 	 *         the Flash object is in window-less mode.
-	 */
-	/**
-	 * @return
 	 */
 	public abstract boolean isVisible();
 
