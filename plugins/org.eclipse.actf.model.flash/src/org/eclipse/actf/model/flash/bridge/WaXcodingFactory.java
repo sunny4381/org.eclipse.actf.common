@@ -12,9 +12,17 @@ package org.eclipse.actf.model.flash.bridge;
 
 import org.eclipse.actf.model.internal.flash.bridge.WaXcodingImpl;
 
+/**
+ * Factory class for {@link IWaXcoding}
+ */
 public class WaXcodingFactory {
-    public static IWaXcoding getWaXcoding() {
-        return WaXcodingImpl.getInstance();
-    }
+	/**
+	 * Create new {@link IWaXcoding} instance
+	 * 
+	 * @return new instance of {@link IWaXcoding}
+	 */
+	public static IWaXcoding getWaXcoding() {
+		return WaXcodingImpl.getInstance();
+	}
 
 }

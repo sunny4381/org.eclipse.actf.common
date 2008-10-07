@@ -16,7 +16,7 @@ import java.io.IOException;
 import org.eclipse.actf.util.internal.httpproxy.HTTPProxy;
 
 /**
- * Factory class for IHTTPProxy
+ * Factory class for {@link IHTTPProxy}
  * 
  * @see IHTTPProxy
  * @see ProxyConfig

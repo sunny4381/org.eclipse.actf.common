@@ -12,17 +12,23 @@ package org.eclipse.actf.model.dom.html;
 
 import org.eclipse.actf.model.internal.dom.html.parser.HTMLParser;
 
+/**
+ * Factory class for {@link IHTMLParser}
+ */
 public class HTMLParserFactory {
-	
-	public static IHTMLParser createHTMLParser(){
+
+	/**
+	 * @return new instance of {@link IHTMLParser}
+	 */
+	public static IHTMLParser createHTMLParser() {
 		IHTMLParser parser = new HTMLParser();
-        parser.setTagCase(IParser.LOWER_CASE);
-        parser.setAttrNameCase(IParser.LOWER_CASE);
-        parser.setDefaultTagCase(IParser.LOWER_CASE);
-        parser.keepUnknownElements(true);
-        parser.elementHandle(false); // to get line number
-        
-        return parser;
+		parser.setTagCase(IParser.LOWER_CASE);
+		parser.setAttrNameCase(IParser.LOWER_CASE);
+		parser.setDefaultTagCase(IParser.LOWER_CASE);
+		parser.keepUnknownElements(true);
+		parser.elementHandle(false); // to get line number
+
+		return parser;
 	}
-	
+
 }

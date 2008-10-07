@@ -7,61 +7,104 @@
  *
  * Contributors:
  *    Hisashi MIYASHITA - initial API and implementation
+ *    Kentarou FUKUDA - initinal API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.flash.as;
 
-
+/**
+ * Utility class for serializing Java objects to ActionScript style string.
+ * 
+ * @see ASDeserializer
+ */
 public class ASSerializer {
-    public static String serialize(String str) {
-        if ((str.indexOf('"') >= 0) || (str.indexOf('\\') >= 0)) {
-            StringBuffer ret = new StringBuffer('"');
-            for (int i = 0; i < str.length(); i++) {
-                char ch = str.charAt(i);
-                switch (ch) {
-                case '"':
-                    ret.append("\\\"");
-                    break;
-                case '\\':
-                    ret.append("\\\\");
-                    break;
-                default:
-                    ret.append(ch);
-                }
-            }
-            ret.append('"');
-            return ret.toString();
-        } else {
-            return "\"" + str + "\"";
-        }
-    }
+	/**
+	 * Escape a given {@link String}. Especially it escapes double quotation
+	 * and back slash characters and convert to ActionScript style String
+	 * literal by prepending and appending double quotations .
+	 * 
+	 * @param str
+	 *            A {@link String} to be escaped
+	 * @return Escaped {@link String} literal expression
+	 */
+	public static String serialize(String str) {
+		if ((str.indexOf('"') >= 0) || (str.indexOf('\\') >= 0)) {
+			StringBuffer ret = new StringBuffer('"');
+			for (int i = 0; i < str.length(); i++) {
+				char ch = str.charAt(i);
+				switch (ch) {
+				case '"':
+					ret.append("\\\"");
+					break;
+				case '\\':
+					ret.append("\\\\");
+					break;
+				default:
+					ret.append(ch);
+				}
+			}
+			ret.append('"');
+			return ret.toString();
+		} else {
+			return "\"" + str + "\"";
+		}
+	}
 
-    private static String serialize(Object a) {
-        if (a instanceof String) {
-            return serialize((String) a);
-        } else if (a instanceof Number) {
-            return a.toString();
-        } else if (a instanceof Boolean) {
-            return a.toString();
-        } else if (a instanceof Object[]) {
-            return serialize((Object[]) a);
-        }
-        throw new IllegalArgumentException(a + " cannot be serialized.");
-    }
+	/**
+	 * Serializes given Java {@link Object} to a {@link String}. It serializes
+	 * objects of type {@link String}, {@link Number}, and {@link Boolean}.
+	 * 
+	 * @param a
+	 *            Java {@link Object} to be serialized
+	 * @return Serialized {@link String}
+	 */
+	private static String serialize(Object a) {
+		if (a instanceof String) {
+			return serialize((String) a);
+		} else if (a instanceof Number) {
+			return a.toString();
+		} else if (a instanceof Boolean) {
+			return a.toString();
+		} else if (a instanceof Object[]) {
+			StringBuffer ret = new StringBuffer();
+			for (Object tmp : (Object[]) a) {
+				ret.append(serialize(tmp));
+				ret.append(",");
+			}
+			if(ret.length()>1){
+				return ret.substring(0, ret.length()-2);
+			}
+			return "";
+		}
+		throw new IllegalArgumentException(a + " cannot be serialized.");
+	}
 
-    public static String serialize(String secret, Object[] args) {
-        StringBuffer ret = new StringBuffer(secret);
-        ret.append('[');
-        if (args.length > 0) {
-            ret.append(serialize(args[0]));
-            for (int i = 1; i < args.length; i++) {
-                ret.append(",");
-                Object a = args[i];
-                ret.append(serialize(a));
-            }
-        }
-        ret.append("]");
-        return ret.toString();
-    }
+	/**
+	 * Serializes a given secret and a given array of objects to the secret
+	 * followed by a ActionScript style {@link String}. The secret is used to
+	 * secure communication between a program use this class and a browser
+	 * component.
+	 * 
+	 * @param secret
+	 *            Secret {@link String}
+	 * @param args
+	 *            Array of {@link Object}s
+	 * 
+	 * @return Serialized {@link String}
+	 */
+	public static String serialize(String secret, Object[] args) {
+		StringBuffer ret = new StringBuffer(secret);
+		ret.append('[');
+		if (args.length > 0) {
+			ret.append(serialize(args[0]));
+			for (int i = 1; i < args.length; i++) {
+				ret.append(",");
+				Object a = args[i];
+				ret.append(serialize(a));
+			}
+		}
+		ret.append("]");
+		return ret.toString();
+	}
 
 }

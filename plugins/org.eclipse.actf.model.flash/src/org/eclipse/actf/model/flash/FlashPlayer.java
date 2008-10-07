@@ -18,6 +18,11 @@ import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
+/**
+ * Default implementation of {@link IFlashPlayer}
+ * 
+ * @see FlashPlayerFactory
+ */
 public class FlashPlayer implements IFlashPlayer {
 
 	private IDispatch idispFlash;

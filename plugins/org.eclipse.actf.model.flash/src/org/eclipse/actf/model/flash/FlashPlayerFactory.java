@@ -19,8 +19,18 @@ import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.comclutch.IUnknown;
 import org.eclipse.actf.util.win32.comclutch.ResourceManager;
 
+/**
+ * Factory class for {@link IFlashPlayer}
+ */
 public class FlashPlayerFactory {
 
+	/**
+	 * Create {@link IFlashPlayer} instance from pointer
+	 * 
+	 * @param ptr
+	 *            target pointer
+	 * @return {@link IFlashPlayer} instance or null if not available
+	 */
 	public static IFlashPlayer getPlayerFromPtr(int ptr) {
 		IUnknown accObject = ComService.newIUnknown(ResourceManager
 				.newResourceManager(null), ptr, true);
@@ -31,6 +41,13 @@ public class FlashPlayerFactory {
 		return null;
 	}
 
+	/**
+	 * Create {@link IFlashPlayer} instance from window
+	 * 
+	 * @param hwnd
+	 *            target window handle
+	 * @return {@link IFlashPlayer} instance or null if not available
+	 */
 	public static IFlashPlayer getPlayerFromWindow(int hwnd) {
 		FlashMSAAObject accObject = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromWindow(hwnd);
@@ -41,6 +58,13 @@ public class FlashPlayerFactory {
 		return null;
 	}
 
+	/**
+	 * Create {@link IFlashPlayer} instance from {@link FlashMSAAObject}
+	 * 
+	 * @param accObject
+	 *            target {@link FlashMSAAObject}
+	 * @return {@link IFlashPlayer} instance or null if not available
+	 */
 	public static IFlashPlayer getPlayerFromObject(FlashMSAAObject accObject) {
 		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromObject(accObject);
 		if (null != idisp) {
@@ -49,6 +73,13 @@ public class FlashPlayerFactory {
 		return null;
 	}
 
+	/**
+	 * Create {@link IFlashPlayer} instance from {@link IDispatch}
+	 * 
+	 * @param idisp
+	 *            target {@link IDispatch}
+	 * @return {@link IFlashPlayer} instance or null if not available
+	 */
 	public static IFlashPlayer getPlayerFromIDsipatch(IDispatch idisp) {
 		if (null != idisp) {
 			return new FlashPlayer(idisp);

@@ -22,6 +22,9 @@ import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 
+/**
+ * Utility class to detect FlashPlayer
+ */
 public class FlashDetect {
 
 	private static String strVersion = null;
@@ -44,6 +47,9 @@ public class FlashDetect {
 		}
 	}
 
+	/**
+	 * Show information dialog for FlashPlayer if the version is not supported.
+	 */
 	public static void showDialog() {
 		if (null == strVersion)
 			return;

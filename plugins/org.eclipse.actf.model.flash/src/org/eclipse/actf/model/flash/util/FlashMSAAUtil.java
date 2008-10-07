@@ -35,22 +35,50 @@ public class FlashMSAAUtil {
 	private static boolean SCAN_ALL = false;
 	private static boolean SHOW_OFFSCREEN = false;
 
+	/**
+	 * @param iacc
+	 *            the address of IAccessible
+	 * @return whether the target is a Flash object or not.
+	 */
 	public static boolean isFlash(int iacc) {
 		FlashMSAAObject acc = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromPtr(iacc);
 		return isFlash(acc);
 	}
 
+	/**
+	 * @param iacc
+	 *            the address of IAccessible
+	 * @return whether the <i>accObject</i> is an invisible Flash object or
+	 *         not. Invisible means that the Flash object is in window-less
+	 *         mode.
+	 */
 	public static boolean isInvisibleFlash(int iacc) {
 		FlashMSAAObject acc = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromPtr(iacc);
 		return isInvisibleFlash(acc);
 	}
 
+	/**
+	 * @param hwnd
+	 *            the root window to be used to obtain descendant FlashPlayers.
+	 * @return array {@link IFlashPlayer} that are descendant of the root
+	 *         window. It is same as getFlashPlayers(hwnd, false, false).
+	 */
 	public static IFlashPlayer[] getFlashPlayers(int hwnd) {
 		return getFlashPlayers(hwnd, SHOW_OFFSCREEN, SCAN_ALL);
 	}
 
+	/**
+	 * @param hwnd
+	 *            the root window to be used to obtain descendant FlashPlayers.
+	 * @param showOffScreen
+	 *            whether the objects being off screen are collected or not.
+	 * @param scanAll
+	 *            whether the window-less Flash objects are collected or not.
+	 * @return array {@link IFlashPlayer} that are descendant of the root
+	 *         window.
+	 */
 	public static IFlashPlayer[] getFlashPlayers(int hwnd,
 			boolean showOffScreen, boolean scanAll) {
 		FlashMSAAObject acc = FlashMSAAObjectFactory
@@ -91,6 +119,14 @@ public class FlashMSAAUtil {
 		return false;
 	}
 
+	/**
+	 * Check if the class name relates to Flash content
+	 * 
+	 * @param className
+	 *            target class name
+	 * @return true if class name is <i>MacromediaFlashPlayerActiveX</i> or
+	 *         <i>ShockwaveFlashPlugin</i>
+	 */
 	public static boolean isFlashClass(String className) {
 		return "MacromediaFlashPlayerActiveX".equals(className) || //$NON-NLS-1$
 				"ShockwaveFlashPlugin".equals(className); //$NON-NLS-1$
@@ -219,12 +255,24 @@ public class FlashMSAAUtil {
 
 	}
 
+	/**
+	 * @param iacc
+	 *            the address of IAccessible
+	 * @return the HTML element interface of the <i>objUnknown</i>.
+	 */
 	public static IDispatch getHtmlElementFromPtr(int iacc) {
 		FlashMSAAObject acc = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromPtr(iacc);
 		return getHtmlElementFromObject(acc);
 	}
 
+	/**
+	 * @param iacc
+	 *            the address of IAccessible
+	 * @param name
+	 *            target attribute name
+	 * @return the attribute value string.
+	 */
 	public static String getHtmlAttribute(int iacc, String name) {
 		FlashMSAAObject acc = FlashMSAAObjectFactory
 				.getFlashMSAAObjectFromPtr(iacc);
