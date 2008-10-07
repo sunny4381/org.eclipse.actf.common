@@ -18,16 +18,16 @@ import org.eclipse.actf.util.win32.msaa.IAccessible;
 import org.eclipse.actf.util.win32.msaa.MSAA;
 
 /**
- * The factory class of IAccessibleObject
+ * The factory class of FlashMSAAObject
  */
 public class FlashMSAAObjectFactory {
 	private static ResourceManager resouceManager = null;
 	
 	/**
 	 * @param hwnd
-	 *            the window handle to be used to obtain IAccessibleObject
-	 * @return the instance of the IAccessibleObject corresponding to the <i>hwnd</i>
-	 * @see IAccessibleObject
+	 *            the window handle to be used to obtain FlashMSAAObject
+	 * @return the instance of the FlashMSAAObject corresponding to the <i>hwnd</i>
+	 * @see {@link FlashMSAAObject}
 	 */
 	public static FlashMSAAObject getFlashMSAAObjectFromWindow(long hwnd) {
 		if (resouceManager == null) {
@@ -40,9 +40,9 @@ public class FlashMSAAObjectFactory {
 
 	/**
 	 * @param iacc
-	 *            the address of IAccessible 
-	 * @return the instance of the IAccessibleObject corresponding to the <i>hwnd</i>
-	 * @see IAccessibleObject
+	 *            the address of native IAccessible object 
+	 * @return the instance of the FlashMSAAObject corresponding to the <i>hwnd</i>
+	 * @see {@link FlashMSAAObject}
 	 */
 	public static FlashMSAAObject getFlashMSAAObjectFromPtr(long address) {
 		if (resouceManager == null) {
@@ -54,9 +54,9 @@ public class FlashMSAAObjectFactory {
 
 	/**
 	 * @param iunk
-	 *            the IUnknown interface of the HTML element to be used to
-	 *            obtain IAccessibleObject
-	 * @return the instance of the IAccessibleObject corresponding to the <i>iunk</i>
+	 *            the IUnknown instance of the HTML element to be used to
+	 *            obtain FlashMSAAObject
+	 * @return the instance of the FlashMSAAObject corresponding to the <i>iunk</i>
 	 */
 	public static FlashMSAAObject getFlashMSAAObjectFromElement(IUnknown iunk) {
 		IServiceProvider isp = (IServiceProvider) iunk

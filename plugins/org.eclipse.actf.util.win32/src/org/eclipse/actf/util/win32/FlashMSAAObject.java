@@ -15,25 +15,41 @@ import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.util.win32.msaa.IAccessible;
 import org.eclipse.actf.util.win32.msaa.MSAA;
 
+/**
+ * FlashMSAAObject is a wrapper class of native MSAA object for Flash content
+ */
 public class FlashMSAAObject {
 
 	FlashMSAAObject parent;
 	IAccessible iacc;
 	int childId = MSAA.CHILDID_SELF;
 
+	/**
+	 * @param iacc
+	 *            native wrapped IAccessible object
+	 */
 	public FlashMSAAObject(IAccessible iacc) {
 		this.iacc = iacc;
 	}
 
+	/**
+	 * @param parent
+	 * @param childId
+	 *            the child ID to be used to obtain the actual child object from
+	 *            the parent.
+	 */
 	public FlashMSAAObject(FlashMSAAObject parent, int childId) {
 		this.parent = parent;
 		this.childId = childId;
 	}
 
-	private int getInt() {
+	private int getChildId() {
 		return childId;
 	}
 
+	/**
+	 * @return the native wrapped IAccessible object.
+	 */
 	public IAccessible getIAccessible() {
 		if (iacc != null)
 			return iacc;
@@ -42,30 +58,48 @@ public class FlashMSAAObject {
 		return null;
 	}
 
+	/**
+	 * @see IAccessible#getAccKeyboardShortcut(int)
+	 */
 	public String getAccKeyboardShortcut() {
-		return getIAccessible().getAccKeyboardShortcut(getInt());
+		return getIAccessible().getAccKeyboardShortcut(getChildId());
 	}
 
+	/**
+	 * @see IAccessible#getAccRole(int)
+	 */
 	public int getAccRole() {
-		return getIAccessible().getAccRole(getInt());
+		return getIAccessible().getAccRole(getChildId());
 	}
 
+	/**
+	 * @see IAccessible#getAccDescription(int)
+	 */
 	public String getAccDescription() {
-		return getIAccessible().getAccDescription(getInt());
+		return getIAccessible().getAccDescription(getChildId());
 	}
 
+	/**
+	 * @see IAccessible#getAccState(int)
+	 */
 	public int getAccState() {
-		return getIAccessible().getAccState(getInt());
+		return getIAccessible().getAccState(getChildId());
 	}
 
+	/**
+	 * @see IAccessible#accDoDefaultAction(int)
+	 */
 	public boolean doDefaultAction() {
 		try {
-			return getIAccessible().accDoDefaultAction(getInt());
+			return getIAccessible().accDoDefaultAction(getChildId());
 		} catch (Exception e) {
 		}
 		return false;
 	}
 
+	/**
+	 * @see IAccessible#getAccChildCount()
+	 */
 	public int getChildCount() {
 		if (iacc != null) {
 			return iacc.getAccChildCount();
@@ -73,17 +107,26 @@ public class FlashMSAAObject {
 		return 0;
 	}
 
+	/**
+	 * @see IAccessible#getAccName(int)
+	 */
 	public String getAccName() {
-		return getIAccessible().getAccName(getInt());
+		return getIAccessible().getAccName(getChildId());
 	}
 
+	/**
+	 * @see IAccessible#accSelect(int, int)
+	 */
 	public boolean select(int selflagTakefocus) {
-		getIAccessible().accSelect(selflagTakefocus, getInt());
+		getIAccessible().accSelect(selflagTakefocus, getChildId());
 		return true;
 	}
 
 	private FlashMSAAObject[] cachedChildren = new FlashMSAAObject[0];
 
+	/**
+	 * @return an array of the children
+	 */
 	public FlashMSAAObject[] getChildren() {
 		int childCount = Math.max(0, getChildCount());
 		if (childCount == cachedChildren.length) {
@@ -121,6 +164,12 @@ public class FlashMSAAObject {
 
 	private String strClassName;
 
+	/**
+	 * @return the window class name of the wrapped object (Windows native). If
+	 *         class name can't be obtained from the wrapped object then return
+	 *         null.
+	 * @see WindowUtil#GetWindowClassName(int)
+	 */
 	public String getClassName() {
 		if (null == strClassName) {
 			long hwnd = this.getWindow();
@@ -134,6 +183,11 @@ public class FlashMSAAObject {
 
 	private long accWindow = -1;
 
+	/**
+	 * @return the address of the window handle of the wrapped object. If window
+	 *         handle can't be obtained from the wrapped object then return 0.
+	 * @see MSAA#WindowFromAccessibleObject
+	 */
 	public int getWindow() {
 		if (-1 == accWindow) {
 			try {
@@ -146,6 +200,9 @@ public class FlashMSAAObject {
 		return (int) accWindow;
 	}
 
+	/**
+	 * @return the native address of the wrapped object
+	 */
 	public int getPtr() {
 		return (int) getIAccessible().getPtr();
 	}
