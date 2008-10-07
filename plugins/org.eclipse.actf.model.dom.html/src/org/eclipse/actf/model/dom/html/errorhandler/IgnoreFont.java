@@ -17,7 +17,6 @@ import org.eclipse.actf.model.dom.html.IParserError;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-
 /**
  * If a parser using Strict or some DTD which does not define FRAMESET, this
  * error handler makes the parser use FRAMESET while parsing.

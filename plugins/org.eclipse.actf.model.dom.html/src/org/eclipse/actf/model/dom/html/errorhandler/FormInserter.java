@@ -26,7 +26,6 @@ import org.xml.sax.SAXException;
 
 /**
  * ErrorHandler implementation for illegally closed form context.
- * 
  */
 public class FormInserter implements IErrorHandler {
 	public boolean handleError(int code, IParser parser, Node errorNode)
@@ -54,8 +53,8 @@ public class FormInserter implements IErrorHandler {
 				return false;
 			Element form = parser.getDocument().createElement(
 					parser.changeDefaultTagCase("FORM"));
-			for (Enumeration e = nodes.elements(); e.hasMoreElements();) {
-				Node node = (Node) e.nextElement();
+			for (Enumeration<Node> e = nodes.elements(); e.hasMoreElements();) {
+				Node node = e.nextElement();
 				context.removeChild(node);
 				form.insertBefore(node, null);
 			}

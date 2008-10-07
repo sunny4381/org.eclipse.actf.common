@@ -28,8 +28,7 @@ import org.xml.sax.SAXException;
 
 /**
  * ErrorHandler implementation for illegally closed form context. Usually to add
- * an error handler, you uses {@link
- * org.eclipse.actf.model.dom.html.IParser#addErrorHandler(org.eclipse.actf.model.dom.html.IErrorHandler)}.
+ * an error handler, you uses {@link IParser#addErrorHandler(IErrorHandler)}.
  * However, this error handler conflicts with {@link HTMLErrorHandler} installed
  * to parsers by default. Thus, instead of that method use {@link 
  * #addTo(IHTMLParser)}. And to remove this, use {@link #remove()}. Note: This
@@ -43,8 +42,6 @@ public class FormExpander implements IErrorHandler {
 
 	/**
 	 * Add this error handler to <code>parser</code>
-	 * 
-	 * @see org.eclipse.actf.model.internal.dom.sgml.ISGMLParser#addErrorHandler(org.eclipse.actf.model.dom.html.IErrorHandler)
 	 */
 	public void addTo(IHTMLParser parser) {
 		IErrorHandler errorHandlers[] = parser.getErrorHandlers();

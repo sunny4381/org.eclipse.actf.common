@@ -21,7 +21,6 @@ import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-
 /**
  * If a parser using a DTD which does not define some element. this error
  * handler make the parser use specified dtd which defines it.
@@ -33,7 +32,8 @@ public class UnknownElementErrorHandler implements IErrorHandler {
 
 	/**
 	 * @param unknownElement
-	 * @param DTD's
+	 *            Node name of target unknown element
+	 * @param publicID
 	 *            public ID which defines <code>unknownElement</code>
 	 */
 	public UnknownElementErrorHandler(String unknownElement, String publicID) {
@@ -42,6 +42,12 @@ public class UnknownElementErrorHandler implements IErrorHandler {
 		this.publicID = publicID;
 	}
 
+	/**
+	 * @param unknownElements
+	 *            array of Node names of target unknown elements
+	 * @param publicID
+	 *            public ID which defines <code>unknownElement</code>
+	 */
 	public UnknownElementErrorHandler(String unknownElements[], String publicID) {
 		this.unknownElements = unknownElements;
 		this.publicID = publicID;
@@ -49,14 +55,16 @@ public class UnknownElementErrorHandler implements IErrorHandler {
 
 	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException {
-		if (code == IParserError.UNKNOWN_ELEMENT && errorNode instanceof Element) {
+		if (code == IParserError.UNKNOWN_ELEMENT
+				&& errorNode instanceof Element) {
 			for (int i = 0; i < unknownElements.length; i++) {
 				if (errorNode.getNodeName()
 						.equalsIgnoreCase(unknownElements[i])) {
-					parser.error(IParserError.UNKNOWN_ELEMENT, ((ISGMLParser)parser).getDTD()
-							+ " does not define FRAMESET. "
-							+ " Try to change DTD to " + publicID);
-					((ISGMLParser)parser).setupDTD(publicID);
+					parser.error(IParserError.UNKNOWN_ELEMENT,
+							((ISGMLParser) parser).getDTD()
+									+ " does not define FRAMESET. "
+									+ " Try to change DTD to " + publicID);
+					((ISGMLParser) parser).setupDTD(publicID);
 					parser.pushBackNode(errorNode);
 					return true;
 				}

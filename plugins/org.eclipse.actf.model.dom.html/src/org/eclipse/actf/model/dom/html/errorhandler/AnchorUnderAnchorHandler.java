@@ -22,7 +22,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLAnchorElement;
 import org.xml.sax.SAXException;
 
-
 /**
  * A sample implementation of ErrorHandler.
  */

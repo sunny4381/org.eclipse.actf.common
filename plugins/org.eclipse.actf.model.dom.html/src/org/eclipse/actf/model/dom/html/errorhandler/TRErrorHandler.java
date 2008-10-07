@@ -23,7 +23,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-
 /**
  * If start tag of TR is missed and only its end tag exists, provide start tag.
  */
@@ -40,9 +39,9 @@ public class TRErrorHandler implements IErrorHandler {
 					|| contextName.equalsIgnoreCase("TABLE")) {
 				Element tr = parser.getDocument().createElement(
 						parser.changeDefaultTagCase("TR"));
-				ElementDefinition ed = ((ISGMLParser)parser).getDTD().getElementDefinition(
-						contextName);
-				if (ed.contentMatch(((ISGMLParser)parser), context, tr)) {
+				ElementDefinition ed = ((ISGMLParser) parser).getDTD()
+						.getElementDefinition(contextName);
+				if (ed.contentMatch(((ISGMLParser) parser), context, tr)) {
 					tr.insertBefore(errorNode, null);
 					parser.setContext((Element) errorNode);
 					return true;

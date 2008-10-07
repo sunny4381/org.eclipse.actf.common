@@ -16,15 +16,21 @@ package org.eclipse.actf.model.dom.html;
  * thrown
  */
 public class ParseException extends Exception {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 940413074059724617L;
 
+	/**
+	 * Constructor of the Exception.
+	 */
 	public ParseException() {
 		super();
 	}
 
+	/**
+	 * Constructor of the Exception.
+	 * 
+	 * @param msg
+	 *            Exception message
+	 */
 	public ParseException(String msg) {
 		super(msg);
 	}

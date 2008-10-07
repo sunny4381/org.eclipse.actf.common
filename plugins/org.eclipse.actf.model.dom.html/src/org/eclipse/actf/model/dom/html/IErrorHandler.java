@@ -16,11 +16,10 @@ import java.io.IOException;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-
 /**
  * Node-level error handler interface.
  */
-public interface IErrorHandler extends IParserError{
+public interface IErrorHandler extends IParserError {
 	/**
 	 * Handles error whose type is specified by <code>code</code>
 	 * 
@@ -28,7 +27,7 @@ public interface IErrorHandler extends IParserError{
 	 *            error type.
 	 * @param parser
 	 *            caller of this handler. This parser's state is easily changed
-	 *            by the methods below.
+	 *            by the referenced methods.
 	 * @param errorNode
 	 *            a node that causes the error.
 	 * @return <code>true</code> if error was handled. Otherwise <code>false

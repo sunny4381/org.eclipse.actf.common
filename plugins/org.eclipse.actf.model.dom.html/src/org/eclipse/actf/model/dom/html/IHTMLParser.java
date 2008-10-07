@@ -6,6 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
+ *    Goh KONDOH - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.model.dom.html;
@@ -16,16 +17,16 @@ import java.io.InputStream;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-public interface IHTMLParser extends IParser{
+public interface IHTMLParser extends IParser {
 
 	/**
 	 * Parses an HTML document and return its top element.
 	 * 
 	 * @param is
-	 *            inputstream to parse with default encoding.
+	 *            target {@link InputStream} to parse with default encoding.
 	 * @return Top element.
 	 * @exception PaserException
-	 *                If unrecoverable syntax or token error occurred, throwed
+	 *                If unrecoverable syntax or token error occurred, thrown
 	 * @exception IOException
 	 */
 	public Node parse(InputStream is) throws ParseException, IOException,
@@ -35,10 +36,12 @@ public interface IHTMLParser extends IParser{
 	 * Parses a HTML document and return its top element.
 	 * 
 	 * @param is
-	 *            inputstream to parse with default encoding.
+	 *            target {@link InputStream} to parse.
+	 * @param charEncoding
+	 *            encoding used for parse
 	 * @return Top element.
 	 * @exception PaserException
-	 *                If unrecoverable syntax or token error occurred, throwed
+	 *                If unrecoverable syntax or token error occurred, thrown
 	 * @exception IOException
 	 */
 	public Node parse(InputStream is, String charEncoding) throws SAXException,
@@ -52,10 +55,10 @@ public interface IHTMLParser extends IParser{
 	 * tag in a document, it tries to change encoding to <code>xxx</code>.
 	 * 
 	 * @param is
-	 *            inputstream to parse
+	 *            target {@link InputStream} to parse
 	 * @return Top element.
 	 * @exception PaserException
-	 *                If unrecoverable syntax or token error occurred, throwed
+	 *                If unrecoverable syntax or token error occurred, thrown
 	 * @exception IOException
 	 */
 	public Node parseSwitchEnc(InputStream is) throws ParseException,
@@ -69,12 +72,12 @@ public interface IHTMLParser extends IParser{
 	 * tag in a document, it tries to change encoding to <code>xxx</code>.
 	 * 
 	 * @param is
-	 *            inputstream to parse
+	 *            target {@link InputStream} to parse
 	 * @param defaultEncoding
 	 *            default encoding before switching encoding.
 	 * @return Top element.
 	 * @exception PaserException
-	 *                If unrecoverable syntax or token error occurred, throwed
+	 *                If unrecoverable syntax or token error occurred, thrown
 	 * @exception IOException
 	 */
 	public Node parseSwitchEnc(InputStream is, String defaultEncoding)

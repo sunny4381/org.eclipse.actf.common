@@ -14,8 +14,20 @@ package org.eclipse.actf.model.dom.html;
 import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLCollection;
 
+/**
+ * Utility class to manipulate {@link Node}
+ */
 public class NodeUtil {
-	public static Node commonAncester(Node anc1, Node anc2) {
+	/**
+	 * Find common ancestor {@link Node} of targets
+	 * 
+	 * @param anc1
+	 *            target Node 1
+	 * @param anc2
+	 *            target Node 2
+	 * @return common ancestor {@link Node} or null if not available
+	 */
+	public static Node commonAncestor(Node anc1, Node anc2) {
 		for (Node p1 = anc1.getParentNode(); p1 != null; p1 = p1
 				.getParentNode()) {
 			for (Node p2 = anc2.getParentNode(); p2 != null; p2 = p2
@@ -43,7 +55,7 @@ public class NodeUtil {
 	 * 
 	 * @param node
 	 *            target node.
-	 * @return <code>node</code> if succeeded. Otherwize, <code>null</code>.
+	 * @return <code>node</code> if succeeded. Otherwise, <code>null</code>.
 	 * @throws IllegalArgumentException
 	 */
 	public static void remove(Node node) {
@@ -74,6 +86,8 @@ public class NodeUtil {
 	 *     add B ...          
 	 * </pre>
 	 * 
+	 * @param parent
+	 *            target parent node
 	 * @param node
 	 *            target node
 	 * @param from
@@ -116,19 +130,27 @@ public class NodeUtil {
 		}
 	}
 
-	public static Node commonAncester(HTMLCollection ancesters) {
-		switch (ancesters.getLength()) {
+	/**
+	 * Find common ancestor {@link Node} of targets
+	 * 
+	 * @param ancestors
+	 *            list of target {@link Node}s
+	 * 
+	 * @return common ancestor {@link Node} or null if not available
+	 */
+	public static Node commonAncestor(HTMLCollection ancestors) {
+		switch (ancestors.getLength()) {
 		case 0:
 			return null;
 		case 1:
-			return ancesters.item(0).getParentNode();
+			return ancestors.item(0).getParentNode();
 		default:
-			Node ret = commonAncester(ancesters.item(0), ancesters.item(1));
-			for (int i = 2; i < ancesters.getLength(); i++) {
-				Node tmp = commonAncester(ancesters.item(i - 1), ancesters
+			Node ret = commonAncestor(ancestors.item(0), ancestors.item(1));
+			for (int i = 2; i < ancestors.getLength(); i++) {
+				Node tmp = commonAncestor(ancestors.item(i - 1), ancestors
 						.item(i));
 				if (ret != tmp) {
-					ret = commonAncester(ret, tmp);
+					ret = commonAncestor(ret, tmp);
 				}
 			}
 			return ret;

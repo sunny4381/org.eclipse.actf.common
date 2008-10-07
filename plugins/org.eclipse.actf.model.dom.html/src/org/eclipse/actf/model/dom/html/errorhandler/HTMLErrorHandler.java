@@ -12,6 +12,8 @@
 package org.eclipse.actf.model.dom.html.errorhandler;
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Vector;
 
 import org.eclipse.actf.model.dom.html.IErrorHandler;
 import org.eclipse.actf.model.dom.html.IParser;
@@ -29,7 +31,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
-
 
 public class HTMLErrorHandler implements IErrorHandler {
 	/**
@@ -50,7 +51,10 @@ public class HTMLErrorHandler implements IErrorHandler {
 	 * </ol>
 	 * -->
 	 * </ol>
-	 * @param node illegal child node.
+	 * @param code error type
+	 * @param parser caller of this handler. This parser's state is easily changed by the methods below.
+	errorNode a node that causes the error.
+	 * @param errorNode illegal child node.
 	 * @return true if found.  Otherwise false.
 	 * @see org.eclipse.actf.model.dom.html.IParser#getContext()
 	 * @see org.eclipse.actf.model.dom.html.IParser#setContext(org.w3c.dom.Element)
@@ -66,8 +70,8 @@ public class HTMLErrorHandler implements IErrorHandler {
 		String contextName = context.getNodeName();
 		NodeList bodies;
 		if (errorNode instanceof Element) {
-			ElementDefinition ed = ((ISGMLParser)parser).getDTD().getElementDefinition(
-					nodeName);
+			ElementDefinition ed = ((ISGMLParser) parser).getDTD()
+					.getElementDefinition(nodeName);
 			if (ed == null) {
 				return false;
 			}
@@ -153,11 +157,12 @@ public class HTMLErrorHandler implements IErrorHandler {
 			}
 		} else if (code == IParserError.SUDDEN_ENDTAG) {
 			try {
-				java.util.Vector missedEndtags = (java.util.Vector) parser
+				@SuppressWarnings("unchecked")
+				Vector<EndTag> missedEndtags = (Vector<EndTag>) parser
 						.getExtraErrInfo();
-				for (java.util.Enumeration e = missedEndtags.elements(); e
+				for (Enumeration<EndTag> e = missedEndtags.elements(); e
 						.hasMoreElements();) {
-					EndTag missedEtag = (EndTag) e.nextElement();
+					EndTag missedEtag = e.nextElement();
 					String missedEtagName = missedEtag.getNodeName();
 					if (missedEtagName.equalsIgnoreCase("TABLE")) {
 						// ignore the endtag
