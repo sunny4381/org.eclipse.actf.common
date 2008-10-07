@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,56 +19,62 @@ import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+/**
+ * Abstract class for message transfer with other windows via
+ * {@link COPYDATASTRUCT}
+ */
+@SuppressWarnings("restriction")
 public abstract class WMCMonitor {
 
 	private static String productName = "Unknown"; //$NON-NLS-1$
 	static {
 		IProduct product = Platform.getProduct();
-    	if( null != product) {
-    		productName = product.getName();
-    	}
+		if (null != product) {
+			productName = product.getName();
+		}
 	}
 	private int oldShellProc = 0;
-	
+
 	/**
 	 * Create a WMCMonitor with default title
 	 */
 	public WMCMonitor() {
-		this("WMCWindow:"+productName); //$NON-NLS-1$
+		this("WMCWindow:" + productName); //$NON-NLS-1$
 	}
-	
+
 	/**
 	 * Create a WMCMonitor
 	 * 
 	 * @param title
+	 *            window title
 	 */
 	public WMCMonitor(String title) {
 		Display display = Display.getCurrent();
-		if( null != display ) {
+		if (null != display) {
 			Shell activeShell = display.getActiveShell();
-			if( null != activeShell ) {
+			if (null != activeShell) {
 				Callback callback = new Callback(this, "shellWindowProc", 4); //$NON-NLS-1$
 				int address = callback.getAddress();
-				if( address != 0 ) {
-					final Shell shell = new Shell(); 
-			        shell.setVisible(false);
-			        shell.setBounds(0, 0, 0, 0);
-			        shell.setText(title);
-					oldShellProc = OS.GetWindowLong (shell.handle, OS.GWL_WNDPROC);
-					OS.SetWindowLong (shell.handle, OS.GWL_WNDPROC, address);
-		            activeShell.addDisposeListener(new DisposeListener() {
-		                public void widgetDisposed(DisposeEvent e) {
-		                    shell.dispose();
-		                }
-		            });
-				}
-				else {
+				if (address != 0) {
+					final Shell shell = new Shell();
+					shell.setVisible(false);
+					shell.setBounds(0, 0, 0, 0);
+					shell.setText(title);
+					oldShellProc = OS.GetWindowLong(shell.handle,
+							OS.GWL_WNDPROC);
+					OS.SetWindowLong(shell.handle, OS.GWL_WNDPROC, address);
+					activeShell.addDisposeListener(new DisposeListener() {
+						public void widgetDisposed(DisposeEvent e) {
+							shell.dispose();
+						}
+					});
+				} else {
 					callback.dispose();
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Window procedure
 	 * 
@@ -80,17 +86,16 @@ public abstract class WMCMonitor {
 	 */
 	int shellWindowProc(int hwnd, int msg, int wParam, int lParam) {
 		try {
-			if( COPYDATASTRUCT.WM_COPYDATA == msg ) {
-				return onCopyData(hwnd,wParam,new COPYDATASTRUCT(lParam));
+			if (COPYDATASTRUCT.WM_COPYDATA == msg) {
+				return onCopyData(hwnd, wParam, new COPYDATASTRUCT(lParam));
 			}
-			return OS.CallWindowProc (oldShellProc, hwnd, msg, wParam, lParam);
-		}
-		catch( Exception e ) {
+			return OS.CallWindowProc(oldShellProc, hwnd, msg, wParam, lParam);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * WM_COPYDATA handler
 	 * 
@@ -100,5 +105,5 @@ public abstract class WMCMonitor {
 	 * @return 1 if processed
 	 */
 	protected abstract int onCopyData(int hwnd, int hwndFrom, COPYDATASTRUCT cds);
-	
+
 }

@@ -9,17 +9,30 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.win32;
+package org.eclipse.actf.util.internal.win32;
 
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.internal.win32.RECT;
 
+/**
+ * Utility class to draw rectangle
+ */
+@SuppressWarnings("restriction")
 public class DrawUtil {
 
 	private static final int bandWidth = 3;
 
-	@SuppressWarnings("restriction")
+	/**
+	 * Draw rectangle
+	 * 
+	 * @param hwndDraw
+	 *            target window
+	 * @param rect
+	 *            rectangle
+	 * @param color
+	 *            color
+	 */
 	public static void drawRectangle(int hwndDraw, Rectangle rect, int color) {
 		int hDC = OS.GetDCEx(hwndDraw, 0, OS.DCX_CACHE);
 		int oldBrush = OS.SelectObject(hDC, OS.CreateSolidBrush(color));
@@ -34,7 +47,14 @@ public class DrawUtil {
 		OS.ReleaseDC(hwndDraw, hDC);
 	}
 
-	@SuppressWarnings("restriction")
+	/**
+	 * Redraw specified rectangle. Call this method after drawRectangle method.
+	 * 
+	 * @param hwndDraw
+	 *            target window
+	 * @param rect
+	 *            target rectangle
+	 */
 	public static void redrawRectangle(int hwndDraw, Rectangle rect) {
 		RECT osRect = new RECT();
 		osRect.left = rect.x - bandWidth;

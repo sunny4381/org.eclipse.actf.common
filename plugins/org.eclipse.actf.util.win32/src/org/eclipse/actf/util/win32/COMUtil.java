@@ -16,9 +16,10 @@ import org.eclipse.swt.internal.ole.win32.GUID;
 import org.eclipse.swt.ole.win32.OLE;
 
 /**
- * COM related utilities. Calling v table method, creating GUID, and creating
+ * COM related utilities. Calling vtable method, creating GUID, and creating
  * dispatch object from GUID.
  */
+@SuppressWarnings("restriction")
 public class COMUtil {
 
 	static {
@@ -29,6 +30,13 @@ public class COMUtil {
 		}
 	}
 
+	/**
+	 * Create dispatch object from GUID
+	 * 
+	 * @param rclsid
+	 *            GUID
+	 * @return dispatch object
+	 */
 	public static int createDispatch(GUID rclsid) {
 		int[] ppv = new int[1];
 		int result = COM.CoCreateInstance(rclsid, 0, COM.CLSCTX_INPROC_HANDLER
@@ -39,29 +47,152 @@ public class COMUtil {
 		return ppv[0];
 	}
 
+	/**
+	 * Calling vtable method
+	 * 
+	 * @param fnNumber
+	 *            vtable index
+	 * @param ppVtbl
+	 *            vtable pointer
+	 * @param arg0
+	 *            argument 0
+	 * @return hresult
+	 */
 	public static final native int VtblCall(int fnNumber, int ppVtbl, int arg0);
 
+	/**
+	 * @param fnNumber
+	 * @param ppVtbl
+	 * @param arg0
+	 *            argument 0
+	 * @param arg1
+	 *            argument 1
+	 * @return
+	 */
 	public static final native int VtblCall(int fnNumber, int ppVtbl, int arg0,
 			int arg1);
 
+	/**
+	 * @param fnNumber
+	 * @param ppVtbl
+	 * @param arg0
+	 *            argument 0
+	 * @param arg1
+	 *            argument 1
+	 * @param arg2
+	 *            argument 2
+	 * @return
+	 */
 	public static final native int VtblCall(int fnNumber, int ppVtbl, int arg0,
 			int arg1, int arg2);
 
+	/**
+	 * @param fnNumber
+	 * @param ppVtbl
+	 * @param arg0
+	 *            argument 0
+	 * @param arg1
+	 *            argument 1
+	 * @param arg2
+	 *            argument 2
+	 * @param arg3
+	 *            argument 3
+	 * @return
+	 */
 	public static final native int VtblCall(int fnNumber, int ppVtbl, int arg0,
 			int arg1, int arg2, int arg3);
 
+	/**
+	 * @param fnNumber
+	 * @param ppVtbl
+	 * @param arg0
+	 *            argument 0
+	 * @param arg1
+	 *            argument 1
+	 * @param arg2
+	 *            argument 2
+	 * @param arg3
+	 *            argument 3
+	 * @param arg4
+	 *            argument 4
+	 * @return
+	 */
 	public static final native int VtblCall(int fnNumber, int ppVtbl, int arg0,
 			int arg1, int arg2, int arg3, int arg4);
 
+	/**
+	 * @param fnNumber
+	 * @param ppVtbl
+	 * @param arg0
+	 *            argument 0
+	 * @param arg1
+	 *            argument 1
+	 * @param arg2
+	 *            argument 2
+	 * @param arg3
+	 *            argument 3
+	 * @param arg4
+	 *            argument 4
+	 * @param arg5
+	 *            argument 5
+	 * @return
+	 */
 	public static final native int VtblCall(int fnNumber, int ppVtbl, int arg0,
 			int arg1, int arg2, int arg3, int arg4, int arg5);
 
+	/**
+	 * @param fnNumber
+	 * @param ppVtbl
+	 * @param arg0
+	 *            argument 0
+	 * @param arg1
+	 *            argument 1
+	 * @param arg2
+	 *            argument 2
+	 * @param arg3
+	 *            argument 3
+	 * @param arg4
+	 *            argument 4
+	 * @param arg5
+	 *            argument 5
+	 * @param arg6
+	 *            argument 6
+	 * @return
+	 */
 	public static final native int VtblCall(int fnNumber, int ppVtbl, int arg0,
 			int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
 
+	/**
+	 * @param fnNumber
+	 * @param ppVtbl
+	 * @param arg0
+	 *            argument 0
+	 * @param arg1
+	 *            argument 1
+	 * @param arg2
+	 *            argument 2
+	 * @param arg3
+	 *            argument 3
+	 * @param arg4
+	 *            argument 4
+	 * @param arg5
+	 *            argument 5
+	 * @param arg6
+	 *            argument 6
+	 * @param arg7
+	 *            argument 7
+	 * @return
+	 */
 	public static final native int VtblCall(int fnNumber, int ppVtbl, int arg0,
 			int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7);
 
+	/**
+	 * Create GUID from target String
+	 * 
+	 * @param lpsz
+	 *            target
+	 * @return GUID
+	 */
 	public static GUID IIDFromString(String lpsz) {
 		int length = lpsz.length();
 		char[] buffer = new char[length + 1];

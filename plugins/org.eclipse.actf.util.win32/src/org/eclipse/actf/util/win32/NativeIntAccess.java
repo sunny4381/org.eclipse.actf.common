@@ -11,48 +11,91 @@
 
 package org.eclipse.actf.util.win32;
 
-
-
+/**
+ * Utility class to access native integer
+ */
 public class NativeIntAccess {
-    private int pIntAddress = 0;
+	private int pIntAddress = 0;
 
-    public NativeIntAccess() {
-        this(1);
-    }
-    
-    public NativeIntAccess(int size) {
-        pIntAddress = MemoryUtil.GlobalAlloc(4 * size);
-    }
+	/**
+	 * Default Constructor (size=1)
+	 */
+	public NativeIntAccess() {
+		this(1);
+	}
 
-    public void dispose() {
-        MemoryUtil.GlobalFree(pIntAddress);
-    }
+	/**
+	 * Constructor of the class
+	 * 
+	 * @param size
+	 *            array size
+	 */
+	public NativeIntAccess(int size) {
+		pIntAddress = MemoryUtil.GlobalAlloc(4 * size);
+	}
 
-    public int getAddress() {
-        return getAddress(0);
-    }
-    
-    public int getAddress(int index) {
-        return pIntAddress + index * 4;
-    }
+	/**
+	 * Dispose the object
+	 */
+	public void dispose() {
+		MemoryUtil.GlobalFree(pIntAddress);
+	}
 
-    public int getInt() {
-        return getInt(0);
-    }
-    
-    public int getInt(int index) {
-        int[] pInt = new int[1];
-        MemoryUtil.MoveMemory(pInt, getAddress(index), 4);
-        return pInt[0];
-    }
+	/**
+	 * @return native address (index=0)
+	 */
+	public int getAddress() {
+		return getAddress(0);
+	}
 
-    public void setInt(int value) {
-        setInt(0,value);
-    }
-    
-    public void setInt(int index, int value) {
-        int[] pInt = new int[1];
-        pInt[0] = value;
-        MemoryUtil.MoveMemory(getAddress(index), pInt, 4);
-    }
+	/**
+	 * @param index
+	 *            target index
+	 * @return native address
+	 */
+	public int getAddress(int index) {
+		return pIntAddress + index * 4;
+	}
+
+	/**
+	 * @return integer value (index=0)
+	 */
+	public int getInt() {
+		return getInt(0);
+	}
+
+	/**
+	 * @param index
+	 *            target index
+	 * @return integer value
+	 */
+	public int getInt(int index) {
+		int[] pInt = new int[1];
+		MemoryUtil.MoveMemory(pInt, getAddress(index), 4);
+		return pInt[0];
+	}
+
+	/**
+	 * Set native integer value at index 0
+	 * 
+	 * @param value
+	 *            target value
+	 */
+	public void setInt(int value) {
+		setInt(0, value);
+	}
+
+	/**
+	 * Set native integer value at target index
+	 * 
+	 * @param index
+	 *            target index
+	 * @param value
+	 *            target value
+	 */
+	public void setInt(int index, int value) {
+		int[] pInt = new int[1];
+		pInt[0] = value;
+		MemoryUtil.MoveMemory(getAddress(index), pInt, 4);
+	}
 }

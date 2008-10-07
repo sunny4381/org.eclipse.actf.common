@@ -13,49 +13,68 @@ package org.eclipse.actf.util.win32;
 
 import org.eclipse.swt.internal.ole.win32.COM;
 
-
-
+/**
+ * Utility class to access native String
+ */
+@SuppressWarnings("restriction")
 public class NativeStringAccess {
-    private int pBSTRAddress = 0;
+	private int pBSTRAddress = 0;
 
-    private int[] hMem = new int[1];
+	private int[] hMem = new int[1];
 
-    public NativeStringAccess() {
-        pBSTRAddress = MemoryUtil.GlobalAlloc(4);
-    }
+	/**
+	 * Constructor of the class
+	 */
+	public NativeStringAccess() {
+		pBSTRAddress = MemoryUtil.GlobalAlloc(4);
+	}
 
-    public void dispose() {
-        if (0 != hMem[0]) {
-            COM.SysFreeString(hMem[0]);
-        }
-        MemoryUtil.GlobalFree(pBSTRAddress);
-    }
+	/**
+	 * Dispose the object
+	 */
+	public void dispose() {
+		if (0 != hMem[0]) {
+			COM.SysFreeString(hMem[0]);
+		}
+		MemoryUtil.GlobalFree(pBSTRAddress);
+	}
 
-    public int getAddress() {
-        return pBSTRAddress;
-    }
+	/**
+	 * @return native address
+	 */
+	public int getAddress() {
+		return pBSTRAddress;
+	}
 
-    public String getString() {
-        MemoryUtil.MoveMemory(hMem, pBSTRAddress, 4);
-        if (0 != hMem[0]) {
-            int size = COM.SysStringByteLen(hMem[0]);
-            if (size > 0) {
-                char[] buffer = new char[(size + 1) / 2];
-                MemoryUtil.MoveMemory(buffer, hMem[0], size);
-                return new String(buffer);
-            }
-        }
-        return null;//""; //$NON-NLS-1$
-    }
+	/**
+	 * @return string value
+	 */
+	public String getString() {
+		MemoryUtil.MoveMemory(hMem, pBSTRAddress, 4);
+		if (0 != hMem[0]) {
+			int size = COM.SysStringByteLen(hMem[0]);
+			if (size > 0) {
+				char[] buffer = new char[(size + 1) / 2];
+				MemoryUtil.MoveMemory(buffer, hMem[0], size);
+				return new String(buffer);
+			}
+		}
+		return null;// ""; //$NON-NLS-1$
+	}
 
-    public void setString(String text) {
-        MemoryUtil.MoveMemory(hMem, pBSTRAddress, 4);
-        if (0 != hMem[0]) {
-            COM.SysFreeString(hMem[0]);
-        }
-        char[] data = (text + "\0").toCharArray(); //$NON-NLS-1$
-        int ptr = COM.SysAllocString(data);
-        COM.MoveMemory(pBSTRAddress, new int[] { ptr }, 4);
-        MemoryUtil.MoveMemory(hMem, pBSTRAddress, 4);
-    }
+	/**
+	 * Set native String value
+	 * 
+	 * @param text
+	 */
+	public void setString(String text) {
+		MemoryUtil.MoveMemory(hMem, pBSTRAddress, 4);
+		if (0 != hMem[0]) {
+			COM.SysFreeString(hMem[0]);
+		}
+		char[] data = (text + "\0").toCharArray(); //$NON-NLS-1$
+		int ptr = COM.SysAllocString(data);
+		COM.MoveMemory(pBSTRAddress, new int[] { ptr }, 4);
+		MemoryUtil.MoveMemory(hMem, pBSTRAddress, 4);
+	}
 }
