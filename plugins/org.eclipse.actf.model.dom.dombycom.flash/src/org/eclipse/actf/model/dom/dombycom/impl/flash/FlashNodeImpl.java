@@ -448,8 +448,7 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 	}
 
 	public IFlashNode getNodeAtDepth(int depth) {
-		IASNode result = flashPlayer.getNodeAtDepthWithPath(getTarget(),
-				depth);
+		IASNode result = flashPlayer.getNodeAtDepthWithPath(getTarget(), depth);
 		if (result == null)
 			return null;
 		return new FlashNodeImpl(swf, result);
@@ -464,11 +463,11 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 	}
 
 	public IFlashNode[] getInnerNodes() {
-		return createIFlashNodeArray(flashPlayer.getChildren(flashNode, true));
+		return createIFlashNodeArray(flashNode.getChildren(true));
 	}
 
 	public IFlashNode[] getSWFChildNodes() {
-		return createIFlashNodeArray(flashPlayer.getChildren(flashNode, false));
+		return createIFlashNodeArray(flashNode.getChildren(false));
 	}
 
 	public int getDepth() {

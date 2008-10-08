@@ -51,21 +51,6 @@ public interface IASBridge extends IFlashConst {
 	 *            <code>getInnerNodes</code> method)</li>
 	 *            <li>false: use object structure</li>
 	 *            </ul>
-	 * @return children of the node as {@link IASNode} array
-	 */
-	public abstract IASNode[] getChildren(IASNode parentNode, boolean visual);
-
-	/**
-	 * Get children of specified parent {@link IASNode}
-	 * 
-	 * @param parentNode
-	 *            target parent node
-	 * @param visual
-	 *            <ul>
-	 *            <li>true: use visual structure (use AS
-	 *            <code>getInnerNodes</code> method)</li>
-	 *            <li>false: use object structure</li>
-	 *            </ul>
 	 * @param debugMode
 	 *            <ul>
 	 *            <li>true: list all entities including the internal variables.
@@ -114,20 +99,6 @@ public interface IASBridge extends IFlashConst {
 	 * @return root {@link IASNode}
 	 */
 	public abstract IASNode getRootNode();
-
-	/**
-	 * @param parentNode
-	 *            target parent {@link IASNode}
-	 * @param visual
-	 *            <ul>
-	 *            <li>true: use visual structure (use AS
-	 *            <code>getInnerNodes</code> method)</li>
-	 *            <li>false: use object structure</li>
-	 *            </ul>
-	 * 
-	 * @return true if the parent node has child
-	 */
-	public abstract boolean hasChild(IASNode parentNode, boolean visual);
 
 	/**
 	 * @param parentNode

@@ -150,16 +150,6 @@ public class FlashPlayer implements IFlashPlayer {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#hasChild(org.eclipse.actf.model.flash.ASNode,
-	 *      boolean)
-	 */
-	public boolean hasChild(IASNode parentNode, boolean visual) {
-		return hasChild(parentNode, visual, false);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#hasChild(org.eclipse.actf.model.flash.ASNode,
 	 *      boolean, boolean)
 	 */
 	public boolean hasChild(IASNode parentNode, boolean visual,
@@ -168,16 +158,6 @@ public class FlashPlayer implements IFlashPlayer {
 			return asBrigde.hasChild(parentNode, visual, debugMode);
 		}
 		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#getChildren(org.eclipse.actf.model.flash.ASNode,
-	 *      boolean)
-	 */
-	public IASNode[] getChildren(IASNode parentNode, boolean visual) {
-		return getChildren(parentNode, visual, false);
 	}
 
 	/*

@@ -71,8 +71,8 @@ public class ASSerializer {
 				ret.append(serialize(tmp));
 				ret.append(",");
 			}
-			if(ret.length()>1){
-				return ret.substring(0, ret.length()-2);
+			if (ret.length() > 1) {
+				return ret.substring(0, ret.length() - 2);
 			}
 			return "";
 		}

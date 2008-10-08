@@ -34,6 +34,15 @@ public interface IFlashConst {
 	 */
 	public static final String CONTENT_URL = "_url";
 
+	/**
+	 * Name of accImpl object.
+	 */
+	public static final String ACC_IMPL = "_accImpl";
+	/**
+	 * Name of accProps object.
+	 */
+	public static final String ACC_PROPS = "_accProps";
+
 	// Browser Ready State
 	/**
 	 * Name of the variable for browser's ready state.
@@ -74,6 +83,7 @@ public interface IFlashConst {
 	 * ActionScript variable name which denotes the global variables store.
 	 */
 	public static final String PATH_GLOBAL = "_global"; //$NON-NLS-1$
+
 	/**
 	 * ActionScript variable name which denotes the mouse (button pressing)
 	 * event handler.

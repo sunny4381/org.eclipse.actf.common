@@ -26,11 +26,8 @@ import org.eclipse.actf.model.flash.as.ASObject;
 
 public class ASNodeImplV8 implements IFlashConst, IASNode {
 
-	private static final String ACC_IMPL = "_accImpl";
-	private static final String ACC_PROPS = "_accProps";
 	private static final String LEVEL0_FOCUS_MANAGER = "_level0.focusManager";
 	private static final String LEVEL0_RESERVED = "_level0.reserved";
-	private static final String ON_RELEASE = "onRelease";
 
 	private IFlashPlayer player;
 	private ASObject asObject;
@@ -100,7 +97,7 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 			}
 		}
 		this.accInfo = ASAccInfo.create(asObject);
-		
+
 		initIconType();
 	}
 
@@ -110,7 +107,7 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 			if (accInfo != null) {
 				int accRole = accInfo.getRole();
 				if (-1 != accRole) {
-					strIconType = ASNODE_ICON_ACCROLE+accRole;
+					strIconType = ASNODE_ICON_ACCROLE + accRole;
 					return;
 				}
 			}
@@ -311,7 +308,7 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 		return (skipChildren && !isAccProperties) || isReference;
 	}
 
-	private boolean isAccProperties() {
+	public boolean isAccProperties() {
 		return isAccProperties;
 	}
 
@@ -343,10 +340,14 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASNode#getChildren(boolean, boolean)
+	 * @see org.eclipse.actf.model.flash.IASNode#getChildren(boolean)
 	 */
-	public IASNode[] getChildren(boolean visual, boolean informative) {
-		return getChildren(visual, informative, false);
+	public IASNode[] getChildren(boolean visual) {
+		return getChildren(visual, false);
+	}
+
+	public IASNode[] getEntireChildren() {
+		return getChildren(false, true);
 	}
 
 	/*
@@ -355,8 +356,7 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 	 * @see org.eclipse.actf.model.flash.IASNode#getChildren(boolean, boolean,
 	 *      boolean)
 	 */
-	public IASNode[] getChildren(boolean visual, boolean informative,
-			boolean debugMode) {
+	private IASNode[] getChildren(boolean visual, boolean debugMode) {
 		IASNode[] children = player.getChildren(this, visual, debugMode);
 		List<ASNodeImplV8> childList = new ArrayList<ASNodeImplV8>();
 		for (IASNode child : children) {
@@ -365,19 +365,6 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 				if (!debugMode) {
 					if (!visual && node.shouldSkip()) {
 						continue;
-					}
-					if (informative && !node.isAccProperties()) {
-						if (null == node.getText()
-								&& !ASNODE_TYPE_MOVIECLIP
-										.equals(node.getType()) && //$NON-NLS-1$
-								!ASNODE_CLASS_BUTTON
-										.equals(node.getClassName()) && //$NON-NLS-1$
-								!ACC_PROPS.equals(node.getObjectName()) && //$NON-NLS-1$
-								!ACC_IMPL.equals(node.getObjectName()) && //$NON-NLS-1$
-								!ON_RELEASE.equals(node.getObjectName())) //$NON-NLS-1$
-						{
-							continue;
-						}
 					}
 				}
 				childList.add(node);
