@@ -80,6 +80,7 @@ public interface IConfiguration extends Serializable
 	public static final String FILTER_CLASSNAME_ATTRIBUTE ="class";
 	public static final String FILTER_NODENAMES_ATTRIBUTE ="nodenames";
 	public static final String FILTER_NODEIDS_ATTRIBUTE ="nodeids";
+	public static final String FILTER_NODETYPES_ATTRIBUTE = "nodetypes";
 
 	public static final String ALIASES_ID = "aliases";
 	
