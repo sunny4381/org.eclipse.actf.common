@@ -297,7 +297,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		// TODO low priority
 	}
 
-	public void recoveryHighlight() {
+	public void clearHighlight() {
 		// TODO low priority
 	}
 
@@ -350,7 +350,8 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 	public Document getDocument() {
 		try {
-			File tmpF = BrowserIE_Plugin.getDefault().createTempFile("actf", "html");
+			File tmpF = BrowserIE_Plugin.getDefault().createTempFile("actf",
+					"html");
 			saveOriginalDocument(tmpF.getAbsolutePath());
 			IHTMLParser parser = HTMLParserFactory.createHTMLParser();
 			parser.parse(new FileInputStream(tmpF));
