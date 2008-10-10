@@ -28,6 +28,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IPathEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
@@ -66,6 +67,8 @@ public class WebBrowserEditor extends EditorPart implements IModelServiceHolder 
 			if ("".equals(targetUrl)) {
 				targetUrl = "about:blank";
 			}
+		}else if(input instanceof IPathEditorInput){
+			targetUrl = ((IPathEditorInput)input).getPath().toFile().getAbsolutePath();
 		}
 
 		webBrowser = new WebBrowserIEImpl(this, parent, targetUrl);
