@@ -106,6 +106,13 @@ public final class LoggingUtil
 	public static IReporter getTracer () {
 		return _tracer;
 	}
+	
+	//Closing the _tracer which is opened by setTracer.
+	public static void closeTracer() {
+		if(_tracer.isOpen()) {
+			_tracer.close();
+		} 
+	}
 
 	/**
 	 * get the current trace level
