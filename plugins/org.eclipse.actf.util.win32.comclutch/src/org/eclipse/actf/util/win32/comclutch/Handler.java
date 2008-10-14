@@ -57,4 +57,8 @@ public abstract class Handler extends IUnknownImpl implements IDispatch {
         // Create a transient object.  Thus, don't manage it with ResourceManager.
         return new IDispatchImpl(null, ptr, true);
     }
+
+	public Object get(String prop, Object[] args) {
+		return null;
+	}
 }
