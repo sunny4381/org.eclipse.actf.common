@@ -30,24 +30,21 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
-
 /**
  * an implementation for locating resources within the Eclipse framework.
- * 
  * @author <a href="mailto:masquill@us.ibm.com>Mike Squillace</a>
  *
  */
 public class EclipseResourceLocator extends DefaultResourceLocator
 {
-
-
 	private List _bundles = new LinkedList();
-	
+	private File metadataDir;
 	/**
 	 * used to identify the bundles in which resources are to be found. Each bundle in 
-	 * Eclipse has its own class loader and we leave it to the platform to choose the class loader to be used. Thus, calling this method means that a <code>ClassLoader</code> 
-	 * should not be passed to <code>getResourceAsStream</code>. Also, not all methods for finding resources in bundles 
-	 * use <code>ClassLoader</code> objects.
+	 * Eclipse has its own class loader and we leave it to the platform to choose the
+	 * class loader to be used. Thus, calling this method means that a <code>ClassLoader</code> 
+	 * should not be passed to <code>getResourceAsStream</code>. Also, not all methods for 
+	 * finding resources in bundles use <code>ClassLoader</code> objects.
 	 * 
 	 * @param bundle - the name of the bundle (i.e. plug-in) that is to be searched for a resource
 	 */
@@ -165,7 +162,22 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 				}
 			}
 		}
-		
+		//if result still null convert name it to URI
+		if(result == null) {
+			File sourceLoc = new File(name);
+			if(name.endsWith(".xml")) {
+				metadataDir = sourceLoc.getParentFile();
+			} else {
+				String path = metadataDir.getAbsolutePath();
+				sourceLoc = new File(path+"/"+name);
+			}
+
+			try {
+				result = sourceLoc.toURL();
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} 
+		}
 		return result;
 	}
 		
