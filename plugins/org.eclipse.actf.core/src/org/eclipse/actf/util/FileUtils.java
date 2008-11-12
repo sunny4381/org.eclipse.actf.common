@@ -81,14 +81,7 @@ public class FileUtils {
 	 * @return replaced URL string
 	 */
 	public static String replaceWhiteSpaceInUrl(String target) {
-		StringBuffer tmpSB = new StringBuffer();
-		int i;
-		while ((i = target.indexOf("%20")) > -1) {
-			tmpSB.append(target.substring(0, i) + " ");
-			target = target.substring(i + 3);
-		}
-		tmpSB.append(target);
-		return (tmpSB.toString());
+		return target.replaceAll(" ", "%20");
 	}
 
 	/**
