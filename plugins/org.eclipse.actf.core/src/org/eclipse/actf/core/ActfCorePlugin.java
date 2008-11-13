@@ -195,6 +195,7 @@ if (isDebugging(option)) {
 
 	public void stop (BundleContext context) throws Exception {
 		LoggingUtil.println(IReporter.INFO, getClass().getName() + " stopped");
+		LoggingUtil.closeTracer();
 		super.stop(context);
 	}
 
