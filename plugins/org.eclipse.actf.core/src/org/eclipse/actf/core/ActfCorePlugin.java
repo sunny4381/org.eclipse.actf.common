@@ -195,7 +195,10 @@ if (isDebugging(option)) {
 
 	public void stop (BundleContext context) throws Exception {
 		LoggingUtil.println(IReporter.INFO, getClass().getName() + " stopped");
-		LoggingUtil.closeTracer();
+		// don't close this until it is actually the core plugin - last man standing
+		if (getPluginId().equals(ACTFCORE_PLUGIN_ID)){
+			LoggingUtil.closeTracer();
+		}
 		super.stop(context);
 	}
 
