@@ -19,30 +19,42 @@ import org.eclipse.swt.widgets.Shell;
  * Utility class to open dialog to enable users to specify target file name.
  */
 public class DialogSave {
+
+	/**
+	 * The constant to target all files.
+	 */
+	public static final int ALL = 0;
+
 	/**
 	 * The constant to specify HTML files as a target.
 	 */
-	public static final int HTML = 0;
+	public static final int HTML = 1;
 
 	/**
 	 * The constant to specify Bitmap files as a target.
 	 */
-	public static final int BMP = 1;
+	public static final int BMP = 2;
 
-	private static final int TYPE_MAX = 1;
+	/**
+	 * The constant to specify XML files as a target.
+	 */
+	public static final int XML = 3;
+
+	private static final int TYPE_MAX = 3;
 
 	private static final int MAX_FILENAME_LENGTH = 100;
 
-	private static final String[][] FILTER = {
-			{ "HTML Files (*.htm, *.html)" }, { "BMP Files (*.bmp)" } };
+	private static final String[][] FILTER = { { "All Files (*.*)" },
+			{ "HTML Files (*.htm, *.html)" }, { "BMP Files (*.bmp)" },
+			{ "XML Files (*.xml)" } };
 
-	private static final String[][] FILTER_EXT = { { "*.htm", "*.html" },
-			{ "*.bmp" } };
+	private static final String[][] FILTER_EXT = { { "*.*" },
+			{ "*.htm;*.html" }, { "*.bmp" }, { "*.xml" } };
 
-	private static final String[][] EXT_CHECK = { { ".htm", ".html" },
-			{ ".bmp" } };
+	private static final String[][] EXT_CHECK = { {}, { ".htm", ".html" },
+			{ ".bmp" }, { ".xml" } };
 
-	private static final String[] DEFAULT_EXT = { ".htm", ".bmp" };
+	private static final String[] DEFAULT_EXT = { "", ".html", ".bmp", ".xml" };
 
 	/**
 	 * Open dialog to enable users to specify target file name to save.
@@ -72,9 +84,9 @@ public class DialogSave {
 
 				// TODO use System.property
 				int iPos = saveFileName.indexOf("//");
-				if (iPos == -1)
-					iPos = 0;
-				saveFileName = saveFileName.substring(iPos + 2);
+				if (iPos != -1) {
+					saveFileName = saveFileName.substring(iPos + 2);
+				}
 				// saveFileName = saveFileName.replace('/', '_');
 				// saveFileName = saveFileName.replace('\\', '_');
 				// saveFileName = saveFileName.replace(':', '_');
