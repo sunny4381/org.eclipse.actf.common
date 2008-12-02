@@ -107,11 +107,9 @@ public class XmlConfiguration extends AbstractConfiguration
 				}
 			}
 			_currentXmlFilePrefix = null;
-			//Don't automatically set this 
-			//setSymbolPool(IConfiguration.ACTF_ID);
-		}else {
+		} else {
 			super.addConfigurationData(data);
-		}
+			}
 	}
 	
 	protected Map addConfigurationData(Object data, Map configMap)

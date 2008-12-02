@@ -14,15 +14,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import org.eclipse.actf.util.logging.IReporter;
+import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.Platform;
 
 public class EclipseConfiguration extends AbstractConfiguration {
 
-	/**
-	 * 
-	 */
 	static final long serialVersionUID = 7981371198710093969L;
+	
 	public static final String MODEL_NAME_ATTRIBUTE = "name";
 	public static final String ALIAS_ID = "alias";
 
@@ -42,6 +44,22 @@ public class EclipseConfiguration extends AbstractConfiguration {
 	public EclipseConfiguration() throws ConfigurationException {
 		super();
 	}
+	
+	public String[] getModelTypes () {
+		//add all data from declared entry points
+		 IExtensionPoint [] extPts = Platform.getExtensionRegistry().getExtensionPoints("org.eclipse.actf.model");
+		 for (IExtensionPoint point : extPts) {
+			 for (IExtension extension : point.getExtensions()) {
+				 try {
+					addConfigurationData(extension);
+				} catch (ConfigurationException e) {
+					LoggingUtil.println(IReporter.WARNING, "Could not configure for " + extension.getNamespaceIdentifier() + ", " + extension.getSimpleIdentifier());
+				}
+			 }
+		  }
+		 
+		 return super.getModelTypes();
+	}
 
 	/**
 	 * treats data object as an
@@ -60,17 +78,13 @@ public class EclipseConfiguration extends AbstractConfiguration {
 		} else if (data instanceof IExtension) {
 			IExtension extension = (IExtension) data;
 			pluginId = extension.getNamespaceIdentifier();
-			IConfigurationElement[] configElements = extension
-					.getConfigurationElements();
-			for (int i = 0; i < configElements.length; i++) {
-				addElement(configElements[i]);
+			for (IConfigurationElement configElement : extension.getConfigurationElements()) {
+				addElement(configElement);
 			}
 		}
-
 	}
 
-	private void addElement(IConfigurationElement element)
-			throws ConfigurationException {
+	private void addElement(IConfigurationElement element) throws ConfigurationException {
 		/*
 		 * our extension points are currently either model types, or nodeFilters
 		 * This version is based  on just to get it working for now, then make it more generic to
@@ -78,8 +92,7 @@ public class EclipseConfiguration extends AbstractConfiguration {
 		 */
 		String elementName = element.getName();
 		if (elementName.equals(MODEL_ID)) {
-			// create the model symbol pool if it doesn't exist and then select
-			// it
+			// create the model symbol pool if it doesn't exist and then select it
 			if (_configMap.containsKey(elementName)) {
 				setSymbolPool(elementName);
 				modelMap = (HashMap) _configMap.get(elementName);
@@ -89,11 +102,19 @@ public class EclipseConfiguration extends AbstractConfiguration {
 				_configMap.put(elementName, modelMap);
 			}
 			// get model attributes and add the model to the model pool
-			String[] attrNames = element.getAttributeNames();
 			attributeMap = new HashMap();
-			for (int i = 0; i < attrNames.length; i++) {
-				String attrValue = element.getAttribute(attrNames[i]);
-				attributeMap.put(attrNames[i], attrValue);
+			for (String attrName : element.getAttributeNames()) {
+				String attrValue = element.getAttribute(attrName);
+				if (attrName.equals("class")) {
+					try {
+						Object model = element.createExecutableExtension("class");
+						if (model != null) {
+							attributeMap.put("modelInstance", model);
+						}
+					} catch (Exception e) {
+					}
+				}
+				attributeMap.put(attrName, attrValue);
 			}
 			String modelName = (String) attributeMap.get(MODEL_NAME_ATTRIBUTE);
 			modelMap.put(modelName, attributeMap);
@@ -108,8 +129,7 @@ public class EclipseConfiguration extends AbstractConfiguration {
 				elementStack.pop();
 			}
 		} else if (elementName.equals(IConfiguration.FILTER_ID)) {
-			// create the filter symbol pool if it doesn't exist and then select
-			// it
+			// create the filter symbol pool if it doesn't exist and then select it
 			if (_configMap.containsKey(elementName)) {
 				setSymbolPool(elementName);
 				filterMap = (HashMap) _configMap.get(elementName);
@@ -119,11 +139,10 @@ public class EclipseConfiguration extends AbstractConfiguration {
 				_configMap.put(elementName, filterMap);
 			}
 			// get filter attributes and add the filter to the filter pool
-			String[] attrNames = element.getAttributeNames();
 			attributeMap = new HashMap();
-			for (int i = 0; i < attrNames.length; i++) {
-				String attrValue = element.getAttribute(attrNames[i]);
-				attributeMap.put(attrNames[i], attrValue);
+			for (String attrName : element.getAttributeNames()) {
+				String attrValue = element.getAttribute(attrName);
+				attributeMap.put(attrName, attrValue);
 			}
 			String filterModel = (String) attributeMap
 					.get(IConfiguration.FILTER_MODEL_ATTRIBUTE);
@@ -135,8 +154,7 @@ public class EclipseConfiguration extends AbstractConfiguration {
 			String value = element.getAttribute("value");
 			setParameter(key, value);
 		} else {
-			throw new ConfigurationException("addElement - unknown element "
-					+ elementName);
+			throw new ConfigurationException("addElement - unknown element " + elementName);
 		}
 	}
 

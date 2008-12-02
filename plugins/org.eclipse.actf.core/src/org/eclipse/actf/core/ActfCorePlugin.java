@@ -12,7 +12,6 @@
 package org.eclipse.actf.core;
 
 import java.io.File;
-import java.io.InputStream;
 
 import org.eclipse.actf.core.config.IConfiguration;
 import org.eclipse.actf.core.runtime.IRuntimeContext;
@@ -23,7 +22,6 @@ import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 import org.eclipse.actf.util.resources.EclipseResourceLocator;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
@@ -100,34 +98,21 @@ public class ActfCorePlugin extends Plugin
 		super.start(context);
 		
 		runtimeContext = RuntimeContextFactory.getInstance().getRuntimeContext();
+		configuration = runtimeContext.getConfiguration();
 		EclipseResourceLocator locator = (EclipseResourceLocator) runtimeContext.getResourceLocator();
 			
 		// provide a way for retrieving classes and resources from all bundles
 		locator.registerBundleName(getPluginId());
 		clCache.put(getPluginId(), getClass().getClassLoader());
-		//first add the config data provided by our own actf.xml files
-		try {
-			configuration = runtimeContext.getConfiguration();
-			if (!getPluginId().equals(ACTFCORE_PLUGIN_ID)) {
-				InputStream configStream = locator.getResourceAsStream(IConfiguration.ACTF_ID, null, "xml", getPluginId());
-				if (configStream != null) {
-				  configuration.addConfigurationData(configStream);
-				  configStream.close();
-				}		 
-			}
-		} catch (Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, getPluginId(), 0, "Error initializing configuration object", e));
-		}
+		
 		String debug = Platform.getDebugOption(getDebugOptionId());
 		setDebugging(debug != null && debug.equalsIgnoreCase("true"));
 		if (isDebugging()) {
 			prepareTraceFacility();
 			if (configuration.getSymbolPoolContents(IConfiguration.ACTF_ID) != null) {
 				configuration.setSymbolPool(IConfiguration.ACTF_ID);
-				configuration.setParameter(IConfiguration.TRACE_STREAM_KEY,
-						traceStream);
-				configuration.setParameter(IConfiguration.TRACE_LEVEL_KEY,
-						traceLevel);
+				configuration.setParameter(IConfiguration.TRACE_STREAM_KEY, traceStream);
+				configuration.setParameter(IConfiguration.TRACE_LEVEL_KEY, traceLevel);
 			}
 		}
 		

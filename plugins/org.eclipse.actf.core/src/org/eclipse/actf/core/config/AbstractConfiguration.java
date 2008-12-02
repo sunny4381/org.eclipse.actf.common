@@ -36,8 +36,7 @@ public class AbstractConfiguration implements IConfiguration
 
 	static final long serialVersionUID = -1301837737929422833L;
 
-	public Map _configMap;
-
+	protected Map _configMap;
 	protected String _curPool;
 
 	/**
@@ -49,7 +48,7 @@ public class AbstractConfiguration implements IConfiguration
 	 */
 	public AbstractConfiguration () {
 		_configMap = new HashMap();
-		_curPool = "";
+		createSymbolPool(ACTF_ID);
 	}
 
 	/** {@inheritDoc} */
@@ -67,8 +66,8 @@ public class AbstractConfiguration implements IConfiguration
 	}
 
 	public void createSymbolPool (String id) {
-		if (id == null || _configMap.containsKey(id)) {
-			throw new IllegalArgumentException("Pool with id " + id + " already exists");
+		if (id == null) {
+			throw new IllegalArgumentException("Pool name cannot be null");
 		}
 		_configMap.put(id, new HashMap());
 		setSymbolPool(id);
