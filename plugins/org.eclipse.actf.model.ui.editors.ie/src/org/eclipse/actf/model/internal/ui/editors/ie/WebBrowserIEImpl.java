@@ -374,7 +374,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		if (null != file) {
 			// TODO replace with DomByCOM (need write as XML support)
 			boolean saveLiveDOM = (browserComposite.saveLiveDom(file));
-			if (!saveLiveDOM) {
+			if (saveLiveDOM) {
 				return new File(file);
 			}
 		}
@@ -384,7 +384,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	public File saveOriginalDocument(String file) {
 		if (null != file) {
 			boolean saveOrigHtmlSource = (browserComposite.save(file));
-			if (!saveOrigHtmlSource) {
+			if (saveOrigHtmlSource) {
 				return new File(file);
 			}
 		}
