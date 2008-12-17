@@ -29,5 +29,4 @@ Export-Package: org.eclipse.actf.model.dom.odf,
  org.eclipse.actf.model.dom.odf.util.accessibility,
  org.eclipse.actf.model.dom.odf.util.converter,
  org.eclipse.actf.model.dom.odf.xlink
-Bundle-ClassPath: odfapi.jar
 Bundle-Activator: org.eclipse.actf.model.internal.dom.odf.OdfPlugin

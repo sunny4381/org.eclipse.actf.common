@@ -13,5 +13,3 @@ Require-Bundle: org.eclipse.swt,
  org.eclipse.actf.util.win32.comclutch
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.model.dom.dombycom
-Bundle-ClassPath: bin/,
- runtimes/dombycom.jar
