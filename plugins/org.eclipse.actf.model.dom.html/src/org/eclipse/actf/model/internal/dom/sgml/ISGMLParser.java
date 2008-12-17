@@ -13,18 +13,13 @@ package org.eclipse.actf.model.internal.dom.sgml;
 import java.io.IOException;
 import java.util.Hashtable;
 
-import org.eclipse.actf.model.dom.html.IErrorLogListener;
 import org.eclipse.actf.model.dom.html.IParser;
 import org.eclipse.actf.model.dom.html.ParseException;
-import org.eclipse.actf.model.internal.dom.sgml.impl.EndTag;
 import org.eclipse.actf.model.internal.dom.sgml.impl.SGMLDocTypeDef;
 import org.eclipse.actf.model.internal.dom.sgml.modelgroup.IModelGroup;
 import org.eclipse.actf.model.internal.dom.sgml.modelgroup.AndModelGroup.AndContext;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.xml.sax.DocumentHandler;
-import org.xml.sax.SAXException;
 
 public interface ISGMLParser extends IParser {
 
@@ -57,13 +52,6 @@ public interface ISGMLParser extends IParser {
 	public void insert(String str) throws IOException;
 
 	/**
-	 * Sets a <i>DocumentHandler </i> instace for this parser.
-	 * 
-	 * @see #getDocumentHandler()
-	 */
-	public void setDocumentHandler(DocumentHandler handler);
-
-	/**
 	 * Determines if this parser preserve whitespaces or not. If preserve, the
 	 * parser create text node for whitespace between tags and does not ignore
 	 * carriage return and line feed after start tags and before end tags. By
@@ -80,14 +68,13 @@ public interface ISGMLParser extends IParser {
 	public Hashtable<Node, Node> getPlusMap();
 
 	public IModelGroup[] getSeqArray();
-	
+
 	/**
 	 * Set up syntax information described by DTD.
 	 * 
 	 * @param publicID
 	 *            DTD's public id that specifies which to set up.
 	 */
-	public void setupDTD(String publicID) throws ParseException, IOException;	
-
+	public void setupDTD(String publicID) throws ParseException, IOException;
 
 }

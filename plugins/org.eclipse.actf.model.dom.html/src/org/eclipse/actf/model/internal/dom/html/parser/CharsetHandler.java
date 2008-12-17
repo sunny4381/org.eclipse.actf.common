@@ -16,8 +16,8 @@ import java.io.InputStreamReader;
 
 import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.dom.html.IParserError;
+import org.eclipse.actf.model.dom.html.dochandler.DefaultDocumentHandler;
 import org.eclipse.actf.model.internal.dom.html.util.RereadableInputStream;
-import org.eclipse.actf.model.internal.dom.sgml.impl.DefaultDocumentHandler;
 import org.xml.sax.AttributeList;
 import org.xml.sax.SAXException;
 

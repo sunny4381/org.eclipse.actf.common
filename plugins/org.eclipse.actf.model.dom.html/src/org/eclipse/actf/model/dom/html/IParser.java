@@ -17,6 +17,7 @@ import org.eclipse.actf.model.internal.dom.sgml.impl.EndTag;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.xml.sax.DocumentHandler;
 import org.xml.sax.SAXException;
 
 /**
@@ -243,4 +244,10 @@ public interface IParser {
 	 */
 	public void setTagCase(int tagCase);
 
+	/**
+	 * Sets a <i>DocumentHandler </i> instance for this parser.
+	 * 
+	 * @see #getDocumentHandler()
+	 */
+	public void setDocumentHandler(DocumentHandler handler);
 }

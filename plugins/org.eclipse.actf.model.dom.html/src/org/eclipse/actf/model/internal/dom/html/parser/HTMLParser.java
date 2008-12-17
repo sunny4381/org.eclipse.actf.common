@@ -27,6 +27,7 @@ import org.eclipse.actf.model.dom.html.IErrorLogListener;
 import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.dom.html.IParser;
 import org.eclipse.actf.model.dom.html.ParseException;
+import org.eclipse.actf.model.dom.html.dochandler.PREHandler;
 import org.eclipse.actf.model.dom.html.errorhandler.FramesetErrorHandler;
 import org.eclipse.actf.model.dom.html.errorhandler.HTMLErrorHandler;
 import org.eclipse.actf.model.internal.dom.html.impl.SHDOMImpl;

@@ -9,9 +9,10 @@
  *    Goh KONDOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.internal.dom.sgml.impl;
+package org.eclipse.actf.model.dom.html.dochandler;
 
 import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
+import org.eclipse.actf.model.internal.dom.sgml.impl.SGMLParser;
 import org.xml.sax.AttributeList;
 import org.xml.sax.DocumentHandler;
 import org.xml.sax.Locator;

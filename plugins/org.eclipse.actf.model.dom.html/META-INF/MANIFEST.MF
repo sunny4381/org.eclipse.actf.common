@@ -6,4 +6,5 @@ Bundle-Version: 0.5.0.qualifier
 Bundle-Vendor: Eclipse.org
 Eclipse-LazyStart: false
 Export-Package: org.eclipse.actf.model.dom.html,
+ org.eclipse.actf.model.dom.html.dochandler,
  org.eclipse.actf.model.dom.html.errorhandler

@@ -9,12 +9,11 @@
  *    Goh KONDOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.internal.dom.html.parser;
+package org.eclipse.actf.model.dom.html.dochandler;
 
-import org.eclipse.actf.model.internal.dom.sgml.impl.DefaultDocumentHandler;
+import org.eclipse.actf.model.internal.dom.html.parser.HTMLParser;
 import org.xml.sax.AttributeList;
 import org.xml.sax.SAXException;
-
 
 public class PREHandler extends DefaultDocumentHandler {
 	private boolean previousPrsvWS;
