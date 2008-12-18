@@ -119,23 +119,6 @@ public class PrintWriterReporter extends AbstractReporter
 		this.bundle = bundle;
 	}
 
-	/** {@inheritDoc} */
-	public String getLastReport () {
-		return formatBuffer.toString();
-	}
-
-	public String toString () {
-		StringBuffer sb = new StringBuffer(getClass().getName());
-		sb.append('[');
-		sb.append(sourceID == null ? "<None>" : sourceID);
-		sb.append(isOpen() ? "open" : "closed");
-		sb.append(",\"");
-		sb.append(getLastReport());
-		sb.append("\",\"");
-		sb.append("\"]");
-		return sb.toString();
-	}
-
 	protected boolean open;
 
 	/** {@inheritDoc} */
@@ -242,11 +225,6 @@ public class PrintWriterReporter extends AbstractReporter
 	public void endReport () {
 		if (!reportStarted) { throw new IllegalStateException("Report has not been started on this reporter"); }
 		reportStarted = false;
-	}
-
-	/** {@inheritDoc} */
-	public void setLastReport (String reportText) {
-		lastReportBuffer = new StringBuffer(reportText);
 	}
 
 	/**

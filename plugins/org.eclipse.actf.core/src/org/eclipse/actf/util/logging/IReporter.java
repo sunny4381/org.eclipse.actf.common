@@ -123,13 +123,6 @@ public interface IReporter
 	public void report (int level, String message, Object[] values);
 
 	/**
-	 * get the last reported message
-	 *
-	 * @return last reported message
-	 */
-	public String getLastReport ();
-
-	/**
 	 * get the category id string of current reporting
 	 *
 	 * @return current category id
@@ -245,14 +238,6 @@ public interface IReporter
 	 * this call.
 	 */
 	public void endReport ();
-
-	/**
-	 * set the last report on this reporter. This method is only used in <code>ValidationLauncher.DISTINCT_JVM</code>
-	 * after the launcher gets an indication that a report has completed.
-	 * 
-	 * @param reportText - last report generated
-	 */
-	public void setLastReport (String reportText);
 
 	/**
 	 * reset the reporter. This method should clear all categories and all remaining

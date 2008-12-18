@@ -77,7 +77,7 @@ public abstract class AbstractReporter implements IReporter
 	protected MessageFormat categoryFormatter = CATEGORY_FORMATTER;
 	protected String sourceID;
 	protected ResourceBundle bundle;
-	protected List errorLoggers = new LinkedList();
+	protected List<IErrorLogger> errorLoggers = new LinkedList<IErrorLogger>();
 
 	public AbstractReporter () {
 		registerErrorLogger(RuntimeContextFactory.getInstance().getRuntimeContext().getErrorLogger());
@@ -190,33 +190,8 @@ public abstract class AbstractReporter implements IReporter
 
 	/** {@inheritDoc} */
 	public void report (int level, String msg, Throwable t) {
-		for (int l = 0; l < errorLoggers.size(); ++l) {
-			IErrorLogger logger = (IErrorLogger) errorLoggers.get(l);
+		for (IErrorLogger logger : errorLoggers) {
 			logger.logError(msg, t);
-		}
-		StringBuffer sb = new StringBuffer(msg == null ? "" : msg);
-		sb.append('\n');
-		while (t != null) {
-			String type = t.getClass().getName();
-			String m = t.getMessage() == null ? type : type + ": "
-					+ t.getMessage();
-			StackTraceElement[] elements = t.getStackTrace();
-			sb.append(m);
-			sb.append('\n');
-			for (int s = 0; s < elements.length; ++s) {
-				sb.append("at ");
-				sb.append(elements[s].toString());
-				sb.append('\n');
-			}
-			t = t.getCause();
-			if (t != null) {
-				sb.append('\n');
-				sb.append("Caused by: ");
-			}
-		}
-		String s = sb.toString();
-		if (s.trim().length() > 0) {
-			report(level, s);
 		}
 	}
 

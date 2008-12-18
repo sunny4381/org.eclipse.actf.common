@@ -17,6 +17,11 @@ public class CLArgumentException extends Exception
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
+	 */
 	public CLArgumentException () {
 		super();
 	}
