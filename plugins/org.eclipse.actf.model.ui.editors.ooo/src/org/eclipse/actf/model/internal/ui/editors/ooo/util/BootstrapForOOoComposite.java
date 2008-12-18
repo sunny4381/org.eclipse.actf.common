@@ -13,6 +13,7 @@ package org.eclipse.actf.model.internal.ui.editors.ooo.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import com.sun.star.bridge.UnoUrlResolver;
@@ -101,8 +102,12 @@ public class BootstrapForOOoComposite extends Bootstrap {
     private static String getPipeName() {
         String s = System.getProperty("user.name") + "_Office";
         s = replaceAll(s, "_", "%B7");
-
-        return replaceAll(replaceAll(URLEncoder.encode(s), "+", "%20"), "%", "_");
+        try {
+//        	s = replaceAll(replaceAll(URLEncoder.encode(s), "+", "%20"), "%", "_");
+			s = replaceAll(replaceAll(URLEncoder.encode(s,"UTF-8"), "+", "%20"), "%", "_");
+		} catch (UnsupportedEncodingException e) {
+		}
+        return s;
     }
 
     private static String replaceAll(String s, String s1, String s2) {

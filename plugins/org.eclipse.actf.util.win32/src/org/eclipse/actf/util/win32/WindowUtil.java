@@ -143,6 +143,31 @@ public class WindowUtil {
 		return false;
 	}
 
+	/**
+	 * Find target window
+	 * 
+	 * @param windowClass
+	 *            class name
+	 * @param windowName
+	 *            window name
+	 * @return target window, or null if not available
+	 */
+	public static int FindWindow(String windowClass, String windowName) {
+		return OS.FindWindow(new TCHAR(0, windowClass, true), new TCHAR(0,
+				windowName, true));
+	}
+	
+	/**
+	 * Bring target Window to top
+	 * 
+	 * @param hWnd
+	 *            target window
+	 * @return true if succeeded
+	 */
+	public static boolean BringWindowToTop(int hWnd) {
+		return OS.BringWindowToTop(hWnd);
+	}
+
 	static {
 		try {
 			System.loadLibrary("AccessibiltyWin32Library"); //$NON-NLS-1$

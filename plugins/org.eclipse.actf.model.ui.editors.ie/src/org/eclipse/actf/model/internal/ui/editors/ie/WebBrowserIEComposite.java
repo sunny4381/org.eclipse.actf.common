@@ -44,7 +44,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.internal.Callback;
 import org.eclipse.swt.internal.ole.win32.COM;
-import org.eclipse.swt.internal.ole.win32.IDispatch;
 import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.ole.win32.OLE;
@@ -63,7 +62,7 @@ public class WebBrowserIEComposite extends Composite {
 	public static final int SCROLL_BY = 0;
 
 	public static final int SCROLL_TO = 1;
-	
+
 	OleFrame frame;
 
 	OleControlSite site;// , site2;
@@ -255,13 +254,13 @@ public class WebBrowserIEComposite extends Composite {
 	 */
 
 	public void addBrowserEventListener(BrowserEventListener listener) {
-		Set set = getEventListeners();
+		Set<BrowserEventListener> set = getEventListeners();
 		set.add(listener);
 		setEventListeners(set);
 	}
 
 	public void removeBrowserEventListener(BrowserEventListener listener) {
-		Set set = getEventListeners();
+		Set<BrowserEventListener> set = getEventListeners();
 		set.remove(listener);
 		setEventListeners(set);
 	}
@@ -467,8 +466,7 @@ public class WebBrowserIEComposite extends Composite {
 
 	public int getBrowserAddress() {
 		Variant variant = new Variant(auto);
-		IDispatch iDispatch = variant.getDispatch();
-		return iDispatch.getAddress();
+		return variant.getDispatch().getAddress();
 	}
 
 	public int[] getWholeSize() {
@@ -481,8 +479,10 @@ public class WebBrowserIEComposite extends Composite {
 				if (null != varDocEle) {
 					try {
 						OleAutomation docEle = varDocEle.getAutomation();
-						result[0] = getIntFromOleAutomation(docEle, "scrollWidth");
-						result[1] = getIntFromOleAutomation(docEle, "scrollHeight");
+						result[0] = getIntFromOleAutomation(docEle,
+								"scrollWidth");
+						result[1] = getIntFromOleAutomation(docEle,
+								"scrollHeight");
 						docEle.dispose();
 
 						int bodySize[] = getBodySize(document);
@@ -524,7 +524,7 @@ public class WebBrowserIEComposite extends Composite {
 				if (null != varImages) {
 					try {
 						OleAutomation images = varImages.getAutomation();
-						result =  getAllImagePosition(images);
+						result = getAllImagePosition(images);
 						images.dispose();
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -652,13 +652,13 @@ public class WebBrowserIEComposite extends Composite {
 	 * Private methods
 	 */
 
-	private Set getEventListeners() {
-		return new LinkedHashSet(Arrays.asList(eventListeners));
+	private Set<BrowserEventListener> getEventListeners() {
+		return new LinkedHashSet<BrowserEventListener>(Arrays
+				.asList(eventListeners));
 	}
 
-	private void setEventListeners(Set set) {
-		eventListeners = (BrowserEventListener[]) set
-				.toArray(new BrowserEventListener[set.size()]);
+	private void setEventListeners(Set<BrowserEventListener> set) {
+		eventListeners = set.toArray(new BrowserEventListener[set.size()]);
 	}
 
 	private static boolean saveDocument(Variant varDocument, String fileName) {
@@ -807,10 +807,12 @@ public class WebBrowserIEComposite extends Composite {
 						String url = getStringFromOleAutomation(image, "src");
 						image.dispose();
 
-						//System.out.println(bcr[0]+" "+bcr[1]+" "+bcr[2]+" "+bcr[3]+" "+width+" "+height+" "+url);
-						
-						tmp[i] = new ImagePositionInfo(bcr[0],bcr[1],width,height,url);
-						
+						// System.out.println(bcr[0]+" "+bcr[1]+" "+bcr[2]+"
+						// "+bcr[3]+" "+width+" "+height+" "+url);
+
+						tmp[i] = new ImagePositionInfo(bcr[0], bcr[1], width,
+								height, url);
+
 					} catch (Exception e2) {
 						e2.printStackTrace();
 						return result;
@@ -825,18 +827,19 @@ public class WebBrowserIEComposite extends Composite {
 	}
 
 	private int[] getBoundingClientRect(OleAutomation image) {
-		int[] result = new int[] { 0, 0};//Left, Top
+		int[] result = new int[] { 0, 0 };// Left, Top
 		if (null != image) {
-			int[] idBCR = image.getIDsOfNames(new String[] {"getBoundingClientRect"});
+			int[] idBCR = image
+					.getIDsOfNames(new String[] { "getBoundingClientRect" });
 			Variant varBCR = image.invoke(idBCR[0]);
 			if (null != varBCR) {
 				try {
 					OleAutomation bcr = varBCR.getAutomation();
 					result = new int[] { getIntFromOleAutomation(bcr, "Left"),
 							getIntFromOleAutomation(bcr, "Top"),
-							//getIntFromOleAutomation(bcr, "Right"),
-							//getIntFromOleAutomation(bcr, "Bottom")
-							};
+					// getIntFromOleAutomation(bcr, "Right"),
+					// getIntFromOleAutomation(bcr, "Bottom")
+					};
 					bcr.dispose();
 				} catch (Exception e) {
 					e.printStackTrace();

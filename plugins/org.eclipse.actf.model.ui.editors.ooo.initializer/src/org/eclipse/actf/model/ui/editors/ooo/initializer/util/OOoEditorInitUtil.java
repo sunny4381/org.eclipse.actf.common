@@ -11,8 +11,7 @@
 
 package org.eclipse.actf.model.ui.editors.ooo.initializer.util;
 
-import org.eclipse.swt.internal.win32.OS;
-import org.eclipse.swt.internal.win32.TCHAR;
+import org.eclipse.actf.util.win32.RegistryUtil;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -21,6 +20,7 @@ import org.eclipse.ui.PlatformUI;
 public class OOoEditorInitUtil {
 
 	private static boolean IS_INITIALIZED = false;
+	private static final String ENTRY = "SOFTWARE\\OpenOffice.org\\UNO\\InstallPath";
 
 	/**
 	 * check existence of OOo.
@@ -35,11 +35,7 @@ public class OOoEditorInitUtil {
 			return true;
 		}
 
-		String path = null;
-		try {
-			path = getOpenOfficePath();
-		} catch (IllegalArgumentException e) {
-		}
+		String path = getOpenOfficePath();
 		if (path == null) {
 			if (showHelp) {
 				PlatformUI
@@ -63,34 +59,10 @@ public class OOoEditorInitUtil {
 	 * @return the install path of OpenOffice.org
 	 * @throws IllegalArgumentException
 	 */
-	@SuppressWarnings("restriction")
-	public static String getOpenOfficePath() throws IllegalArgumentException {
+	public static String getOpenOfficePath() {
 
-		final String entry = "SOFTWARE\\OpenOffice.org\\UNO\\InstallPath";
-
-		final int[] hKey = new int[1];
-		try {
-			int rc = OS.RegOpenKeyEx(OS.HKEY_LOCAL_MACHINE, new TCHAR(
-					OS.CP_INSTALLED, entry, true), 0, 0xF003F, hKey);
-			if (0 != rc) {
-				throw new IllegalArgumentException(
-						"Failed to call RegOpenKeyEx.");
-			}
-
-			TCHAR buf = new TCHAR(OS.CP_INSTALLED, 256);
-			final int[] len = new int[] { 256 };
-			rc = OS.RegQueryValueEx(hKey[0], (TCHAR) null, 0, null, buf, len);
-			if (0 != rc) {
-				throw new IllegalArgumentException(
-						"Failed to call RegQueryValueEx.");
-			}
-
-			return buf.toString(0, buf.strlen());
-		} finally {
-			if (hKey[0] != 0) {
-				OS.RegCloseKey(hKey[0]);
-			}
-		}
+		return RegistryUtil.getRegistryString(RegistryUtil.HKEY_LOCAL_MACHINE,
+				ENTRY, "");
 	}
 
 }

@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.model.flash.proxy.internal;
 
+import org.eclipse.actf.util.win32.MemoryUtil;
 import org.eclipse.swt.internal.win32.OS;
 
 
@@ -36,8 +37,8 @@ public class WSTR {
         string = newString;
         if( null != string ) {
             char[] buffer = (string + "\0").toCharArray(); //$NON-NLS-1$
-            address = OS.GlobalAlloc(OS.GMEM_FIXED | OS.GMEM_ZEROINIT,buffer.length*2);
-            OS.MoveMemory(address,buffer,buffer.length*2);
+            address = MemoryUtil.GlobalAlloc(buffer.length*2);
+            MemoryUtil.MoveMemory(address,buffer,buffer.length*2);
         }
     }
     
@@ -55,7 +56,7 @@ public class WSTR {
             int size = OS.wcslen(address);
             if (size > 0) {
                 char[] buffer = new char[size];
-                OS.MoveMemory(buffer, address, size*2);
+                MemoryUtil.MoveMemory(buffer, address, size*2);
                 string = new String(buffer);
             }
         }
@@ -68,7 +69,7 @@ public class WSTR {
     
     public void dispose() {
         if( 0 != address ) {
-            OS.GlobalFree(address);
+        	MemoryUtil.GlobalFree(address);
             address = 0;
         }
     }

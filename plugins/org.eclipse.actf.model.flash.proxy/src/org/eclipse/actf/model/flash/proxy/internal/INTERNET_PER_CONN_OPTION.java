@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.flash.proxy.internal;
 
-import org.eclipse.swt.internal.win32.OS;
+import org.eclipse.actf.util.win32.MemoryUtil;
 
 
 
@@ -52,13 +52,13 @@ public class INTERNET_PER_CONN_OPTION {
     
     public void getData(int pData) {
         if( 0 != pData ) {
-            OS.MoveMemory(pData,new int[]{dwOption,0,0},4*3);
+            MemoryUtil.MoveMemory(pData,new int[]{dwOption,0,0},4*3);
             switch( getValueType() ) {
                 case VALUE_INT:
-                    OS.MoveMemory(pData+4,new int[]{dwValue},4);
+                	MemoryUtil.MoveMemory(pData+4,new int[]{dwValue},4);
                     break;
                 case VALUE_STRING:
-                    OS.MoveMemory(pData+4, new int[] {strValue.getAddress()}, 4);
+                	MemoryUtil.MoveMemory(pData+4, new int[] {strValue.getAddress()}, 4);
                     break;
             }
         }
@@ -67,7 +67,7 @@ public class INTERNET_PER_CONN_OPTION {
     public void setData(int pData) {
         if( 0 != pData ) {
             int[] pOption = new int[3];
-            OS.MoveMemory(pOption,pData,4*pOption.length);
+            MemoryUtil.MoveMemory(pOption,pData,4*pOption.length);
             dwOption = pOption[0];
             switch( getValueType() ) {
                 case VALUE_INT:

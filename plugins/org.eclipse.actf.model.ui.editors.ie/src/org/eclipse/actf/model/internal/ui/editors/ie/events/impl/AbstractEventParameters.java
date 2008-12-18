@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.internal.ui.editors.ie.events.impl;
 
-import org.eclipse.swt.internal.ole.win32.COM;
+import org.eclipse.actf.util.win32.MemoryUtil;
 import org.eclipse.swt.ole.win32.OleAutomation;
 import org.eclipse.swt.ole.win32.OleControlSite;
 import org.eclipse.swt.ole.win32.OleEvent;
@@ -81,7 +81,7 @@ public abstract class AbstractEventParameters {
             int byRef = event.arguments[index].getByRef();
             if( 0 != byRef ) {
                 int[] pValue = new int[1];
-                COM.MoveMemory(pValue, byRef, 4);
+                MemoryUtil.MoveMemory(pValue, byRef, 4);
                 return pValue[0];
             }
         }

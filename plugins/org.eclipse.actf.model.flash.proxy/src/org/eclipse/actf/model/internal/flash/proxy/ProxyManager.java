@@ -30,10 +30,10 @@ import org.eclipse.actf.model.flash.proxy.internal.INTERNET_PER_CONN_OPTION_LIST
 import org.eclipse.actf.model.flash.proxy.internal.WSTR;
 import org.eclipse.actf.model.flash.proxy.internal.WinInet;
 import org.eclipse.actf.model.internal.flash.proxy.logs.ProxyLogHandler;
+import org.eclipse.actf.util.win32.MemoryUtil;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.swt.internal.win32.OS;
 
 
 
@@ -87,7 +87,7 @@ public class ProxyManager {
         savedList.perConnOptions[1].dwOption=INTERNET_PER_CONN_OPTION.INTERNET_PER_CONN_PROXY_SERVER;
         savedList.perConnOptions[2].dwOption=INTERNET_PER_CONN_OPTION.INTERNET_PER_CONN_PROXY_BYPASS;
         savedList.perConnOptions[3].dwOption=INTERNET_PER_CONN_OPTION.INTERNET_PER_CONN_AUTOCONFIG_URL;
-        savedAddress = OS.GlobalAlloc(OS.GMEM_FIXED | OS.GMEM_ZEROINIT, INTERNET_PER_CONN_OPTION_LIST.sizeof);
+        savedAddress = MemoryUtil.GlobalAlloc(INTERNET_PER_CONN_OPTION_LIST.sizeof);
         savedList.getData(savedAddress);
         int[] pInt = new int[]{INTERNET_PER_CONN_OPTION_LIST.sizeof};
         WinInet.InternetQueryOptionW(0,WinInet.INTERNET_OPTION_PER_CONNECTION_OPTION,savedAddress,pInt);
@@ -158,12 +158,12 @@ public class ProxyManager {
                 list.perConnOptions[0].dwValue=INTERNET_PER_CONN_OPTION.PROXY_TYPE_AUTO_PROXY_URL | INTERNET_PER_CONN_OPTION.PROXY_TYPE_DIRECT;
                 list.perConnOptions[1].dwOption=INTERNET_PER_CONN_OPTION.INTERNET_PER_CONN_AUTOCONFIG_URL;
                 list.perConnOptions[1].strValue.setString(getAutoConfigURL(isGlobal||forceProxy));
-                int address = OS.GlobalAlloc(OS.GMEM_FIXED | OS.GMEM_ZEROINIT, INTERNET_PER_CONN_OPTION_LIST.sizeof);
+                int address = MemoryUtil.GlobalAlloc(INTERNET_PER_CONN_OPTION_LIST.sizeof);
                 list.getData(address);
                 invokeSetOption(hSession, address);
                 invokeSetOption(0, isGlobal ? address : savedAddress);
                 needRestore = isGlobal;
-                OS.GlobalFree(address);
+                MemoryUtil.GlobalFree(address);
                 list.dispose();
             }
         }
@@ -179,7 +179,7 @@ public class ProxyManager {
             if( needRestore ) {
                 WinInet.InternetSetOptionW(0,WinInet.INTERNET_OPTION_PER_CONNECTION_OPTION,savedAddress,INTERNET_PER_CONN_OPTION_LIST.sizeof);
             }
-            OS.GlobalFree(savedAddress);
+            MemoryUtil.GlobalFree(savedAddress);
             savedList.dispose();
         }
     }

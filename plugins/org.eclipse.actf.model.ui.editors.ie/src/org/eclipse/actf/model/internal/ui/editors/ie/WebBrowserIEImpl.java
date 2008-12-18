@@ -29,7 +29,7 @@ import org.eclipse.actf.model.internal.ui.editors.ie.events.ProgressChangeParame
 import org.eclipse.actf.model.internal.ui.editors.ie.events.StatusTextChangeParameters;
 import org.eclipse.actf.model.internal.ui.editors.ie.events.TitleChangeParameters;
 import org.eclipse.actf.model.internal.ui.editors.ie.events.WindowClosingParameters;
-import org.eclipse.actf.model.internal.ui.editors.ie.win32.RegistryUtil;
+import org.eclipse.actf.model.internal.ui.editors.ie.win32.RegistryUtilIE;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
@@ -302,14 +302,14 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	}
 
 	RGB getAnchorColor() {
-		String color = RegistryUtil
-				.getIERegistryString(RegistryUtil.IE_ANCHOR_COLOR);
+		String color = RegistryUtilIE
+				.getIERegistryString(RegistryUtilIE.IE_ANCHOR_COLOR);
 		return getRGB(color);
 	}
 
 	RGB getVisitedAnchorColor() {
-		String color = RegistryUtil
-				.getIERegistryString(RegistryUtil.IE_ANCHOR_COLOR_VISITED);
+		String color = RegistryUtilIE
+				.getIERegistryString(RegistryUtilIE.IE_ANCHOR_COLOR_VISITED);
 		return getRGB(color);
 	}
 

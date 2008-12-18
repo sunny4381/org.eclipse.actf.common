@@ -9,34 +9,25 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.internal.ui.editors.ie.win32;
+package org.eclipse.actf.util.win32;
 
 import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.internal.win32.TCHAR;
 
 public class RegistryUtil {
 
-	public static final int REG_NONE = 0, REG_SZ = 1, REG_EXPAND_SZ = 2,
+	@SuppressWarnings("unused")
+	private static final int REG_NONE = 0, REG_SZ = 1, REG_EXPAND_SZ = 2,
 			REG_BINARY = 3, REG_DWORD = 4, REG_DWORD_BIG_ENDIAN = 5,
 			REG_LINK = 6, REG_MULTI_SZ = 7, REG_RESOURCE_LIST = 8,
 			REG_FULL_RESOURCE_DESCRIPTOR = 9,
 			REG_RESOURCE_REQUIREMENTS_LIST = 10, REG_QWORD = 11;
 
-	public static final int KEY_READ = 0x20019;
+	private static final int KEY_READ = 0x20019;
 
-	public static final String IE_SETTINGS_KEY = "Software\\Microsoft\\Internet Explorer\\Settings", //$NON-NLS-1$
-			IE_ANCHOR_COLOR = "Anchor Color", //$NON-NLS-1$
-			IE_ANCHOR_COLOR_VISITED = "Anchor Color Visited"; //$NON-NLS-1$
-
-	public static int getIERegistryInt(String valueString) {
-		return getRegistryInt(OS.HKEY_CURRENT_USER,
-				RegistryUtil.IE_SETTINGS_KEY, valueString);
-	}
-
-	public static String getIERegistryString(String valueString) {
-		return getRegistryString(OS.HKEY_CURRENT_USER,
-				RegistryUtil.IE_SETTINGS_KEY, valueString);
-	}
+	public static final int HKEY_CLASSES_ROOT = 0x80000000;
+	public static final int HKEY_CURRENT_USER = 0x80000001;
+	public static final int HKEY_LOCAL_MACHINE = 0x80000002;
 
 	public static int getRegistryInt(int hKeyParent, String subKeyString,
 			String valueString) {

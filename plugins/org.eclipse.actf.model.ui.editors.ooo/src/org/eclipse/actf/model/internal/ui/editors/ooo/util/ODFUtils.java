@@ -18,8 +18,7 @@ import java.net.URLClassLoader;
 import org.eclipse.actf.model.dom.odf.ODFConstants.ContentType;
 import org.eclipse.actf.model.dom.odf.office.DocumentContentElement;
 import org.eclipse.actf.model.ui.editors.ooo.initializer.util.OOoEditorInitUtil;
-import org.eclipse.swt.internal.win32.OS;
-import org.eclipse.swt.internal.win32.TCHAR;
+import org.eclipse.actf.util.win32.WindowUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -158,6 +157,7 @@ public class ODFUtils {
         return xDesktop;
     }
     
+    @SuppressWarnings("unused")
     public static ClassLoader loadOpenOfficeLibs() throws ODFException {
         String openOfficeProgramPath = OOoEditorInitUtil.getOpenOfficePath() + "\\";
 
@@ -170,7 +170,7 @@ public class ODFUtils {
             String javaHome = System.getProperty("com.ibm.oti.vm.bootstrap.library.path");
 
             // dummy variable to load awt.dll
-            java.awt.Color awtColor = new java.awt.Color(0, 0, 0);
+			java.awt.Color awtColor = new java.awt.Color(0, 0, 0);
             System.load(javaHome + "\\jawt.dll");
         } else if (System.getProperty("java.vm.vendor").equals("Sun Microsystems Inc.")) {
             String javaHome = System.getProperty("java.home");
@@ -204,15 +204,12 @@ public class ODFUtils {
     }
 
     private static String getWindowClass(int hwnd) {
-		TCHAR buffer = new TCHAR(0, 128);
-		OS.GetClassName(hwnd, buffer, buffer.length());
-		return buffer.toString(0, buffer.strlen());
+    	return WindowUtil.GetWindowClassName(hwnd);
 	}
 	
 	private static int getOpenOfficeFrameNum(int hWnd, int frameNum) {
 		int result = frameNum;
-		int hFrame = 0;
-		int hwndChild = OS.GetWindow (hWnd, OS.GW_CHILD);
+		int hwndChild = WindowUtil.GetChildWindow(hWnd);
 		while (hwndChild != 0) {
 			String winClass = getWindowClass(hwndChild);
 			if (winClass.equals("SALTMPSUBFRAME")) {
@@ -220,14 +217,15 @@ public class ODFUtils {
 			} else {
 				result = getOpenOfficeFrameNum(hwndChild, result);
 			}
-			hwndChild = OS.GetWindow(hwndChild, OS.GW_HWNDNEXT);			
+			hwndChild = WindowUtil.GetNextWindow(hwndChild);			
 		}
 		return result;
 	}
 	
 	public static int getOpenOfficeFrameNum() {
 		int result = 0;
-		int hwndChild = OS.GetWindow (OS.GetDesktopWindow(), OS.GW_CHILD);
+		int hwndChild = WindowUtil.GetChildWindow(WindowUtil.GetDesktopWindow());
+			//OS.GetWindow (OS.GetDesktopWindow(), OS.GW_CHILD);
 		while (hwndChild != 0) {
 			result = getOpenOfficeFrameNum(hwndChild, result);
 			String winClass = getWindowClass(hwndChild);
@@ -236,7 +234,7 @@ public class ODFUtils {
 			} else {
 				result = getOpenOfficeFrameNum(hwndChild, result);
 			}			
-			hwndChild = OS.GetWindow(hwndChild, OS.GW_HWNDNEXT);
+			hwndChild = WindowUtil.GetNextWindow(hwndChild);
 		}
 		return result;
 	}

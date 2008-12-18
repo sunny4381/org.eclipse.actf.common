@@ -15,13 +15,13 @@ import org.eclipse.actf.model.flash.proxy.internal.WSTR;
 import org.eclipse.actf.model.flash.proxy.internal.WinInet;
 import org.eclipse.actf.model.internal.flash.proxy.Messages;
 import org.eclipse.actf.ui.util.ProgressContribution;
+import org.eclipse.actf.util.win32.MemoryUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.swt.internal.win32.OS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IViewPart;
@@ -139,15 +139,15 @@ public class DeleteCacheAction implements IWorkbenchWindowActionDelegate {
 
     private int countCacheEntries() {
         int count = 1;
-        int pCacheEntry = OS.GlobalAlloc(OS.GMEM_FIXED | OS.GMEM_ZEROINIT, BUFFER_SIZE);
+        int pCacheEntry = MemoryUtil.GlobalAlloc(BUFFER_SIZE);
         try {
             int[] pSize = new int[] { BUFFER_SIZE };
-            OS.MoveMemory(pCacheEntry, pSize, 4);
+            MemoryUtil.MoveMemory(pCacheEntry, pSize, 4);
             int hEnum = WinInet.FindFirstUrlCacheEntryW(0, pCacheEntry, pSize);
             if (0 != hEnum) {
                 while (true) {
                     int[] pEntries = new int[20];
-                    OS.MoveMemory(pEntries, pCacheEntry, 4 * pEntries.length);
+                    MemoryUtil.MoveMemory(pEntries, pCacheEntry, 4 * pEntries.length);
                     if (0 == (pEntries[3] & 0x00300000)) { // Skip Cookie & History
                         String localFileName = new WSTR(pEntries[2]).getString();
                         boolean skip = false;
@@ -170,7 +170,7 @@ public class DeleteCacheAction implements IWorkbenchWindowActionDelegate {
                 WinInet.FindCloseUrlCache(hEnum);
             }
         } finally {
-            OS.GlobalFree(pCacheEntry);
+            MemoryUtil.GlobalFree(pCacheEntry);
         }
         return count;
     }
@@ -182,15 +182,15 @@ public class DeleteCacheAction implements IWorkbenchWindowActionDelegate {
     private void deleteCacheEntries(IProgressMonitor monitor, int total) {
         int count = 0;
 
-        int pCacheEntry = OS.GlobalAlloc(OS.GMEM_FIXED | OS.GMEM_ZEROINIT, BUFFER_SIZE);
+        int pCacheEntry = MemoryUtil.GlobalAlloc(BUFFER_SIZE);
         try {
             int[] pSize = new int[] { BUFFER_SIZE };
-            OS.MoveMemory(pCacheEntry, pSize, 4);
+            MemoryUtil.MoveMemory(pCacheEntry, pSize, 4);
             int hEnum = WinInet.FindFirstUrlCacheEntryW(0, pCacheEntry, pSize);
             if (0 != hEnum) {
                 while (monitor == null || !monitor.isCanceled()) {
                     int[] pEntries = new int[20];
-                    OS.MoveMemory(pEntries, pCacheEntry, 4 * pEntries.length);
+                    MemoryUtil.MoveMemory(pEntries, pCacheEntry, 4 * pEntries.length);
                     if (0 == (pEntries[3] & 0x00300000)) { // Skip Cookie & History
                         String localFileName = new WSTR(pEntries[2]).getString();
                         boolean skip = false;
@@ -228,7 +228,7 @@ public class DeleteCacheAction implements IWorkbenchWindowActionDelegate {
                 WinInet.FindCloseUrlCache(hEnum);
             }
         } finally {
-            OS.GlobalFree(pCacheEntry);
+            MemoryUtil.GlobalFree(pCacheEntry);
         }
 
     }

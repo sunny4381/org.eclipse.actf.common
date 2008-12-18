@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.flash.proxy.internal;
 
-import org.eclipse.swt.internal.win32.OS;
+import org.eclipse.actf.util.win32.MemoryUtil;
 
 
 
@@ -35,21 +35,21 @@ public class INTERNET_PER_CONN_OPTION_LIST {
     public void getData(int pData) {
         if( 0 != pData ) {
             if( 0 == optionsAddress ) {
-                optionsAddress = OS.GlobalAlloc(OS.GMEM_FIXED | OS.GMEM_ZEROINIT, INTERNET_PER_CONN_OPTION.sizeof*dwOptionCount);
+                optionsAddress = MemoryUtil.GlobalAlloc(INTERNET_PER_CONN_OPTION.sizeof*dwOptionCount); 
             }
             if( null != perConnOptions ) {
                 for( int i=0; i<perConnOptions.length; i++ ) {
                     perConnOptions[i].getData(optionsAddress+INTERNET_PER_CONN_OPTION.sizeof*i);
                 }
             }
-            OS.MoveMemory(pData,new int[]{sizeof,wsConnection.getAddress(),dwOptionCount,dwOptionError,optionsAddress},4*5);
+            MemoryUtil.MoveMemory(pData,new int[]{sizeof,wsConnection.getAddress(),dwOptionCount,dwOptionError,optionsAddress},4*5);
         }
     }
     
     public void setData(int pData) {
         if( 0 != pData ) {
             int[] pList = new int[5];
-            OS.MoveMemory(pList,pData,4*pList.length);
+            MemoryUtil.MoveMemory(pList,pData,4*pList.length);
             if( sizeof == pList[0] ) {
                 wsConnection.setData(pList[1]);
                 dwOptionCount = pList[2];
@@ -75,7 +75,7 @@ public class INTERNET_PER_CONN_OPTION_LIST {
             perConnOptions = null;
         }
         if( 0 != optionsAddress ) {
-            OS.GlobalFree(optionsAddress);
+            MemoryUtil.GlobalFree(optionsAddress);
             optionsAddress = 0;
         }
     }

@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.model.internal.ui.editors.ie;
 
+import org.eclipse.actf.util.win32.MemoryUtil;
 import org.eclipse.swt.internal.ole.win32.COM;
 import org.eclipse.swt.internal.ole.win32.COMObject;
 import org.eclipse.swt.internal.ole.win32.GUID;
@@ -121,7 +122,7 @@ public class WebBrowserIEControlSite extends OleControlSite {
     }
 
     int GetExternal(int ppDispatch) {
-        OS.MoveMemory(ppDispatch, new int[] {0}, 4);
+        MemoryUtil.MoveMemory(ppDispatch, new int[] {0}, 4);
         return COM.S_FALSE;
     }
 
@@ -129,7 +130,7 @@ public class WebBrowserIEControlSite extends OleControlSite {
         int style = getParent().getParent().getStyle();
         int info = 0x00040000;
 //        if ((style & SWT.BORDER) == 0) info |= 0x00200000;
-        OS.MoveMemory(pInfo + 4, new int[] {info}, 4);
+        MemoryUtil.MoveMemory(pInfo + 4, new int[] {info}, 4);
         return COM.S_OK;
     }
 
