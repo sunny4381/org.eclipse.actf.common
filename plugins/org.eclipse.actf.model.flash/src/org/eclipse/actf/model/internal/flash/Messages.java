@@ -8,26 +8,30 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.actf.model.internal.flash;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
+public final class Messages extends NLS {
 
-public class Messages {
-    private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "messages";//$NON-NLS-1$
 
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	private Messages() {
+		// Do not instantiate
+	}
 
-    private Messages() {
-    }
+	public static String flash_player_ok;
+	public static String flash_player_loading;
+	public static String flash_player_embed;
+	public static String flash_player_no_dom;
+	public static String flash_player_no_xcode;
+	public static String flash_player_unknown;
+	public static String flash_player_https;
+	public static String flash_bad_flash_version;
+	public static String flash_error_target_length;
+	public static String flash_warning;
 
-    public static String getString(String key) {
-        try {
-            return RESOURCE_BUNDLE.getString(key);
-        } catch (MissingResourceException e) {
-            return '!' + key + '!';
-        }
-    }
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+	}
 }

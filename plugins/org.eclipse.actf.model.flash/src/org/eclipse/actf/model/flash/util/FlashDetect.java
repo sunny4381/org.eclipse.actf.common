@@ -60,11 +60,10 @@ public class FlashDetect {
 					MessageDialog
 							.openWarning(
 									Display.getCurrent().getActiveShell(),
-									Messages.getString("flash.warning"), //$NON-NLS-1$
+									Messages.flash_warning, 
 									MessageFormat
 											.format(
-													Messages
-															.getString("flash.bad_flash_version"), new Object[] { strVersion })); //$NON-NLS-1$
+													Messages.flash_bad_flash_version, new Object[] { strVersion })); //$NON-NLS-1$
 				}
 			} catch (Exception e) {
 			}

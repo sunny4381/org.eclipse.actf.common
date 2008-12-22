@@ -57,7 +57,7 @@ import org.eclipse.ui.part.ViewPart;
 public class ProxyLogView extends ViewPart {
     public static final String ID = ProxyLogView.class.getName();
 
-    private static final String[] HEADINGS = { Messages.getString("proxy.message"), "ID", Messages.getString("proxy.source"), Messages.getString("proxy.time") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    private static final String[] HEADINGS = { Messages.proxy_message, "ID", Messages.proxy_source, Messages.proxy_time }; 
     private static final int[] WEIGHTS =     { 30, 3, 10, 5 };
     private static final int[] ALIGNMENTS =  { SWT.LEFT, SWT.LEFT, SWT.LEFT, SWT.LEFT  };
     private static final int ROW_MESSAGE = 0; 
@@ -240,22 +240,22 @@ public class ProxyLogView extends ViewPart {
 	}
 
 	private void makeActions() {
-		clearAction = new Action(Messages.getString("proxy.clear")) { //$NON-NLS-1$
+		clearAction = new Action(Messages.proxy_clear) { 
 			public void run() {
                 ProxyLogHandler.clear();
                 viewer.refresh();
 			}
 		};
-		clearAction.setToolTipText(Messages.getString("proxy.clear_tip")); //$NON-NLS-1$
+		clearAction.setToolTipText(Messages.proxy_clear_tip); 
         clearAction.setImageDescriptor(ProxyPlugin.IMAGE_CLEAR);
 		
-		showFineAction = new Action(Messages.getString("proxy.show_fine"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
+		showFineAction = new Action(Messages.proxy_show_fine,Action.AS_CHECK_BOX) { 
 			public void run() {
                 ProxyLogHandler.setLogLevel(showFineAction.isChecked() ? Level.FINE : Level.INFO);
 			}
 		};
         
-        copyAction = new Action(Messages.getString("proxy.copy")) { //$NON-NLS-1$
+        copyAction = new Action(Messages.proxy_copy) { 
             public void run() {
                 StringBuffer sb = new StringBuffer();
                 for( int index=0;;index++ ) {

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.util.vocab.ui.preferences;
 
+import org.eclipse.actf.util.internal.vocab.Messages;
 import org.eclipse.actf.util.vocab.VocabPlugin;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -39,7 +40,7 @@ public class VocabPreferencePage
 	public VocabPreferencePage() {
 		super(GRID);
 		setPreferenceStore(VocabPlugin.getDefault().getPreferenceStore());
-		setDescription("DOM Vocabulary Preferences");
+		setDescription(Messages.VocabPreferencePage_0);
 	}
 	
 	/**
@@ -52,30 +53,30 @@ public class VocabPreferencePage
     public void createFieldEditors() {
         
         addField(new RadioGroupFieldEditor(VocabPreferenceConstants.NORMAL_FLASH, 
-                "Extract normal Flash content information by", 1, 
+                Messages.VocabPreferencePage_1, 1, 
                 new String[][]{
-                    {"MSAA", VocabPreferenceConstants.VALUE_MSAA_FLASH},
-                    {"Flash DOM", VocabPreferenceConstants.VALUE_FLASH_DOM}, 
-                    {"None", VocabPreferenceConstants.VALUE_NO_FLASH}}, 
+                    {Messages.VocabPreferencePage_MSAA, VocabPreferenceConstants.VALUE_MSAA_FLASH},
+                    {Messages.VocabPreferencePage_FlashDOM, VocabPreferenceConstants.VALUE_FLASH_DOM}, 
+                    {Messages.VocabPreferencePage_None, VocabPreferenceConstants.VALUE_NO_FLASH}}, 
                 getFieldEditorParent()));
         
         addField(new RadioGroupFieldEditor(VocabPreferenceConstants.WNDLESS_FLASH, 
-                "Extract windowless Flash content information by", 1, 
+                Messages.VocabPreferencePage_5, 1, 
                 new String[][]{
-                    {"Flash DOM", VocabPreferenceConstants.VALUE_FLASH_DOM}, 
-                    {"None", VocabPreferenceConstants.VALUE_NO_FLASH}}, 
+                    {Messages.VocabPreferencePage_FlashDOM, VocabPreferenceConstants.VALUE_FLASH_DOM}, 
+                    {Messages.VocabPreferencePage_None, VocabPreferenceConstants.VALUE_NO_FLASH}}, 
                 getFieldEditorParent()));
 
         addField(new BooleanFieldEditor(VocabPreferenceConstants.READ_NO_ALT,
-                "Read image with no alt text", getFieldEditorParent()));
+                Messages.VocabPreferencePage_8, getFieldEditorParent()));
         addField(new BooleanFieldEditor(VocabPreferenceConstants.READ_NULL_ALT,
-                "Read image with null alt text", getFieldEditorParent()));
+                Messages.VocabPreferencePage_9, getFieldEditorParent()));
         addField(new BooleanFieldEditor(VocabPreferenceConstants.READ_NO_ALT_LINK,
-                "Read image link with no alt text", getFieldEditorParent()));
+                Messages.VocabPreferencePage_10, getFieldEditorParent()));
         addField(new BooleanFieldEditor(VocabPreferenceConstants.READ_NULL_ALT_LINK,
-                "Read image link with null alt text", getFieldEditorParent()));
+                Messages.VocabPreferencePage_11, getFieldEditorParent()));
         addField(new BooleanFieldEditor(VocabPreferenceConstants.SKIP_ICON_LINK,
-                "Skip image link following text link with the same link", getFieldEditorParent()));
+                Messages.VocabPreferencePage_12, getFieldEditorParent()));
 	}
 
 	/* (non-Javadoc)

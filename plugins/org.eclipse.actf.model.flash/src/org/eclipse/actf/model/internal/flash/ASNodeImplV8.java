@@ -331,8 +331,7 @@ public class ASNodeImplV8 implements IFlashConst, IASNode {
 			throw new Error(
 					MessageFormat
 							.format(
-									Messages
-											.getString("flash.error_target_length"), new Object[] { new Integer(level) }) + "\n" + strTarget); //$NON-NLS-1$ //$NON-NLS-2$
+									Messages.flash_error_target_length, new Object[] { new Integer(level) }) + "\n" + strTarget); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		return player.hasChild(this, visual, debugMode);
 	}

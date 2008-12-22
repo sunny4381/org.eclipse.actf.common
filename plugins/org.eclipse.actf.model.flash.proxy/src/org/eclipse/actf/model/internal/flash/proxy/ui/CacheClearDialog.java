@@ -44,7 +44,7 @@ public class CacheClearDialog extends Dialog {
 
     protected Control createDialogArea(Composite parent) {
         
-        parent.getShell().setText(Messages.getString("proxy.dialog.text"));
+        parent.getShell().setText(Messages.proxy_dialog_text);
         
         Composite composite = new Composite(parent, SWT.NULL);
 
@@ -62,7 +62,7 @@ public class CacheClearDialog extends Dialog {
                 ProxyPreferenceConstants.P_CACHE_CLEAR);
         
         Label label1 = new Label(composite, SWT.NONE | SWT.READ_ONLY);
-        label1.setText("    "+appName+" "+Messages.getString("proxy.cache_confirmation1"));
+        label1.setText("    "+appName+" "+Messages.proxy_cache_confirmation1);
 
         Font f = label1.getFont();
         Font f9b = new Font(f.getDevice(), f.getFontData()[0].getName(), 9, SWT.BOLD);
@@ -74,11 +74,11 @@ public class CacheClearDialog extends Dialog {
         status = ProxyPreferenceConstants.CACHE_CLEAR_WHEN_STARTUP_AND_CACHE_CLEAR;
 
         createRadioButton(ProxyPreferenceConstants.CACHE_CLEAR_WHEN_STARTUP_AND_CACHE_CLEAR, //
-                Messages.getString("proxy.cache_clear_when_startup_and_cache_clear"), composite, true).setFont(f9b);
+                Messages.proxy_cache_clear_when_startup_and_cache_clear, composite, true).setFont(f9b);
         createRadioButton(ProxyPreferenceConstants.CONFIRM_AND_CACHE_CLEAR, //
-                Messages.getString("proxy.confirm_and_cache_clear"), composite, false).setFont(f9);
+                Messages.proxy_confirm_and_cache_clear, composite, false).setFont(f9);
         createRadioButton(ProxyPreferenceConstants.CONFIRM_AND_NO_OPERATION, //
-                Messages.getString("proxy.confirm_and_no_operation"), composite, false).setFont(f9);
+                Messages.proxy_confirm_and_no_operation, composite, false).setFont(f9);
 
         return composite;
     }

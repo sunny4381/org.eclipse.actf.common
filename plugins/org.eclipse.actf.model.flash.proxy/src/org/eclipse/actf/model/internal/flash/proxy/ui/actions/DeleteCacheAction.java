@@ -37,7 +37,7 @@ public class DeleteCacheAction implements IWorkbenchWindowActionDelegate {
 
     private IWorkbenchWindow window;
 
-    private static final String NEVER_DELETE = Messages.getString("NO_DELETE"); //$NON-NLS-1$
+    private static final String NEVER_DELETE = Messages.NO_DELETE; 
 
     private boolean background = false;
 
@@ -76,7 +76,7 @@ public class DeleteCacheAction implements IWorkbenchWindowActionDelegate {
                     dialog.run(true, true, new IRunnableWithProgress() {
                         public void run(IProgressMonitor monitor) {
                             int total = countCacheEntries();
-                            monitor.beginTask(Messages.getString("proxy.deleting_cache"), total); //$NON-NLS-1$
+                            monitor.beginTask(Messages.proxy_deleting_cache, total); 
                             deleteCacheEntries(monitor, total);
                             monitor.done();
                         }

@@ -42,7 +42,7 @@ public class ProxyManager {
 
 	public static boolean initLogger = false;
 	public static boolean forceProxy = false;
-	private static String noProxy = Messages.getString("NO_PROXY"); //$NON-NLS-1$
+	private static String noProxy = Messages.NO_PROXY; 
     
 	static {
 		String[] temp = Platform.getApplicationArgs();

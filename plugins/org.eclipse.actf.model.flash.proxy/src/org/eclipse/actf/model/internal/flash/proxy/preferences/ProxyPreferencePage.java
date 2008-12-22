@@ -67,46 +67,46 @@ public class ProxyPreferencePage extends FieldEditorPreferencePage implements IW
     }
     
     protected void createFieldEditors() {
-        Group httpProxyGroup = createFieldGroup(Messages.getString("proxy.pref_description")); //$NON-NLS-1$
+        Group httpProxyGroup = createFieldGroup(Messages.proxy_pref_description); 
         addField(new RadioGroupFieldEditor(ProxyPreferenceConstants.P_PROXY_TYPE,
-                Messages.getString("proxy.type"),1, //$NON-NLS-1$
+                Messages.proxy_type,1, 
                 new String[][]{
-                    {Messages.getString("proxy.none"),ProxyPreferenceConstants.PROXY_NONE}, //$NON-NLS-1$
-                    {Messages.getString("proxy.session"),ProxyPreferenceConstants.PROXY_SESSION}, //$NON-NLS-1$
-                    {Messages.getString("proxy.global"),ProxyPreferenceConstants.PROXY_GLOBAL} }, //$NON-NLS-1$
+                    {Messages.proxy_none,ProxyPreferenceConstants.PROXY_NONE}, 
+                    {Messages.proxy_session,ProxyPreferenceConstants.PROXY_SESSION}, 
+                    {Messages.proxy_global,ProxyPreferenceConstants.PROXY_GLOBAL} }, 
                 httpProxyGroup));
 
         if( Platform.inDebugMode() ) {
             addField(new RadioGroupFieldEditor(ProxyPreferenceConstants.P_PROXY_SWF_METHOD,
-                    Messages.getString("proxy.swfmethod"),1, //$NON-NLS-1$
+                    Messages.proxy_swfmethod,1, 
                     new String[][]{
-                        {Messages.getString("proxy.swfmethod.none"), ProxyPreferenceConstants.PROXY_SWF_METHOD_NONE}, //$NON-NLS-1$
-                        {Messages.getString("proxy.swfmethod.bootloader"), ProxyPreferenceConstants.PROXY_SWF_METHOD_BOOTLOADER}/*, //$NON-NLS-1$
+                        {Messages.proxy_swfmethod_none, ProxyPreferenceConstants.PROXY_SWF_METHOD_NONE}, 
+                        {Messages.proxy_swfmethod_bootloader, ProxyPreferenceConstants.PROXY_SWF_METHOD_BOOTLOADER}/*, //$NON-NLS-1$
                         {Messages.getString("proxy.swfmethod.transcoder"), ProxyPreferenceConstants.PROXY_SWF_METHOD_TRANSCODER}*/ }, //$NON-NLS-1$
                     httpProxyGroup));
         }
 
-        IntegerFieldEditor port = new IntegerFieldEditor(ProxyPreferenceConstants.PROXY_PORT, Messages.getString("proxy.port"), httpProxyGroup);
+        IntegerFieldEditor port = new IntegerFieldEditor(ProxyPreferenceConstants.PROXY_PORT, Messages.proxy_port, httpProxyGroup);
         port.setValidRange(0, 65535);
         addField(port);
         
         IntegerFieldEditor timeout = new IntegerFieldEditor(ProxyPreferenceConstants.P_TIMEOUT,
-                                    Messages.getString("proxy.timeout"),httpProxyGroup); //$NON-NLS-1$
+                                    Messages.proxy_timeout,httpProxyGroup); 
         timeout.setValidRange(0,99);
         addField(timeout);
 
         IntegerFieldEditor version = new IntegerFieldEditor(ProxyPreferenceConstants.P_SWF_MINIMUM_VERSION,
-                Messages.getString("proxy.swf_version"),httpProxyGroup); //$NON-NLS-1$
+                Messages.proxy_swf_version,httpProxyGroup); 
         version.setValidRange(3,99);
         addField(version);
         
         
         addField(new RadioGroupFieldEditor(ProxyPreferenceConstants.P_CACHE_CLEAR,
-                Messages.getString("proxy.cache_clear"),1, //$NON-NLS-1$
+                Messages.proxy_cache_clear,1, 
                 new String[][]{
-                    {Messages.getString("proxy.cache_clear_when_startup"), ProxyPreferenceConstants.CACHE_CLEAR_WHEN_STARTUP}, //$NON-NLS-1$
-                    {Messages.getString("proxy.confirm_cache_clear"), ProxyPreferenceConstants.CONFIRM_WHEN_STARTUP}, //$NON-NLS-1$
-                    {Messages.getString("proxy.no_cache_clear"), ProxyPreferenceConstants.NO_CACHE_CLEAR} }, //$NON-NLS-1$
+                    {Messages.proxy_cache_clear_when_startup, ProxyPreferenceConstants.CACHE_CLEAR_WHEN_STARTUP}, 
+                    {Messages.proxy_confirm_cache_clear, ProxyPreferenceConstants.CONFIRM_WHEN_STARTUP}, 
+                    {Messages.proxy_no_cache_clear, ProxyPreferenceConstants.NO_CACHE_CLEAR} }, 
                 getFieldEditorParent(),true));
     }
 
