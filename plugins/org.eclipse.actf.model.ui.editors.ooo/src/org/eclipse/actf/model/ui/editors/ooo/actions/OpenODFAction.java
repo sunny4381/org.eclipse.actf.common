@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.model.ui.editors.ooo.actions;
 
-import org.eclipse.actf.model.internal.ui.editors.ooo.OOoEditorPlugin;
+import org.eclipse.actf.model.internal.ui.editors.ooo.Messages;
 import org.eclipse.actf.model.ui.editors.ooo.OOoEditor;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.ui.util.PlatformUIUtil;
@@ -21,13 +21,9 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-
-
-
 public class OpenODFAction extends Action {
 
-	private final String message = OOoEditorPlugin
-			.getResourceString("ODFEditorAction.Open");
+	private final String message = Messages.OpenODFAction_0;
 
 	public OpenODFAction() {
 		setText(message);
@@ -40,8 +36,8 @@ public class OpenODFAction extends Action {
 		FileDialog openDialog = new FileDialog(PlatformUI.getWorkbench()
 				.getDisplay().getActiveShell(), SWT.OPEN);
 		openDialog
-				.setFilterNames(new String[] { "OpenDocument (*.odt; *.odp; *.ods)" });
-		openDialog.setFilterExtensions(new String[] { "*.odt; *.odp; *.ods" });
+				.setFilterNames(new String[] { "OpenDocument (*.odt; *.odp; *.ods)" }); //$NON-NLS-1$
+		openDialog.setFilterExtensions(new String[] { "*.odt; *.odp; *.ods" }); //$NON-NLS-1$
 		String sUrl = openDialog.open();
 
 		if (sUrl != null) {
