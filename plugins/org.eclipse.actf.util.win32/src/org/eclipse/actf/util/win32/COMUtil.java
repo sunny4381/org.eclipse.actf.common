@@ -20,8 +20,8 @@ import org.eclipse.swt.ole.win32.OLE;
  * dispatch object from GUID.
  */
 @SuppressWarnings("restriction")
-public class COMUtil {
-
+public class COMUtil {	
+	
 	static {
 		try {
 			System.loadLibrary("AccessibiltyWin32Library"); //$NON-NLS-1$

@@ -28,7 +28,7 @@ public class FlashMSAAObject {
 	 * @param iacc
 	 *            native wrapped IAccessible object
 	 */
-	public FlashMSAAObject(IAccessible iacc) {
+	FlashMSAAObject(IAccessible iacc) {
 		this.iacc = iacc;
 	}
 
@@ -38,7 +38,7 @@ public class FlashMSAAObject {
 	 *            the child ID to be used to obtain the actual child object from
 	 *            the parent.
 	 */
-	public FlashMSAAObject(FlashMSAAObject parent, int childId) {
+	FlashMSAAObject(FlashMSAAObject parent, int childId) {
 		this.parent = parent;
 		this.childId = childId;
 	}

@@ -21,6 +21,14 @@ import org.eclipse.swt.internal.win32.TCHAR;
 @SuppressWarnings("restriction")
 public class WindowUtil {
 
+	public static final int HWND_TOP = OS.HWND_TOP;
+	public static final int HWND_TOPMOST = OS.HWND_TOPMOST;
+	public static final int HWND_NOTOPMOST = OS.HWND_NOTOPMOST;
+	public static final int HWND_BOTTOM = OS.HWND_BOTTOM;
+
+	public static final int SWP_NOSIZE = OS.SWP_NOSIZE;
+	public static final int SWP_NOMOVE = OS.SWP_NOMOVE;
+
 	/**
 	 * Get window text.
 	 * 
@@ -156,7 +164,7 @@ public class WindowUtil {
 		return OS.FindWindow(new TCHAR(0, windowClass, true), new TCHAR(0,
 				windowName, true));
 	}
-	
+
 	/**
 	 * Bring target Window to top
 	 * 
@@ -166,6 +174,32 @@ public class WindowUtil {
 	 */
 	public static boolean BringWindowToTop(int hWnd) {
 		return OS.BringWindowToTop(hWnd);
+	}
+
+	/**
+	 * Change size, position and Z order of a target Window.
+	 * 
+	 * @param hWnd
+	 *            target window
+	 * @param hWndInsertAfter
+	 *            the window to precede the positioned window in the Z order, or
+	 *            one of the following values (HWND_BOTTOM, HWND_NOTOPMOST,
+	 *            HWND_TOP, HWND_TOPMOST)
+	 * @param X
+	 *            new position X
+	 * @param Y
+	 *            new position Y
+	 * @param cx
+	 *            new width
+	 * @param cy
+	 *            new height
+	 * @param uFlags
+	 *            window sizing and positioning flags.
+	 * @return true if succeeded
+	 */
+	public static boolean SetWindowPos(int hWnd, int hWndInsertAfter, int X,
+			int Y, int cx, int cy, int uFlags) {
+		return OS.SetWindowPos(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
 	}
 
 	static {

@@ -25,6 +25,15 @@ import org.eclipse.swt.widgets.Shell;
 
 
 public class WebBrowserIEControlSite extends OleControlSite {
+	
+	private static final int S_OK = COM.S_OK;
+	private static final int S_FALSE = COM.S_FALSE;
+	private static final int E_INVALIDARG = COM.E_INVALIDARG;
+	private static final int E_NOTIMPL = COM.E_NOTIMPL;
+	private static final int E_NOINTERFACE = COM.E_NOINTERFACE;
+	private static final int E_NOTSUPPORTED = COM.E_NOTSUPPORTED;
+	
+	
     COMObject iDocHostUIHandler;
     COMObject iOleCommandTarget;
 
@@ -81,22 +90,22 @@ public class WebBrowserIEControlSite extends OleControlSite {
 
     protected int QueryInterface(int riid, int ppvObject) {
         int result = super.QueryInterface(riid, ppvObject);
-        if (result == COM.S_OK) return result;
-        if (riid == 0 || ppvObject == 0) return COM.E_INVALIDARG;
+        if (result == S_OK) return result;
+        if (riid == 0 || ppvObject == 0) return E_INVALIDARG;
         GUID guid = new GUID();
         COM.MoveMemory(guid, riid, GUID.sizeof);
         if (COM.IsEqualGUID(guid, COM.IIDIDocHostUIHandler)) {
-            COM.MoveMemory(ppvObject, new int[] {iDocHostUIHandler.getAddress()}, 4);
+            MemoryUtil.MoveMemory(ppvObject, new int[] {iDocHostUIHandler.getAddress()}, 4);
             AddRef();
-            return COM.S_OK;
+            return S_OK;
         }
         if (COM.IsEqualGUID(guid, COM.IIDIOleCommandTarget)) {
-            COM.MoveMemory(ppvObject, new int[] {iOleCommandTarget.getAddress()}, 4);
+        	MemoryUtil.MoveMemory(ppvObject, new int[] {iOleCommandTarget.getAddress()}, 4);
             AddRef();
-            return COM.S_OK;
+            return S_OK;
         }
-        COM.MoveMemory(ppvObject, new int[] {0}, 4);
-        return COM.E_NOINTERFACE;
+        MemoryUtil.MoveMemory(ppvObject, new int[] {0}, 4);
+        return E_NOINTERFACE;
     }
 
     protected int AddRef() {
@@ -110,20 +119,20 @@ public class WebBrowserIEControlSite extends OleControlSite {
     /* IDocHostUIHandler */
 
     int EnableModeless(int EnableModeless) {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int FilterDataObject(int pDO, int ppDORet) {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int GetDropTarget(int pDropTarget, int ppDropTarget) {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int GetExternal(int ppDispatch) {
         MemoryUtil.MoveMemory(ppDispatch, new int[] {0}, 4);
-        return COM.S_FALSE;
+        return S_FALSE;
     }
 
     int GetHostInfo(int pInfo) {
@@ -131,36 +140,36 @@ public class WebBrowserIEControlSite extends OleControlSite {
         int info = 0x00040000;
 //        if ((style & SWT.BORDER) == 0) info |= 0x00200000;
         MemoryUtil.MoveMemory(pInfo + 4, new int[] {info}, 4);
-        return COM.S_OK;
+        return S_OK;
     }
 
     int GetOptionKeyPath(int pchKey, int dw) {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int HideUI() {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int OnDocWindowActivate(int fActivate) {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int OnFrameWindowActivate(int fActivate) {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int ResizeBorder(int prcBorder, int pUIWindow, int fFrameWindow) {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int ShowContextMenu(int dwID, int ppt, int pcmdtReserved, int pdispReserved) {
         /* Show default IE popup menu */
-        return COM.S_FALSE;
+        return S_FALSE;
     }
 
     int ShowUI(int dwID, int pActiveObject, int pCommandTarget, int pFrame, int pDoc) {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int TranslateAccelerator(int lpMsg, int pguidCmdGroup, int nCmdID) {
@@ -176,7 +185,7 @@ public class WebBrowserIEControlSite extends OleControlSite {
                 MSG msg = new MSG();
                 OS.MoveMemory(msg, lpMsg, MSG.sizeof);
                 if (OS.TranslateAccelerator(hwnd, hAccel, msg) != 0) {
-                    return COM.S_OK;
+                    return S_OK;
                 }
             }
         }
@@ -186,22 +195,22 @@ public class WebBrowserIEControlSite extends OleControlSite {
         MSG msg = new MSG();
         OS.MoveMemory(msg, lpMsg, MSG.sizeof);
         if (msg.message == OS.WM_KEYDOWN && msg.wParam == OS.VK_N && OS.GetKeyState (OS.VK_CONTROL) < 0) {
-            return COM.S_OK;
+            return S_OK;
         }
-        return COM.S_FALSE;
+        return S_FALSE;
     }
 
     int TranslateUrl(int dwTranslate, int pchURLIn, int ppchURLOut) {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     int UpdateUI() {
-        return COM.E_NOTIMPL;
+        return E_NOTIMPL;
     }
 
     /* IOleCommandTarget */
     int QueryStatus(int pguidCmdGroup, int cCmds, int prgCmds, int pCmdText) {
-        return COM.E_NOTSUPPORTED;
+        return E_NOTSUPPORTED;
     }
 
     int Exec(int pguidCmdGroup, int nCmdID, int nCmdExecOpt, int pvaIn, int pvaOut) {
@@ -215,10 +224,10 @@ public class WebBrowserIEControlSite extends OleControlSite {
                 GUID guid = new GUID();
                 COM.MoveMemory(guid, pguidCmdGroup, GUID.sizeof);
                 if (COM.IsEqualGUID(guid, COM.CGID_DocHostCommandHandler)) {
-                    return COM.S_OK;
+                    return S_OK;
                 }
             }
         }
-        return COM.E_NOTSUPPORTED;
+        return E_NOTSUPPORTED;
     }
 }
