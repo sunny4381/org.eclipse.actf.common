@@ -20,11 +20,11 @@ import org.eclipse.ui.IWorkbenchWindow;
 public class TextSizeMenu extends MenuManager {
 
 	private static final String[] MENUTEXTS = {
-			ModelServiceMessages.getString("MenuConst.Largest_3"),
-			ModelServiceMessages.getString("MenuConst.Large_4"),
-			ModelServiceMessages.getString("MenuConst.Medium_5"),
-			ModelServiceMessages.getString("MenuConst.Small_6"),
-			ModelServiceMessages.getString("MenuConst.Smallest_7") };
+			ModelServiceMessages.MenuConst_Largest_3,
+			ModelServiceMessages.MenuConst_Large_4,
+			ModelServiceMessages.MenuConst_Medium_5,
+			ModelServiceMessages.MenuConst_Small_6,
+			ModelServiceMessages.MenuConst_Smallest_7 };
 
 	/**
 	 * Constructor of the class
@@ -33,7 +33,7 @@ public class TextSizeMenu extends MenuManager {
 	 *            target {@link IWorkbenchWindow}
 	 */
 	public TextSizeMenu(IWorkbenchWindow window) {
-		super(ModelServiceMessages.getString("MenuConst.&Font_2"));
+		super(ModelServiceMessages.MenuConst__Font_2);
 
 		int menuNum = 5;
 		TextSizeAction[] displayTextSizeAction = new TextSizeAction[menuNum];

@@ -27,10 +27,8 @@ import org.eclipse.ui.ISharedImages;
  * {@link IWebBrowserACTF}
  */
 public class GoForwardAction extends Action {
-	private String message = ModelServiceMessages
-			.getString("WebBrowser.Forward_5");
-	private String message_tp = ModelServiceMessages
-			.getString("WebBrowser.Forward_5_tp");
+	private String message = ModelServiceMessages.WebBrowser_Forward_5;
+	private String message_tp = ModelServiceMessages.WebBrowser_Forward_5_tp;
 
 	private IWebBrowserNavigationEventListener defaultListener = new DefaultWebBrowserNavigationEventListener();
 

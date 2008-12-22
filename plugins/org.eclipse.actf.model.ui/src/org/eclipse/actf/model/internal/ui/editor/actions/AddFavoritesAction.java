@@ -37,7 +37,7 @@ public class AddFavoritesAction extends FavoritesAction {
 		this._window = window;
 
 		setId(ID);
-		setText(ModelServiceMessages.getString("MenuConst.AddFavorites")); //$NON-NLS-1$
+		setText(ModelServiceMessages.MenuConst_AddFavorites); 
 	}
 
 	public void run() {

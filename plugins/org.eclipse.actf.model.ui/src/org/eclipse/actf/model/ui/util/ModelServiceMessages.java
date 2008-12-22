@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,38 +8,51 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.actf.model.ui.util;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-/**
- * Utility class to obtain commonly used messages for ACTF Model Services
- */
-public class ModelServiceMessages {
-	private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+public final class ModelServiceMessages extends NLS {
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+	private static final String BUNDLE_NAME = "messages";//$NON-NLS-1$
 
 	private ModelServiceMessages() {
+		// Do not instantiate
 	}
 
-	/**
-	 * Gets a string for the given key from the resource bundle of this plugin.
-	 * 
-	 * @param key
-	 *            target key
-	 * 
-	 * @return the string for the given key, or '!'+key+'!' if not available
-	 * @see ResourceBundle#getString(String)
-	 */
-	public static String getString(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
+	public static String MenuConst__Font_2;
+	public static String MenuConst_Largest_3;
+	public static String MenuConst_Large_4;
+	public static String MenuConst_Medium_5;
+	public static String MenuConst_Small_6;
+	public static String MenuConst_Smallest_7;
+	public static String MenuConst_F_avorites_8;
+	public static String MenuConst_AddFavorites;
+	public static String MenuConst_ArrangeFavorites;
+	public static String WebBrowser_Address;
+	public static String WebBrowser_Backward_4;
+	public static String WebBrowser_Forward_5;
+	public static String WebBrowser_Stop;
+	public static String WebBrowser_Refresh;
+	public static String WebBrowser_Script;
+	public static String WebBrowser_Go;
+	public static String WebBrowser_Backward_4_tp;
+	public static String WebBrowser_Forward_5_tp;
+	public static String WebBrowser_Stop_tp;
+	public static String WebBrowser_Refresh_tp;
+	public static String WebBrowser_Script_tp;
+	public static String WebBrowser_Go_tp;
+	public static String DialogArrangeFavorite_Title;
+	public static String DialogArrangeFavorite_Modify_Name;
+	public static String DialogArrangeFavorite_Delete;
+	public static String DialogAddFavorite_Title;
+	public static String DialogAddFavorite_Name_Label;
+	public static String DialogAddFavorite_Text_Empty_Alert;
+	public static String DialogAddFavorite_Text_Exist_Alert;
+	public static String DialogConst_Name_Label;
+	public static String ImageCreator_ImageTooLarge;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, ModelServiceMessages.class);
 	}
 }

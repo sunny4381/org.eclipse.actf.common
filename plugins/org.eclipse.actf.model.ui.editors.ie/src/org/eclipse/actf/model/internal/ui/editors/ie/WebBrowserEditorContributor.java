@@ -81,7 +81,7 @@ public class WebBrowserEditorContributor extends EditorActionBarContributor {
         // FavoritesMenu(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
         // Display TODO only for Browser
         // TODO
-        MenuManager displayMenu = new MenuManager(Messages.getString("MenuConst.&Display_1"),
+        MenuManager displayMenu = new MenuManager(Messages.MenuConst__Display_1,
                 "displayMenu");
         displayMenu.add(new Separator("navigate"));
         displayMenu.add(new GoBackAction(false));

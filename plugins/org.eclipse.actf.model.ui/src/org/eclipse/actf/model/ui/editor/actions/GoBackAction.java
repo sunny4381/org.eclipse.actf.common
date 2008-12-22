@@ -27,11 +27,9 @@ import org.eclipse.ui.ISharedImages;
  * {@link IWebBrowserACTF}
  */
 public class GoBackAction extends Action {
-	private String message = ModelServiceMessages
-			.getString("WebBrowser.Backward_4");
+	private String message = ModelServiceMessages.WebBrowser_Backward_4;
 
-	private String message_tp = ModelServiceMessages
-			.getString("WebBrowser.Backward_4_tp");
+	private String message_tp = ModelServiceMessages.WebBrowser_Backward_4_tp;
 
 	private IWebBrowserNavigationEventListener defaultListener = new DefaultWebBrowserNavigationEventListener();
 

@@ -25,9 +25,8 @@ import org.eclipse.jface.action.Action;
  * Action to invoke stop method of the current active {@link IWebBrowserACTF}
  */
 public class StopAction extends Action {
-	private String message = ModelServiceMessages.getString("WebBrowser.Stop");
-	private String message_tp = ModelServiceMessages
-			.getString("WebBrowser.Stop_tp");
+	private String message = ModelServiceMessages.WebBrowser_Stop;
+	private String message_tp = ModelServiceMessages.WebBrowser_Stop_tp;
 
 	private IWebBrowserNavigationEventListener defaultListener = new DefaultWebBrowserNavigationEventListener();
 

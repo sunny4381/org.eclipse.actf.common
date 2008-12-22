@@ -46,12 +46,10 @@ public class FavoritesAddDialog extends Dialog {
 	protected void okPressed() {
 		_name = _nameText.getText();
 		if (_name.equals("")) {
-			MessageDialog.openError(getShell(), "Error", ModelServiceMessages
-					.getString("DialogAddFavorite.Text_Empty_Alert"));
+			MessageDialog.openError(getShell(), "Error", ModelServiceMessages.DialogAddFavorite_Text_Empty_Alert);
 			return;
 		} else if (_map.containsKey(_name)) {
-			MessageDialog.openError(getShell(), "Error", ModelServiceMessages
-					.getString("DialogAddFavorite.Text_Exist_Alert"));
+			MessageDialog.openError(getShell(), "Error", ModelServiceMessages.DialogAddFavorite_Text_Exist_Alert);
 			return;
 		}
 
@@ -66,8 +64,7 @@ public class FavoritesAddDialog extends Dialog {
 		composite.setLayout(gridLayout1);
 
 		Label label = new Label(composite, SWT.NONE);
-		label.setText(ModelServiceMessages
-				.getString("DialogAddFavorite.Name_Label"));
+		label.setText(ModelServiceMessages.DialogAddFavorite_Name_Label);
 
 		this._nameText = new Text(composite, SWT.BORDER);
 		this._nameText.setText(_name);
@@ -80,8 +77,7 @@ public class FavoritesAddDialog extends Dialog {
 
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText(ModelServiceMessages
-				.getString("DialogAddFavorite.Title"));
+		newShell.setText(ModelServiceMessages.DialogAddFavorite_Title);
 		newShell.setLocation(200, 200);
 	}
 }

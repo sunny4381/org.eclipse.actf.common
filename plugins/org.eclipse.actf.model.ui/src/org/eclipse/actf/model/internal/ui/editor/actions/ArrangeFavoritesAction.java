@@ -31,7 +31,7 @@ public class ArrangeFavoritesAction extends FavoritesAction {
 		this._window = window;
 
 		setId(ID);
-		setText(ModelServiceMessages.getString("MenuConst.ArrangeFavorites"));
+		setText(ModelServiceMessages.MenuConst_ArrangeFavorites);
 	}
 
 	public void run() {

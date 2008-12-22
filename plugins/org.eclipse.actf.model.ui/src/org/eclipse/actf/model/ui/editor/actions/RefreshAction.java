@@ -26,11 +26,9 @@ import org.eclipse.jface.action.Action;
  * {@link IWebBrowserACTF}
  */
 public class RefreshAction extends Action {
-	private String message = ModelServiceMessages
-			.getString("WebBrowser.Refresh");
+	private String message = ModelServiceMessages.WebBrowser_Refresh;
 
-	private String message_tp = ModelServiceMessages
-			.getString("WebBrowser.Refresh_tp");
+	private String message_tp = ModelServiceMessages.WebBrowser_Refresh_tp;
 
 	private IWebBrowserNavigationEventListener defaultListener = new DefaultWebBrowserNavigationEventListener();
 

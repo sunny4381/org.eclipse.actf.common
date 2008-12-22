@@ -26,10 +26,8 @@ import org.eclipse.jface.util.PropertyChangeEvent;
  */
 public class DisableDebugMessageAction extends Action implements
 		IPropertyChangeListener {
-	private String message = ModelServiceMessages
-			.getString("WebBrowser.Script");
-	private String message_tp = ModelServiceMessages
-			.getString("WebBrowser.Script_tp");
+	private String message = ModelServiceMessages.WebBrowser_Script;
+	private String message_tp = ModelServiceMessages.WebBrowser_Script_tp;
 
 	/**
 	 * Constructor of the action with image icon.

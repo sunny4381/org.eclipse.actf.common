@@ -113,8 +113,7 @@ public class ModelServiceImageCreator {
 			MessageBox warn = new MessageBox(PlatformUI.getWorkbench()
 					.getDisplay().getActiveShell(), SWT.OK
 					| SWT.ICON_INFORMATION);
-			warn.setMessage(ModelServiceMessages
-					.getString("ImageCreator.ImageTooLarge"));
+			warn.setMessage(ModelServiceMessages.ImageCreator_ImageTooLarge);
 			warn.open();
 		}
 

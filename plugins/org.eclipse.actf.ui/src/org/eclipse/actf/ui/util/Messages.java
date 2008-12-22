@@ -8,36 +8,34 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.actf.ui.util;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-/**
- * Utility class to provide commonly used messages.
- */
-public class Messages {
-	private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+public final class Messages extends NLS {
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+	private static final String BUNDLE_NAME = "messages";//$NON-NLS-1$
 
 	private Messages() {
+		// Do not instantiate
 	}
 
-	/**
-	 * Get a string for the given key.
-	 * 
-	 * @param key
-	 *            target key
-	 * @return the string for the given key
-	 */
-	public static String getString(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
+	public static String DialogConst_OK;
+	public static String DialogConst_Cancel;
+	public static String DialogConst_None;
+	public static String DialogConst_Help;
+	public static String DialogConst_Add;
+	public static String DialogConst_Delete;
+	public static String DialogConst_Close;
+	public static String DialogConst_Browse;
+	public static String DialogConst_OpenFile;
+	public static String MenuConst__Display_1;
+	public static String MenuConst_Save;
+	public static String MenuConst_Settings;
+	public static String Tooltip_Save;
+	public static String Tooltip_Settings;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}
 }

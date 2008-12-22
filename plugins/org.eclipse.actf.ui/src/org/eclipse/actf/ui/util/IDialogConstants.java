@@ -18,43 +18,39 @@ public interface IDialogConstants {
 	/**
 	 * OK
 	 */
-	public static final String OK = " " + Messages.getString("DialogConst.OK")
+	public static final String OK = " " + Messages.DialogConst_OK
 			+ " ";
 	/**
 	 * cancel
 	 */
-	public static final String CANCEL = Messages
-			.getString("DialogConst.Cancel");
+	public static final String CANCEL = Messages.DialogConst_Cancel;
 	/**
 	 * none
 	 */
-	public static final String NONE = Messages.getString("DialogConst.None");
+	public static final String NONE = Messages.DialogConst_None;
 	/**
 	 * Help
 	 */
 	public static final String HELP = " "
-			+ Messages.getString("DialogConst.Help") + " ";
+			+ Messages.DialogConst_Help + " ";
 	/**
 	 * Add
 	 */
-	public static final String ADD = Messages.getString("DialogConst.Add");
+	public static final String ADD = Messages.DialogConst_Add;
 	/**
 	 * Delete
 	 */
-	public static final String DELETE = Messages
-			.getString("DialogConst.Delete");
+	public static final String DELETE = Messages.DialogConst_Delete;
 	/**
 	 * Close
 	 */
-	public static final String CLOSE = Messages.getString("DialogConst.Close");
+	public static final String CLOSE = Messages.DialogConst_Close;
 	/**
 	 * Browse
 	 */
-	public static final String BROWSE = Messages
-			.getString("DialogConst.Browse");
+	public static final String BROWSE = Messages.DialogConst_Browse;
 	/**
 	 * Type target URL, then press enter.
 	 */
-	public static final String OPENFILE_INFO = Messages
-			.getString("DialogConst.OpenFile");
+	public static final String OPENFILE_INFO = Messages.DialogConst_OpenFile;
 }

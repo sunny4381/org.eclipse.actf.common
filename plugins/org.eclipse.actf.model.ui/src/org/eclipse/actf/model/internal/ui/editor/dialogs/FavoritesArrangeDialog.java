@@ -59,7 +59,7 @@ public class FavoritesArrangeDialog extends Dialog {
 		table.setLinesVisible(true);
 
 		String[] cols = {
-				ModelServiceMessages.getString("DialogConst.Name_Label"),
+				ModelServiceMessages.DialogConst_Name_Label,
 				"URL: " };
 		TableColumn col = new TableColumn(table, SWT.BEGINNING);
 		col.setText(cols[0]);
@@ -77,8 +77,7 @@ public class FavoritesArrangeDialog extends Dialog {
 		}
 
 		Button button = new Button(composite, SWT.PUSH);
-		button.setText(ModelServiceMessages
-				.getString("DialogArrangeFavorite.Modify_Name"));
+		button.setText(ModelServiceMessages.DialogArrangeFavorite_Modify_Name);
 		button.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (table.getSelectionCount() > 0) {
@@ -98,8 +97,7 @@ public class FavoritesArrangeDialog extends Dialog {
 		});
 
 		button = new Button(composite, SWT.PUSH);
-		button.setText(ModelServiceMessages
-				.getString("DialogArrangeFavorite.Delete"));
+		button.setText(ModelServiceMessages.DialogArrangeFavorite_Delete);
 		button.addSelectionListener(new SelectionAdapter() {
 
 			public void widgetSelected(SelectionEvent arg0) {
@@ -121,8 +119,7 @@ public class FavoritesArrangeDialog extends Dialog {
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		newShell.setText(ModelServiceMessages
-				.getString("DialogArrangeFavorite.Title"));
+		newShell.setText(ModelServiceMessages.DialogArrangeFavorite_Title);
 	}
 
 	public Map<String, String> getFavoritesMap() {

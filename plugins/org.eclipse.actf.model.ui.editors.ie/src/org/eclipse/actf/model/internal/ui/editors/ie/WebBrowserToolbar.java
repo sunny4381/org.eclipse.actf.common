@@ -63,7 +63,7 @@ public class WebBrowserToolbar extends Composite {
 		Label addressLabel = new Label(this, SWT.NONE);
 		addressLabel.setLayoutData(new GridData());
 		addressLabel
-				.setText(" " + ModelServiceMessages.getString("WebBrowser.Address")); //$NON-NLS-1$ //$NON-NLS-2$
+				.setText(" " + ModelServiceMessages.WebBrowser_Address); 
 		addressLabel.addTraverseListener(new TraverseListener() {
 			public void keyTraversed(TraverseEvent arg0) {
 				if (arg0.stateMask == SWT.ALT
@@ -130,9 +130,8 @@ public class WebBrowserToolbar extends Composite {
 
 		Button searchButton = new Button(this, SWT.NULL);
 		searchButton.setLayoutData(getButtonsGridData());
-		searchButton.setText(ModelServiceMessages.getString("WebBrowser.Go")); //$NON-NLS-1$
-		searchButton.setToolTipText(ModelServiceMessages
-				.getString("WebBrowser.Go_tp")); //$NON-NLS-1$
+		searchButton.setText(ModelServiceMessages.WebBrowser_Go); 
+		searchButton.setToolTipText(ModelServiceMessages.WebBrowser_Go_tp); //$NON-NLS-1$
 		// TODO
 		searchButton.setImage(BrowserIE_Plugin.imageDescriptorFromPlugin(
 				"org.eclipse.actf.model.ui", "icons/browser/go.png")

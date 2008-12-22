@@ -58,7 +58,7 @@ public class FavoritesMenu extends MenuManager implements
 	 *            if true, use existing editor to open selected favorite item
 	 */
 	public FavoritesMenu(IWorkbenchWindow window, boolean useExistingEditor) {
-		super(ModelServiceMessages.getString("MenuConst.F&avorites_8"));
+		super(ModelServiceMessages.MenuConst_F_avorites_8);
 		this._window = window;
 
 		this.useExistingEditor = useExistingEditor;
