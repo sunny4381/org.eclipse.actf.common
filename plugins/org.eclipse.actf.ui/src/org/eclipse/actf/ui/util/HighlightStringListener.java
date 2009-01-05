@@ -20,7 +20,6 @@ import org.eclipse.swt.custom.LineStyleListener;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * Utility class to highlight Strings in the {@link StyledText}.
@@ -39,8 +38,7 @@ public class HighlightStringListener implements LineStyleListener {
 		int style;
 
 		public HighlightInfo(String targetS, Color fgColor) {
-			this(targetS, fgColor, Display.getDefault().getSystemColor(
-					SWT.COLOR_WHITE), SWT.NONE);
+			this(targetS, fgColor, null, SWT.NONE);
 		}
 
 		public HighlightInfo(String targetS, Color fgColor, Color bgColor,
