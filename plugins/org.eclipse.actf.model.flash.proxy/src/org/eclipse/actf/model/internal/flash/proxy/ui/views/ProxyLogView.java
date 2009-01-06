@@ -11,7 +11,6 @@
 package org.eclipse.actf.model.internal.flash.proxy.ui.views;
 
 
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.logging.Level;
 
@@ -51,6 +50,8 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+
+import com.ibm.icu.text.MessageFormat;
 
 
 

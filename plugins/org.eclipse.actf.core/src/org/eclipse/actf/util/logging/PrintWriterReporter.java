@@ -17,11 +17,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
+import com.ibm.icu.text.MessageFormat;
 
 /**
  * implementation to generate report records to the specified <code>PrintWriter</code> object.

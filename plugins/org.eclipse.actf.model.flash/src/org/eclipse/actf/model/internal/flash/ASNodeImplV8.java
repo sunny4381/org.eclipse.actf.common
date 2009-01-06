@@ -13,7 +13,6 @@
 package org.eclipse.actf.model.internal.flash;
 
 import java.net.URLDecoder;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +22,8 @@ import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.model.flash.as.ASObject;
+
+import com.ibm.icu.text.MessageFormat;
 
 public class ASNodeImplV8 implements IFlashConst, IASNode {
 

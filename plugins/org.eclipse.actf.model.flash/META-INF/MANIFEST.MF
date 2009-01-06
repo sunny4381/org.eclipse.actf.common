@@ -9,7 +9,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.actf.util.httpproxy,
  org.eclipse.actf.util.win32,
- org.eclipse.actf.util.win32.comclutch
+ org.eclipse.actf.util.win32.comclutch,
+ com.ibm.icu
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.model.flash,
  org.eclipse.actf.model.flash.as,

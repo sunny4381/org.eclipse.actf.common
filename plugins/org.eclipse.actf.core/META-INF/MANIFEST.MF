@@ -5,7 +5,8 @@ Bundle-SymbolicName: org.eclipse.actf.core;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ com.ibm.icu
 Bundle-Activator: org.eclipse.actf.core.ActfCorePlugin
 Eclipse-LazyStart: true
 Bundle-ClassPath: .

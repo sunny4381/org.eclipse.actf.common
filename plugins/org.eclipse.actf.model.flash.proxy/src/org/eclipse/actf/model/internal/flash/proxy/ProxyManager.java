@@ -19,7 +19,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.net.URL;
-import java.text.MessageFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +33,8 @@ import org.eclipse.actf.util.win32.MemoryUtil;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
+
+import com.ibm.icu.text.MessageFormat;
 
 
 

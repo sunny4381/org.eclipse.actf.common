@@ -14,7 +14,6 @@ package org.eclipse.actf.util.logging;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +22,8 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 
 import org.eclipse.actf.core.runtime.RuntimeContextFactory;
+
+import com.ibm.icu.text.MessageFormat;
 
 
 
