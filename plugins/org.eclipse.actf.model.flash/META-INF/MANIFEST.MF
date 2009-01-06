@@ -16,3 +16,4 @@ Export-Package: org.eclipse.actf.model.flash,
  org.eclipse.actf.model.flash.as,
  org.eclipse.actf.model.flash.bridge,
  org.eclipse.actf.model.flash.util
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

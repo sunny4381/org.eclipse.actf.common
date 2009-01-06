@@ -11,3 +11,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.util.win32
 Eclipse-LazyStart: true
 Bundle-Activator: org.eclipse.actf.model.ui.editors.ooo.initializer.OOoEditorInitPlugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

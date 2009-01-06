@@ -11,3 +11,4 @@ Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.util.win32.comclutch,
  org.eclipse.actf.util.win32.keyhook,
  org.eclipse.actf.util.win32.msaa
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

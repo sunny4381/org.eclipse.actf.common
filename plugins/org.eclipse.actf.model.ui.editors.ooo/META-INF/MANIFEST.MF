@@ -29,3 +29,4 @@ Bundle-ClassPath: .,
  external:${OOO_HOME}\program\classes\ridl.jar,
  external:${OOO_HOME}\program\classes\unoil.jar 
 Export-Package: org.eclipse.actf.model.ui.editors.ooo
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

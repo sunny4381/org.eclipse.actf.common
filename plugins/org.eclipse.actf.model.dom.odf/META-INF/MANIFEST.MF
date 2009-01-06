@@ -30,3 +30,4 @@ Export-Package: org.eclipse.actf.model.dom.odf,
  org.eclipse.actf.model.dom.odf.util.converter,
  org.eclipse.actf.model.dom.odf.xlink
 Bundle-Activator: org.eclipse.actf.model.internal.dom.odf.OdfPlugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

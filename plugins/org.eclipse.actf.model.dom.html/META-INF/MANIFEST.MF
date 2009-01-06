@@ -8,3 +8,4 @@ Eclipse-LazyStart: false
 Export-Package: org.eclipse.actf.model.dom.html,
  org.eclipse.actf.model.dom.html.dochandler,
  org.eclipse.actf.model.dom.html.errorhandler
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
