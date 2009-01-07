@@ -67,7 +67,11 @@ public class ProxyPlugin extends AbstractUIPlugin implements
 				}
 			}
 		});
-		setProxySettings();
+		getDefault().getWorkbench().getDisplay().asyncExec(new Runnable(){
+			public void run() {
+				setProxySettings();
+			}
+		});
 	}
 
 	private void setProxySettings() {
