@@ -90,7 +90,7 @@ public class OverlayWindow implements Runnable {
 	 *            the index of the overlay, it must be INDEX_HIGHLIGHT or
 	 *            INDEX_LABELS
 	 * @param create
-	 *            whether create a new intance or not
+	 *            whether create a new instance or not
 	 * @return the instance of the OverlayWindow
 	 * @see #INDEX_HIGHLIGHT
 	 * @see #INDEX_LABELS
