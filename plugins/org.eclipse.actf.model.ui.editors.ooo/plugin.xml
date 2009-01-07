@@ -6,7 +6,6 @@
       <editor
             class="org.eclipse.actf.model.ui.editors.ooo.OOoEditor"
             contributorClass="org.eclipse.actf.model.internal.ui.editors.ooo.OOoEditorContributor"
-            default="false"
             extensions="odt, odp, ods"
             icon="icons/exclawhite16.gif"
             id="org.eclipse.actf.model.ui.editors.ooo.OOoEditor"
