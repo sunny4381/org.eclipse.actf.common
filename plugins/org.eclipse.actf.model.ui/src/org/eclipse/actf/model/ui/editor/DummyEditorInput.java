@@ -44,7 +44,6 @@ public class DummyEditorInput implements IEditorInput {
 	}
 
 	public boolean exists() {
-		System.out.println("exists");
 		return false;
 	}
 

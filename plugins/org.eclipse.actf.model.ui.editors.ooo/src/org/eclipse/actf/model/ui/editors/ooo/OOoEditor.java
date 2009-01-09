@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IPathEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
@@ -84,6 +85,9 @@ public class OOoEditor extends EditorPart implements IModelServiceHolder {
 			if ("".equals(targetUrl)) {
 				targetUrl = null;
 			}
+		} else if (input instanceof IPathEditorInput) {
+			targetUrl = ((IPathEditorInput) input).getPath().toFile()
+					.getAbsolutePath();
 		}
 
 		this._odfBrowser = new OOoComposite(parent, SWT.NONE, this);

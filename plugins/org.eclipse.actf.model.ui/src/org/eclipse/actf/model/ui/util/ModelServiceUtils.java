@@ -52,6 +52,8 @@ public class ModelServiceUtils {
 		}
 
 		if (targetUrl != null && targetUrl.length() != 0) {
+			targetUrl = targetUrl.trim();
+
 			IEditorReference[] editorRefs = activePage.getEditorReferences();
 			for (int i = 0; i < editorRefs.length; i++) {
 				IWorkbenchPart part = editorRefs[i].getPart(false);
@@ -66,8 +68,6 @@ public class ModelServiceUtils {
 				}
 			}
 
-			targetUrl = targetUrl.trim();
-
 			try {
 				return (launch(targetUrl, getEditorId(targetUrl)));
 			} catch (EditorNotFoundException e) {
@@ -77,27 +77,46 @@ public class ModelServiceUtils {
 		return null;
 	}
 
+	private static boolean isModelService(IEditorDescriptor desc) {
+		if (desc == null) {
+			return false;
+		}
+		return desc.getId().indexOf("actf.model.ui") >= 0;
+	}
+
 	private static String getEditorId(String targetUrl)
 			throws EditorNotFoundException {
 		// TODO support multiple editor, dialog, preference
 		IEditorRegistry editors = PlatformUI.getWorkbench().getEditorRegistry();
+		IEditorDescriptor[] candidates;
 		IEditorDescriptor editor;
 
 		if (!targetUrl.startsWith("http://")
 				&& !targetUrl.startsWith("https://")) {
 			editor = editors.getDefaultEditor(targetUrl);
-			if (editor == null) {
-				editor = editors.getDefaultEditor("default.html");
+			if (isModelService(editor)) {
+				return editor.getId();
+			} else {
+				candidates = editors.getEditors(targetUrl);
+				for (IEditorDescriptor desc : candidates) {
+					if (isModelService(desc)) {
+						return desc.getId();
+					}
+				}
 			}
+		}
+		editor = editors.getDefaultEditor("default.html");
+		if (isModelService(editor)) {
+			return editor.getId();
 		} else {
-			editor = editors.getDefaultEditor("default.html");
-
+			candidates = editors.getEditors("default.html");
+			for (IEditorDescriptor desc : candidates) {
+				if (isModelService(desc)) {
+					return desc.getId();
+				}
+			}
 		}
-		if (editor == null) {
-			throw new EditorNotFoundException();
-		}
-
-		return (editor.getId());
+		throw new EditorNotFoundException();
 	}
 
 	/**
@@ -111,7 +130,6 @@ public class ModelServiceUtils {
 	 */
 	public static IEditorPart launch(String targetUrl, String id) {
 
-		// TODO check current url
 		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
 		if (activePage == null) {
 			return null;
@@ -174,7 +192,7 @@ public class ModelServiceUtils {
 				if (part instanceof IModelServiceHolder) {
 					IModelService modelService = ((IModelServiceHolder) part)
 							.getModelService();
-					System.out.println(modelService.getURL());
+					// System.out.println(modelService.getURL());
 					if (modelService.getURL() == null)
 						return (IEditorPart) part;
 					if (modelService instanceof IWebBrowserACTF
@@ -195,17 +213,21 @@ public class ModelServiceUtils {
 	 *            target URL
 	 */
 	public static void openInExistingEditor(String targetUrl) {
+		if (targetUrl == null) {
+			return;
+		}
+
 		targetUrl = targetUrl.trim();
 		String editorId;
 
+		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
+		if (activePage == null) {
+			return;
+		}
 		try {
 			editorId = getEditorId(targetUrl);
 		} catch (EditorNotFoundException e) {
 			System.err.println("Editor not found: " + targetUrl);
-			return;
-		}
-		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
-		if (activePage == null) {
 			return;
 		}
 		if (activateEditorPart(editorId)) {
@@ -268,7 +290,7 @@ public class ModelServiceUtils {
 			return (IModelServiceHolder) editor;
 		}
 
-		DebugPrintUtil.devOrDebugPrintln("editor: " + editor
+		DebugPrintUtil.devOrDebugPrintln("ModelServiceUtils: " + editor
 				+ " isn't IModelServiceHolder");
 
 		return null;
