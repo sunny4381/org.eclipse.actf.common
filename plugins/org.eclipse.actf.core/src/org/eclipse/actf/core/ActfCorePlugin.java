@@ -11,21 +11,19 @@
 
 package org.eclipse.actf.core;
 
-import java.io.File;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import org.eclipse.actf.core.config.IConfiguration;
 import org.eclipse.actf.core.runtime.IRuntimeContext;
 import org.eclipse.actf.core.runtime.RuntimeContextFactory;
-import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.util.logging.AbstractReporter;
-import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 import org.eclipse.actf.util.resources.EclipseResourceLocator;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.core.runtime.Status;
 import org.osgi.framework.BundleContext;
 
 
@@ -33,32 +31,15 @@ public class ActfCorePlugin extends Plugin
 {
 
 	public static final String ACTFCORE_PLUGIN_ID = "org.eclipse.actf.core";
-	public static final String DEBUG_OPTION_ID = "debug";
-	public static final String LOG_OPTION_ID = "log";
-	public static final String TRACE_OPTION_ID = "trace";
-	public static final String TRACESTREAM_OPTION_ID = "stream";
-	public static final String TRACELEVEL_OPTION_ID = "level";
 
 	protected IRuntimeContext runtimeContext;
 	protected IConfiguration configuration;
 	protected ClassLoaderCache clCache = ClassLoaderCache.getDefault();
-	protected String traceStream;
-	protected int traceLevel = IReporter.WARNING;
+	
+	private Logger logger = Logger.getLogger(LoggingUtil.ACTF_CORE_LOGGER_NAME);
  
 	protected String getPluginId () {
 		return ACTFCORE_PLUGIN_ID;
-	}
-
-	protected String getTraceOptionId () {
-		return getDebugOptionId() + "/" + TRACE_OPTION_ID;
-	}
-
-	protected String getDebugOptionId () {
-		return getPluginId() + "/" + DEBUG_OPTION_ID;
-	}
-
-	protected String getLogOptionId () {
-		return getDebugOptionId() + "/" + LOG_OPTION_ID ;
 	}
 
 	// The shared instance.
@@ -76,9 +57,6 @@ public class ActfCorePlugin extends Plugin
 		return plugin;
 	}
 	
-	protected String getDefaultTraceFilename () {
-		return getPluginId() + "_" + TRACE_OPTION_ID + ".log";
-	}
 
 	/**
 	 * The constructor.
@@ -105,23 +83,20 @@ public class ActfCorePlugin extends Plugin
 		locator.registerBundleName(getPluginId());
 		clCache.put(getPluginId(), getClass().getClassLoader());
 		
-		String debug = Platform.getDebugOption(getDebugOptionId());
-		setDebugging(debug != null && debug.equalsIgnoreCase("true"));
-		if (isDebugging()) {
-			prepareTraceFacility();
-			if (configuration.getSymbolPoolContents(IConfiguration.ACTF_ID) != null) {
-				configuration.setSymbolPool(IConfiguration.ACTF_ID);
-				configuration.setParameter(IConfiguration.TRACE_STREAM_KEY, traceStream);
-				configuration.setParameter(IConfiguration.TRACE_LEVEL_KEY, traceLevel);
-			}
+		String logging = System.getProperty("java.util.logging.config.file");
+		if (logging == null){
+			LogManager logManager = LogManager.getLogManager();
+		    EclipseResourceLocator resourceLocator = (EclipseResourceLocator) runtimeContext.getResourceLocator();
+		    resourceLocator.registerBundleName(ACTFCORE_PLUGIN_ID);
+		    InputStream ins = resourceLocator.getResourceAsStream("logging", "\\", "properties", ACTFCORE_PLUGIN_ID);
+		    if (ins != null){
+		    	logManager.readConfiguration(ins);
+		    }
 		}
 		
-		LoggingUtil.println(IReporter.INFO, getClass().getName() + " started");
-		LoggingUtil.println(IReporter.INFO, "configuration:" + configuration);
-	}
-
-	protected IReporter getTracer () {
-		return LoggingUtil.getTracer();
+		
+		logger.log(Level.INFO, getClass().getName() + " started");
+		logger.log(Level.INFO, "configuration:" + configuration);
 	}
 	
 	public IRuntimeContext getRuntimeContext () {
@@ -131,96 +106,23 @@ public class ActfCorePlugin extends Plugin
 	public void logException (String message, Throwable t) {
 		String tname = t.getClass().getName();
 		String msg = t.getMessage();
-		msg = msg != null && msg.length() > 0 ? tname + " - " + msg : tname;
-		log(getLogOptionId(), IStatus.ERROR, 1, message != null ? message : "<No message>", t);
+		msg = msg != null && msg.length() > 0 ? tname + " - " + msg : tname;		
+		logger.log(Level.SEVERE, message != null ? message : "<No message>", t);
 	}
 
 	public void logException (Throwable t) {
 		String msg = t.getMessage();
-		logException(msg != null && msg.length() > 0 ? msg : "<no message>", t);
+		logger.log(Level.SEVERE, msg != null && msg.length() > 0 ? msg : "<no message>", t);
 	}
-
-	public void log (String option, int sev, int code,
-			 String message, Throwable t) {
-if (message == null) {
-	message = "<no message>";
-}
-if (isDebugging(option)) {
-	Status status = new Status(sev, getPluginId(), code, message, t);
-	getLog().log(status);
-}
-}
-
-	protected void prepareTraceFacility () {
-		String trace = Platform.getDebugOption(getTraceOptionId());
-		if (trace != null && trace.equalsIgnoreCase("true")) {
-			traceStream = Platform.getDebugOption(getTraceOptionId() + "/" + TRACESTREAM_OPTION_ID);
-			String levelStr = Platform.getDebugOption(getTraceOptionId() + "/" + TRACELEVEL_OPTION_ID);
-			
-			if (traceStream == null) {
-				traceStream = setupDefaultTraceStream();
-				if (traceStream == null) {
-					traceStream = "stdout";
-				}
-			}
-			
-			if (levelStr == null) {
-				levelStr = new Integer(IReporter.WARNING).toString();
-			}
-			try {
-				traceLevel = Integer.parseInt(levelStr);
-			}catch (NumberFormatException e) {
-				traceLevel = IReporter.WARNING;
-			}
-			
-			LoggingUtil.setTracer(AbstractReporter.getReporter(traceLevel, traceStream));
-			LoggingUtil.getTracer().setSourceID(IReporter.TRACE);
-		}
-	}
-
+	
 	public void stop (BundleContext context) throws Exception {
-		LoggingUtil.println(IReporter.INFO, getClass().getName() + " stopped");
-		// don't close this until it is actually the core plugin - last man standing
-		if (getPluginId().equals(ACTFCORE_PLUGIN_ID)){
-			LoggingUtil.closeTracer();
-		}
+		logger.log(Level.INFO, getClass().getName() + " stopped");
 		super.stop(context);
 	}
 
 	public boolean isDebugging (String option) {
 		String value = Platform.getDebugOption(option);
 		return super.isDebugging() && value != null && "true".equalsIgnoreCase(value);
-	}
-
-	protected String setupDefaultTraceStream () {
-		boolean success = true;
-		String traceFile = null;
-		String traceDir = FileUtils.getActfTempDir();
-		File traceDirFile = new File(traceDir);
-		
-		if (!traceDirFile.exists()) {
-			try {
-				success = traceDirFile.mkdir();
-			}catch (Exception e) {
-				logException("Could not create default trace file directory" + traceDir, e);
-				success = false;
-			}
-		}
-		
-		if (success) {
-			traceFile = traceDir + File.separator + getDefaultTraceFilename();
-		} else {
-			traceFile = System.getProperty("java.io.tmpdir");
-			if (traceFile != null) {
-				if (!traceFile.endsWith("/")) {
-					traceFile += "/";
-				}
-				traceFile += getDefaultTraceFilename();
-			}
-
-		}
-		
-		return traceFile;
 	}
 	
 }

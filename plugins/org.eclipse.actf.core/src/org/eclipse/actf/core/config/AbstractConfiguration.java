@@ -14,8 +14,9 @@ package org.eclipse.actf.core.config;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 
@@ -208,7 +209,7 @@ public class AbstractConfiguration implements IConfiguration
 			try {
 				res = ClassLoaderCache.getDefault().classForName((String) o);
 			}catch (Exception e) {
-				LoggingUtil.println(IReporter.SYSTEM_FATAL,e);
+				Logger.getLogger(LoggingUtil.ACTF_CORE_LOGGER_NAME).log(Level.SEVERE, e.getMessage(), e);
 			}
 		}
 		

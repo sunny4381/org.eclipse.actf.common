@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.eclipse.actf.core.config.IConfiguration;
@@ -40,6 +42,8 @@ public class FileUtils {
 
 	private static final int BUFFER_SIZE = 8192;
 
+	private static Logger logger = Logger.getLogger(LoggingUtil.ACTF_CORE_LOGGER_NAME);
+	
 	private static FilenameFilter dirFilter = new FilenameFilter() {
 
 		public boolean accept(File path, String name) {
@@ -189,10 +193,7 @@ public class FileUtils {
 						files[f].getName()));
 				copyFile(fis, fos);
 			} catch (IOException e) {
-				LoggingUtil.println(LoggingUtil.WARNINGS,
-						"Could not copy file " + files[f].getName());
-				// _launchEvent.addMessage(LaunchEvent.IO_STATUS_KEY, "Could not
-				// copy file " + classFiles[cf].getName());
+				logger.log(Level.WARNING, "Could not copy file " + files[f].getName());
 			}
 		}
 		for (int d = 0; directories != null && d < directories.length; ++d) {
@@ -200,10 +201,7 @@ public class FileUtils {
 			if (newDir.mkdir() || newDir.exists()) {
 				copyFiles(directories[d], newDir, pattern);
 			} else {
-				LoggingUtil.println(LoggingUtil.WARNINGS,
-						"Could not create directory " + newDir.getName());
-				// _launchEvent.addMessage(LaunchEvent.IO_STATUS_KEY, "Could not
-				// create directory " + newDir.getName());
+				logger.log(Level.WARNING, "Could not create directory " + newDir.getName());
 			}
 		}
 	} // copyFile
@@ -328,10 +326,7 @@ public class FileUtils {
 			File dir = new File(baseDir, directories[d].getName());
 			deleteFiles(dir, pattern);
 			if (!dir.delete()) {
-				LoggingUtil.println(LoggingUtil.WARNINGS,
-						"Could not delete directory " + dir);
-				// _launchEvent.addMessage(LaunchEvent.IO_STATUS_KEY, "Could not
-				// delete directory " + dir);
+				logger.log(Level.WARNING, "Could not delete directory " + dir);
 			}
 		}
 	}

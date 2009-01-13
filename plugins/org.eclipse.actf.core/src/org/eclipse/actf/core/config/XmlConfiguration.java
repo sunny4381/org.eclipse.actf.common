@@ -19,13 +19,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.eclipse.actf.core.runtime.IRuntimeContext;
 import org.eclipse.actf.core.runtime.RuntimeContextFactory;
-import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.actf.util.resources.ClassLoaderCache;
 import org.xml.sax.Attributes;
@@ -67,6 +68,8 @@ public class XmlConfiguration extends AbstractConfiguration
 	transient private String _currentXmlFilePrefix;
 
 	transient private HashMap _attributeMap = new HashMap();
+	
+	transient private Logger logger = Logger.getLogger(LoggingUtil.ACTF_CORE_LOGGER_NAME);
 
 	/**
 	 * create a Configuration from the .xml files found in the resources
@@ -145,10 +148,9 @@ public class XmlConfiguration extends AbstractConfiguration
 				SAXParser parser = factory.newSAXParser();
 				parser.parse(stream, new ParserHandler());
 			}catch (Exception e) {
-				LoggingUtil.println(
-					IReporter.SYSTEM_FATAL,
-					"SAXParseException caught while parsing file."
-							+ e.getMessage(), e);
+				logger.log(Level.SEVERE,
+						"SAXParseException caught while parsing file."
+						+ e.getMessage(), e);
 				throw new ConfigurationException("Exception caught while trying to parse file."
 						+ e.getMessage());
 			}
@@ -281,25 +283,25 @@ public class XmlConfiguration extends AbstractConfiguration
 		}
 
 		public void error (SAXParseException e) throws SAXException {
-			LoggingUtil.println(
-				IReporter.SYSTEM_FATAL, "SAX parse exception -- line: "
-						+ _locator.getLineNumber() + ", column: "
-						+ _locator.getColumnNumber(), e);
+			logger.log(Level.SEVERE,
+					"SAX parse exception -- line: "
+					+ _locator.getLineNumber() + ", column: "
+					+ _locator.getColumnNumber(), e);
 			throw e;
 		}
 
 		public void warning (SAXParseException e) throws SAXException {
-			LoggingUtil.println(
-				IReporter.SYSTEM_NONFATAL, "SAX parse exception -- line: "
-						+ _locator.getLineNumber() + ", column: "
-						+ _locator.getColumnNumber(), e);
+			logger.log(Level.WARNING,
+					"SAX parse exception -- line: "
+					+ _locator.getLineNumber() + ", column: "
+					+ _locator.getColumnNumber(), e );
 		}
 
-		public void fatalError (SAXParseException e) throws SAXException {
-			LoggingUtil.println(
-				IReporter.SYSTEM_FATAL, "SAX parse exception -- line: "
+		public void fatalError (SAXParseException e) throws SAXException {			
+					logger.log(Level.SEVERE,
+						"SAX parse exception -- line: "
 						+ _locator.getLineNumber() + ", column: "
-						+ _locator.getColumnNumber(), e);
+						+ _locator.getColumnNumber(), e );
 			throw e;
 		}
 
@@ -362,52 +364,42 @@ public class XmlConfiguration extends AbstractConfiguration
 				if (cls != null) {
 					setParameter(path, cls.getName());
 				} else {
-					LoggingUtil.println(IReporter.SYSTEM_NONFATAL, "Could not find class for value " + val);
+					logger.log(Level.WARNING, "Could not find class for value " + val);
 				}
 			}else if (type.equals(Integer.TYPE.getName())
 					|| type.equals(Integer.class.getName())) {
 				try {
 					setParameter(path, Integer.parseInt(val));
 				}catch (NumberFormatException e) {
-					LoggingUtil.println(
-						IReporter.SYSTEM_NONFATAL,
-						"Error parsing value for symbol " + path);
+					logger.log(Level.WARNING, "Error parsing value for symbol " + path);
 				}
 			}else if (type.equals(Double.TYPE.getName())
 					|| type.equals(Double.class.getName())) {
 				try {
 					setParameter(path, Double.parseDouble(val));
 				}catch (NumberFormatException e) {
-					LoggingUtil.println(
-						IReporter.SYSTEM_NONFATAL,
-						"Error parsing value for symbol " + path);
+					logger.log(Level.WARNING, "Error parsing value for symbol " + path);
 				}
 			}else if (type.equals(Long.TYPE.getName())
 					|| type.equals(Long.class.getName())) {
 				try {
 					setParameter(path, Long.parseLong(val));
 				}catch (NumberFormatException e) {
-					LoggingUtil.println(
-						IReporter.SYSTEM_NONFATAL,
-						"Error parsing value for symbol " + path);
+					logger.log(Level.WARNING, "Error parsing value for symbol " + path);
 				}
 			}else if (type.equals(Float.TYPE.getName())
 					|| type.equals(Float.class.getName())) {
 				try {
 					setParameter(path, Float.parseFloat(val));
 				}catch (NumberFormatException e) {
-					LoggingUtil.println(
-						IReporter.SYSTEM_NONFATAL,
-						"Error parsing value for symbol " + path);
+					logger.log(Level.WARNING, "Error parsing value for symbol " + path);
 				}
 			}else if (type.equals(Boolean.TYPE.getName())
 					|| type.equals(Boolean.class.getName())) {
 				try {
 					setParameter(path, Boolean.valueOf(val).booleanValue());
 				}catch (NumberFormatException e) {
-					LoggingUtil.println(
-						IReporter.SYSTEM_NONFATAL,
-						"Error parsing value for symbol " + path);
+					logger.log(Level.WARNING, "Error parsing value for symbol " + path);
 				}
 			}else {
 				setParameter(path, val.toString());

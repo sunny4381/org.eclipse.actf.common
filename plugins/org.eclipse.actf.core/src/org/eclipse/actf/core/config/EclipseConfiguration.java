@@ -13,8 +13,9 @@ package org.eclipse.actf.core.config;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -53,7 +54,7 @@ public class EclipseConfiguration extends AbstractConfiguration {
 				 try {
 					addConfigurationData(extension);
 				} catch (ConfigurationException e) {
-					LoggingUtil.println(IReporter.WARNING, "Could not configure for " + extension.getNamespaceIdentifier() + ", " + extension.getSimpleIdentifier());
+					Logger.getLogger(LoggingUtil.ACTF_CORE_LOGGER_NAME).log(Level.WARNING, "Could not configure for " + extension.getNamespaceIdentifier() + ", " + extension.getSimpleIdentifier());
 				}
 			 }
 		  }

@@ -20,6 +20,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -34,6 +36,7 @@ public class ZipImploder
 
 	protected int dirCount, fileCount;
 
+	private Logger logger = Logger.getLogger(LoggingUtil.ACTF_CORE_LOGGER_NAME);
 	/**
 	 * @return Returns the dirCount.
 	 */
@@ -267,7 +270,7 @@ public class ZipImploder
 		String source = dir.getCanonicalPath();
 		String dest = new File(zipName).getCanonicalPath();
 		if (verbose) {
-			LoggingUtil.println(LoggingUtil.PROCESS_ALL, "\n**** Imploding "
+			logger.log(Level.FINE, "\n**** Imploding "
 					+ source + " to " + dest);
 		}
 		return dest;
@@ -307,27 +310,25 @@ public class ZipImploder
 				if (xpath.length() > 0) {
 					xpath += '/';
 					if (verbose) {
-						LoggingUtil.println(
-							LoggingUtil.PROCESS_ALL, "\nProcessing directory "
+						logger.log(Level.FINE, "\nProcessing directory "
 									+ path + " to " + xpath);
 					}
 					ZipEntry ze = new ZipEntry(xpath);
 					zos.putNextEntry(ze);
 				}else {
 					if (verbose) {
-						LoggingUtil.println(
-							LoggingUtil.PROCESS_ALL, "\nSkipping empty path");
+						logger.log(Level.FINE, "\nSkipping empty path");
 					}
 				}
 			}else {
 				if (verbose) {
-					LoggingUtil.println(LoggingUtil.PROCESS_ALL, "\nDropping "
+					logger.log(Level.FINE, "\nDropping "
 							+ path);
 				}
 			}
 		}else {
 			if (verbose) {
-				LoggingUtil.println(LoggingUtil.PROCESS_ALL, "\nSkipping " + path);
+				logger.log(Level.FINE,"\nSkipping " + path);
 			}
 		}
 		dirCount++;
@@ -355,7 +356,7 @@ public class ZipImploder
 		path = path.replace('\\', '/');
 		String xpath = removeDrive(removeLead(path));
 		if (verbose) {
-			LoggingUtil.println(LoggingUtil.PROCESS_ALL, "Processing file "
+			logger.log(Level.FINE, "Processing file "
 					+ path + " to " + xpath);
 		}
 		ZipEntry ze = new ZipEntry(xpath);
@@ -386,7 +387,7 @@ public class ZipImploder
 	protected void copyFileEntry (ZipOutputStream zos, DataInputStream dis)
 		throws IOException {
 		byte[] bytes = readAllBytes(dis);
-		LoggingUtil.println(LoggingUtil.ALL, "Writing " + bytes.length
+		logger.log(Level.FINE, "Writing " + bytes.length
 				+ " bytes...");
 		zos.write(bytes, 0, bytes.length);
 	}
@@ -398,7 +399,7 @@ public class ZipImploder
 		for (int len = is.available(); len > 0; len = is.available()) {
 			byte[] xbytes = new byte[len];
 			int count = is.read(xbytes);
-			LoggingUtil.println(LoggingUtil.ALL, "readAllBytes: " + len + " vs. "
+			logger.log(Level.FINE, "readAllBytes: " + len + " vs. "
 					+ count);
 			if (count > 0) {
 				byte[] nbytes = new byte[bytes.length + count];

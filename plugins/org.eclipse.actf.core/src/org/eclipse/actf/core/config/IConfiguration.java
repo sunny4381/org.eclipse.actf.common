@@ -62,8 +62,6 @@ public interface IConfiguration extends Serializable
 	public static final String ACTF_ID = "actf";
 
 	public static final String WORKING_DIR_KEY = "actf.working.dir";
-	public static final String TRACE_LEVEL_KEY = "actf.trace.level";
-	public static final String TRACE_STREAM_KEY = "actf.trace.stream";
 
 	public static final String MODEL_LOCATORIDS_POOL = "locator";
 	public static final String MODEL_ADAPTOR_FACTORY = "adaptor.factory";

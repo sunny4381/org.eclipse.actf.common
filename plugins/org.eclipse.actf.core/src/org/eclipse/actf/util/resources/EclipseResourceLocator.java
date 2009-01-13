@@ -21,8 +21,9 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import org.eclipse.actf.util.logging.IReporter;
 import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -39,6 +40,8 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 {
 	private List _bundles = new LinkedList();
 	private File metadataDir;
+	private Logger logger = Logger.getLogger(LoggingUtil.ACTF_CORE_LOGGER_NAME);
+	
 	/**
 	 * used to identify the bundles in which resources are to be found. Each bundle in 
 	 * Eclipse has its own class loader and we leave it to the platform to choose the
@@ -90,13 +93,13 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 		if (pathToFile != null) {
 			try {
 				stream = new FileInputStream(pathToFile.toFile());
-				LoggingUtil.println(LoggingUtil.ALL, "Created stream for file - " + relativePath + " using bundle " + bundleName);
+				logger.log(Level.FINE, "Created stream for file - " + relativePath + " using bundle " + bundleName);
 			}catch (FileNotFoundException e) {
 				//Don't need to report anything in this catch , the result of the call to
 				//getPathToFile will have already made sure that this file exists.
 			}
 		} else {
-			LoggingUtil.println(LoggingUtil.ALL, "unable to create stream for file - " + relativePath + " using bundle " + bundleName);
+			logger.log(Level.FINE, "unable to create stream for file - " + relativePath + " using bundle " + bundleName);
 		}
 		
 		return stream;
@@ -247,10 +250,9 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 					try {
 						pathUrl = Platform.resolve(pathUrl);
 						absolutePath = new Path(new File(pathUrl.getFile()).getAbsolutePath());
-						LoggingUtil.println(IReporter.DETAIL,
-							"getPathToFile(), absolute path to " + relativePath + " = " + absolutePath.toString());
+						logger.log(Level.FINE, "getPathToFile(), absolute path to " + relativePath + " = " + absolutePath.toString());
 					}catch (IOException ioe) {
-						LoggingUtil.println(IReporter.SYSTEM_NONFATAL, ioe);
+						logger.log(Level.WARNING, ioe.getMessage(), ioe);
 					}
 				}
 			}
@@ -280,10 +282,9 @@ public class EclipseResourceLocator extends DefaultResourceLocator
 						// bundle is unpacked as directory so just remove trailing slash
 						absolutePath = new Path(bundleLoc.substring(0, bundleLoc.length() - 1));
 					}
-					LoggingUtil.println(IReporter.DETAIL,
-						"getPathToBundle(), path to bundle " + bundleName + " = " + absolutePath.toString());
+					logger.log(Level.FINE, "getPathToBundle(), path to bundle " + bundleName + " = " + absolutePath.toString());
 				} catch (IOException e) {
-					LoggingUtil.println(IReporter.SYSTEM_NONFATAL, "Could not retreave location for a bundle", e);
+					logger.log(Level.WARNING, "Could not retrieve location for a bundle", e);
 				}
 		}
 		}

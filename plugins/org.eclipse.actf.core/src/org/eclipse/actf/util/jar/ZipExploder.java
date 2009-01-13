@@ -22,6 +22,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -36,6 +38,7 @@ import org.eclipse.actf.util.logging.LoggingUtil;
 public class ZipExploder
 {
 
+	private Logger logger = Logger.getLogger(LoggingUtil.ACTF_CORE_LOGGER_NAME);
 	/**
 	 *create a zip exploder for unpacking .jar/.zip files
 	 */
@@ -148,7 +151,7 @@ public class ZipExploder
 		String source = new File(zipName).getCanonicalPath();
 		String dest = new File(destDir).getCanonicalPath();
 		if (verbose) {
-			LoggingUtil.println(LoggingUtil.PROCESS_ALL, "\n**** Exploding "
+			logger.log(Level.FINE, "\n**** Exploding "
 					+ source + " to " + dest);
 		}
 		ZipFile f = null;
@@ -218,35 +221,35 @@ public class ZipExploder
 									String destFile, DataInputStream dis)
 		throws IOException {
 		byte[] bytes = readAllBytes(dis);
-		LoggingUtil.println(LoggingUtil.ALL, "Writing " + bytes.length
+		logger.log(Level.FINE, "Writing " + bytes.length
 				+ " bytes...");
 		File file = new File(destFile);
 		String parent = file.getParent();
 		if (parent != null && parent.length() > 0) {
 			File dir = new File(destDir, parent);
 			if (dir != null) {
-				LoggingUtil.println(LoggingUtil.ALL, "Creating directory path "
+				logger.log(Level.FINE, "Creating directory path "
 						+ dir.getAbsolutePath());
 				dir.mkdirs();
-				LoggingUtil.println(LoggingUtil.ALL, "Created directory path "
+				logger.log(Level.FINE, "Created directory path "
 						+ dir.getAbsolutePath());
 			}
 		}
 		File outFile = new File(destDir, destFile);
 		if (destIsDir) {
-			LoggingUtil.println(LoggingUtil.ALL, "Creating directory "
+			logger.log(Level.FINE, "Creating directory "
 					+ outFile.getAbsolutePath());
 			outFile.mkdir();
-			LoggingUtil.println(LoggingUtil.ALL, "Created directory "
+			logger.log(Level.FINE, "Created directory "
 					+ outFile.getAbsolutePath());
 		}else {
-			LoggingUtil.println(LoggingUtil.ALL, "Creating file "
+			logger.log(Level.FINE, "Creating file "
 					+ outFile.getAbsolutePath());
 			FileOutputStream fos = new FileOutputStream(outFile);
 			try {
 				fos.write(bytes, 0, bytes.length);
 				if (verbose) {
-					LoggingUtil.println(LoggingUtil.ALL, "Copied file "
+					logger.log(Level.FINE, "Copied file "
 							+ outFile.getAbsolutePath());
 				}
 			}finally {
@@ -265,7 +268,7 @@ public class ZipExploder
 		for (int len = is.available(); len > 0; len = is.available()) {
 			byte[] xbytes = new byte[len];
 			int count = is.read(xbytes);
-			LoggingUtil.println(LoggingUtil.ALL, "readAllBytes: " + len + " vs. "
+			logger.log(Level.FINE, "readAllBytes: " + len + " vs. "
 					+ count);
 			if (count > 0) {
 				byte[] nbytes = new byte[bytes.length + count];
