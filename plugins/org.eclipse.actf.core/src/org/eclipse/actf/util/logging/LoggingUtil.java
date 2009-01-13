@@ -22,6 +22,17 @@ package org.eclipse.actf.util.logging;
 public final class LoggingUtil
 {
 
+	
+	/**
+	 * Logger names for the main plugins
+	 */
+	public static final String ACCSERVICE_LOGGER_NAME = "org.eclipse.actf.accservice";
+	public static final String ACTF_CORE_LOGGER_NAME = "org.eclipse.actf.core";
+	public static final String ACTF_VALIDATION_LOGGER_NAME = "org.eclipse.actf.validation";
+	public static final String ACTF_JAVACO_LOGGER_NAME = "org.eclipse.actf.javaco";
+	public static final String ACTF_WEBELO_LOGGER_NAME = "org.eclipse.actf.webelo";
+	public static final String ACTF_UI_LOGGER_NAME = "org.eclipse.actf.ui";
+	
 	/** only fatal errors and exception messages are printed */
 	public static final int NONE = IReporter.SEVERE;
 
