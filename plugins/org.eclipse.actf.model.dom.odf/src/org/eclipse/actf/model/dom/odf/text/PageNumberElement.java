@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <text:page-number> element.
+ * Interface for &lt;text:page-number&gt; element.
  */
 public interface PageNumberElement extends ODFElement, IStylable {
 }

@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.style;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <style:map> element.
+ * Interface for &lt;style:map&gt; element.
  */
 public interface MapElement extends ODFElement {
 	public String getAttrStyleCondition();

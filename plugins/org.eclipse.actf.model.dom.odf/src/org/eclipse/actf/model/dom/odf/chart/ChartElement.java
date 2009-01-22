@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <chart:chart> element.
+ * Interface for &lt;chart:chart&gt; element.
  */
 public interface ChartElement extends ODFElement, IStylable {
 	public String getAttrSvgWidth();

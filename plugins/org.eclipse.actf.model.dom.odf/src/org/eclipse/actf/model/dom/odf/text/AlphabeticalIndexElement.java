@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.text;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
 /**
- * Interface for <text:alphabetical-index> element.
+ * Interface for &lt;text:alphabetical-index&gt; element.
  */
 public interface AlphabeticalIndexElement extends ITextElementContainer {
 }

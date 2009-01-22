@@ -16,7 +16,7 @@ import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 
 /**
- * Interface for <text:list> element.
+ * Interface for &lt;text:list&gt; element.
  */
 public interface ListElement extends ODFElement, IStylable,
 		ITextElementContainer {

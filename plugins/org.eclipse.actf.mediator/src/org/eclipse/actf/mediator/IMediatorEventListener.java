@@ -24,7 +24,7 @@ import java.util.EventListener;
 public interface IMediatorEventListener extends EventListener {
 
 	/**
-	 * This method is called when the report ({@link IACTFReprot}) was
+	 * This method is called when the report ({@link IACTFReport}) was
 	 * submitted to the {@link Mediator}
 	 * 
 	 * @param event
@@ -34,7 +34,7 @@ public interface IMediatorEventListener extends EventListener {
 	public abstract void reportChanged(MediatorEvent event);
 
 	/**
-	 * This method is called when a report generator ({@link IACTFReprotGenerator})
+	 * This method is called when a report generator ({@link IACTFReportGenerator})
 	 * was selected by user.
 	 * 
 	 * @param event

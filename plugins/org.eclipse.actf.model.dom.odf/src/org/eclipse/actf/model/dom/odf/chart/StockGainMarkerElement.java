@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <chart:stock-gain-marker> element.
+ * Interface for &lt;chart:stock-gain-marker&gt; element.
  */
 public interface StockGainMarkerElement extends ODFElement, IStylable {
 }

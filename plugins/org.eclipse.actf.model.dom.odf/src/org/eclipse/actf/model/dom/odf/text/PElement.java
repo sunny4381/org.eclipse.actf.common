@@ -16,7 +16,7 @@ import org.eclipse.actf.model.dom.odf.content.IStylable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
 /**
- * Interface for <text:p> element.
+ * Interface for &lt;text:p&gt; element.
  */
 public interface PElement extends ODFElement, IStylable, IEditable,
 		ITextContent, ITextElementContainer {

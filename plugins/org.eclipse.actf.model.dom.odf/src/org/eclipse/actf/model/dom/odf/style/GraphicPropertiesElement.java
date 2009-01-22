@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.draw.GradientElement;
 import org.eclipse.actf.model.dom.odf.draw.OpacityElement;
 
 /**
- * Interface for <style:graphic-properties> element.
+ * Interface for &lt;style:graphic-properties&gt; element.
  */
 public interface GraphicPropertiesElement extends StylePropertiesBase {
 	public String getAttrDrawStroke();

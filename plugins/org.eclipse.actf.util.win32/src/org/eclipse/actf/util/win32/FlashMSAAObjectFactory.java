@@ -27,7 +27,7 @@ public class FlashMSAAObjectFactory {
 	 * @param hwnd
 	 *            the window handle to be used to obtain FlashMSAAObject
 	 * @return the instance of the FlashMSAAObject corresponding to the <i>hwnd</i>
-	 * @see {@link FlashMSAAObject}
+	 * @see FlashMSAAObject
 	 */
 	public static FlashMSAAObject getFlashMSAAObjectFromWindow(long hwnd) {
 		if (resouceManager == null) {
@@ -42,7 +42,7 @@ public class FlashMSAAObjectFactory {
 	 * @param iacc
 	 *            the address of native IAccessible object 
 	 * @return the instance of the FlashMSAAObject corresponding to the <i>hwnd</i>
-	 * @see {@link FlashMSAAObject}
+	 * @see FlashMSAAObject
 	 */
 	public static FlashMSAAObject getFlashMSAAObjectFromPtr(long address) {
 		if (resouceManager == null) {

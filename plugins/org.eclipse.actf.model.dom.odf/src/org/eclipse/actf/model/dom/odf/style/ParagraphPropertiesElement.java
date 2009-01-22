@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.style;
 
 /**
- * Interface for <style:paragraph-properties> element.
+ * Interface for &lt;style:paragraph-properties&gt; element.
  */
 public interface ParagraphPropertiesElement extends StylePropertiesBase {
 	public TabStopsElement getTabStopsElement();

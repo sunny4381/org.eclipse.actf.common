@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <chart:plot-area> element.
+ * Interface for &lt;chart:plot-area&gt; element.
  */
 public interface PlotAreaElement extends ODFElement, IStylable {
 	public String getAttrTableCellRangeAddress();

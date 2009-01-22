@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <chart:wall> element.
+ * Interface for &lt;chart:wall&gt; element.
  */
 public interface WallElement extends ODFElement, IStylable {
 }

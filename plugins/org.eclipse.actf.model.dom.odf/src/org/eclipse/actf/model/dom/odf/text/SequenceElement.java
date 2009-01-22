@@ -15,7 +15,7 @@ import org.eclipse.actf.model.dom.odf.content.IEditable;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <text:sequence> element.
+ * Interface for &lt;text:sequence&gt; element.
  */
 public interface SequenceElement extends ODFElement, IStylable, IEditable {
 }

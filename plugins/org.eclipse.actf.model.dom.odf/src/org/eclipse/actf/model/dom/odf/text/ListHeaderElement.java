@@ -15,7 +15,7 @@ import org.eclipse.actf.model.dom.odf.content.IStylable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
 /**
- * Interface for <text:list-header> element.
+ * Interface for &lt;text:list-header&gt; element.
  */
 public interface ListHeaderElement extends ODFElement, IStylable,
 		ITextElementContainer {

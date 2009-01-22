@@ -55,7 +55,6 @@ public class NodeUtil {
 	 * 
 	 * @param node
 	 *            target node.
-	 * @return <code>node</code> if succeeded. Otherwise, <code>null</code>.
 	 * @throws IllegalArgumentException
 	 */
 	public static void remove(Node node) {
@@ -95,7 +94,6 @@ public class NodeUtil {
 	 *            <code>null</code>, no child will be moved.
 	 * @param to
 	 *            end of the children moved to <code>node</code>
-	 * @return <code>node</code> if succeeded. Otherwize, <code>null</code>.
 	 * @throws IllegalArgumentException
 	 */
 	public static void add(Node parent, Node node, Node from, Node to) {

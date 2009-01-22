@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <chart:stock-range-line> element.
+ * Interface for &lt;chart:stock-range-line&gt; element.
  */
 public interface StockRangeLineElement extends ODFElement, IStylable {
 }

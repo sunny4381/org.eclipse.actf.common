@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <chart:axis> element.
+ * Interface for &lt;chart:axis&gt; element.
  */
 public interface AxisElement extends ODFElement, IStylable {
 	public String getAttrChartDimension();

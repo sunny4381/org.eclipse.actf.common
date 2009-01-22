@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.text;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 
 /**
- * Interface for <text:list-level-style-number> element.
+ * Interface for &lt;text:list-level-style-number&gt; element.
  */
 public interface ListLevelStyleNumberElement extends StyleElement {
 	public long getAttrLevel();

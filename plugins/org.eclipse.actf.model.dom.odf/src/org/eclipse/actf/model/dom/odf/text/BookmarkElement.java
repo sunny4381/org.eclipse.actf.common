@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.text;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <text:bookmark> element.
+ * Interface for &lt;text:bookmark&gt; element.
  */
 public interface BookmarkElement extends ODFElement {
 }

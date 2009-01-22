@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <chart:legend> element.
+ * Interface for &lt;chart:legend&gt; element.
  */
 public interface LegendElement extends ODFElement, IStylable {
 	public String getAttrSvgX();

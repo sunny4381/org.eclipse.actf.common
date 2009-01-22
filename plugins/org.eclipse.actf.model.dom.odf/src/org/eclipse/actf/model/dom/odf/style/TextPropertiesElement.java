@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.style;
 
 /**
- * Interface for <style:text-properties> element.
+ * Interface for &lt;style:text-properties&gt; element.
  */
 public interface TextPropertiesElement extends StylePropertiesBase {
 	public String getAttrStyleFontName();

@@ -25,8 +25,17 @@ import org.xml.sax.SAXException;
  */
 public interface IParser {
 
+	/**
+	 * Constant for tag case (upper case). The value of this constant is {@value}.
+	 */
 	public static final int UPPER_CASE = 0;
+	/**
+	 * Constant for tag case (lower case). The value of this constant is {@value}.
+	 */
 	public static final int LOWER_CASE = 1;
+	/**
+	 * Constant for tag case (original). The value of this constant is {@value}.
+	 */
 	public static final int ORIGINAL_CASE = 2;
 
 	/**
@@ -123,7 +132,6 @@ public interface IParser {
 	 * Gets a document parsed by this instance.
 	 * 
 	 * @return parsed document instance.
-	 * @see #setDocument(org.w3c.dom.Document)
 	 */
 	public abstract Document getDocument();
 
@@ -138,7 +146,7 @@ public interface IParser {
 	 * Gets extra error information. A parser passes two error information (e.g.
 	 * error code and error node) to node-level error handlers. However, it is
 	 * now enough for some kind of error handlers to recover the error. If
-	 * {@link IParserError#SUDDEN_ENDTAG}error occurs, parser set missed end
+	 * {@link IParserError#SUDDEN_ENDTAG} error occurs, parser set missed end
 	 * tags between error node and future context to extra error information.
 	 */
 	public Object getExtraErrInfo();
@@ -197,7 +205,7 @@ public interface IParser {
 	 * cased.
 	 * 
 	 * @param attrCase
-	 *            this must be {@link IParser#UPPER_CASE},{@link IParser#LOWER_CASE}or
+	 *            this must be {@link IParser#UPPER_CASE}, {@link IParser#LOWER_CASE} or
 	 *            {@link IParser#ORIGINAL_CASE}. If otherwise, ignore.
 	 */
 	public void setAttrNameCase(int attrCase);
@@ -224,7 +232,7 @@ public interface IParser {
 	 * behavior makes them upper-cased.
 	 * 
 	 * @param tagCase
-	 *            this must be {@link IParser#UPPER_CASE}or
+	 *            this must be {@link IParser#UPPER_CASE} or
 	 *            {@link IParser#LOWER_CASE}. If otherwise, ignore.
 	 */
 	public void setDefaultTagCase(int tagCase);
@@ -239,15 +247,15 @@ public interface IParser {
 	 * cased.
 	 * 
 	 * @param tagCase
-	 *            this must be {@link IParser#UPPER_CASE},{@link IParser#LOWER_CASE}or
-	 *            {@link IParser#ORIGINAL_CASE}. If otherwise, ignore.
+	 *            this must be {@link IParser#UPPER_CASE},
+	 *            {@link IParser#LOWER_CASE} or {@link IParser#ORIGINAL_CASE}.
+	 *            If otherwise, ignore.
 	 */
 	public void setTagCase(int tagCase);
 
 	/**
 	 * Sets a <i>DocumentHandler </i> instance for this parser.
 	 * 
-	 * @see #getDocumentHandler()
 	 */
 	public void setDocumentHandler(DocumentHandler handler);
 }

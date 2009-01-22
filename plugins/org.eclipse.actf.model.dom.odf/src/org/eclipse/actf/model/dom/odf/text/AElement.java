@@ -15,7 +15,7 @@ import org.eclipse.actf.model.dom.odf.content.IEditable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
 /**
- * Interface for <text:a> element.
+ * Interface for &lt;text:a&gt; element.
  */
 public interface AElement extends IEditable, ODFElement, ITextElementContainer,
 		ITextContent {

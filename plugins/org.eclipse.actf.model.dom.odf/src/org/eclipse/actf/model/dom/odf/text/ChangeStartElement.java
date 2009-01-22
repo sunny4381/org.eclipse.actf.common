@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.text;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <text:change-start> element.
+ * Interface for &lt;text:change-start&gt; element.
  */
 public interface ChangeStartElement extends ODFElement {
 }

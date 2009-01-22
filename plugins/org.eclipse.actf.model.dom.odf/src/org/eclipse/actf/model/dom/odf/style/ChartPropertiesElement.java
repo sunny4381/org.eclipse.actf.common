@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.style;
 
 /**
- * Interface for <style:chart-properties> element.
+ * Interface for &lt;style:chart-properties&gt; element.
  */
 public interface ChartPropertiesElement extends StylePropertiesBase {
 	public String getAttrStyleDirection();

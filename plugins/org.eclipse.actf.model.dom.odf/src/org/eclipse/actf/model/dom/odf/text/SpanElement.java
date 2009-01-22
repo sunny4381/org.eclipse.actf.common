@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <text:span> element.
+ * Interface for &lt;text:span&gt; element.
  */
 public interface SpanElement extends ODFElement, IStylable {
 }

@@ -15,8 +15,8 @@ package org.eclipse.actf.model.ui.editor.browser;
  * Default event handler to dispatch navigation event to the current active
  * {@link IWebBrowserACTF}.
  * 
- * @see {@link IWebBrowserACTFEventListener}
- * @see {@link WebBrowserNavigationEvent}
+ * @see IWebBrowserACTFEventListener
+ * @see WebBrowserNavigationEvent
  */
 public class DefaultWebBrowserNavigationEventListener implements
 		IWebBrowserNavigationEventListener {

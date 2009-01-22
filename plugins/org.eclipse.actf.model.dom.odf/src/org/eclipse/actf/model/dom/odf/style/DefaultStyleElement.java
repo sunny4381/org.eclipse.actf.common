@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.style;
 
 /**
- * Interface for <style:default-style> element.
+ * Interface for &lt;style:default-style&gt; element.
  */
 public interface DefaultStyleElement extends StyleElement {
 	String getAttrStyleFamily();

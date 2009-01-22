@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
  * ODF elements that have style property values as attributes 
- * and have <style:style> as parent should implements this interface.
+ * and have &lt;style:style&gt; as parent should implements this interface.
  */
 public interface StylePropertiesBase extends ODFElement {
 	public String getType();

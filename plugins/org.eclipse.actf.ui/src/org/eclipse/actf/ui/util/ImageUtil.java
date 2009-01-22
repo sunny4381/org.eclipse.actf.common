@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.ui.util;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
@@ -28,17 +29,23 @@ public class ImageUtil {
 	 *            target path in String format
 	 * @param format
 	 *            this parameter can have one of the format type defined at
-	 *            {@link FileFormat}
+	 *            {@link SWT}
 	 * 
-	 * @return
+	 * @return true if succeeded
+	 * @see ImageLoader#save(java.io.OutputStream, int)
 	 */
 	public static synchronized boolean saveImageToFile(Image image,
 			String savePath, int format) {
 		ImageLoader loader = new ImageLoader();
 		if (image != null && image.getImageData() != null) {
 			loader.data = new ImageData[] { image.getImageData() };
-			// TODO how to handle SWT.error?
-			loader.save(savePath, format);
+			try {
+				loader.save(savePath, format);
+			} catch (Exception e) {
+				return false;
+			}
+		} else {
+			return false;
 		}
 		return true;
 	}

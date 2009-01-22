@@ -57,9 +57,8 @@ public class Yield {
 	 * @param args
 	 *            target arguments
 	 * @return resulting Object of the target method
-	 * @throws Exception
-	 * 
-	 * @see {@link Display}
+	 * @see Display
+	 * @throws {@link Exception}
 	 */
 	public static Object syncInvoke(Method m, Object o, Object[] args)
 			throws Exception {

@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.style;
 
 /**
- * Interface for <style:list-level-properties> element.
+ * Interface for &lt;style:list-level-properties&gt; element.
  */
 public interface ListLevelPropertiesElement extends StylePropertiesBase {
 	public String getAttrSpaceBefore();

@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.style;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <style:master-page> element.
+ * Interface for &lt;style:master-page&gt; element.
  */
 public interface MasterPageElement extends ODFElement {
 	public String getAttrStyleName();

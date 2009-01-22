@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.style;
 
 /**
- * Interface for <style:table-cell-properties> element.
+ * Interface for &lt;style:table-cell-properties&gt; element.
  */
 public interface TableCellPropertiesElement extends StylePropertiesBase {
 	public String getAttrFormatBackgroundColor();

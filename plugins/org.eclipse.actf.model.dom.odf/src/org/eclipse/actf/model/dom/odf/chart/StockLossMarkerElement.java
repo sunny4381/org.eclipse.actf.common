@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IStylable;
 
 /**
- * Interface for <chart:stock-loss-marker> element.
+ * Interface for &lt;chart:stock-loss-marker&gt; element.
  */
 public interface StockLossMarkerElement extends ODFElement, IStylable {
 }

@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.text;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 
 /**
- * Interface for <text:list-level-style-bullet> element.
+ * Interface for &lt;text:list-level-style-bullet&gt; element.
  */
 public interface ListLevelStyleBulletElement extends StyleElement {
 	public long getAttrLevel();

@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.text;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
 /**
- * Interface for <text:index-title> element.
+ * Interface for &lt;text:index-title&gt; element.
  */
 public interface IndexTitleElement extends ITextElementContainer {
 }

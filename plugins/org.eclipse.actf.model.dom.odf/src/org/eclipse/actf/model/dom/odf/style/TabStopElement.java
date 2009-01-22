@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.style;
 
 /**
- * Interface for <style:tab-stop> element.
+ * Interface for &lt;style:tab-stop&gt; element.
  */
 public interface TabStopElement extends StylePropertiesBase {
 	public String getAttrPosition();

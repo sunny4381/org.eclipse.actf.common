@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.text;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <text:tab> element.
+ * Interface for &lt;text:tab&gt; element.
  */
 public interface TabElement extends ODFElement {
 	public int getAttrTextTabRef();
