@@ -52,7 +52,6 @@ public abstract class AbstractTerms {
 	/**
 	 * @param target the node to be evaluated
 	 * @return whether the node matches the condition
-	 * @see Vocabulary#isEnabled()
 	 */
 	public boolean isEnabled(IEvalTarget target) {
 		return false;
@@ -232,7 +231,7 @@ public abstract class AbstractTerms {
 	/**
 	 * @param target the node to be evaluated
 	 * @return whether the node matches the condition
-	 * @see Vocabulary#find()
+	 * @see Vocabulary#find(String, boolean)
 	 */
 	public boolean find(String str, boolean exact, IEvalTarget node) {
 		return false;
@@ -241,7 +240,7 @@ public abstract class AbstractTerms {
 	/**
 	 * @param target the node to be evaluated
 	 * @return whether the node matches the condition
-	 * @see Vocabulary#startsWith()
+	 * @see Vocabulary#startsWith(String, boolean)
 	 */
 	public boolean startsWith(String str, boolean exact, IEvalTarget node) {
 		return false;
@@ -259,7 +258,7 @@ public abstract class AbstractTerms {
 	/**
 	 * @param target the node to be evaluated
 	 * @return whether the node matches the condition
-	 * @see Vocabulary#nodeLocation()
+	 * @see Vocabulary#nodeLocation(Node, boolean)
 	 */
 	public boolean nodeLocation(Node refNode, boolean backward, IEvalTarget node) {
 		return false;
@@ -268,7 +267,6 @@ public abstract class AbstractTerms {
 	/**
 	 * @param target the node to be evaluated
 	 * @return whether the node matches the condition
-	 * @see Vocabulary#isHeadingJumpPoint()
 	 */
 	public boolean isHeadingJumpPoint(IEvalTarget node) {
 		return false;
@@ -286,7 +284,6 @@ public abstract class AbstractTerms {
 	/**
 	 * @param target the node to be evaluated
 	 * @return whether the node matches the condition
-	 * @see Vocabulary#isListItemJumpPoint()
 	 */
 	public boolean isListItemJumpPoint(IEvalTarget node) {
 		return false;
@@ -376,7 +373,7 @@ public abstract class AbstractTerms {
 	/**
 	 * @param target the node to be evaluated
 	 * @return whether the node matches the condition
-	 * @see Vocabulary#isAccessKey()
+	 * @see Vocabulary#isAccessKey(char)
 	 */
 	public boolean isAccessKey(char key, IEvalTarget node) {
 		return false;
@@ -421,7 +418,7 @@ public abstract class AbstractTerms {
 	/**
 	 * @param target the node to be evaluated
 	 * @return whether the node matches the condition
-	 * @see Vocabulary#isReachable()
+	 * @see Vocabulary#isReachable(Node)
 	 */
 	public boolean isReachable(IEvalTarget node, Node target) {
 		return false;
