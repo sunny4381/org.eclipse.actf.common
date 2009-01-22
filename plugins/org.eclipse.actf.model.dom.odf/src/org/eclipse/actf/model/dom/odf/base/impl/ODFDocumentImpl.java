@@ -58,11 +58,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
-
 public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 	private static final long serialVersionUID = 1L;
 
-	private static final Map<String, Class> factoryMap = new HashMap<String, Class>();
+	private static final Map<String, Class<? extends AbstractODFNodeFactory>> factoryMap = new HashMap<String, Class<? extends AbstractODFNodeFactory>>();
 	static {
 		factoryMap.put(ChartConstants.CHART_NAMESPACE_URI,
 				ChartNodeFactory.class);
@@ -319,11 +318,11 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 	// ODFDocument implementation
 	// /////////////////////////////////
 
-	private Method findCreateElementMethod(Class cs) {
+	private Method findCreateElementMethod(Class<? extends AbstractODFNodeFactory> cs) {
 		Method[] methods = cs.getDeclaredMethods();
 		for (int i = 0; i < methods.length; i++) {
 			if ("createElement".equals(methods[i].getName())) {
-				Class[] parms = methods[i].getParameterTypes();
+				Class<?>[] parms = methods[i].getParameterTypes();
 				if (parms.length == 3 && parms[0].equals(ODFDocument.class)
 						&& parms[1].equals(String.class)
 						&& parms[2].equals(Element.class)) {
@@ -339,7 +338,8 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 		if (result != null)
 			return result;
 
-		Class factory = factoryMap.get(node.getNamespaceURI());
+		Class<? extends AbstractODFNodeFactory> factory = factoryMap.get(node
+				.getNamespaceURI());
 		if (factory != null) {
 			if (node instanceof Element) {
 				Method createElemMethod = findCreateElementMethod(factory);

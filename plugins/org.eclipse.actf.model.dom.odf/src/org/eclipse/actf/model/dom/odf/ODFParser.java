@@ -189,10 +189,10 @@ public class ODFParser {
 			} else {
 				zipFile = new ZipFile(odfName);
 			}
-			Enumeration entries = zipFile.entries();
+			Enumeration<? extends ZipEntry> entries = zipFile.entries();
 			List<String> list = new ArrayList<String>();
 			while (entries.hasMoreElements()) {
-				ZipEntry entry = (ZipEntry) entries.nextElement();
+				ZipEntry entry = entries.nextElement();
 				String name = entry.getName();
 				list.add(name);
 			}
