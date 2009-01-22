@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <draw:stroke-dash> element.
+ * Interface for &lt;draw:stroke-dash&gt; element.
  */
 public interface StrokeDashElement extends ODFElement {
 	public String getAttrDrawName();

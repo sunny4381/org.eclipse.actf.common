@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <draw:fill-image> element.
+ * Interface for &lt;draw:fill-image&gt; element.
  */
 public interface FillImageElement extends ODFElement {
 	public String getAttrDrawName();

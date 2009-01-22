@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:circle> element.
+ * Interface for &lt;draw:circle&gt; element.
  */
 public interface CircleElement extends DrawingObjectElement {
 }

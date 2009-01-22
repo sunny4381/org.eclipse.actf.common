@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:polyline> element.
+ * Interface for &lt;draw:polyline&gt; element.
  */
 public interface PolylineElement extends DrawingObjectElement {
 }

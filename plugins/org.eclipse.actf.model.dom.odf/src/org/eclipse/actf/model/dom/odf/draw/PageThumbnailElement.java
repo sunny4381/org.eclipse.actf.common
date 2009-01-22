@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:page-thumbnail> element.
+ * Interface for &lt;draw:page-thumbnail&gt; element.
  */
 public interface PageThumbnailElement extends DrawingObjectElement {
 }

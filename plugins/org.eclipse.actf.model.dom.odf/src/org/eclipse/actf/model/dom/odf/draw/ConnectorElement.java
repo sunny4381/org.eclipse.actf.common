@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:connector> element.
+ * Interface for &lt;draw:connector&gt; element.
  */
 public interface ConnectorElement extends DrawingObjectElement {
 }

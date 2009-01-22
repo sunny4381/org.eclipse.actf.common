@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:rect> element.
+ * Interface for &lt;draw:rect&gt; element.
  */
 public interface RectElement extends DrawingObjectElement {
 }

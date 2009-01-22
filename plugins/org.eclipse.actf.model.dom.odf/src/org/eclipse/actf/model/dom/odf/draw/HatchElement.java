@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <draw:hatch> element.
+ * Interface for &lt;draw:hatch&gt; element.
  */
 public interface HatchElement extends ODFElement {
 	public String getAttrDrawName();

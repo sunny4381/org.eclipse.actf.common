@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:line> element.
+ * Interface for &lt;draw:line&gt; element.
  */
 public interface LineElement extends DrawingObjectElement {
 }

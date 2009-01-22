@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.draw;
 
 /**
- * Interface for <draw:area-polygon> element.
+ * Interface for &lt;draw:area-polygon&gt; element.
  */
 public interface AreaPolygonElement extends ImageMapAreaElement {
 }

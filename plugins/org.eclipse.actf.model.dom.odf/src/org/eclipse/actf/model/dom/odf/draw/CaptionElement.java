@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:caption> element.
+ * Interface for &lt;draw:caption&gt; element.
  */
 public interface CaptionElement extends DrawingObjectElement {
 }

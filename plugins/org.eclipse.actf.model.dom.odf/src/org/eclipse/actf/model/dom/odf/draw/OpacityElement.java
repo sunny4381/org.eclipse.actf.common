@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <draw:opacity> element.
+ * Interface for &lt;draw:opacity&gt; element.
  */
 public interface OpacityElement extends ODFElement {
 	public String getAttrDrawName();

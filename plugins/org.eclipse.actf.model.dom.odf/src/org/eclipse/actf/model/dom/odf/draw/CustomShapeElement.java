@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:custom-shape> element.
+ * Interface for &lt;draw:custom-shape&gt; element.
  */
 public interface CustomShapeElement extends DrawingObjectElement {
 }

@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:regular-polygon> element.
+ * Interface for &lt;draw:regular-polygon&gt; element.
  */
 public interface RegularPolygonElement extends DrawingObjectElement {
 }

@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.EmbedDrawingObjectElement;
 
 /**
- * Interface for <draw:text-box> element.
+ * Interface for &lt;draw:text-box&gt; element.
  */
 public interface TextBoxElement extends EmbedDrawingObjectElement {
 }

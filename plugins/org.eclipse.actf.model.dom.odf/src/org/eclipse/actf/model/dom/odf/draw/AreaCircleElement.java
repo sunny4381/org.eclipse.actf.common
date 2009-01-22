@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.draw;
 
 /**
- * Interface for <draw:area-circle> element.
+ * Interface for &lt;draw:area-circle&gt; element.
  */
 public interface AreaCircleElement extends ImageMapAreaElement {
 }

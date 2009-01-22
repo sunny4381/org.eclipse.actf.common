@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:ellipse> element.
+ * Interface for &lt;draw:ellipse&gt; element.
  */
 public interface EllipseElement extends DrawingObjectElement {
 }

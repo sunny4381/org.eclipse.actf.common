@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
 
 /**
- * Interface for <draw:path> element.
+ * Interface for &lt;draw:path&gt; element.
  */
 public interface PathElement extends DrawingObjectElement {
 }

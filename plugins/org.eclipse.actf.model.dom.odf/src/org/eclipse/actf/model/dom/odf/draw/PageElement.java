@@ -17,7 +17,7 @@ import org.eclipse.actf.model.dom.odf.presentation.NotesElement;
 import org.w3c.dom.NodeList;
 
 /**
- * Interface for <draw:page> element.
+ * Interface for &lt;draw:page&gt; element.
  */
 public interface PageElement extends ODFElement {
 	public ODFElement createObject(long x, long y, long width, long height);

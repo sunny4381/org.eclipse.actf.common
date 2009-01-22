@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.EmbedDrawingObjectElement;
 
 /**
- * Interface for <draw:image> element.
+ * Interface for &lt;draw:image&gt; element.
  */
 public interface ImageElement extends EmbedDrawingObjectElement {
 	String getAttrXlinkHref();

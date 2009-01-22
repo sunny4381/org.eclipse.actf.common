@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import org.eclipse.actf.model.dom.odf.base.EmbedDrawingObjectElement;
 
 /**
- * Interface for <draw:object-ole> element.
+ * Interface for &lt;draw:object-ole&gt; element.
  */
 public interface ObjectOleElement extends EmbedDrawingObjectElement {
 }
