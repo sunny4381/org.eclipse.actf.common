@@ -79,8 +79,8 @@ public interface IParser {
 	 * Change a specified string to specified cased.
 	 * 
 	 * @param tag
-	 *            target tag case ({@value IParser#LOWER_CASE},
-	 *            {@value IParser#ORIGINAL_CASE} or {@value IParser#UPPER_CASE})
+	 *            target tag case ({@link IParser#LOWER_CASE},
+	 *            {@link IParser#ORIGINAL_CASE} or {@link IParser#UPPER_CASE})
 	 * @see #setDefaultTagCase(int)
 	 */
 	public String changeDefaultTagCase(String tag);

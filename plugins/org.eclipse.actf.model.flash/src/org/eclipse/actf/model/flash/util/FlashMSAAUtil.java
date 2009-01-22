@@ -285,7 +285,6 @@ public class FlashMSAAUtil {
 	 *            It must be an instance of IAccessibleObject or an instance of
 	 *            IUnknown
 	 * @return the HTML element interface of the <i>objUnknown</i>.
-	 * @see IAccessibleObject
 	 * @see IUnknown
 	 */
 	public static IDispatch getHtmlElementFromObject(Object objUnknown) {
