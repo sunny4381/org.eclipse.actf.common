@@ -20,10 +20,12 @@ import java.util.Iterator;
  * collection system.
  */
 public class ResourceManager {
+	@SuppressWarnings("unused")
 	private final ResourceManager parent;
 	private ArrayList<ResourceManager> childRMs;
 
 	private static final int HASHSIZE = (1 << 13) - 1; // Mersenne 5.
+	@SuppressWarnings("unchecked")
 	private WeakReference<IResource> resourceHashArray[] = new WeakReference[HASHSIZE];
 
 	/**
