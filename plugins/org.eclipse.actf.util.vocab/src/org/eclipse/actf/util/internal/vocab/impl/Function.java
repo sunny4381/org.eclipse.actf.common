@@ -14,6 +14,7 @@ package org.eclipse.actf.util.internal.vocab.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.eclipse.actf.util.vocab.AbstractTerms;
 import org.eclipse.actf.util.vocab.IEvalTarget;
 import org.eclipse.actf.util.vocab.IProposition;
 
@@ -37,11 +38,11 @@ public class Function implements IProposition {
 
     public boolean eval(IEvalTarget node){
         if (method == null) {
-            Class[] classes = new Class[args.length];
+            Class<?>[] classes = new Class[args.length];
             for (int i = 0; i < classes.length; i++) {
                 classes[i] = args[i].getClass();
             }
-            Class clazz = node.getTerms().getClass();
+            Class<? extends AbstractTerms> clazz = node.getTerms().getClass();
             try {
                 method = clazz.getMethod(getName(), classes);
             } catch (SecurityException e) {
