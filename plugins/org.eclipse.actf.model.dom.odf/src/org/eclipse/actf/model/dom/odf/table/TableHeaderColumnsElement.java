@@ -22,5 +22,5 @@ public interface TableHeaderColumnsElement extends ODFElement {
 
 	public TableElement getTableElement();
 
-	public List getTableColumChildren();
+	public List<TableColumnElement> getTableColumChildren();
 }

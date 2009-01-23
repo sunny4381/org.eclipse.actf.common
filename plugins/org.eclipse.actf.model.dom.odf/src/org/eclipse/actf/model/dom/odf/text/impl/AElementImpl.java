@@ -20,6 +20,7 @@ import org.eclipse.actf.model.dom.odf.content.IEditListener;
 import org.eclipse.actf.model.dom.odf.content.IEditable;
 import org.eclipse.actf.model.dom.odf.draw.DrawConstants;
 import org.eclipse.actf.model.dom.odf.office.OfficeConstants;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.range.impl.ITextElementContainerUtil;
 import org.eclipse.actf.model.dom.odf.table.TableConstants;
 import org.eclipse.actf.model.dom.odf.text.AElement;
@@ -117,7 +118,7 @@ class AElementImpl extends ODFElementImpl implements AElement {
 		return ITextElementContainerUtil.getContentSize(this);
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		return ITextElementContainerUtil.getChildIterator(this);
 	}
 

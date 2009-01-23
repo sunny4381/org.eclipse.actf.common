@@ -20,6 +20,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFStylableElementImpl;
 import org.eclipse.actf.model.dom.odf.office.BodyElement;
 import org.eclipse.actf.model.dom.odf.office.DocumentContentElement;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.range.impl.ITextElementContainerUtil;
 import org.eclipse.actf.model.dom.odf.table.TableCellElement;
 import org.eclipse.actf.model.dom.odf.table.TableColumnElement;
@@ -179,16 +180,16 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 		return size;
 	}
 
-	public List getTableColumnChildren() {
-		List<Node> colList = null;
+	public List<TableColumnElement> getTableColumnChildren() {
+		List<TableColumnElement> colList = null;
 		NodeList children = getChildNodes();
 		if (children != null) {
 			for (int i = 0; i < children.getLength(); i++) {
 				Node child = children.item(i);
 				if (child instanceof TableColumnElement) {
 					if (colList == null)
-						colList = new Vector<Node>();
-					colList.add(child);
+						colList = new Vector<TableColumnElement>();
+					colList.add((TableColumnElement) child);
 				} else if ((child instanceof TableHeaderColumnsElement)
 						|| (child instanceof TableColumnElement)) {
 					NodeList grandChildren = child.getChildNodes();
@@ -196,8 +197,8 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 						Node grandChild = grandChildren.item(j);
 						if (grandChild instanceof TableColumnElement) {
 							if (colList == null)
-								colList = new Vector<Node>();
-							colList.add(grandChild);
+								colList = new Vector<TableColumnElement>();
+							colList.add((TableColumnElement) grandChild);
 						}
 					}
 				}
@@ -239,23 +240,25 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 		return size;
 	}
 
-	public List getTableRowChildren() {
-		List<Node> rowList = null;
+	public List<TableRowElement> getTableRowChildren() {
+		List<TableRowElement> rowList = null;
 		NodeList children = getChildNodes();
 		if (children != null) {
 			for (int i = 0; i < children.getLength(); i++) {
 				if (children.item(i) instanceof TableRowElement) {
 					if (rowList == null)
-						rowList = new Vector<Node>();
-					rowList.add(children.item(i));
+						rowList = new Vector<TableRowElement>();
+					rowList.add((TableRowElement) children.item(i));
 				} else if ((children.item(i) instanceof TableHeaderRowsElement)
 						|| (children.item(i) instanceof TableRowsElement)) {
 					NodeList grandChildren = children.item(i).getChildNodes();
 					for (int j = 0; j < grandChildren.getLength(); j++) {
 						if (grandChildren.item(j) instanceof TableRowElement) {
 							if (rowList == null)
-								rowList = new Vector<Node>();
-							rowList.add(grandChildren.item(j));
+								rowList = new Vector<TableRowElement>();
+							rowList
+									.add((TableRowElement) grandChildren
+											.item(j));
 						}
 					}
 				}
@@ -280,9 +283,9 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 
 	public boolean hasTableCellStyle(int column, int row) {
 		TableRowElement rowElement = getTableRowChild(row);
-		List cellElems = rowElement.getTableCellChildren();
+		List<TableCellElement> cellElems = rowElement.getTableCellChildren();
 		for (int i = 0, colCount = 0; i < cellElems.size(); i++) {
-			TableCellElement cellElem = (TableCellElement) cellElems.get(i);
+			TableCellElement cellElem = cellElems.get(i);
 			if (cellElem.hasAttributeNS(TableConstants.TABLE_NAMESPACE_URI,
 					TableConstants.ATTR_NUMBER_COLUMNS_REPEATED)) {
 				colCount += cellElem.getAttrTableNumberColumnsRepeated();
@@ -339,7 +342,7 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 		return ITextElementContainerUtil.getContentSize(this);
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		return ITextElementContainerUtil.getChildIterator(this);
 	}
 }

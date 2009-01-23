@@ -14,6 +14,7 @@ import java.util.Iterator;
 
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFElementImpl;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.text.TableOfContentElement;
 import org.w3c.dom.Element;
 
@@ -31,7 +32,7 @@ class TableOfContentElementImpl extends ODFElementImpl implements
 		return 0;
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}

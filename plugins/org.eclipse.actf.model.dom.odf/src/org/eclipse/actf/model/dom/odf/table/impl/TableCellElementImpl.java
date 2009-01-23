@@ -19,6 +19,7 @@ import org.eclipse.actf.model.dom.odf.base.impl.ODFElementImpl;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFStylableElementImpl;
 import org.eclipse.actf.model.dom.odf.content.IStyleListener;
 import org.eclipse.actf.model.dom.odf.office.OfficeConstants;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.range.impl.ITextElementContainerUtil;
 import org.eclipse.actf.model.dom.odf.style.StyleConstants;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
@@ -28,7 +29,6 @@ import org.eclipse.actf.model.dom.odf.table.TableElement;
 import org.eclipse.actf.model.dom.odf.table.TableRowElement;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
 
 class TableCellElementImpl extends ODFStylableElementImpl implements
 		TableCellElement {
@@ -71,13 +71,13 @@ class TableCellElementImpl extends ODFStylableElementImpl implements
 		if (tableElement == null)
 			return -1;
 
-		List rowList = tableElement.getTableRowChildren();
+		List<TableRowElement> rowList = tableElement.getTableRowChildren();
 		if (rowList == null)
 			return -1;
 
 		for (int i = 0; i < rowList.size(); i++) {
 			TableRowElement row = (TableRowElement) rowList.get(i);
-			List cellList = row.getTableCellChildren();
+			List<TableCellElement> cellList = row.getTableCellChildren();
 			if (cellList != null) {
 				for (int j = 0; j < cellList.size(); j++) {
 					if (cellList.get(j).equals(this)) {
@@ -95,13 +95,13 @@ class TableCellElementImpl extends ODFStylableElementImpl implements
 		if (tableElement == null)
 			return -1;
 
-		List rowList = tableElement.getTableRowChildren();
+		List<TableRowElement> rowList = tableElement.getTableRowChildren();
 		if (rowList == null)
 			return -1;
 
 		for (int i = 0; i < rowList.size(); i++) {
-			TableRowElement row = (TableRowElement) rowList.get(i);
-			List cellList = row.getTableCellChildren();
+			TableRowElement row = rowList.get(i);
+			List<TableCellElement> cellList = row.getTableCellChildren();
 			if (cellList != null) {
 				for (int j = 0; j < cellList.size(); j++) {
 					if (cellList.get(j).equals(this)) {
@@ -119,13 +119,13 @@ class TableCellElementImpl extends ODFStylableElementImpl implements
 		if (tableElement == null)
 			return -1;
 
-		List rowList = tableElement.getTableRowChildren();
+		List<TableRowElement> rowList = tableElement.getTableRowChildren();
 		if (rowList == null)
 			return -1;
 
 		for (int i = 0; i < rowList.size(); i++) {
-			TableRowElement row = (TableRowElement) rowList.get(i);
-			List cellList = row.getTableCellChildren();
+			TableRowElement row = rowList.get(i);
+			List<TableCellElement> cellList = row.getTableCellChildren();
 			if (cellList != null) {
 				for (int j = 0; j < cellList.size(); j++) {
 					if (cellList.get(j).equals(this)) {
@@ -142,7 +142,7 @@ class TableCellElementImpl extends ODFStylableElementImpl implements
 		if (tableElement == null)
 			return -1;
 
-		List rowList = tableElement.getTableRowChildren();
+		List<TableRowElement> rowList = tableElement.getTableRowChildren();
 		if (rowList == null)
 			return -1;
 
@@ -238,7 +238,7 @@ class TableCellElementImpl extends ODFStylableElementImpl implements
 		return ITextElementContainerUtil.getContentSize(this);
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		return ITextElementContainerUtil.getChildIterator(this);
 	}
 }

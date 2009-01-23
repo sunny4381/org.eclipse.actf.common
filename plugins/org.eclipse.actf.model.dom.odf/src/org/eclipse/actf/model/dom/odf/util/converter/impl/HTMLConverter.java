@@ -38,6 +38,7 @@ import org.eclipse.actf.model.dom.odf.office.PresentationElement;
 import org.eclipse.actf.model.dom.odf.office.SpreadSheetElement;
 import org.eclipse.actf.model.dom.odf.office.TextElement;
 import org.eclipse.actf.model.dom.odf.presentation.NotesElement;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.style.DefaultStyleElement;
 import org.eclipse.actf.model.dom.odf.style.FontFaceElement;
 import org.eclipse.actf.model.dom.odf.style.GraphicPropertiesElement;
@@ -392,8 +393,8 @@ public class HTMLConverter implements ODFConverter {
 
 	private void convertTextDoc(PrintWriter writer, File dir,
 			TextElement textElem, boolean enableStyle) {
-		for (Iterator iter = textElem.getChildIterator(); iter.hasNext();) {
-			ODFElement child = (ODFElement) iter.next();
+		for (Iterator<ITextElementContainer> iter = textElem.getChildIterator(); iter.hasNext();) {
+			ODFElement child = iter.next();
 			extractContent(writer, dir, child, enableStyle);
 		}
 	}

@@ -31,5 +31,5 @@ public interface TableRowElement extends ODFElement, IStylable,
 
 	public TableElement getTableElement();
 
-	public List getTableCellChildren();
+	public List<TableCellElement> getTableCellChildren();
 }

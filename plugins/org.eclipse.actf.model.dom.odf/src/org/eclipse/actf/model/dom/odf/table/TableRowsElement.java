@@ -18,5 +18,5 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for <table:table-rows> element.
  */
 public interface TableRowsElement extends ODFElement {
-	public List getTableRowChildren();
+	public List<TableRowElement> getTableRowChildren();
 }

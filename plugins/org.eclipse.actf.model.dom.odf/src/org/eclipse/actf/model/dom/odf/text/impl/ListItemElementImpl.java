@@ -14,6 +14,7 @@ import java.util.Iterator;
 
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFStylableElementImpl;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.text.ListItemElement;
 import org.w3c.dom.Element;
 
@@ -31,7 +32,7 @@ class ListItemElementImpl extends ODFStylableElementImpl implements
 		return 0;
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -146,15 +146,15 @@ public class TextExtractorImpl implements TextExtractor {
 	private boolean writeFrameElementContent(Writer writer, File dir,
 			FrameElement elem, boolean enableStyle) {
 		boolean addedTextContent = false;
-		Iterator iter = ((FrameElement) elem).getChildIterator();
+		Iterator<ODFElement> iter = ((FrameElement) elem).getChildIterator();
 		if (iter.hasNext()) {
-			ODFElement firstContent = (ODFElement) iter.next();
+			ODFElement firstContent = iter.next();
 			if (firstContent != null) {
 				addedTextContent |= converter.extractContent(writer, dir,
 						firstContent, enableStyle);
 				if (iter.hasNext()) {
 					// if this frame has image map
-					ODFElement secondContent = (ODFElement) iter.next();
+					ODFElement secondContent = iter.next();
 					if ((secondContent != null)
 							&& (secondContent instanceof ImageMapElement)) {
 						addedTextContent |= converter.extractContent(writer,

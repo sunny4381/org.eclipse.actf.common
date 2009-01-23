@@ -230,19 +230,20 @@ public class AccessibilityFixEngine {
 				Element headerRow = doc.createElement(tablePrefix + ":"
 						+ TableConstants.ELEMENT_TABLE_HEADER_ROWS);
 
-				List rowList = ((TableElement) target).getTableRowChildren();
+				List<TableRowElement> rowList = ((TableElement) target)
+						.getTableRowChildren();
 				for (int i = 0; i < rowList.size(); i++) {
-					expandRepeatedTableRow((TableRowElement) rowList.get(i));
+					expandRepeatedTableRow(rowList.get(i));
 				}
 
 				rowList = ((TableElement) target).getTableRowChildren();
 				if ((rowList.size() == 0) || (headerNum > rowList.size()))
 					return false;
 
-				Node newHeaderRow = target.insertBefore(headerRow,
-						(Node) rowList.get(0));
+				Node newHeaderRow = target.insertBefore(headerRow, rowList
+						.get(0));
 				for (int i = 0; i < headerNum; i++) {
-					TableRowElement row = (TableRowElement) rowList.get(i);
+					TableRowElement row = rowList.get(i);
 					newHeaderRow.appendChild(row);
 				}
 				return true;
@@ -281,10 +282,10 @@ public class AccessibilityFixEngine {
 				Element headerColumn = doc.createElement(tablePrefix + ":"
 						+ TableConstants.ELEMENT_TABLE_HEADER_COLUMNS);
 
-				List colList = ((TableElement) target).getTableColumnChildren();
+				List<TableColumnElement> colList = ((TableElement) target)
+						.getTableColumnChildren();
 				for (int i = 0; i < colList.size(); i++) {
-					expandRepeatedTableColumn((TableColumnElement) colList
-							.get(i));
+					expandRepeatedTableColumn(colList.get(i));
 				}
 
 				colList = ((TableElement) target).getTableColumnChildren();
@@ -292,10 +293,9 @@ public class AccessibilityFixEngine {
 					return false;
 
 				Node newHeaderColumn = target.insertBefore(headerColumn,
-						(Node) colList.get(0));
+						colList.get(0));
 				for (int i = 0; i < headerNum; i++) {
-					TableColumnElement col = (TableColumnElement) colList
-							.get(i);
+					TableColumnElement col = colList.get(i);
 					newHeaderColumn.appendChild(col);
 				}
 				return true;

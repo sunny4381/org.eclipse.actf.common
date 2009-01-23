@@ -12,8 +12,10 @@ package org.eclipse.actf.model.dom.odf.range;
 
 import java.util.Iterator;
 
-public interface ITextElementContainer {
+import org.eclipse.actf.model.dom.odf.base.ODFElement;
+
+public interface ITextElementContainer extends ODFElement{
 	public long getContentSize();
 
-	public Iterator getChildIterator();
+	public Iterator<ITextElementContainer> getChildIterator();
 }

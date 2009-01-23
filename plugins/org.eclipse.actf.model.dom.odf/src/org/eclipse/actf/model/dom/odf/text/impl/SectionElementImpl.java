@@ -16,6 +16,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFStylableElementImpl;
 import org.eclipse.actf.model.dom.odf.content.IEditListener;
 import org.eclipse.actf.model.dom.odf.content.IEditable;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.text.SectionElement;
 import org.w3c.dom.Element;
 
@@ -63,7 +64,7 @@ class SectionElementImpl extends ODFStylableElementImpl implements
 		return null;
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}

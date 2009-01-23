@@ -22,7 +22,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 class TableHeaderRowsElementImpl extends ODFElementImpl implements
 		TableHeaderRowsElement {
 	private static final long serialVersionUID = 8078924819161617838L;
@@ -49,15 +48,15 @@ class TableHeaderRowsElementImpl extends ODFElementImpl implements
 		return tableElement;
 	}
 
-	public List getTableRowChildren() {
-		List<Node> rowList = null;
+	public List<TableRowElement> getTableRowChildren() {
+		List<TableRowElement> rowList = null;
 
 		NodeList children = getChildNodes();
 		for (int i = 0; i < children.getLength(); i++) {
 			if (children.item(i) instanceof TableRowElement) {
 				if (rowList == null)
-					rowList = new Vector<Node>();
-				rowList.add(children.item(i));
+					rowList = new Vector<TableRowElement>();
+				rowList.add((TableRowElement) children.item(i));
 			}
 		}
 

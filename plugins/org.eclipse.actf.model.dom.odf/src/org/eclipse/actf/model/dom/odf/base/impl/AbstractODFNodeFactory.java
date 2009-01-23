@@ -13,15 +13,17 @@ package org.eclipse.actf.model.dom.odf.base.impl;
 import java.lang.reflect.Constructor;
 
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
+import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.w3c.dom.Element;
 
 
 public abstract class AbstractODFNodeFactory {
 
-	protected static Constructor findElementConstractor(Class cs) {
-		Constructor[] constructors = cs.getDeclaredConstructors();
+	@SuppressWarnings("unchecked")
+	protected static Constructor<? extends ODFElement> findElementConstractor(Class<? extends ODFElement> cs) {
+		Constructor<? extends ODFElement>[] constructors = cs.getDeclaredConstructors();
 		for (int i = 0; i < constructors.length; i++) {
-			Class[] parms = constructors[i].getParameterTypes();
+			Class<?>[] parms = constructors[i].getParameterTypes();
 			if (parms.length == 2 && parms[0].equals(ODFDocument.class)
 					&& parms[1].equals(Element.class)) {
 				return constructors[i];

@@ -96,13 +96,13 @@ class FrameElementImpl extends DrawingObjectElementImpl implements FrameElement 
 		return null;
 	}
 
-	private List<Node> getChildElements() {
-		List<Node> list = new Vector<Node>();
+	private List<ODFElement> getChildElements() {
+		List<ODFElement> list = new Vector<ODFElement>();
 		NodeList nl = this.getChildNodes();
 		for (int i = 0; i < nl.getLength(); i++) {
 			Node child = nl.item(i);
 			if (child instanceof ODFElement) {
-				list.add(child);
+				list.add((ODFElement)child);
 			}
 		}
 		return list;
@@ -112,7 +112,7 @@ class FrameElementImpl extends DrawingObjectElementImpl implements FrameElement 
 		return getChildElements().size();
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ODFElement> getChildIterator() {
 		return getChildElements().iterator();
 	}
 }

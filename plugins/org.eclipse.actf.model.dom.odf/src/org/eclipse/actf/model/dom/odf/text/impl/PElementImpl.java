@@ -18,6 +18,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFStylableElementImpl;
 import org.eclipse.actf.model.dom.odf.content.IEditListener;
 import org.eclipse.actf.model.dom.odf.content.IEditable;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.range.impl.ITextElementContainerUtil;
 import org.eclipse.actf.model.dom.odf.style.StyleConstants;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
@@ -88,7 +89,7 @@ class PElementImpl extends ODFStylableElementImpl implements PElement {
 		return ITextElementContainerUtil.getContentSize(this);
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		return ITextElementContainerUtil.getChildIterator(this);
 	}
 }

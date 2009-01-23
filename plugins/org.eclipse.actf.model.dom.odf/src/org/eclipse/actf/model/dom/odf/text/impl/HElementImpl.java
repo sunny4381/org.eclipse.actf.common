@@ -17,6 +17,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFStylableElementImpl;
 import org.eclipse.actf.model.dom.odf.content.IEditListener;
 import org.eclipse.actf.model.dom.odf.content.IEditable;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.range.impl.ITextElementContainerUtil;
 import org.eclipse.actf.model.dom.odf.text.HElement;
 import org.eclipse.actf.model.dom.odf.text.TextConstants;
@@ -99,7 +100,7 @@ class HElementImpl extends ODFStylableElementImpl implements HElement {
 		return ITextElementContainerUtil.getContentSize(this);
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		return ITextElementContainerUtil.getChildIterator(this);
 	}
 }

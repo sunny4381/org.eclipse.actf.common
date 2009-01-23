@@ -15,13 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
+import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.base.impl.AbstractODFNodeFactory;
 import org.eclipse.actf.model.dom.odf.form.FormConstants;
 import org.w3c.dom.Element;
 
-
 public class FormNodeFactory extends AbstractODFNodeFactory {
-	private static final Map<String, Class> tagMap = new HashMap<String, Class>();
+	private static final Map<String, Class<? extends ODFElement>> tagMap = new HashMap<String, Class<? extends ODFElement>>();
 
 	static {
 		tagMap.put(FormConstants.ELEMENT_BUTTON, ButtonElementImpl.class);
@@ -48,7 +48,7 @@ public class FormNodeFactory extends AbstractODFNodeFactory {
 
 	public static Element createElement(ODFDocument odfDoc, String tagName,
 			Element element) {
-		Class cs = (Class) tagMap.get(tagName);
+		Class<? extends ODFElement> cs = tagMap.get(tagName);
 		if (null == cs) {
 			return null;
 		}

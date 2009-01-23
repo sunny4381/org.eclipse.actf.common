@@ -17,6 +17,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFElementImpl;
 import org.eclipse.actf.model.dom.odf.office.TextElement;
 import org.eclipse.actf.model.dom.odf.range.IContentRange;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.range.TextRange;
 import org.eclipse.actf.model.dom.odf.range.impl.ITextElementContainerUtil;
 import org.w3c.dom.Element;
@@ -48,7 +49,7 @@ class TextElementImpl extends ODFElementImpl implements TextElement {
 		return ITextElementContainerUtil.getContentSize(this);
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		return ITextElementContainerUtil.getChildIterator(this);
 	}
 }

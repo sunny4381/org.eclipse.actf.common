@@ -15,16 +15,16 @@ import java.util.Vector;
 
 import org.eclipse.actf.model.dom.odf.base.ContentBaseElement;
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
+import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFElementImpl;
 import org.eclipse.actf.model.dom.odf.office.BodyElement;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-
 class BodyElementImpl extends ODFElementImpl implements BodyElement {
 	private static final long serialVersionUID = -3847937030086999653L;
 
-	static private final List<Class> validBodyRootElement = new Vector<Class>();
+	static private final List<Class<? extends ODFElement>> validBodyRootElement = new Vector<Class<? extends ODFElement>>();
 	static {
 		validBodyRootElement.add(DrawingElementImpl.class);
 		validBodyRootElement.add(SpreadSheetElementImpl.class);

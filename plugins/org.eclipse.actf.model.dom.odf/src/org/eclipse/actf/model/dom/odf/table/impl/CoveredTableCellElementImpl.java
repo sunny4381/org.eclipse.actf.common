@@ -17,6 +17,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFElementImpl;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFStylableElementImpl;
 import org.eclipse.actf.model.dom.odf.content.IStyleListener;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.style.StyleConstants;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 import org.eclipse.actf.model.dom.odf.table.CoveredTableCellElement;
@@ -64,7 +65,7 @@ class CoveredTableCellElementImpl extends ODFStylableElementImpl implements
 
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -17,6 +17,7 @@ import org.eclipse.actf.model.dom.odf.base.impl.ODFStylableElementImpl;
 import org.eclipse.actf.model.dom.odf.content.IEditListener;
 import org.eclipse.actf.model.dom.odf.content.IEditable;
 import org.eclipse.actf.model.dom.odf.presentation.NotesElement;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.w3c.dom.Element;
 
 
@@ -62,7 +63,7 @@ class NotesElementImpl extends ODFStylableElementImpl implements NotesElement {
 		return 0;
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}

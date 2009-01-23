@@ -17,6 +17,7 @@ import java.util.Vector;
 import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 import org.eclipse.actf.model.dom.odf.base.impl.ODFStylableElementImpl;
 import org.eclipse.actf.model.dom.odf.content.IStyleListener;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.range.impl.ITextElementContainerUtil;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 import org.eclipse.actf.model.dom.odf.table.TableCellElement;
@@ -26,7 +27,6 @@ import org.eclipse.actf.model.dom.odf.table.TableRowElement;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 
 class TableRowElementImpl extends ODFStylableElementImpl implements
 		TableRowElement {
@@ -92,15 +92,15 @@ class TableRowElementImpl extends ODFStylableElementImpl implements
 		return tableElement;
 	}
 
-	public List getTableCellChildren() {
-		List<Node> cellList = null;
+	public List<TableCellElement> getTableCellChildren() {
+		List<TableCellElement> cellList = null;
 
 		NodeList children = getChildNodes();
 		for (int i = 0; i < children.getLength(); i++) {
 			if (children.item(i) instanceof TableCellElement) {
 				if (cellList == null)
-					cellList = new Vector<Node>();
-				cellList.add(children.item(i));
+					cellList = new Vector<TableCellElement>();
+				cellList.add((TableCellElement) children.item(i));
 			}
 		}
 
@@ -131,7 +131,7 @@ class TableRowElementImpl extends ODFStylableElementImpl implements
 		return ITextElementContainerUtil.getContentSize(this);
 	}
 
-	public Iterator getChildIterator() {
+	public Iterator<ITextElementContainer> getChildIterator() {
 		return ITextElementContainerUtil.getChildIterator(this);
 	}
 }

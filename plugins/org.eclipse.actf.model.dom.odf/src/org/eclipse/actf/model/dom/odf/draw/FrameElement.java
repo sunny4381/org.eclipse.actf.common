@@ -13,6 +13,7 @@ package org.eclipse.actf.model.dom.odf.draw;
 import java.util.Iterator;
 
 import org.eclipse.actf.model.dom.odf.base.DrawingObjectElement;
+import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
  * Interface for &lt;draw:frame&gt; element.
@@ -36,5 +37,5 @@ public interface FrameElement extends DrawingObjectElement {
 
 	public long getContentSize();
 
-	public Iterator getChildIterator();
+	public Iterator<ODFElement> getChildIterator();
 }

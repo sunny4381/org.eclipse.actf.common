@@ -19,16 +19,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 public final class ITextElementContainerUtil {
 
-	private static List getChildList(Element el) {
-		List<Node> list = new Vector<Node>();
+	private static List<ITextElementContainer> getChildList(Element el) {
+		List<ITextElementContainer> list = new Vector<ITextElementContainer>();
 		NodeList nl = el.getChildNodes();
 		for (int i = 0; i < nl.getLength(); i++) {
 			Node child = nl.item(i);
 			if (child instanceof ITextElementContainer) {
-				list.add(child);
+				list.add((ITextElementContainer) child);
 			}
 		}
 		return list;
@@ -38,7 +37,7 @@ public final class ITextElementContainerUtil {
 		return getChildList(el).size();
 	}
 
-	public static Iterator getChildIterator(Element el) {
+	public static Iterator<ITextElementContainer> getChildIterator(Element el) {
 		return getChildList(el).iterator();
 	}
 }

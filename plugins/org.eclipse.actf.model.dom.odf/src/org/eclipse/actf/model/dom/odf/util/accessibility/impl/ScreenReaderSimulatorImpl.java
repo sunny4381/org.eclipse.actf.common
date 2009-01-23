@@ -29,12 +29,12 @@ import org.eclipse.actf.model.dom.odf.office.PresentationElement;
 import org.eclipse.actf.model.dom.odf.office.SpreadSheetElement;
 import org.eclipse.actf.model.dom.odf.office.TextElement;
 import org.eclipse.actf.model.dom.odf.presentation.NotesElement;
+import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.table.TableElement;
 import org.eclipse.actf.model.dom.odf.util.accessibility.ScreenReaderSimulator;
 import org.eclipse.actf.model.dom.odf.util.converter.impl.TextExtractorImpl;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
 
 public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
 	private ODFElement curElem = null;
@@ -120,7 +120,8 @@ public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
 
 	private String getTextDocumentContent(TextElement textElem) {
 		StringWriter writer = new StringWriter();
-		for (Iterator iter = textElem.getChildIterator(); iter.hasNext();) {
+		for (Iterator<ITextElementContainer> iter = textElem.getChildIterator(); iter
+				.hasNext();) {
 			Element child = (Element) iter.next();
 			if (child instanceof ODFElement) {
 				String str = getElementContent((ODFElement) child);

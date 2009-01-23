@@ -42,11 +42,11 @@ public interface TableElement extends ODFElement, IStylable,
 
 	public int getTableColumnSize();
 
-	public List getTableColumnChildren();
+	public List<TableColumnElement> getTableColumnChildren();
 
 	public int getTableRowSize();
 
-	public List getTableRowChildren();
+	public List<TableRowElement> getTableRowChildren();
 
 	public boolean hasTableCellStyle(int column, int row);
 

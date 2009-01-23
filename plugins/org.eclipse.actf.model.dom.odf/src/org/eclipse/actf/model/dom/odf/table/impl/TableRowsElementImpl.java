@@ -18,9 +18,7 @@ import org.eclipse.actf.model.dom.odf.base.impl.ODFElementImpl;
 import org.eclipse.actf.model.dom.odf.table.TableRowElement;
 import org.eclipse.actf.model.dom.odf.table.TableRowsElement;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 
 class TableRowsElementImpl extends ODFElementImpl implements TableRowsElement {
 	private static final long serialVersionUID = 4890512236727973374L;
@@ -29,15 +27,15 @@ class TableRowsElementImpl extends ODFElementImpl implements TableRowsElement {
 		super(odfDoc, element);
 	}
 
-	public List getTableRowChildren() {
-		List<Node> rowList = null;
+	public List<TableRowElement> getTableRowChildren() {
+		List<TableRowElement> rowList = null;
 
 		NodeList children = getChildNodes();
 		for (int i = 0; i < children.getLength(); i++) {
 			if (children.item(i) instanceof TableRowElement) {
 				if (rowList == null)
-					rowList = new Vector<Node>();
-				rowList.add(children.item(i));
+					rowList = new Vector<TableRowElement>();
+				rowList.add((TableRowElement) children.item(i));
 			}
 		}
 
