@@ -144,7 +144,7 @@ public class DocumentImpl extends NodeImpl implements IDocumentEx {
         return (Element) newNode(i, Node.ELEMENT_NODE);
     }
 
-    public List getElementsByIdInAllFrames(String id) {
+    public List<Node> getElementsByIdInAllFrames(String id) {
         List<Node> r = new ArrayList<Node>();
         Element e = getElementById(id);
         if (e != null)

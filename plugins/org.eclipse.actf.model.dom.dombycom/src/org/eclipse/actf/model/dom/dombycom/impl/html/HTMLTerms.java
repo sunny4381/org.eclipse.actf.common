@@ -484,11 +484,11 @@ public class HTMLTerms extends AbstractTerms {
         return isJumpPoint(target, blockTags, 3) || isJumpPoint2(target, headingTags, 3);
     }
 
-    private boolean isJumpPoint(IEvalTarget target, HashSet tags) {
+    private boolean isJumpPoint(IEvalTarget target, HashSet<String> tags) {
         return isJumpPoint(target, tags, 100);
     }
 
-    private boolean isJumpPoint(IEvalTarget target, HashSet tags, int depth) {
+    private boolean isJumpPoint(IEvalTarget target, HashSet<String> tags, int depth) {
         if (depth <= 0)
             return false;
 
@@ -522,7 +522,7 @@ public class HTMLTerms extends AbstractTerms {
         return false;
     }
 
-    private boolean isJumpPoint2(IEvalTarget target, HashSet tags, int depth) {
+    private boolean isJumpPoint2(IEvalTarget target, HashSet<String> tags, int depth) {
         if (depth <= 0)
             return false;
 
