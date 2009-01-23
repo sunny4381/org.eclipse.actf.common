@@ -29,7 +29,6 @@ import org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverriderFactory;
 import org.eclipse.actf.util.httpproxy.util.Logger;
 import org.eclipse.actf.util.httpproxy.util.ParseURI;
 import org.eclipse.actf.util.internal.httpproxy.core.HTTPResponseInMemoryMessage;
-import org.eclipse.actf.util.internal.httpproxy.core.HeaderToAdd;
 import org.eclipse.actf.util.internal.httpproxy.core.RequestDispatcher;
 import org.eclipse.actf.util.internal.httpproxy.core.ServerConnection;
 import org.eclipse.actf.util.internal.httpproxy.core.Session;
@@ -41,7 +40,7 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 	private final IClientStateManager clientStateManager;
 
 	private final HTTPProxyConnection fClient;
-	
+
 	private final ExternalProxyConfig fExProxyConf;
 
 	private final int timeout;
@@ -60,9 +59,9 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 	}
 
 	private static CacheConfig[] cacheConfigs = { // new
-													// CacheConfig("http://disney\\.go\\.com/.*",
-													// "max-age=" + 24 * 60 *
-													// 60),
+	// CacheConfig("http://disney\\.go\\.com/.*",
+	// "max-age=" + 24 * 60 *
+	// 60),
 	new CacheConfig("http://.*\\abcnews\\.go\\.com/Video/.*", "no-cache") };
 
 	private IHTTPResponseMessage addCacheControl(String uriStr,
@@ -91,38 +90,40 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 		this.fExProxyConf = client.getExternalProxyConfig();
 		this.clientStateManager = clientStateManager;
 		this.timeout = timeout;
-		
-		//this.localServer = new HTTPLocalServerSWF(client.getSecretManager());
-		//this.overrider = new SWFBootloader(getDispatcherId());
 
-		IHTTPLocalServerFactory localServerFactory = client.getProxy().getLocalServerFactory();
-		IHTTPSessionOverriderFactory overriderFactory = client.getProxy().getSessionOverriderFactory();
-		
-		if(null!=localServerFactory){
+		// this.localServer = new HTTPLocalServerSWF(client.getSecretManager());
+		// this.overrider = new SWFBootloader(getDispatcherId());
+
+		IHTTPLocalServerFactory localServerFactory = client.getProxy()
+				.getLocalServerFactory();
+		IHTTPSessionOverriderFactory overriderFactory = client.getProxy()
+				.getSessionOverriderFactory();
+
+		if (null != localServerFactory) {
 			this.localServer = localServerFactory.newInstance();
 		}
-		if(null!=overriderFactory){
+		if (null != overriderFactory) {
 			this.overrider = overriderFactory.newInstance(getDispatcherId());
-		}		
+		}
 	}
 
 	private boolean processLocalServerRequest(IHTTPRequestMessage request)
 			throws InterruptedException, IOException {
-		if(null==localServer){
+		if (null == localServer) {
 			return false;
 		}
 		return localServer.processRequest(getDispatcherId(), fClient, request,
 				transcoder);
 	}
 
-	private ArrayList serverConnectionCache = new ArrayList();
+	private ArrayList<HTTPServerConnection> serverConnectionCache = new ArrayList<HTTPServerConnection>();
 
 	private HTTPServerConnection getConnection(String host, int port) {
 		HTTPServerConnection sc;
 		int len = serverConnectionCache.size();
 		int i = 0;
 		while (i < len) {
-			sc = (HTTPServerConnection) serverConnectionCache.get(i);
+			sc = serverConnectionCache.get(i);
 			if (host.equals(sc.getHost()) && (port == sc.getPort())) {
 				if (sc.getStat() < 0) {
 					sc.deactivate();
@@ -169,7 +170,7 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 			host = ParseURI.parseHost(authority);
 			port = ParseURI.parsePort(authority, HTTP_WELL_KNOWN_PORT);
 
-			HeaderToAdd header = new HeaderToAdd();
+			//HeaderToAdd header = new HeaderToAdd();
 			// header.init(HTTPHeader.HOST, host);
 			// request.addHeader(header);
 			request.setHeader(IHTTPHeader.HOST_A, host.getBytes());
@@ -181,7 +182,8 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 			request.setRequestURIString(absPath);
 		}
 
-		IHTTPHeader pcHeader = request.getHeader(IHTTPHeader.PROXY_CONNECTION_A);
+		IHTTPHeader pcHeader = request
+				.getHeader(IHTTPHeader.PROXY_CONNECTION_A);
 		if (pcHeader != null) {
 			pcHeader.setRemoved(true);
 			request.setHeader(IHTTPHeader.CONNECTION_A, pcHeader.getValue());
@@ -217,25 +219,21 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 			throws InterruptedException, IOException {
 		fClient.sendResponse(new HTTPResponseInMemoryMessage(request
 				.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A, "504".getBytes(),
-				"Gateway Timeout".getBytes(),
-				IHTTPResponseMessage.EMPTY_BODY));
+				"Gateway Timeout".getBytes(), IHTTPResponseMessage.EMPTY_BODY));
 	}
 
 	private void sendBadGateway(IHTTPRequestMessage request)
 			throws InterruptedException, IOException {
 		fClient.sendResponse(new HTTPResponseInMemoryMessage(request
 				.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A, "502".getBytes(),
-				"Bad Gateway".getBytes(),
-				IHTTPResponseMessage.EMPTY_BODY));
+				"Bad Gateway".getBytes(), IHTTPResponseMessage.EMPTY_BODY));
 	}
 
 	private void sendNotFound(IHTTPRequestMessage request)
 			throws InterruptedException, IOException {
-		fClient
-				.sendResponse(new HTTPResponseInMemoryMessage(request
-						.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A, "404"
-						.getBytes(), "Not Found".getBytes(),
-						IHTTPResponseMessage.EMPTY_BODY));
+		fClient.sendResponse(new HTTPResponseInMemoryMessage(request
+				.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A, "404".getBytes(),
+				"Not Found".getBytes(), IHTTPResponseMessage.EMPTY_BODY));
 	}
 
 	public void run() {
@@ -272,7 +270,9 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 					modeConnect = false;
 				}
 
-				if (null!=overrider && overrider.replaceRequest(clientStateManager, request)) {
+				if (null != overrider
+						&& overrider
+								.replaceRequest(clientStateManager, request)) {
 					request = overrider.getSessionRequest();
 					response = overrider.getSessionResponse();
 					if (response != null) {
@@ -315,8 +315,7 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 						DEBUG("Trying to send a request to " + conn);
 					}
 					if (conn.getStat() == ServerConnection.STAT_CONNECTED) {
-						if (modeConnect
-								&& !fExProxyConf.getExternalProxyFlag()) {
+						if (modeConnect && !fExProxyConf.getExternalProxyFlag()) {
 							fClient.allowTunnel(request, conn, timeout);
 							clearNextRequest();
 							request = null;
@@ -327,8 +326,8 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 					} else {
 						fClient.sendResponse(new HTTPResponseInMemoryMessage(
 								request.getSerial(),
-								IHTTPHeader.HTTP_VERSION_1_0_A,
-								"503".getBytes(), "Service Unavailable"
+								IHTTPHeader.HTTP_VERSION_1_0_A, "503"
+										.getBytes(), "Service Unavailable"
 										.getBytes(),
 								IHTTPResponseMessage.EMPTY_BODY));
 						continue;
@@ -363,11 +362,11 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 						} else {
 							IHTTPResponseMessage newResponse = transcode(
 									request, response);
-							if (null!=overrider && overrider.replaceResponse(
-									clientStateManager, request, response,
-									timeout)) {
-								newResponse = overrider
-										.getSessionResponse();
+							if (null != overrider
+									&& overrider.replaceResponse(
+											clientStateManager, request,
+											response, timeout)) {
+								newResponse = overrider.getSessionResponse();
 							}
 							fClient.sendResponse(timeout, newResponse);
 						}

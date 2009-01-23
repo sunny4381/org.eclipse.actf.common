@@ -20,7 +20,8 @@ import org.eclipse.actf.util.httpproxy.util.Logger;
 public class HTTPResponseReader extends HTTPMessageReader {
     private static final Logger LOGGER = Logger.getLogger(HTTPResponseReader.class);
 
-    private final int id;
+    @SuppressWarnings("unused")
+	private final int id;
 
     // Request = Status-Line
     // *(( general-header
@@ -87,7 +88,6 @@ public class HTTPResponseReader extends HTTPMessageReader {
         }
         return msg;
     }
-     */
 
     private final void WARNING(String msg) {
         StringBuffer sb = new StringBuffer();
@@ -109,5 +109,6 @@ public class HTTPResponseReader extends HTTPMessageReader {
         sb.append(msg);
         LOGGER.fatal(sb.toString());
     }
+    */
 
 }

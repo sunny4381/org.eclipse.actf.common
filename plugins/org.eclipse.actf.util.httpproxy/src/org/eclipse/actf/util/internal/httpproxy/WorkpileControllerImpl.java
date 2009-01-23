@@ -9,37 +9,32 @@
  *    Hisashi MIYASHITA - initial API and implementation
  *******************************************************************************/
 
-
 package org.eclipse.actf.util.internal.httpproxy;
 
 import java.util.ArrayList;
 
-
-
-
-
 public class WorkpileControllerImpl implements IWorkpileController {
-    private final String name;
-    private final ThreadGroup threadGroup;
-    private final ArrayList workpile;
+	private final String name;
+	private final ThreadGroup threadGroup;
+	private final ArrayList<Thread> workpile;
 
-    public void input(Runnable work) {
-        Thread th;
-        synchronized (this) {
-            th = new Thread(threadGroup, work, name + "-" + workpile.size());
-            workpile.add(th);
-        }
-        th.setDaemon(true);
-        th.start();
-    }
+	public void input(Runnable work) {
+		Thread th;
+		synchronized (this) {
+			th = new Thread(threadGroup, work, name + "-" + workpile.size());
+			workpile.add(th);
+		}
+		th.setDaemon(true);
+		th.start();
+	}
 
-    public String toString() {
-        return "WPC:[" + name + "]:" + threadGroup.toString();
-    }
+	public String toString() {
+		return "WPC:[" + name + "]:" + threadGroup.toString();
+	}
 
-    public WorkpileControllerImpl(String name) {
-        this.name = name;
-        this.threadGroup = new ThreadGroup(name);
-        this.workpile = new ArrayList();
-    }
+	public WorkpileControllerImpl(String name) {
+		this.name = name;
+		this.threadGroup = new ThreadGroup(name);
+		this.workpile = new ArrayList<Thread>();
+	}
 }
