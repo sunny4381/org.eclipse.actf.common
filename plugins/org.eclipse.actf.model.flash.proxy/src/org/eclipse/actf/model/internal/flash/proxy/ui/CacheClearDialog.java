@@ -12,7 +12,6 @@
 package org.eclipse.actf.model.internal.flash.proxy.ui;
 
 import org.eclipse.actf.model.internal.flash.proxy.Messages;
-import org.eclipse.actf.model.internal.flash.proxy.ProxyPlugin;
 import org.eclipse.actf.model.internal.flash.proxy.preferences.ProxyPreferenceConstants;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -58,8 +57,8 @@ public class CacheClearDialog extends Dialog {
         layout.marginHeight = 20;
         composite.setLayout(layout);
         
-        String settings = ProxyPlugin.getDefault().getPreferenceStore().getString(
-                ProxyPreferenceConstants.P_CACHE_CLEAR);
+//        String settings = ProxyPlugin.getDefault().getPreferenceStore().getString(
+//                ProxyPreferenceConstants.P_CACHE_CLEAR);
         
         Label label1 = new Label(composite, SWT.NONE | SWT.READ_ONLY);
         label1.setText("    "+appName+" "+Messages.proxy_cache_confirmation1);
