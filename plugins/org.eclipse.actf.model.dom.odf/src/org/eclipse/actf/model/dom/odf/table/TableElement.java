@@ -20,7 +20,7 @@ import org.eclipse.actf.model.dom.odf.text.SequenceElement;
 import org.w3c.dom.NodeList;
 
 /**
- * Interface for <table:table> element.
+ * Interface for &lt;table:table&gt; element.
  */
 public interface TableElement extends ODFElement, IStylable,
 		ITextElementContainer {

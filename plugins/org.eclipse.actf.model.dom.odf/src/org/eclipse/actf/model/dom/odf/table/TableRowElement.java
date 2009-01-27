@@ -17,7 +17,7 @@ import org.eclipse.actf.model.dom.odf.content.IStylable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
 /**
- * Interface for <table:table-row> element.
+ * Interface for &lt;table:table-row&gt; element.
  */
 public interface TableRowElement extends ODFElement, IStylable,
 		ITextElementContainer {

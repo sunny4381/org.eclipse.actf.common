@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.form;
 
 /**
- * Interface for <form:listbox> element.
+ * Interface for &lt;form:listbox&gt; element.
  */
 public interface ListboxElement extends FormControlElement {
 }

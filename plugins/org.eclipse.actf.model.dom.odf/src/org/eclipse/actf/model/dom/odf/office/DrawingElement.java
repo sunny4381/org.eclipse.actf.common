@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ContentBaseElement;
 import org.eclipse.actf.model.dom.odf.draw.PageElement;
 
 /**
- * Interface for <office:drawing> element.
+ * Interface for &lt;office:drawing&gt; element.
  */
 public interface DrawingElement extends ContentBaseElement {
 	public PageElement getPage(long idx);

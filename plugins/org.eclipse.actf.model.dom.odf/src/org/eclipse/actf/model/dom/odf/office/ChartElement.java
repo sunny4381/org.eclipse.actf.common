@@ -17,7 +17,7 @@ import org.eclipse.actf.model.dom.odf.chart.TitleElement;
 import org.eclipse.actf.model.dom.odf.table.TableElement;
 
 /**
- * Interface for <office:chart> element.
+ * Interface for &lt;office:chart&gt; element.
  */
 public interface ChartElement extends ODFElement {
 	public org.eclipse.actf.model.dom.odf.chart.ChartElement getChartChartElement();

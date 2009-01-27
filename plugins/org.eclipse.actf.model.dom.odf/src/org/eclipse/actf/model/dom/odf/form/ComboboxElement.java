@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.form;
 
 /**
- * Interface for <form:combobox> element.
+ * Interface for &lt;form:combobox&gt; element.
  */
 public interface ComboboxElement extends FormControlElement {
 }

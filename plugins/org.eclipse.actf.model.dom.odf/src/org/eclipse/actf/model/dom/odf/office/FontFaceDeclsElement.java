@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.office;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <office:font-face-decls> element.
+ * Interface for &lt;office:font-face-decls&gt; element.
  */
 public interface FontFaceDeclsElement extends ODFElement {
 }

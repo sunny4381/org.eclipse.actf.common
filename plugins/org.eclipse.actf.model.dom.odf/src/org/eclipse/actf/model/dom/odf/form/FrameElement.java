@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.form;
 
 /**
- * Interface for <form:frame> element.
+ * Interface for &lt;form:frame&gt; element.
  */
 public interface FrameElement extends FormControlElement {
 }

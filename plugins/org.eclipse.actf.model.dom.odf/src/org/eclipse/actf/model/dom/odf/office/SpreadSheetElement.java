@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ContentBaseElement;
 import org.eclipse.actf.model.dom.odf.table.TableElement;
 
 /**
- * Interface for <office:spreadsheet> element.
+ * Interface for &lt;office:spreadsheet&gt; element.
  */
 public interface SpreadSheetElement extends ContentBaseElement {
 	public boolean getAttrTableStructureProtected();

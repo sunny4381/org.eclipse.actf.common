@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 
 /**
- * Interface for <office:automatic-styles> element.
+ * Interface for &lt;office:automatic-styles&gt; element.
  */
 public interface AutomaticStylesElement extends ODFElement {
 	public StyleElement getStyleElementByName(String name);

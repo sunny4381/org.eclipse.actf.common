@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.content.IEditable;
 
 /**
- * Interface for <svg:desc> element.
+ * Interface for &lt;svg:desc&gt; element.
  */
 public interface DescElement extends ODFElement, IEditable {
 }

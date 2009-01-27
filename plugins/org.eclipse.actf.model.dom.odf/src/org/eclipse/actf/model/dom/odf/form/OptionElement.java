@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.form;
 
 /**
- * Interface for <form:option> element.
+ * Interface for &lt;form:option&gt; element.
  */
 public interface OptionElement extends FormControlElement {
 }

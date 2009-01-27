@@ -16,7 +16,7 @@ import org.eclipse.actf.model.dom.odf.content.IStylable;
 import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 
 /**
- * Interface for <presentation:notes> element.
+ * Interface for &lt;presentation:notes&gt; element.
  */
 public interface NotesElement extends ODFElement, IStylable, IEditable,
 		ITextElementContainer {

@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.number;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <number:number> element.
+ * Interface for &lt;number:number&gt; element.
  */
 public interface NumberElement extends ODFElement {
 	public int getAttrNumberMinIntegerDigits();

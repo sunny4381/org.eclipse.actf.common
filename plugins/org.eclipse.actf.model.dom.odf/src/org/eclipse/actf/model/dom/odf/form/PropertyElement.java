@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.form;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <form:property> element.
+ * Interface for &lt;form:property&gt; element.
  */
 public interface PropertyElement extends ODFElement {
 }

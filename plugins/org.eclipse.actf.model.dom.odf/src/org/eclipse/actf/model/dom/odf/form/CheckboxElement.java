@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.form;
 
 /**
- * Interface for <form:checkbox> element.
+ * Interface for &lt;form:checkbox&gt; element.
  */
 public interface CheckboxElement extends FormControlElement {
 }

@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.table;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <table:table-columns> element.
+ * Interface for &lt;table:table-columns&gt; element.
  */
 public interface TableColumnsElement extends ODFElement {
 }

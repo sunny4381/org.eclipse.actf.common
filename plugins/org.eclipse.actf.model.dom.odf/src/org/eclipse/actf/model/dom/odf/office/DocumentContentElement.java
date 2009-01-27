@@ -14,7 +14,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.eclipse.actf.model.dom.odf.style.StyleElement;
 
 /**
- * Interface for <office:document-content> element.
+ * Interface for &lt;office:document-content&gt; element.
  */
 public interface DocumentContentElement extends ODFElement {
 	public double getAttrOfficeVersion();

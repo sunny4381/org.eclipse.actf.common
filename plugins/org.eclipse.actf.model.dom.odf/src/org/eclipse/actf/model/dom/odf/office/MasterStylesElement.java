@@ -13,7 +13,7 @@ package org.eclipse.actf.model.dom.odf.office;
 import org.eclipse.actf.model.dom.odf.base.ODFElement;
 
 /**
- * Interface for <office:master-styles> element.
+ * Interface for &lt;office:master-styles&gt; element.
  */
 public interface MasterStylesElement extends ODFElement {
 }

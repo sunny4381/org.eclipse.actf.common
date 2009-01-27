@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.form;
 
 /**
- * Interface for <form:radio> element.
+ * Interface for &lt;form:radio&gt; element.
  */
 public interface RadioElement extends FormControlElement {
 }

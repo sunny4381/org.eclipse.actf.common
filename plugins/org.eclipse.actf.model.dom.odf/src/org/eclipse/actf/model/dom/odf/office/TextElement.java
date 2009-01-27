@@ -15,7 +15,7 @@ import org.eclipse.actf.model.dom.odf.range.ITextElementContainer;
 import org.eclipse.actf.model.dom.odf.range.TextRange;
 
 /**
- * Interface for <office:text> element.
+ * Interface for &lt;office:text&gt; element.
  */
 public interface TextElement extends ContentBaseElement, ITextElementContainer {
 	TextRange select(long seltopx, long seltopy, long selendx, long selendy);

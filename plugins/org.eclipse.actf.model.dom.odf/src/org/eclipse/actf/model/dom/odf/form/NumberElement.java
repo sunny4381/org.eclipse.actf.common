@@ -11,7 +11,7 @@
 package org.eclipse.actf.model.dom.odf.form;
 
 /**
- * Interface for <form:number> element.
+ * Interface for &lt;form:number&gt; element.
  */
 public interface NumberElement extends FormControlElement {
 }
