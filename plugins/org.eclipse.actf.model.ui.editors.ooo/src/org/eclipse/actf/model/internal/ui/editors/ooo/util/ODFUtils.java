@@ -182,17 +182,17 @@ public class ODFUtils {
         	throw new ODFException("should be launched by using IBM Java");
         }
 
-        System.load(openOfficeProgramPath + "uwinapi.dll");
-        System.load(openOfficeProgramPath + "officebean.dll");
-        System.load(openOfficeProgramPath + "sal3.dll");
-        System.load(openOfficeProgramPath + "jpipe.dll");
+        System.load(openOfficeProgramPath + "..\\URE\\bin\\uwinapi.dll");
+        System.load(openOfficeProgramPath + "..\\Basis\\program\\officebean.dll");
+        System.load(openOfficeProgramPath + "..\\URE\\bin\\sal3.dll");
+        System.load(openOfficeProgramPath + "..\\URE\\bin\\jpipe.dll");
 
         ClassLoader javaClassLoader = null;
         try {
-        	URL[] jarList = new URL[] { new File(openOfficeProgramPath + "classes\\juh.jar").toURL(),
-        			new File(openOfficeProgramPath + "classes\\jurt.jar").toURL(),
-        			new File(openOfficeProgramPath + "classes\\ridl.jar").toURL(),
-        			new File(openOfficeProgramPath + "classes\\unoil.jar").toURL() };
+        	URL[] jarList = new URL[] { new File(openOfficeProgramPath + "..\\URE\\java\\juh.jar").toURL(),
+        			new File(openOfficeProgramPath + "..\\URE\\java\\jurt.jar").toURL(),
+        			new File(openOfficeProgramPath + "..\\URE\\java\\ridl.jar").toURL(),
+        			new File(openOfficeProgramPath + "..\\Basis\\program\\classes\\unoil.jar").toURL() };
         	
         	javaClassLoader = new URLClassLoader(jarList, Bootstrap.class.getClassLoader());
 

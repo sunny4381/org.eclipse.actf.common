@@ -16,17 +16,18 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.util.win32
 Eclipse-LazyStart: true
 Bundle-ClassPath: .,
- external:$OOo_PROGRAM_PATH$\classes\juh.jar,
- external:$OOo_PROGRAM_PATH$\classes\jurt.jar,
- external:$OOo_PROGRAM_PATH$\classes\ridl.jar,
- external:$OOo_PROGRAM_PATH$\classes\unoil.jar,
- external:C:\Program Files\OpenOffice.org 2.4\program\classes\juh.jar,
- external:C:\Program Files\OpenOffice.org 2.4\program\classes\jurt.jar,
- external:C:\Program Files\OpenOffice.org 2.4\program\classes\ridl.jar,
- external:C:\Program Files\OpenOffice.org 2.4\program\classes\unoil.jar,
- external:${OOO_HOME}\program\classes\juh.jar,
- external:${OOO_HOME}\program\classes\jurt.jar,
- external:${OOO_HOME}\program\classes\ridl.jar,
- external:${OOO_HOME}\program\classes\unoil.jar 
+ external:$OOo_PROGRAM_PATH$\..\URE\java\juh.jar,
+ external:$OOo_PROGRAM_PATH$\..\URE\java\jurt.jar,
+ external:$OOo_PROGRAM_PATH$\..\URE\java\ridl.jar,
+ external:$OOo_PROGRAM_PATH$\..\Basis\program\classes\unoil.jar,
+ external:C:\Program Files\OpenOffice.org 3\URE\java\juh.jar,
+ external:C:\Program Files\OpenOffice.org 3\URE\java\jurt.jar,
+ external:C:\Program Files\OpenOffice.org 3\URE\java\ridl.jar,
+ external:C:\Program Files\OpenOffice.org 3\Basis\program\classes\unoil.jar,
+ external:${OOO_HOME}\URE\java\juh.jar,
+ external:${OOO_HOME}\URE\java\jurt.jar,
+ external:${OOO_HOME}\URE\java\ridl.jar,
+ external:${OOO_HOME}\Basis\program\classes\unoil.jar 
+ 
 Export-Package: org.eclipse.actf.model.ui.editors.ooo
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import org.eclipse.actf.model.ui.editors.ooo.initializer.util.OOoEditorInitUtil;
+
 import com.sun.star.bridge.UnoUrlResolver;
 import com.sun.star.bridge.XUnoUrlResolver;
 import com.sun.star.comp.helper.Bootstrap;
@@ -25,7 +27,6 @@ import com.sun.star.frame.XDesktop;
 import com.sun.star.lang.XMultiComponentFactory;
 import com.sun.star.lang.XMultiServiceFactory;
 import com.sun.star.lib.uno.helper.UnoUrl;
-import com.sun.star.lib.util.NativeLibraryLoader;
 import com.sun.star.uno.UnoRuntime;
 import com.sun.star.uno.XComponentContext;
 
@@ -47,7 +48,7 @@ public class BootstrapForOOoComposite extends Bootstrap {
             }
 
             String sOfficeExeName = System.getProperty("os.name").startsWith("Windows") ? "soffice.exe" : "soffice";
-            File sOfficeFile = NativeLibraryLoader.getResource(classLoader, sOfficeExeName);
+            File sOfficeFile = new File(OOoEditorInitUtil.getOpenOfficePath() + "\\" + sOfficeExeName);
             if (null == sOfficeFile) {
                 throw new BootstrapException("no office executable found");
             }
