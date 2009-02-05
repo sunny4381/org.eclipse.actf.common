@@ -13,6 +13,8 @@ package org.eclipse.actf.model.internal.ui.editors.ie;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 
 import org.eclipse.actf.model.dom.dombycom.DomByCom;
 import org.eclipse.actf.model.dom.html.HTMLParserFactory;
@@ -383,6 +385,17 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 	public File saveOriginalDocument(String file) {
 		if (null != file) {
+			if("about:blank".equals(getURL())){
+				try{
+					FileWriter fw = new FileWriter(file);
+					fw.write("<html></html>");
+					fw.flush();
+					fw.close();
+				}catch(Exception e){
+					return null;
+				}
+				return new File(file);
+			}
 			boolean saveOrigHtmlSource = (browserComposite.save(file));
 			if (saveOrigHtmlSource) {
 				return new File(file);
