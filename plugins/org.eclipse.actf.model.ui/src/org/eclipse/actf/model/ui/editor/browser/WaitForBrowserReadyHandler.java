@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * Copyright (c) 2007, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
 package org.eclipse.actf.model.ui.editor.browser;
 
 import org.eclipse.actf.ui.util.timer.WaitExecSyncEventHandler;
+import org.eclipse.actf.ui.util.timer.WaitExecSyncEventListener;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -19,6 +20,8 @@ import org.eclipse.swt.widgets.Shell;
  * Utility class to register {@link Runnable} to {@link IWebBrowserACTF}. The
  * {@link Runnable} will be invoked when the {@link IWebBrowserACTF} becomes
  * ready.
+ * 
+ * @see WaitExecSyncEventListener
  */
 public class WaitForBrowserReadyHandler implements WaitExecSyncEventHandler {
 	public static double INTERVAL = 0.5;
