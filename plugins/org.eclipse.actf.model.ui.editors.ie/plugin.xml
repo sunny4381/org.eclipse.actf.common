@@ -7,8 +7,23 @@
             class="org.eclipse.actf.model.ui.editors.ie.WebBrowserEditor"
             contributorClass="org.eclipse.actf.model.internal.ui.editors.ie.WebBrowserEditorContributor"
             extensions="html, htm, xhtml, mht"
-            icon="icons/bl_24_02.gif"
+            icon="icons/view16/browser.gif"
             id="org.eclipse.actf.model.ui.editors.ie.WebBrowserEditor"
             name="%browser.ie.title"/>
+      </extension>
+      <extension
+            point="org.eclipse.ui.actionSets">
+         <actionSet
+               id="org.eclipse.actf.model.ui.editors.ie.actionSet"
+               label="%browser.ie.title">
+            <action
+                  class="org.eclipse.actf.model.internal.ui.editors.ie.actions.LaunchBrowserAction"
+                  id="org.eclipse.actf.model.ui.editors.ie.actions.launch"
+                  definitionId="org.eclipse.actf.model.ui.editors.ie.actions.launch"
+                  label="%browser.ie.launch"
+                  icon="icons/view16/browser.gif"
+                  toolbarPath="ACTF/browser"
+                  style="push"/>
+         </actionSet>            
       </extension>
 </plugin>

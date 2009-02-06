@@ -57,7 +57,7 @@ public class WebBrowserStyleInfoImpl implements IWebBrowserStyleInfo {
 		try {
 			base = new URL(browser.getURL());
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		while (tmpN != null) {
 			if (tmpN instanceof IElementEx) {

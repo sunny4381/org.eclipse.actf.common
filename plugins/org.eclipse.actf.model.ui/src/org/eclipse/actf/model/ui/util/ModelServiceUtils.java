@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.model.ui.util;
 
+import org.eclipse.actf.model.internal.ui.WebBrowserUtilForACTF;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.editor.DummyEditorInput;
@@ -264,7 +265,7 @@ public class ModelServiceUtils {
 
 			IEditorReference[] editors = activePage.getEditorReferences();
 			for (int i = 0; i < editors.length; i++) {
-				System.out.println(editors[i].getId());
+				DebugPrintUtil.devOrDebugPrintln(editors[i].getId());
 				if (editors[i].getId().equals(id)) {
 					editor = editors[i].getEditor(false);
 					if (editor != null) {
@@ -305,6 +306,22 @@ public class ModelServiceUtils {
 		IModelServiceHolder holder = getActiveModelServiceHolder();
 		if (holder != null) {
 			return (holder.getModelService());
+		}
+		return null;
+	}
+
+	/**
+	 * Try to open the same URL of the current active WebBrowserEditor by the
+	 * ACTF Browser.
+	 * 
+	 * @return {@link IEditorPart} implements {@link IModelServiceHolder}, or
+	 *         null if not available
+	 */
+	public static IEditorPart reopenInACTFBrowser() {
+		IEditorPart editor = PlatformUIUtil.getActiveEditor();
+		String url = WebBrowserUtilForACTF.getUrl(editor);
+		if (url != null) {
+			return ModelServiceUtils.launch(url);
 		}
 		return null;
 	}
