@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * Copyright (c) 2007, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,7 +97,6 @@ public class Mediator {
 
 	private void initPage(IWorkbenchPage page) {
 		if (pageSet.add(page)) {
-			System.out.println("init: "+page);
 			IViewReference[] views = page.getViewReferences();
 			IViewPart tmpViewPart;
 			for (int i = 0; i < views.length; i++) {
@@ -136,7 +135,6 @@ public class Mediator {
 						mediatorEventLisnterSet
 								.remove((IMediatorEventListener) part);
 					}
-					System.out.println("part closed: " + part);
 				}
 
 				@Override
@@ -180,16 +178,13 @@ public class Mediator {
 		activeWindow.addPageListener(new IPageListener() {
 
 			public void pageActivated(IWorkbenchPage page) {
-				System.out.println("active: " + page);
 			}
 
 			public void pageClosed(IWorkbenchPage page) {
-				System.out.println("close: " + page);
 				pageSet.remove(page);
 			}
 
 			public void pageOpened(IWorkbenchPage page) {
-				System.out.println("open: " + page);
 				initPage(page);
 			}
 
