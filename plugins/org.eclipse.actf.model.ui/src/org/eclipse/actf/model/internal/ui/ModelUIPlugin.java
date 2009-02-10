@@ -25,7 +25,7 @@ public class ModelUIPlugin extends AbstractUIPlugin {
 
 	// The shared instance
 	private static ModelUIPlugin plugin;
-	
+
 	/**
 	 * The constructor
 	 */
@@ -34,7 +34,10 @@ public class ModelUIPlugin extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
@@ -43,7 +46,10 @@ public class ModelUIPlugin extends AbstractUIPlugin {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	 * 
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
 	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin.getPreferenceStore().setValue(
@@ -54,13 +60,13 @@ public class ModelUIPlugin extends AbstractUIPlugin {
 
 	/**
 	 * Returns the shared instance
-	 *
+	 * 
 	 * @return the shared instance
 	 */
 	public static ModelUIPlugin getDefault() {
 		return plugin;
 	}
-	
+
 	/**
 	 * Returns an image descriptor for the image file at the given plug-in
 	 * relative path.
@@ -70,9 +76,7 @@ public class ModelUIPlugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin(
-				PLUGIN_ID, path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
-
 
 }

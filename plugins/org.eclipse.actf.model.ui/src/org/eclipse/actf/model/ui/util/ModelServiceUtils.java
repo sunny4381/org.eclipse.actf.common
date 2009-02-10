@@ -57,14 +57,14 @@ public class ModelServiceUtils {
 
 			IEditorReference[] editorRefs = activePage.getEditorReferences();
 			for (int i = 0; i < editorRefs.length; i++) {
-				IWorkbenchPart part = editorRefs[i].getPart(false);
+				IEditorPart part = editorRefs[i].getEditor(false);
 				if (part instanceof IModelServiceHolder) {
 					IModelService modelService = ((IModelServiceHolder) part)
 							.getModelService();
 					if (targetUrl.equals(modelService.getURL())) {
 						activePage.activate(part);
 						// reload?
-						return null;
+						return part;
 					}
 				}
 			}
@@ -318,8 +318,8 @@ public class ModelServiceUtils {
 	 *         null if not available
 	 */
 	public static IEditorPart reopenInACTFBrowser() {
-		IEditorPart editor = PlatformUIUtil.getActiveEditor();
-		String url = WebBrowserUtilForACTF.getUrl(editor);
+		String url = WebBrowserUtilForACTF.getUrl(PlatformUIUtil
+				.getActiveEditor());
 		if (url != null) {
 			return ModelServiceUtils.launch(url);
 		}

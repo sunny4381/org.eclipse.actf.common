@@ -17,14 +17,15 @@ import org.eclipse.ui.IEditorPart;
 
 public class WebBrowserUtilForACTF {
 
-	private static final String GET_URL_METHOD = "getURL";
+	private static final String BROWSER_EDITOR_GET_URL_METHOD = "getURL";
 	private static final String BROWSER_EDITOR_ID = "org.eclipse.ui.browser.editor";
 	private static final String BROWSER_VIEWER_CLASS = "org.eclipse.ui.internal.browser.BrowserViewer";
 
-	//need to ask swt team to provide APIs
-	
+	// need to ask swt team to provide APIs
+
 	public static String getUrl(IEditorPart editor) {
 		String url = null;
+
 		if (editor != null
 				&& BROWSER_EDITOR_ID.equals(editor.getEditorSite().getId())) {
 			try {
@@ -34,7 +35,7 @@ public class WebBrowserUtilForACTF {
 						field.setAccessible(true);
 						Object view = field.get(editor);
 						Method getURL = view.getClass().getMethod(
-								GET_URL_METHOD, new Class[] {});
+								BROWSER_EDITOR_GET_URL_METHOD, new Class[] {});
 						url = (String) getURL.invoke(view, new Object[] {});
 						field.setAccessible(false);
 					}
@@ -44,4 +45,5 @@ public class WebBrowserUtilForACTF {
 		}
 		return url;
 	}
+
 }
