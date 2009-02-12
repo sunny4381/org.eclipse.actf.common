@@ -11,8 +11,10 @@
 
 package org.eclipse.actf.mediator;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.ui.util.AbstractPartListener;
@@ -45,7 +47,8 @@ public class Mediator {
 
 	private HashSet<IWorkbenchPage> pageSet = new HashSet<IWorkbenchPage>();
 
-	private HashSet<IMediatorEventListener> mediatorEventLisnterSet = new HashSet<IMediatorEventListener>();
+	private Set<IMediatorEventListener> mediatorEventLisnterSet = Collections
+			.synchronizedSet(new HashSet<IMediatorEventListener>());
 
 	/**
 	 * Gets Mediator instance.
@@ -174,7 +177,7 @@ public class Mediator {
 
 	private void init() {
 		IWorkbenchWindow activeWindow = PlatformUIUtil.getActiveWindow();
-		
+
 		activeWindow.addPageListener(new IPageListener() {
 
 			public void pageActivated(IWorkbenchPage page) {
@@ -190,7 +193,7 @@ public class Mediator {
 
 		});
 		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
-		if(activePage!=null){
+		if (activePage != null) {
 			initPage(activePage);
 		}
 
@@ -217,25 +220,25 @@ public class Mediator {
 		return mediatorEventLisnterSet.remove(listener);
 	}
 
-	private synchronized void modelserviceChanged(MediatorEvent event) {
+	private void modelserviceChanged(MediatorEvent event) {
 		for (IMediatorEventListener i : mediatorEventLisnterSet) {
 			i.modelserviceChanged(event);
 		}
 	}
 
-	private synchronized void modelserviceInputChanged(MediatorEvent event) {
+	private void modelserviceInputChanged(MediatorEvent event) {
 		for (IMediatorEventListener i : mediatorEventLisnterSet) {
 			i.modelserviceInputChanged(event);
 		}
 	}
 
-	private synchronized void reportChanged(MediatorEvent event) {
+	private void reportChanged(MediatorEvent event) {
 		for (IMediatorEventListener i : mediatorEventLisnterSet) {
 			i.reportChanged(event);
 		}
 	}
 
-	private synchronized void reporterViewChanged(MediatorEvent event) {
+	private void reporterViewChanged(MediatorEvent event) {
 		for (IMediatorEventListener i : mediatorEventLisnterSet) {
 			i.reportGeneratorChanged(event);
 		}
