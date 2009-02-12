@@ -105,8 +105,7 @@ public class Mediator {
 			for (int i = 0; i < views.length; i++) {
 				if ((tmpViewPart = views[i].getView(false)) != null) {
 					if (tmpViewPart instanceof IMediatorEventListener) {
-						mediatorEventLisnterSet
-								.add((IMediatorEventListener) tmpViewPart);
+						addMediatorEventListener((IMediatorEventListener) tmpViewPart);
 					}
 				}
 			}
@@ -135,8 +134,7 @@ public class Mediator {
 				public void partClosed(IWorkbenchPartReference partRef) {
 					IWorkbenchPart part = partRef.getPart(false);
 					if (part instanceof IMediatorEventListener) {
-						mediatorEventLisnterSet
-								.remove((IMediatorEventListener) part);
+						removeMediatorEventListener((IMediatorEventListener) part);
 					}
 				}
 
@@ -150,10 +148,9 @@ public class Mediator {
 									Mediator.this, currentModelServiceHolder,
 									curRepoter, getReport(curRepoter)));
 						}
-						mediatorEventLisnterSet.add(viewer);
+						addMediatorEventListener(viewer);
 					} else if (part instanceof IMediatorEventListener) {
-						mediatorEventLisnterSet
-								.add((IMediatorEventListener) part);
+						addMediatorEventListener((IMediatorEventListener) part);
 					}
 				}
 
@@ -205,7 +202,8 @@ public class Mediator {
 	 * @param listener
 	 *            the listener to register
 	 */
-	public void addMediatorEventListener(IMediatorEventListener listener) {
+	public synchronized void addMediatorEventListener(
+			IMediatorEventListener listener) {
 		mediatorEventLisnterSet.add(listener);
 	}
 
@@ -216,30 +214,39 @@ public class Mediator {
 	 *            the listener to remove
 	 * @return true if the listener is removed from the Mediator
 	 */
-	public boolean removeMediatorEventListener(IMediatorEventListener listener) {
+	public synchronized boolean removeMediatorEventListener(
+			IMediatorEventListener listener) {
 		return mediatorEventLisnterSet.remove(listener);
 	}
 
-	private void modelserviceChanged(MediatorEvent event) {
-		for (IMediatorEventListener i : mediatorEventLisnterSet) {
+	private synchronized void modelserviceChanged(MediatorEvent event) {
+		for (IMediatorEventListener i : mediatorEventLisnterSet
+				.toArray(new IMediatorEventListener[mediatorEventLisnterSet
+						.size()])) {
 			i.modelserviceChanged(event);
 		}
 	}
 
-	private void modelserviceInputChanged(MediatorEvent event) {
-		for (IMediatorEventListener i : mediatorEventLisnterSet) {
+	private synchronized void modelserviceInputChanged(MediatorEvent event) {
+		for (IMediatorEventListener i : mediatorEventLisnterSet
+				.toArray(new IMediatorEventListener[mediatorEventLisnterSet
+						.size()])) {
 			i.modelserviceInputChanged(event);
 		}
 	}
 
-	private void reportChanged(MediatorEvent event) {
-		for (IMediatorEventListener i : mediatorEventLisnterSet) {
+	private synchronized void reportChanged(MediatorEvent event) {
+		for (IMediatorEventListener i : mediatorEventLisnterSet
+				.toArray(new IMediatorEventListener[mediatorEventLisnterSet
+						.size()])) {
 			i.reportChanged(event);
 		}
 	}
 
-	private void reporterViewChanged(MediatorEvent event) {
-		for (IMediatorEventListener i : mediatorEventLisnterSet) {
+	private synchronized void reporterViewChanged(MediatorEvent event) {
+		for (IMediatorEventListener i : mediatorEventLisnterSet
+				.toArray(new IMediatorEventListener[mediatorEventLisnterSet
+						.size()])) {
 			i.reportGeneratorChanged(event);
 		}
 	}
