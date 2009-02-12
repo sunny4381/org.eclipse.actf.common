@@ -217,25 +217,25 @@ public class Mediator {
 		return mediatorEventLisnterSet.remove(listener);
 	}
 
-	private void modelserviceChanged(MediatorEvent event) {
+	private synchronized void modelserviceChanged(MediatorEvent event) {
 		for (IMediatorEventListener i : mediatorEventLisnterSet) {
 			i.modelserviceChanged(event);
 		}
 	}
 
-	private void modelserviceInputChanged(MediatorEvent event) {
+	private synchronized void modelserviceInputChanged(MediatorEvent event) {
 		for (IMediatorEventListener i : mediatorEventLisnterSet) {
 			i.modelserviceInputChanged(event);
 		}
 	}
 
-	private void reportChanged(MediatorEvent event) {
+	private synchronized void reportChanged(MediatorEvent event) {
 		for (IMediatorEventListener i : mediatorEventLisnterSet) {
 			i.reportChanged(event);
 		}
 	}
 
-	private void reporterViewChanged(MediatorEvent event) {
+	private synchronized void reporterViewChanged(MediatorEvent event) {
 		for (IMediatorEventListener i : mediatorEventLisnterSet) {
 			i.reportGeneratorChanged(event);
 		}
