@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.eclipse.actf.core.config.IConfiguration;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.util.logging.LoggingUtil;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
@@ -38,7 +39,7 @@ public class FileUtils {
 	/**
 	 * Line separator. (System.getProperty("line.separator"))
 	 */
-	public static final String LINE_SEP = System.getProperty("line.separator");
+	public static final String LINE_SEP = System.getProperty("line.separator"); //$NON-NLS-1$
 
 	private static final int BUFFER_SIZE = 8192;
 
@@ -53,7 +54,7 @@ public class FileUtils {
 
 	// FormFilter
 	private static FilenameFilter formFilter(final String fileDesc) {
-		final String PUNCS = ".-%^$!~";
+		final String PUNCS = ".-%^$!~"; //$NON-NLS-1$
 		StringBuffer descBuff = new StringBuffer(fileDesc);
 		for (int c = 0; c < descBuff.length(); ++c) {
 			if (descBuff.charAt(c) == '*') {
@@ -78,14 +79,14 @@ public class FileUtils {
 	} // formFilter
 
 	/**
-	 * Replace "%20" in URL string with white space " "
+	 * Replace white space " " in URL string with "%20"
 	 * 
 	 * @param target
 	 *            the target URL String
 	 * @return replaced URL string
 	 */
 	public static String replaceWhiteSpaceInUrl(String target) {
-		return target.replaceAll(" ", "%20");
+		return target.replaceAll(" ", "%20");  //$NON-NLS-1$//$NON-NLS-2$
 	}
 
 	/**
@@ -343,7 +344,7 @@ public class FileUtils {
 	public static File[] findFiles(String fileDesc, File baseDir) {
 		List<File> fileList = new LinkedList<File>();
 		findFiles(formFilter(fileDesc), baseDir, fileList);
-		return (File[]) fileList.toArray(new File[fileList.size()]);
+		return fileList.toArray(new File[fileList.size()]);
 	}
 
 	/**
@@ -380,7 +381,7 @@ public class FileUtils {
 		File testDir = new File(path);
 		if ((!testDir.isDirectory() || !testDir.canWrite())
 				&& !testDir.mkdirs()) {
-			System.err.println(path + " is not available.");
+			DebugPrintUtil.devOrDebugPrintln(path + " is not available."); //$NON-NLS-1$
 			return false;
 		}
 		return true;
@@ -394,7 +395,7 @@ public class FileUtils {
 	 * @return a String representing the name of the directory
 	 */
 	public static String getActfTempDir() {
-		String tempDir = System.getProperty("java.io.tmpdir");
+		String tempDir = System.getProperty("java.io.tmpdir"); //$NON-NLS-1$
 		if (tempDir != null) {
 			if (!tempDir.endsWith(File.separator)) {
 				tempDir += File.separator;

@@ -18,11 +18,11 @@ import org.w3c.dom.Node;
  */
 public class XPathCreator {
 
-	private static final String TEXT_NODE_NAME = "#text";
-	private static final String TEXT_NODE = "text()";
-	private static final String RIGHT_BRACKET = "]";
-	private static final String LEFT_BRACKET = "[";
-	private static final String SLASH = "/";
+	private static final String TEXT_NODE_NAME = "#text"; //$NON-NLS-1$
+	private static final String TEXT_NODE = "text()"; //$NON-NLS-1$
+	private static final String RIGHT_BRACKET = "]"; //$NON-NLS-1$
+	private static final String LEFT_BRACKET = "["; //$NON-NLS-1$
+	private static final String SLASH = "/"; //$NON-NLS-1$
 
 	/**
 	 * Return XPath (child path sequence) of the target Node.

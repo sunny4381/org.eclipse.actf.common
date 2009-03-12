@@ -21,7 +21,7 @@ public abstract class XPathServiceFactory {
 	private static XPathServiceFactory enable(String name) {
 		try {
 			Class clazz = Class.forName(name);
-			Method newInstanceMethod = clazz.getMethod("newInstance");
+			Method newInstanceMethod = clazz.getMethod("newInstance"); //$NON-NLS-1$
 			Object instance = newInstanceMethod.invoke(null);
 			if (instance instanceof XPathServiceFactory) {
 				return (XPathServiceFactory) instance;
@@ -32,8 +32,8 @@ public abstract class XPathServiceFactory {
 	}
 
 	static {
-		setFactory(enable("org.eclipse.actf.util.xpath.jaxp.XPathServiceFactoryImpl"));
-		setFactory(enable("org.eclipse.actf.util.jxpath.XPathServiceFactoryImpl"));
+		setFactory(enable("org.eclipse.actf.util.xpath.jaxp.XPathServiceFactoryImpl")); //$NON-NLS-1$
+		setFactory(enable("org.eclipse.actf.util.jxpath.XPathServiceFactoryImpl")); //$NON-NLS-1$
 	}
 	private static XPathServiceFactory factory;
 

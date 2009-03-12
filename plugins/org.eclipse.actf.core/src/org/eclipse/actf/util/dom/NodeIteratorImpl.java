@@ -51,7 +51,7 @@ public class NodeIteratorImpl implements NodeIterator {
 			boolean entityReferenceExpansion) throws DOMException {
 		if (null == root) {
 			throw new DOMException(DOMException.NOT_FOUND_ERR,
-					"Root can't be a null.");
+					"Root can't be a null."); //$NON-NLS-1$
 		}
 		this.root = root;
 		this.whatToShow = whatToShow;
@@ -137,7 +137,7 @@ public class NodeIteratorImpl implements NodeIterator {
 		if (isDetach) {
 			throw new DOMException(DOMException.INVALID_STATE_ERR, this
 					.getClass().toString()
-					+ " is detached.");
+					+ " is detached."); //$NON-NLS-1$
 		}
 
 		if (null == current) {// first call
@@ -173,7 +173,7 @@ public class NodeIteratorImpl implements NodeIterator {
 		if (isDetach) {
 			throw new DOMException(DOMException.INVALID_STATE_ERR, this
 					.getClass().toString()
-					+ " is detached.");
+					+ " is detached."); //$NON-NLS-1$
 		}
 
 		if (null == current) {

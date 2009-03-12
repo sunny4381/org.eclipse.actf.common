@@ -27,6 +27,7 @@ import org.w3c.dom.traversal.NodeFilter;
 /**
  * Utility class to print out DOM
  */
+@SuppressWarnings("nls")
 public class DomPrintUtil {
 
 	/**

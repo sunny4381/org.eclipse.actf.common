@@ -11,7 +11,6 @@
 package org.eclipse.actf.util;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Vector;
@@ -53,15 +52,15 @@ public class JapaneseEncodingDetector {
 	private static final int LATIN1 = 5;
 
 	// TODO SJIS, EUC_JP, ISO2022JP
-	private static final String JIS = "ISO-2022-JP";
+	private static final String JIS = "ISO-2022-JP"; //$NON-NLS-1$
 
-	private static final String EUC = "EUC-JP";
+	private static final String EUC = "EUC-JP"; //$NON-NLS-1$
 
-	private static final String SJIS = "Shift_JIS";
+	private static final String SJIS = "Shift_JIS"; //$NON-NLS-1$
 
-	private static final String UTF_8 = "UTF8";
+	private static final String UTF_8 = "UTF8"; //$NON-NLS-1$
 
-	private static final String ISO_8859_1 = "ISO-8859-1";
+	private static final String ISO_8859_1 = "ISO-8859-1"; //$NON-NLS-1$
 
 	// JIS escape sequence
 	//
@@ -238,7 +237,7 @@ public class JapaneseEncodingDetector {
 	private void removeKisyuIzonEUC() {
 		for (int i = eucRemoveV.size() - 1; i > -1; i--) {
 			byte bytebuf[] = new byte[length - 2];
-			int index = ((Integer) eucRemoveV.get(i)).intValue();
+			int index = eucRemoveV.get(i).intValue();
 			System.arraycopy(buf, 0, bytebuf, 0, index);
 			System
 					.arraycopy(buf, index + 2, bytebuf, index, length - index
@@ -641,20 +640,16 @@ public class JapaneseEncodingDetector {
 		return (U_PAYLOAD_BEGIN <= c && c <= U_PAYLOAD_END);
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		String target = "tmp/jed.txt";
-
-		try {
-			InputStream is = new FileInputStream(target);
-			JapaneseEncodingDetector JED = new JapaneseEncodingDetector(is);
-			System.out.println(JED.detect());
-			// JED.detect2();
-		} catch (Exception e2) {
-			e2.printStackTrace();
-		}
-	}
+	// for test
+	// public static void main(String args[]) {
+	// try {
+	//			InputStream is = new FileInputStream("tmp/jed.txt"); //$NON-NLS-1$
+	// JapaneseEncodingDetector JED = new JapaneseEncodingDetector(is);
+	// System.out.println(JED.detect());
+	// // JED.detect2();
+	// } catch (Exception e2) {
+	// e2.printStackTrace();
+	// }
+	// }
 
 }

@@ -49,7 +49,7 @@ public class TreeWalkerImpl implements TreeWalker {
 			boolean entityReferenceExpansion) throws DOMException {
 		if (null == root) {
 			throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
-					"Root can't be a null.");
+					"Root can't be a null."); //$NON-NLS-1$
 		}
 		this.walkerRoot = root;
 		this.current = root;
@@ -360,12 +360,8 @@ public class TreeWalkerImpl implements TreeWalker {
 			tmpN = tmpC;
 			tmpC = getVisibleLastChild(tmpN);
 		}
-		if (null != tmpN) {
-			current = tmpN;
-			return tmpN;
-		}
-
-		return null;
+		current = tmpN;
+		return tmpN;
 	}
 
 	/*
@@ -389,7 +385,7 @@ public class TreeWalkerImpl implements TreeWalker {
 	public void setCurrentNode(Node arg0) throws DOMException {
 		if (arg0 == null) {
 			throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
-					"Current node can't be null.");
+					"Current node can't be null."); //$NON-NLS-1$
 		}
 		current = arg0;
 	}
