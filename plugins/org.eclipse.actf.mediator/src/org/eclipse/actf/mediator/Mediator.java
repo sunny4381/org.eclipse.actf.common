@@ -92,7 +92,7 @@ public class Mediator {
 	private IACTFReport getEvaluationResult(IModelServiceHolder holder,
 			IACTFReportGenerator reporter) {
 		if (reportMap.containsKey(reporter)) {
-			return ((IACTFReport) reportMap.get(reporter));
+			return reportMap.get(reporter);
 		}
 		return null;
 		// return (new EvaluationResultImpl());

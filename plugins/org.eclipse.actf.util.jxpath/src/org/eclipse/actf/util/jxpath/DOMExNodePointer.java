@@ -66,7 +66,7 @@ public class DOMExNodePointer extends DOMNodePointer {
             NodeNameTest nnt = (NodeNameTest) test;
             String nsTest = nnt.getNamespaceURI();
             if (nsTest == null) {
-                test = new NodeNameTest(nnt.getNodeName(), "");
+                test = new NodeNameTest(nnt.getNodeName(), ""); //$NON-NLS-1$
             }
         }
         return super.testNode(test);
@@ -115,7 +115,7 @@ public class DOMExNodePointer extends DOMNodePointer {
             NodeNameTest nnt = (NodeNameTest) test;
             String nsTest = nnt.getNamespaceURI();
             if (nsTest == null) {
-                test = new NodeNameTest(nnt.getNodeName(), "");
+                test = new NodeNameTest(nnt.getNodeName(), ""); //$NON-NLS-1$
             }
         }
         return new DOMExNodeIterator(this, test, reverse, startWith);
