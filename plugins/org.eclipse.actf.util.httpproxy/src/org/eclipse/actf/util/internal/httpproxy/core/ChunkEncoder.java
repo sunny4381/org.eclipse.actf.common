@@ -100,11 +100,11 @@ public class ChunkEncoder extends FilterOutputStream {
             StringBuffer sb = new StringBuffer();
             sb.append('[');
             sb.append(Integer.toString(i));
-            sb.append("] ");
+            sb.append("] "); //$NON-NLS-1$
             //sb.append("0x").append(Integer.toString(b >> 8, 16)).append(Integer.toString(b & 0xf, 16));
             sb.append(Integer.toString(b));
             if (Character.isLetterOrDigit((char) b)) {
-                sb.append(" '").append((char) b).append('\'');
+                sb.append(" '").append((char) b).append('\''); //$NON-NLS-1$
             }
             String line = sb.toString();
             System.out.println(line);
@@ -120,7 +120,7 @@ public class ChunkEncoder extends FilterOutputStream {
             StringBuffer sb = new StringBuffer();
             sb.append('[');
             sb.append(Integer.toString(i));
-            sb.append("] ");
+            sb.append("] "); //$NON-NLS-1$
             sb.append(Integer.toString(b));
             String line = sb.toString();
             System.out.println(line);

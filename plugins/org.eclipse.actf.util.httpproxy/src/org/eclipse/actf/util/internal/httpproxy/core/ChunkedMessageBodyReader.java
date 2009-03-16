@@ -27,7 +27,7 @@ public class ChunkedMessageBodyReader extends HTTPReader {
     
     public int readChunkedMessage(long timeout, OutputStream out, HTTPMessage msg) throws IOException, TimeoutException {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("readChunkedMessage: timeout=" + timeout);
+            LOGGER.debug("readChunkedMessage: timeout=" + timeout); //$NON-NLS-1$
         }
         int totalChunkSize = readChunkedMessageBody(timeout, out);
 
@@ -38,7 +38,7 @@ public class ChunkedMessageBodyReader extends HTTPReader {
             header = readHeader(timeout, buf);
         }
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("readChunkedMessage: totalChunkSize=" + totalChunkSize);
+            LOGGER.debug("readChunkedMessage: totalChunkSize=" + totalChunkSize); //$NON-NLS-1$
         }
         return totalChunkSize;
     }

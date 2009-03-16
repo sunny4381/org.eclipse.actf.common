@@ -18,7 +18,7 @@ import org.eclipse.actf.util.internal.httpproxy.core.ServerConnection;
 
 public class HTTPServerConnection extends ServerConnection {
     private HTTPServerConnection(String host, int port, HTTPRequestDispatcher dispatcher, int retryTime, int timeout) {
-        super("[id:" + dispatcher.getDispatcherId() + "] HTTPServerConnection", host, port, 0, 0, dispatcher,
+        super("[id:" + dispatcher.getDispatcherId() + "] HTTPServerConnection", host, port, 0, 0, dispatcher,  //$NON-NLS-1$//$NON-NLS-2$
                 retryTime, timeout);
     }
 

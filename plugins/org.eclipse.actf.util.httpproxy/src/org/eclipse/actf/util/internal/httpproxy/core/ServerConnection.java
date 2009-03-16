@@ -22,6 +22,7 @@ import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
 import org.eclipse.actf.util.httpproxy.core.TimeoutException;
 import org.eclipse.actf.util.httpproxy.util.Logger;
 
+@SuppressWarnings("nls")
 public abstract class ServerConnection implements Runnable {
 	private static final Logger LOGGER = Logger
 			.getLogger(ServerConnection.class);
@@ -33,7 +34,7 @@ public abstract class ServerConnection implements Runnable {
 
 		private int fPort;
 
-//		private int fSOTimeout;
+		// private int fSOTimeout;
 
 		private boolean isValid;
 
@@ -41,7 +42,7 @@ public abstract class ServerConnection implements Runnable {
 				ServerConnection socketReceiver) {
 			fHost = host;
 			fPort = port;
-//			fSOTimeout = soTimeout;
+			// fSOTimeout = soTimeout;
 			fSocketReceiver = socketReceiver;
 			isValid = true;
 		}
@@ -193,7 +194,7 @@ public abstract class ServerConnection implements Runnable {
 
 	private final int timeout;
 
-//	private long fActivatedTime;
+	// private long fActivatedTime;
 
 	private Thread fThread;
 
@@ -207,7 +208,7 @@ public abstract class ServerConnection implements Runnable {
 
 	private Socket fSocket = null;
 
-//	private IOException fSocketException = null;
+	// private IOException fSocketException = null;
 
 	private InputStream fInputStream = null;
 
@@ -267,18 +268,18 @@ public abstract class ServerConnection implements Runnable {
 		}
 		DEBUG("activate");
 		setStat(STAT_CONNECTING);
-//		fActivatedTime = System.currentTimeMillis();
+		// fActivatedTime = System.currentTimeMillis();
 		fMessageSerial = 0;
 		setTimeout(false);
 		fThread = new Thread(this, "ServerConnection-" + name);
 		fThread.start();
 
 		fSocket = null;
-//		fSocketException = null;
+		// fSocketException = null;
 		fOutputStream = null;
 		fReader = null;
 
-		fSocketOpener = new SocketOpener(host, port, (int) timeout * 2, this);
+		fSocketOpener = new SocketOpener(host, port, timeout * 2, this);
 		fSocketOpenerThread = new Thread(fSocketOpener, "SocketOpener-"
 				+ this.toString());
 		fSocketOpenerThread.start();
@@ -344,7 +345,7 @@ public abstract class ServerConnection implements Runnable {
 		fOutputStream = null;
 		fReader = null;
 
-//		fActivatedTime = 0;
+		// fActivatedTime = 0;
 		fMessageSerial = 0;
 		setTimeout(false);
 		setStat(STAT_CLOSED);
@@ -357,7 +358,7 @@ public abstract class ServerConnection implements Runnable {
 		}
 		DEBUG("setSocket");
 		fSocket = sock;
-		//fSocketException = null;
+		// fSocketException = null;
 		fOutputStream = new BufferedOutputStream(
 				new SocketTimeoutRetryOutputStream(out));
 		fInputStream = in;
@@ -369,7 +370,7 @@ public abstract class ServerConnection implements Runnable {
 		WARNING("setSocketException: failed to create a socket (IOException): "
 				+ e.getMessage());
 		fSocket = null;
-		//fSocketException = e;
+		// fSocketException = e;
 		fOutputStream = null;
 		fReader = null;
 		deactivate();

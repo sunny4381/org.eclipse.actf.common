@@ -4,7 +4,6 @@ Bundle-Name: Eclipse ACTF Httpproxy Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.util.httpproxy;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Require-Bundle: org.eclipse.core.runtime
-Eclipse-LazyStart: false
 Export-Package: org.eclipse.actf.util.httpproxy,
  org.eclipse.actf.util.httpproxy.core,
  org.eclipse.actf.util.httpproxy.proxy,

@@ -35,7 +35,7 @@ public abstract class HTTPMessageReader extends HTTPReader {
         try {
             readMessage(msg, 0, isBodyEmpty);
         } catch (TimeoutException e) {
-            LOGGER.fatal("Impossible exception", e);
+            LOGGER.fatal("Impossible exception", e); //$NON-NLS-1$
             System.exit(1);
         }
     }
@@ -43,7 +43,7 @@ public abstract class HTTPMessageReader extends HTTPReader {
     public boolean readMessage(HTTPMessage msg, long timeout, boolean isBodyEmpty)
         throws IOException, TimeoutException {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("read: isBodyEmpty=" + isBodyEmpty);
+            LOGGER.debug("read: isBodyEmpty=" + isBodyEmpty); //$NON-NLS-1$
         }
         // Read the first line
         readFirstLine(msg, timeout);
@@ -59,7 +59,7 @@ public abstract class HTTPMessageReader extends HTTPReader {
             if (LOGGER.isDebugEnabled()) {
                 String name = new String(header.getName());
                 String value = new String(header.getValue());
-                LOGGER.debug(name + ": " + value);
+                LOGGER.debug(name + ": " + value); //$NON-NLS-1$
             }
 
             if (header.isFieldNameEqualsTo(IHTTPHeader.CONTENT_LENGTH_A)) {
@@ -68,7 +68,7 @@ public abstract class HTTPMessageReader extends HTTPReader {
                     try {
                         contentLength = Integer.parseInt(v);
                     } catch (NumberFormatException e) {
-                        LOGGER.warning("Illegal header fieald (CONTENT_LENGTH) ignored: " + v);
+                        LOGGER.warning("Illegal header fieald (CONTENT_LENGTH) ignored: " + v); //$NON-NLS-1$
                     }
                 }
             } else if (header.isFieldNameEqualsTo(IHTTPHeader.TRANSFER_ENCODING_A) 
@@ -81,7 +81,7 @@ public abstract class HTTPMessageReader extends HTTPReader {
         isBodyEmpty |= msg.isBodyEmpty();
 
         if (isBodyEmpty) {
-            LOGGER.debug("The message body is empty.");
+            LOGGER.debug("The message body is empty."); //$NON-NLS-1$
         } else {
             IMessageBody msgBody;
             if (msg.isChunkedEncoding()) {

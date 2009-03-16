@@ -62,7 +62,7 @@ public class HTTPProxyConnection extends ClientConnection implements IHTTPProxyC
                      long keepAlive,
                      int initServerGroupIdx) throws IOException {
         // setConnectionName("HTTPProxyConnection-" + clientSock.getPort());
-        setConnectionName("[id:" + clientSock.getPort() + "] HTTPProxyConnection");
+        setConnectionName("[id:" + clientSock.getPort() + "] HTTPProxyConnection");  //$NON-NLS-1$//$NON-NLS-2$
         HTTPRequestDispatcher dispatcher = new HTTPRequestDispatcher(this,
                                                                      clientStateManager,
                                                                      clientSock,

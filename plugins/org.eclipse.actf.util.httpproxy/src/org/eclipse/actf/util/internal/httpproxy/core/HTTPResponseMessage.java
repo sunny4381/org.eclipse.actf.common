@@ -27,8 +27,8 @@ public abstract class HTTPResponseMessage extends HTTPMessage implements IHTTPRe
     //                  CRLF
     //                  [ message-body ]
     // Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF
-    private static final byte[] STATUS_NO_CONTENT_A = "204".getBytes();
-    private static final byte[] STATUS_NOT_MODIFIED_A = "304".getBytes();
+    private static final byte[] STATUS_NO_CONTENT_A = "204".getBytes(); //$NON-NLS-1$
+    private static final byte[] STATUS_NOT_MODIFIED_A = "304".getBytes(); //$NON-NLS-1$
 
     private static final int WRITEBODY_DEFAULT_WAIT_DENOM = 10;
 
@@ -80,7 +80,7 @@ public abstract class HTTPResponseMessage extends HTTPMessage implements IHTTPRe
             long keepAliveTimeout = timeout / WRITEBODY_DEFAULT_WAIT_DENOM;
             if (LOGGER.isDebugEnabled()) {												// DEBUG
                 StringBuffer sb = new StringBuffer();									// DEBUG
-                sb.append("keepAliveTimeout=" + keepAliveTimeout + " ms"); 					// DEBUG
+                sb.append("keepAliveTimeout=" + keepAliveTimeout + " ms"); 					// DEBUG //$NON-NLS-1$ //$NON-NLS-2$
                 LOGGER.debug(sb.toString());											// DEBUG
                 System.out.println(sb.toString()); // DEBUG
             }
@@ -99,7 +99,7 @@ public abstract class HTTPResponseMessage extends HTTPMessage implements IHTTPRe
             }
             if (LOGGER.isDebugEnabled()) {												// DEBUG
                 StringBuffer sb = new StringBuffer();									// DEBUG
-                sb.append("elapsed " + (System.currentTimeMillis() - start) + " ms"); 		// DEBUG
+                sb.append("elapsed " + (System.currentTimeMillis() - start) + " ms"); 		// DEBUG //$NON-NLS-1$ //$NON-NLS-2$
                 LOGGER.debug(sb.toString());											// DEBUG
                 System.out.println(sb.toString()); // DEBUG
             }																			// DEBUG

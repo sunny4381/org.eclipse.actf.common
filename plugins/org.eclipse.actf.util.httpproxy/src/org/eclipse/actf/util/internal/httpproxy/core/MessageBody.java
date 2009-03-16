@@ -76,7 +76,8 @@ public class MessageBody implements IMessageBody {
         return fMessageBodySocketTimeoutRetry;
     }
 
-    public String toString() {
+    @SuppressWarnings("nls")
+	public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("MessageBody[");
         if (isChunkedEncoding) {

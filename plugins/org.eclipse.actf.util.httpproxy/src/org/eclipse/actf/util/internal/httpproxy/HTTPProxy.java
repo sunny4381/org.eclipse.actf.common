@@ -105,6 +105,7 @@ public class HTTPProxy implements ClientConnectionListener, IHTTPProxy {
 		return localServerFactory;
 	}
 
+	@SuppressWarnings("nls")
 	public HTTPProxy(ProxyConfig config, ExternalProxyConfig externalProxyConfig)
 			throws IOException {
 		Logger.setConfigPropertyName("WaXcoding.conf.logging");
@@ -151,6 +152,7 @@ public class HTTPProxy implements ClientConnectionListener, IHTTPProxy {
 
 	private boolean exit = false;
 
+	@SuppressWarnings("nls")
 	private void startProxy() {
 		LOGGER.info("Started WaXcoding, Listening port "
 				+ fServerSock.getLocalPort());
@@ -184,7 +186,7 @@ public class HTTPProxy implements ClientConnectionListener, IHTTPProxy {
 	}
 
 	private void cleanup() {
-		LOGGER.info("...done");
+		LOGGER.info("...done"); //$NON-NLS-1$
 	}
 
 	private class ProxyThread extends Thread {
@@ -216,7 +218,7 @@ public class HTTPProxy implements ClientConnectionListener, IHTTPProxy {
 		}
 
 		ProxyThread() {
-			super("ProxyThread");
+			super("ProxyThread"); //$NON-NLS-1$
 			threadExit = false;
 		}
 	}
@@ -245,13 +247,13 @@ public class HTTPProxy implements ClientConnectionListener, IHTTPProxy {
 		proxyThread = null;
 	}
 
-	private static final String USAGE_PARAMS = " <localport>";
+	private static final String USAGE_PARAMS = " <localport>"; //$NON-NLS-1$
 
 	private static void PRINT_USAGE(String msg) {
 		if (msg != null && msg.length() > 0) {
 			System.err.println(msg);
 		}
-		System.err.println("Usage: java " + HTTPProxy.class.getName()
+		System.err.println("Usage: java " + HTTPProxy.class.getName() //$NON-NLS-1$
 				+ USAGE_PARAMS);
 	}
 
@@ -284,7 +286,7 @@ public class HTTPProxy implements ClientConnectionListener, IHTTPProxy {
 			HTTPProxy proxy = new HTTPProxy(config, externalProxyConfig);
 			proxy.startProxy();
 		} catch (IOException e) {
-			System.err.println("Port is in use: " + localport);
+			System.err.println("Port is in use: " + localport); //$NON-NLS-1$
 			System.exit(1);
 		}
 	}

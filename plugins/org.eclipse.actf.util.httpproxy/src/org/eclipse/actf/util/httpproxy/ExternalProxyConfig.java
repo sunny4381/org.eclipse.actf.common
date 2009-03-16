@@ -20,7 +20,7 @@ package org.eclipse.actf.util.httpproxy;
  */
 public class ExternalProxyConfig {
 	private boolean externalProxyFlag = false;
-	private String externalProxyHost = "localhost";
+	private String externalProxyHost = "localhost"; //$NON-NLS-1$
 	private int externalProxyPort = 8080;
 
 	/**

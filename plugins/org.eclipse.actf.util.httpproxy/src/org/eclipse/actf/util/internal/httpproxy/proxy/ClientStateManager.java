@@ -18,7 +18,7 @@ import org.eclipse.actf.util.httpproxy.proxy.IClientStateManager;
 public class ClientStateManager implements IClientStateManager {
 	@SuppressWarnings("unused")
 	private Object key;
-	
+
 	private static HashMap<Object, IClientStateManager> clientStateManagers = new HashMap<Object, IClientStateManager>();
 
 	private HashMap<Object, Object> stateMap;
@@ -27,8 +27,9 @@ public class ClientStateManager implements IClientStateManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.util.httpproxy.proxy.IClientStateManager#put(java.lang.Object,
-	 *      java.lang.Object)
+	 * @see
+	 * org.eclipse.actf.util.httpproxy.proxy.IClientStateManager#put(java.lang
+	 * .Object, java.lang.Object)
 	 */
 	public synchronized void put(Object stateKey, Object stateValue) {
 		stateMap.put(stateKey, stateValue);
@@ -37,7 +38,9 @@ public class ClientStateManager implements IClientStateManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.util.httpproxy.proxy.IClientStateManager#get(java.lang.Object)
+	 * @see
+	 * org.eclipse.actf.util.httpproxy.proxy.IClientStateManager#get(java.lang
+	 * .Object)
 	 */
 	public synchronized Object get(Object stateKey) {
 		return stateMap.get(stateKey);
@@ -49,8 +52,7 @@ public class ClientStateManager implements IClientStateManager {
 	}
 
 	public static IClientStateManager getClientStateManager(Object key) {
-		IClientStateManager csm = (IClientStateManager) clientStateManagers
-				.get(key);
+		IClientStateManager csm = clientStateManagers.get(key);
 		if (csm == null) {
 			csm = new ClientStateManager(key);
 			clientStateManagers.put(key, csm);

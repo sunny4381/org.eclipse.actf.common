@@ -35,7 +35,7 @@ public class Session {
             return;
         }
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("A session started: stat=" + fRequestMsg + ", req=" + req);
+            LOGGER.debug("A session started: stat=" + fRequestMsg + ", req=" + req); //$NON-NLS-1$ //$NON-NLS-2$
         }
         while (fRequestMsg != null) {
             this.wait();
@@ -51,7 +51,7 @@ public class Session {
             return;
         }
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("A session started: stat=" + fRequestMsg + ", req=" + req);
+            LOGGER.debug("A session started: stat=" + fRequestMsg + ", req=" + req); //$NON-NLS-1$ //$NON-NLS-2$
         }
         if (fRequestMsg != null) {
             long deadLine = System.currentTimeMillis() + timeout;
@@ -64,7 +64,7 @@ public class Session {
                 wait = deadLine - System.currentTimeMillis();
             }
             if (fRequestMsg == null) {
-                throw new TimeoutException("Session.start");
+                throw new TimeoutException("Session.start"); //$NON-NLS-1$
             }
         }
         // fRequestMsg == null
@@ -97,7 +97,7 @@ public class Session {
                 wait = deadLine - System.currentTimeMillis();
             }
             if (fResponseMsg == null) {
-                throw new TimeoutException("ResponseSync.get");
+                throw new TimeoutException("ResponseSync.get"); //$NON-NLS-1$
             }
         }
         // fResponseMsg != null
@@ -114,7 +114,7 @@ public class Session {
     synchronized public IHTTPResponseMessage getAndSendResponse(IClientConnection client, long timeout)
         throws InterruptedException, TimeoutException, IOException {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("getAndSendResponse: entrered");
+            LOGGER.debug("getAndSendResponse: entrered"); //$NON-NLS-1$
         }
         long t0 = System.currentTimeMillis();
         IHTTPResponseMessage response = waitResponse(timeout);
@@ -127,12 +127,12 @@ public class Session {
             timeout = 1;
         }
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("getAndSendResponse: got a response");
+            LOGGER.debug("getAndSendResponse: got a response"); //$NON-NLS-1$
         }
         try {
             client.sendResponse(timeout, response);
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("getAndSendResponse: sent a response");
+                LOGGER.debug("getAndSendResponse: sent a response"); //$NON-NLS-1$
             }
         } catch (IOException e) {
             return response;

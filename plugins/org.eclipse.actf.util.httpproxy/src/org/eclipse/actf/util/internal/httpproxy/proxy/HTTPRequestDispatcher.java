@@ -33,6 +33,7 @@ import org.eclipse.actf.util.internal.httpproxy.core.RequestDispatcher;
 import org.eclipse.actf.util.internal.httpproxy.core.ServerConnection;
 import org.eclipse.actf.util.internal.httpproxy.core.Session;
 
+@SuppressWarnings("nls")
 public class HTTPRequestDispatcher extends RequestDispatcher {
 	private static final Logger LOGGER = Logger
 			.getLogger(HTTPRequestDispatcher.class);
@@ -170,7 +171,7 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 			host = ParseURI.parseHost(authority);
 			port = ParseURI.parsePort(authority, HTTP_WELL_KNOWN_PORT);
 
-			//HeaderToAdd header = new HeaderToAdd();
+			// HeaderToAdd header = new HeaderToAdd();
 			// header.init(HTTPHeader.HOST, host);
 			// request.addHeader(header);
 			request.setHeader(IHTTPHeader.HOST_A, host.getBytes());
@@ -413,8 +414,7 @@ public class HTTPRequestDispatcher extends RequestDispatcher {
 		} finally {
 			int len = serverConnectionCache.size();
 			for (int i = 0; i < len; i++) {
-				HTTPServerConnection c = (HTTPServerConnection) serverConnectionCache
-						.get(i);
+				HTTPServerConnection c = serverConnectionCache.get(i);
 				c.deactivate();
 			}
 			DEBUG("RequestDispatcher stopped");

@@ -83,7 +83,7 @@ public abstract class HTTPMessage implements IHTTPMessage {
 
 	final void setOriginalMessageBody(IMessageBody msgBody) {
 		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("setOriginalMessageBody: " + msgBody);
+			LOGGER.debug("setOriginalMessageBody: " + msgBody); //$NON-NLS-1$
 		}
 		updateContentLengthHeader(msgBody);
 		fOriginalMessageBody = msgBody;
@@ -268,6 +268,7 @@ public abstract class HTTPMessage implements IHTTPMessage {
 	 *      org.eclipse.actf.util.httpproxy.core.impl.MessageBody,
 	 *      java.io.OutputStream)
 	 */
+	@SuppressWarnings("nls")
 	public void writeBody(long timeout, IMessageBody msgBody, OutputStream out)
 			throws IOException, TimeoutException {
 		if (msgBody == null) {
@@ -351,8 +352,8 @@ public abstract class HTTPMessage implements IHTTPMessage {
 		return false;
 	}
 
-	private static final byte[] CLOSE_A = "close".getBytes();
-	private static final byte[] KEEP_ALIVE_A = "Keep-Alive".getBytes();
+	private static final byte[] CLOSE_A = "close".getBytes(); //$NON-NLS-1$
+	private static final byte[] KEEP_ALIVE_A = "Keep-Alive".getBytes(); //$NON-NLS-1$
 
 	/*
 	 * (non-Javadoc)
@@ -361,9 +362,9 @@ public abstract class HTTPMessage implements IHTTPMessage {
 	 */
 	public void setConnectionHeader(boolean keepalive) {
 		if (keepalive) {
-			setHeader(IHTTPHeader.CONNECTION_A, "Keep-Alive".getBytes());
+			setHeader(IHTTPHeader.CONNECTION_A, KEEP_ALIVE_A);
 		} else {
-			setHeader(IHTTPHeader.CONNECTION_A, "close".getBytes());
+			setHeader(IHTTPHeader.CONNECTION_A, CLOSE_A);
 		}
 	}
 
@@ -392,6 +393,6 @@ public abstract class HTTPMessage implements IHTTPMessage {
 	}
 
 	public String toString() {
-		return "HTTPMessage " + fSerial + ":" + fBuffer.toString();
+		return "HTTPMessage " + fSerial + ":" + fBuffer.toString(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }

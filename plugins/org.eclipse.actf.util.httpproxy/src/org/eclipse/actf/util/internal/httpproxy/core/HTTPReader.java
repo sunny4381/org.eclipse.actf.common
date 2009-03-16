@@ -75,7 +75,7 @@ public abstract class HTTPReader {
                     } else {
                         if (System.currentTimeMillis() - fLastReadTime > timeout) {
                             fLastReadTime = System.currentTimeMillis();
-                            throw new TimeoutException("HTTPReader.getAvailableInput");
+                            throw new TimeoutException("HTTPReader.getAvailableInput"); //$NON-NLS-1$
                         } else {
                             try {
                                 Thread.sleep(1);
@@ -99,7 +99,7 @@ public abstract class HTTPReader {
                         }
                         if (System.currentTimeMillis() - fLastReadTime > timeout) {
                             fLastReadTime = System.currentTimeMillis();
-                            throw new TimeoutException("HTTPReader.getAvailableInput");
+                            throw new TimeoutException("HTTPReader.getAvailableInput"); //$NON-NLS-1$
                         }
                     }
                 }
@@ -163,7 +163,7 @@ public abstract class HTTPReader {
         }
         if (fLastByte != ':') {
             // Unexpected line
-            throw new IOException("Unexpected char (" + fLastByte + ".) Expected was (':')");
+            throw new IOException("Unexpected char (" + fLastByte + ".) Expected was (':')"); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         skipSpaces(timeout, buf);
@@ -320,11 +320,11 @@ public abstract class HTTPReader {
     protected void readCRLF(long timeout, OutputStream out) throws IOException, TimeoutException {
         nextByte(timeout, out);
         if (fLastByte != CR) {
-            throw new IOException("Unexpected char (" + fLastByte +".) Expected was (" + Integer.toString(CR) + ")");
+            throw new IOException("Unexpected char (" + fLastByte +".) Expected was (" + Integer.toString(CR) + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
         nextByte(timeout, out);
         if (fLastByte != LF) {
-            throw new IOException("Unexpected char (" + fLastByte +".) Expected was (" + Integer.toString(LF) + ")");
+            throw new IOException("Unexpected char (" + fLastByte +".) Expected was (" + Integer.toString(LF) + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
     }
     

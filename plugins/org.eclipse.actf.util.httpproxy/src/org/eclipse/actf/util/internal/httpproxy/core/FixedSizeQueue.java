@@ -54,7 +54,7 @@ public class FixedSizeQueue {
 
 	public synchronized void put(Object obj) throws InterruptedException {
 		if (obj == null) {
-			throw new IllegalArgumentException("null");
+			throw new IllegalArgumentException("null"); //$NON-NLS-1$
 		}
 		while (fQueue[fNextIndex] != null) {
 			this.wait();
@@ -72,7 +72,7 @@ public class FixedSizeQueue {
 			put(obj);
 		} else {
 			if (obj == null) {
-				throw new IllegalArgumentException("null");
+				throw new IllegalArgumentException("null"); //$NON-NLS-1$
 			}
 			if (fQueue[fNextIndex] != null) {
 				long t0 = System.currentTimeMillis();
@@ -88,7 +88,7 @@ public class FixedSizeQueue {
 					wait = timeout - elapsed;
 				} while (wait > 0);
 				if (timedout) {
-					throw new TimeoutException("FixedSizeQueue.put");
+					throw new TimeoutException("FixedSizeQueue.put"); //$NON-NLS-1$
 				}
 			}
 			fQueue[fNextIndex++] = obj;
@@ -127,7 +127,7 @@ public class FixedSizeQueue {
 				wait = timeout - elapsed;
 			} while (wait > 0);
 			if (req == null) {
-				throw new TimeoutException("FixedSizeQueue.remove");
+				throw new TimeoutException("FixedSizeQueue.remove"); //$NON-NLS-1$
 			}
 		}
 		fQueue[fMinIndex++] = null;

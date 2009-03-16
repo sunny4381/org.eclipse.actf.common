@@ -126,6 +126,6 @@ public abstract class HTTPHeader implements IHTTPHeader {
     }
 
     public String toString() {
-        return "Header:" + new String(getName()) + ":" + new String(getValue());
+        return "Header:" + new String(getName()) + ":" + new String(getValue()); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }

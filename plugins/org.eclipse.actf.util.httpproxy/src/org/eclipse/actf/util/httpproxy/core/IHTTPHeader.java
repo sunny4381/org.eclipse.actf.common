@@ -17,6 +17,7 @@ import java.io.OutputStream;
 /**
  * HTTP header information of a HTTP request/request message.
  */
+@SuppressWarnings("nls")
 public interface IHTTPHeader {
 
 	public static final String METHOD_OPTIONS = "OPTIONS";

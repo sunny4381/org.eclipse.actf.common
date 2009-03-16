@@ -21,7 +21,7 @@ public class WorkpileControllerImpl implements IWorkpileController {
 	public void input(Runnable work) {
 		Thread th;
 		synchronized (this) {
-			th = new Thread(threadGroup, work, name + "-" + workpile.size());
+			th = new Thread(threadGroup, work, name + "-" + workpile.size()); //$NON-NLS-1$
 			workpile.add(th);
 		}
 		th.setDaemon(true);
@@ -29,7 +29,7 @@ public class WorkpileControllerImpl implements IWorkpileController {
 	}
 
 	public String toString() {
-		return "WPC:[" + name + "]:" + threadGroup.toString();
+		return "WPC:[" + name + "]:" + threadGroup.toString(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	public WorkpileControllerImpl(String name) {

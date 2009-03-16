@@ -40,8 +40,8 @@ public class HTTPUtil {
 			IHTTPRequestMessage request) throws InterruptedException,
 			IOException {
 		fClient.sendResponse(new HTTPResponseInMemoryMessage(request
-				.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A, "404".getBytes(),
-				"Not found".getBytes(), IHTTPResponseMessage.EMPTY_BODY));
+				.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A, "404".getBytes(), //$NON-NLS-1$
+				"Not found".getBytes(), IHTTPResponseMessage.EMPTY_BODY)); //$NON-NLS-1$
 	}
 
 	/**

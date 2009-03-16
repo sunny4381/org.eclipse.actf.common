@@ -23,6 +23,8 @@ import java.util.logging.Level;
  * Utility class for logging.
  */
 public class Logger {
+	private static final String COMMA_SPACE = ", "; //$NON-NLS-1$
+
 	/**
 	 * @param name
 	 */
@@ -30,8 +32,8 @@ public class Logger {
 		PROP_LOGGING_CONFIGURATION = name;
 	}
 
-	private static String PROP_LOGGING_CONFIGURATION = "httpproxy.conf.logging";
-	public static final String DEFAULT_LOGGING_CONFIGURATION = "logging.conf";
+	private static String PROP_LOGGING_CONFIGURATION = "httpproxy.conf.logging"; //$NON-NLS-1$
+	public static final String DEFAULT_LOGGING_CONFIGURATION = "logging.conf"; //$NON-NLS-1$
 
 	/**
 	 * @param clazz
@@ -59,7 +61,7 @@ public class Logger {
 				in = new FileInputStream(config);
 				props.load(in);
 
-				exception = null;
+				//exception = null;
 			} catch (FileNotFoundException e) {
 				// System.err.println("WARNING: File not found " + config);
 				exception = e;
@@ -69,7 +71,7 @@ public class Logger {
 			}
 		}
 
-		java.util.logging.Logger l = java.util.logging.Logger.getLogger("");
+		java.util.logging.Logger l = java.util.logging.Logger.getLogger(""); //$NON-NLS-1$
 		l.setLevel(Level.ALL);
 
 		// Set a FileHandler... disabled now. We can use Chainsaw or some other
@@ -91,7 +93,7 @@ public class Logger {
 			try {
 				java.util.logging.LogManager.getLogManager().readConfiguration(
 						configIS);
-				exception = null;
+				//exception = null;
 			} catch (FileNotFoundException e) {
 				// System.err.println("WARNING: File not found " + config);
 				exception = e;
@@ -101,7 +103,7 @@ public class Logger {
 			}
 		}
 
-		java.util.logging.Logger l = java.util.logging.Logger.getLogger("");
+		java.util.logging.Logger l = java.util.logging.Logger.getLogger(""); //$NON-NLS-1$
 		l.setLevel(Level.ALL);
 
 		if (exception != null) {
@@ -173,7 +175,7 @@ public class Logger {
 	public void fatal(String msg, Throwable e) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(msg);
-		sb.append(", ");
+		sb.append(COMMA_SPACE);
 		sb.append(dumpStackTrace(e));
 		fDelegate.severe(sb.toString());
 	}
@@ -194,7 +196,7 @@ public class Logger {
 	public void warning(String msg, Throwable e) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(msg);
-		sb.append(", ");
+		sb.append(COMMA_SPACE);
 		sb.append(dumpStackTrace(e));
 		fDelegate.warning(sb.toString());
 	}
@@ -224,7 +226,7 @@ public class Logger {
 	public void debug(String msg, Throwable e) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(msg);
-		sb.append(", ");
+		sb.append(COMMA_SPACE);
 		sb.append(dumpStackTrace(e));
 		fDelegate.fine(sb.toString());
 	}

@@ -36,7 +36,8 @@ public class HTTPResponseReader extends HTTPMessageReader {
         this.id = id;
     }
         
-    protected void readFirstLine(HTTPMessage msg, long timeout) throws IOException, TimeoutException {
+    @SuppressWarnings("nls")
+	protected void readFirstLine(HTTPMessage msg, long timeout) throws IOException, TimeoutException {
         // Request-Line = Method SP Request-URI SP HTTP-Version CRLF
         HTTPResponseStreamMessage response = (HTTPResponseStreamMessage) msg;
         HTTPMessageBuffer buf = msg.getBuffer();

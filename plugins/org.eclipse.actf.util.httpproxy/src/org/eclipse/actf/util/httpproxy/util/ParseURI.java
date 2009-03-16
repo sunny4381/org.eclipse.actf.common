@@ -58,7 +58,7 @@ public class ParseURI {
             return uri.substring(posEnd);
         } else {
             // scheme "://" authority
-            return "/";
+            return "/"; //$NON-NLS-1$
         }
     }
 

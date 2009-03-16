@@ -42,22 +42,22 @@ public class HTTPRequestReader extends HTTPMessageReader {
 
         readNextToken(timeout, buf, req.getMethod(), SP);
         if (getLastByte() == -1) {
-        	throw new HTTPConnectionException("Request connection is closed.");
+        	throw new HTTPConnectionException("Request connection is closed."); //$NON-NLS-1$
         }
         if (getLastByte() != SP) {
-            throw new IOException("Unexpected char (expected=SP): "
+            throw new IOException("Unexpected char (expected=SP): " //$NON-NLS-1$
                                   + Integer.toString(getLastByte())
-                                  + "/" + buf.getAsString(req.getMethod()));
+                                  + "/" + buf.getAsString(req.getMethod())); //$NON-NLS-1$
         }
         skipSpaces(timeout, buf);
         readNextToken(timeout, buf, req.getRequestURI(), SP);
         if (getLastByte() != SP) {
-            throw new IOException("Unexpected char (expected=SP): " + Integer.toString(getLastByte()));
+            throw new IOException("Unexpected char (expected=SP): " + Integer.toString(getLastByte())); //$NON-NLS-1$
         }
         skipSpaces(timeout, buf);
         readNextToken(timeout, buf, req.getHTTPVersion());
         if (getLastByte() != LF) {
-            throw new IOException("Unexpected char (expected=LF): " + Integer.toString(getLastByte()));
+            throw new IOException("Unexpected char (expected=LF): " + Integer.toString(getLastByte())); //$NON-NLS-1$
         }
     }
 }

@@ -41,14 +41,14 @@ public class ChunkDecoder extends FilterInputStream {
 
     public void setChunkListener(ChunkListener l) {
         if (fChunkListener != null && l != null) {
-            throw new IllegalStateException("ChunkListener is already set: " + fChunkListener);
+            throw new IllegalStateException("ChunkListener is already set: " + fChunkListener); //$NON-NLS-1$
         }
         fChunkListener = l;
     }
     
     public int getChunkSize() {
         if (fReadBytes == 0) {
-            throw new IllegalStateException("ChunkSize is unknown");
+            throw new IllegalStateException("ChunkSize is unknown"); //$NON-NLS-1$
         }
         return fChunkSize;
     }
@@ -74,7 +74,7 @@ public class ChunkDecoder extends FilterInputStream {
                     }
                     if (System.currentTimeMillis() - fLastReadTime > timeout) {
                         fLastReadTime = System.currentTimeMillis();
-                        throw new TimeoutException("HTTPReader.getAvailableInput");
+                        throw new TimeoutException("HTTPReader.getAvailableInput"); //$NON-NLS-1$
                     }
                 }
             }
@@ -207,7 +207,7 @@ public class ChunkDecoder extends FilterInputStream {
                 }
             } catch (NumberFormatException e) {
                 fChunkSize = -1;
-                throw new IOException("Invalid chunk size line: '" + token + "'");
+                throw new IOException("Invalid chunk size line: '" + token + "'"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
     }
@@ -230,7 +230,7 @@ public class ChunkDecoder extends FilterInputStream {
         try {
             return read(0);
         } catch (TimeoutException e) {
-            throw new RuntimeException("Impossible exception");
+            throw new RuntimeException("Impossible exception"); //$NON-NLS-1$
         }
     }
 
@@ -256,7 +256,7 @@ public class ChunkDecoder extends FilterInputStream {
         try {
             return read(0, b, off, len);
         } catch (TimeoutException e) {
-            throw new RuntimeException("Impossible exception");
+            throw new RuntimeException("Impossible exception"); //$NON-NLS-1$
         }
     }
 

@@ -51,6 +51,6 @@ public class HTTPMalformedResponseMessage extends HTTPResponseMessage {
     }
 
     protected void writeFirstLine(OutputStream out) throws IOException {
-        throw new IOException("HTTPMalformedResponseMessage cannot be output.");
+        throw new IOException("HTTPMalformedResponseMessage cannot be output."); //$NON-NLS-1$
     }
 }
