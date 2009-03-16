@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 
+@SuppressWarnings("nls")
 public class ObjectElementFactoryExtension {
 	private static final String EXTENSION_NAME = "elementFactory";
 

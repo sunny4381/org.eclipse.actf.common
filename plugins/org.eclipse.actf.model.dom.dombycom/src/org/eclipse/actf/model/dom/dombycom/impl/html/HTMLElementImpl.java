@@ -15,6 +15,7 @@ import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.w3c.dom.html.HTMLElement;
 
+@SuppressWarnings("nls")
 public class HTMLElementImpl extends ElementImpl implements HTMLElement {
 
 	private static final String TITLE = "title";

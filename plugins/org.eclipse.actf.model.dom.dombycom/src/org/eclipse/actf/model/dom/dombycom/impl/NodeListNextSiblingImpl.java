@@ -16,40 +16,39 @@ import java.util.ArrayList;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 public class NodeListNextSiblingImpl implements NodeList {
-    private ArrayList<NodeImpl> inodeList = new ArrayList<NodeImpl>();
+	private ArrayList<NodeImpl> inodeList = new ArrayList<NodeImpl>();
 
-    private final NodeImpl baseNode;
+	private final NodeImpl baseNode;
 
-    public NodeListNextSiblingImpl(NodeImpl baseNode) {
-        this.baseNode = baseNode;
-        initialize();
-    }
+	public NodeListNextSiblingImpl(NodeImpl baseNode) {
+		this.baseNode = baseNode;
+		initialize();
+	}
 
-    public void initialize() {
-        inodeList.clear();
-        NodeImpl node = (NodeImpl) baseNode.getFirstChild();
-        while (node != null) {
-            if ("HTML".equals(node.getNodeName()) && !("#document".equals(baseNode.getNodeName()))) {
-                node = (NodeImpl) node.getNextSibling();
-                continue;
-            }
-                
-            inodeList.add(node);
-            node = (NodeImpl) node.getNextSibling();
-        }
-    }
+	public void initialize() {
+		inodeList.clear();
+		NodeImpl node = (NodeImpl) baseNode.getFirstChild();
+		while (node != null) {
+			if ("HTML".equals(node.getNodeName()) && !("#document".equals(baseNode.getNodeName()))) { //$NON-NLS-1$  //$NON-NLS-2$
+				node = (NodeImpl) node.getNextSibling();
+				continue;
+			}
 
-    public Node item(int index) {
-        try {
-            return inodeList.get(index);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
+			inodeList.add(node);
+			node = (NodeImpl) node.getNextSibling();
+		}
+	}
 
-    public int getLength() {
-        return inodeList.size();
-    }
+	public Node item(int index) {
+		try {
+			return inodeList.get(index);
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+
+	public int getLength() {
+		return inodeList.size();
+	}
 }

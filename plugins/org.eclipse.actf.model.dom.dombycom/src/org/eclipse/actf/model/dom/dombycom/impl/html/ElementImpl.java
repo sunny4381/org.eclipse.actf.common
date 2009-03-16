@@ -38,6 +38,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.TypeInfo;
 
+@SuppressWarnings("nls")
 public class ElementImpl extends NodeImpl implements IElementEx {
 	protected ElementImpl(NodeImpl baseNode, IDispatch inode) {
 		super(baseNode, inode, Node.ELEMENT_NODE);
@@ -591,7 +592,7 @@ public class ElementImpl extends NodeImpl implements IElementEx {
 
 	public IStyle getStyle() {
 		IDispatch style = (IDispatch) Helper.get(inode, "currentStyle");
-		return (IStyle) new StyleImpl(style);
+		return new StyleImpl(style);
 	}
 
 	public AbstractTerms getTerms() {

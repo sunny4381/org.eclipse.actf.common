@@ -24,7 +24,7 @@ public class ListNodeListImpl implements NodeList {
 
     public Node item(int index) {
         if ((index < 0) || (index >= l.size())) return null;
-        return (Node) l.get(index);
+        return l.get(index);
     }
 
     public int getLength() {

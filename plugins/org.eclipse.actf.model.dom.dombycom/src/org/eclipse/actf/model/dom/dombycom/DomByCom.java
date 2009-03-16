@@ -33,7 +33,7 @@ public class DomByCom {
 	 * This id is used for div elements created by aiBrowser to show border line
 	 * of the focused object.
 	 */
-	public static final String ID_DIV = "__org_eclipse_actf_highlight_div__";
+	public static final String ID_DIV = "__org_eclipse_actf_highlight_div__"; //$NON-NLS-1$
 
 	public static final int DIV_BORDER_WIDTH = 3;
 
@@ -45,15 +45,16 @@ public class DomByCom {
 
 	public static final int BORDER_MODE = STYLE_BORDER2;
 
-	public static final String BORDER_STYLE_STRING = "border: 3px solid #071; background: #fdd;";
+	public static final String BORDER_STYLE_STRING = "border: 3px solid #071; background: #fdd;"; //$NON-NLS-1$
 
 	private void addStyles(DocumentImpl doc) {
 		StyleSheetImpl style = doc.createStyleSheet();
 		if (style != null) {
-			style.addRule(".CSStoHighlight", BORDER_STYLE_STRING);
+			style.addRule(".CSStoHighlight", BORDER_STYLE_STRING); //$NON-NLS-1$
 		}
 	}
 
+	@SuppressWarnings("nls")
 	private void addDivs(DocumentImpl doc) {
 		Element el = doc.getElementById(ID_DIV);
 		if (el == null) {
@@ -107,7 +108,7 @@ public class DomByCom {
 	 * @return the document object of the web browser.
 	 */
 	public IDocumentEx getDocument() {
-		IDispatch iDocument = (IDispatch) iWebBrowser2.get("Document");
+		IDispatch iDocument = (IDispatch) iWebBrowser2.get("Document"); //$NON-NLS-1$
 		DocumentImpl doc = new DocumentImpl(iDocument);
 		initialize(doc);
 		return doc;

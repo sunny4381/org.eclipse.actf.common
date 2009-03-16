@@ -13,15 +13,14 @@ package org.eclipse.actf.model.dom.dombycom.impl;
 
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
-
 public class StyleSheetImpl {
-    private IDispatch idispatch;
-    
-    public StyleSheetImpl(IDispatch idispatch) {
-        this.idispatch = idispatch;
-    }
+	private IDispatch idispatch;
 
-    public void addRule(String selector, String style) {
-        idispatch.invoke("addRule", new Object[]{selector, style});
-    }
+	public StyleSheetImpl(IDispatch idispatch) {
+		this.idispatch = idispatch;
+	}
+
+	public void addRule(String selector, String style) {
+		idispatch.invoke("addRule", new Object[] { selector, style }); //$NON-NLS-1$
+	}
 }

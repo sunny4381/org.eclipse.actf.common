@@ -61,7 +61,7 @@ public class DocumentImpl extends NodeImpl implements IDocumentEx {
     }
 
     public Element getDocumentElement() {
-        IDispatch inode = (IDispatch) Helper.get(htmlDocument, "documentElement");
+        IDispatch inode = (IDispatch) Helper.get(htmlDocument, "documentElement"); //$NON-NLS-1$
         return (Element) newNode(inode, Node.ELEMENT_NODE);
     }
 
@@ -111,7 +111,7 @@ public class DocumentImpl extends NodeImpl implements IDocumentEx {
     }
 
     public NodeList getElementsByTagName(String tagname) {
-        IDispatch r = (IDispatch) inode.invoke1("getElementsByTagName", tagname);
+        IDispatch r = (IDispatch) inode.invoke1("getElementsByTagName", tagname); //$NON-NLS-1$
         if (r == null)
             return null;
         return new NodeListImpl(this, r);
@@ -138,7 +138,7 @@ public class DocumentImpl extends NodeImpl implements IDocumentEx {
     }
 
     public Element getElementById(String elementId) {
-        IDispatch i = (IDispatch) inode.invoke1("getElementById", elementId);
+        IDispatch i = (IDispatch) inode.invoke1("getElementById", elementId); //$NON-NLS-1$
         if (i == null)
             return null;
         return (Element) newNode(i, Node.ELEMENT_NODE);
@@ -170,13 +170,13 @@ public class DocumentImpl extends NodeImpl implements IDocumentEx {
                 try {
                     IDispatch idisp = (IDispatch) iunks[0].queryInterface(IUnknown.IID_IWebBrowser2);
                     if (idisp != null) {
-                        IDispatch d = (IDispatch) Helper.get(idisp, "Document");
+                        IDispatch d = (IDispatch) Helper.get(idisp, "Document"); //$NON-NLS-1$
                         if (d == null)
                             continue;
                         List<Node> r2 = getElementsByIdInFrames(d, id);
                         if (r2 != null)
                             r.addAll(r2);
-                        IDispatch in = (IDispatch) d.invoke1("getElementById", id);
+                        IDispatch in = (IDispatch) d.invoke1("getElementById", id); //$NON-NLS-1$
                         if (in == null)
                             continue;
                         Node n = newNode(in, Node.ELEMENT_NODE);
@@ -192,14 +192,14 @@ public class DocumentImpl extends NodeImpl implements IDocumentEx {
     }
 
     private boolean hasFrames(IDispatch htmlDocument) {
-        IDispatch r = (IDispatch) htmlDocument.invoke1("getElementsByTagName", "frame");
+        IDispatch r = (IDispatch) htmlDocument.invoke1("getElementsByTagName", "frame"); //$NON-NLS-1$ //$NON-NLS-2$
         if (r != null) {
             NodeListImpl nl = new NodeListImpl(this, r);
             if (nl.getLength() > 0)
                 return true;
         }
         
-        r = (IDispatch) htmlDocument.invoke1("getElementsByTagName", "iframe");
+        r = (IDispatch) htmlDocument.invoke1("getElementsByTagName", "iframe");  //$NON-NLS-1$  //$NON-NLS-2$
         if (r != null) {
             NodeListImpl nl = new NodeListImpl(this, r);
             if (nl.getLength() > 0)
@@ -280,10 +280,10 @@ public class DocumentImpl extends NodeImpl implements IDocumentEx {
     }
 
     public Element getTargetElement(String target) {
-        NodeList list = getElementsByTagName("A");
+        NodeList list = getElementsByTagName("A"); //$NON-NLS-1$
         for (int i = 0; i < list.getLength(); i++) {
             Element el = (Element) list.item(i);
-            if (target.equals(el.getAttribute("name"))) {
+            if (target.equals(el.getAttribute("name"))) { //$NON-NLS-1$
                 return el;
             }
         }
@@ -299,7 +299,7 @@ public class DocumentImpl extends NodeImpl implements IDocumentEx {
         try {
             if (inode == null)
                 return null;
-            IDispatch r = (IDispatch) inode.invoke0("createStyleSheet");
+            IDispatch r = (IDispatch) inode.invoke0("createStyleSheet"); //$NON-NLS-1$
             if (r == null)
                 return null;
             return new StyleSheetImpl(r);
@@ -313,15 +313,15 @@ public class DocumentImpl extends NodeImpl implements IDocumentEx {
     }
 
     public String getCompatMode() {
-        return (String) Helper.get(htmlDocument, "compatMode");
+        return (String) Helper.get(htmlDocument, "compatMode"); //$NON-NLS-1$
     }
 
     public IDispatch getWindow() {
-        return (IDispatch) Helper.get(inode, "parentWindow");
+        return (IDispatch) Helper.get(inode, "parentWindow"); //$NON-NLS-1$
     }
 
     public IDispatch getDocument() {
-        return (IDispatch) Helper.get(inode, "documentElement");
+        return (IDispatch) Helper.get(inode, "documentElement"); //$NON-NLS-1$
     }
 
 }

@@ -16,6 +16,7 @@ import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.w3c.dom.html.HTMLTitleElement;
 
+@SuppressWarnings("nls")
 public class TitleElementImpl extends HTMLElementImpl implements
 		HTMLTitleElement {
 
@@ -44,7 +45,9 @@ public class TitleElementImpl extends HTMLElementImpl implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.dom.dombycom.impl.NodeImpl#setText(java.lang.String)
+	 * @see
+	 * org.eclipse.actf.model.dom.dombycom.impl.NodeImpl#setText(java.lang.String
+	 * )
 	 */
 	@Override
 	public void setText(String text) {

@@ -65,27 +65,27 @@ public class Helper {
 
     static public void notSupported() throws DOMException {
         throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
-                               "The specified node must be created by DomByCom"); // $NON-NLS-1$
+                               "The specified node must be created by DomByCom"); //$NON-NLS-1$
     }
     
     static public Rectangle getLocation(IDispatch idisp) {
         Rectangle r = new Rectangle(0, 0, 0, 0);
         getOffset(idisp, r);
 
-        r.width = (Integer) Helper.get(idisp, "offsetWidth");
-        r.height = (Integer) Helper.get(idisp, "offsetHeight");
+        r.width = (Integer) Helper.get(idisp, "offsetWidth"); //$NON-NLS-1$
+        r.height = (Integer) Helper.get(idisp, "offsetHeight"); //$NON-NLS-1$
 
         return r;
     }
     
     private static void getOffset(IDispatch inode, Rectangle r) {
-        int ol = (Integer) Helper.get(inode, "offsetLeft");
-        int ot = (Integer) Helper.get(inode, "offsetTop");
+        int ol = (Integer) Helper.get(inode, "offsetLeft"); //$NON-NLS-1$
+        int ot = (Integer) Helper.get(inode, "offsetTop"); //$NON-NLS-1$
 
         r.x += ol;
         r.y += ot;
 
-        IDispatch parent = (IDispatch) Helper.get(inode, "offsetParent");
+        IDispatch parent = (IDispatch) Helper.get(inode, "offsetParent"); //$NON-NLS-1$
         //System.out.println(r);
         if (parent == null)
             return;

@@ -22,6 +22,7 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
+@SuppressWarnings("nls")
 class TextImpl extends CharacterDataImpl implements Text, INodeEx {
 	TextImpl(NodeImpl baseNode, IDispatch inode) {
 		super(baseNode, inode, Node.TEXT_NODE);

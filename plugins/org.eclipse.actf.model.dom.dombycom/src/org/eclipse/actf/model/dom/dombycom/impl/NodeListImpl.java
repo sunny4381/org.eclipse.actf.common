@@ -16,29 +16,29 @@ import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-
 public class NodeListImpl implements NodeList {
-    private IDispatch inodeCollection;
-    private NodeImpl baseNode;
+	private IDispatch inodeCollection;
+	private NodeImpl baseNode;
 
-    public NodeListImpl(NodeImpl baseNode, IDispatch inodeCollection) {
-        this.baseNode = baseNode;
-        this.inodeCollection = inodeCollection;
-    }
+	public NodeListImpl(NodeImpl baseNode, IDispatch inodeCollection) {
+		this.baseNode = baseNode;
+		this.inodeCollection = inodeCollection;
+	}
 
-    public Node item(int index) {
-        try {
-            IDispatch i = (IDispatch) inodeCollection.invoke1("item", Integer.valueOf(index));
-            return baseNode.newNode(i);
-        } catch (DispatchException e) {
-            return null;
-        }
-    }
+	public Node item(int index) {
+		try {
+			IDispatch i = (IDispatch) inodeCollection.invoke1(
+					"item", Integer.valueOf(index)); //$NON-NLS-1$
+			return baseNode.newNode(i);
+		} catch (DispatchException e) {
+			return null;
+		}
+	}
 
-    public int getLength() {
-        Integer i = (Integer) Helper.get(inodeCollection, "length");
-        if (i == null) return 0;
-        return i.intValue();
-    }
+	public int getLength() {
+		Integer i = (Integer) Helper.get(inodeCollection, "length"); //$NON-NLS-1$
+		if (i == null)
+			return 0;
+		return i.intValue();
+	}
 }

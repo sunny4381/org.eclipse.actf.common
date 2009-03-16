@@ -25,12 +25,12 @@ public interface IDocumentEx extends Document {
     /**
      * CSS compatible mode (IE)
      */
-    String CSS1_COMPAT = "CSS1Compat";
+    String CSS1_COMPAT = "CSS1Compat"; //$NON-NLS-1$
     
     /**
      * Back compatible mode (IE)
      */
-    String BACK_COMPAT = "BackCompat";
+    String BACK_COMPAT = "BackCompat"; //$NON-NLS-1$
     
     /**
      * getElementById will return a node, but actual content sometimes

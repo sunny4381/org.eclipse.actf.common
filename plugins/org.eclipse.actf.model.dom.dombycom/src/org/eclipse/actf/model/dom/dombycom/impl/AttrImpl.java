@@ -26,7 +26,7 @@ public class AttrImpl extends NodeImpl implements Attr {
     }
 
     public String getName() {
-        return (String) Helper.get(inode, "name");
+        return (String) Helper.get(inode, "name"); //$NON-NLS-1$
     }
 
     public boolean getSpecified() {
@@ -35,15 +35,15 @@ public class AttrImpl extends NodeImpl implements Attr {
     }
 
     public String getValue() {
-        return (String) Helper.get(inode, "value");
+        return (String) Helper.get(inode, "value"); //$NON-NLS-1$
     }
 
     public void setValue(String value) throws DOMException {
-        Helper.put(inode, "value", value);
+        Helper.put(inode, "value", value); //$NON-NLS-1$
     }
 
     public Element getOwnerElement() {
-        IDispatch i = (IDispatch) Helper.get(inode, "parentNode");
+        IDispatch i = (IDispatch) Helper.get(inode, "parentNode"); //$NON-NLS-1$
         if (i == null) return null;
         return (Element) newNode(i, Node.ELEMENT_NODE);
     }

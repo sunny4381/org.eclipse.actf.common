@@ -18,6 +18,7 @@ import org.eclipse.actf.util.win32.comclutch.DispatchException;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.w3c.dom.Element;
 
+@SuppressWarnings("nls")
 public class HTMLElementFactory {
 
 	private static final String IFRAME = "iframe";

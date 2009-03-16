@@ -19,114 +19,120 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-
-
 public class NamedNodeMapImpl implements NamedNodeMap {
-    private IDispatch attributes;
-    private HashMap<AttrKey, Node> attrMap;
-    private NodeImpl baseNode;
-    
-    private static class AttrKey {
-        String ns;
-        String name;
-        
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof AttrKey)) return false;
-            AttrKey ak = (AttrKey) o;
-            return ns.equals(ak.ns) && name.equals(ak.name);
-        }
+	private IDispatch attributes;
+	private HashMap<AttrKey, Node> attrMap;
+	private NodeImpl baseNode;
 
-        @Override
-        public int hashCode() {
-            return ns.hashCode() ^ name.hashCode();
-        }
+	private static class AttrKey {
+		String ns;
+		String name;
 
-        AttrKey(String ns, String name) {
-            this.ns = ns;
-            this.name = name;
-        }
-    }
+		@Override
+		public boolean equals(Object o) {
+			if (!(o instanceof AttrKey))
+				return false;
+			AttrKey ak = (AttrKey) o;
+			return ns.equals(ak.ns) && name.equals(ak.name);
+		}
 
-    public NamedNodeMapImpl(NodeImpl baseNode, IDispatch attributes) {
-        this.baseNode = baseNode;
-        this.attributes = attributes;
-    }
+		@Override
+		public int hashCode() {
+			return ns.hashCode() ^ name.hashCode();
+		}
 
-    private void initCache() {
-        if (attrMap != null) return;
-        attrMap = new HashMap<AttrKey, Node>();
-        int len = getLength();
-        for (int i = 0; i < len; i++) {
-            Node n = item(i);
-            AttrKey key = new AttrKey(n.getNamespaceURI(), n.getLocalName());
-            attrMap.put(key, n);
-        }
-    }
+		AttrKey(String ns, String name) {
+			this.ns = ns;
+			this.name = name;
+		}
+	}
 
-    public Node item(int index) {
-        try {
-            IDispatch i = (IDispatch) attributes.invoke1("item", Integer.valueOf(index));
-            return baseNode.newNode(i);
-        } catch (DispatchException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+	public NamedNodeMapImpl(NodeImpl baseNode, IDispatch attributes) {
+		this.baseNode = baseNode;
+		this.attributes = attributes;
+	}
 
-    public int getLength() {
-        Integer i = (Integer) Helper.get(attributes, "length");
-        if (i == null) return 0;
-        return i.intValue();
-    }
+	private void initCache() {
+		if (attrMap != null)
+			return;
+		attrMap = new HashMap<AttrKey, Node>();
+		int len = getLength();
+		for (int i = 0; i < len; i++) {
+			Node n = item(i);
+			AttrKey key = new AttrKey(n.getNamespaceURI(), n.getLocalName());
+			attrMap.put(key, n);
+		}
+	}
 
-    public Node getNamedItem(String name) {
-        try {
-            IDispatch i = (IDispatch) attributes.invoke1("removeNamedItem", name);
-            return baseNode.newNode(i);
-        } catch (DispatchException e) {
-            return null;
-        }
-    }
+	public Node item(int index) {
+		try {
+			IDispatch i = (IDispatch) attributes.invoke1(
+					"item", Integer.valueOf(index)); //$NON-NLS-1$
+			return baseNode.newNode(i);
+		} catch (DispatchException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-    public Node setNamedItem(Node node) throws DOMException {
-        if (!(node instanceof NodeImpl)) {
-            Helper.notSupported();
-        }
-        NodeImpl ni = (NodeImpl) node;
-        try {
-            IDispatch i = (IDispatch) attributes.invoke1("setNamedItem",
-                                                         ni.getINode());
-            return baseNode.newNode(i);
-        } catch (DispatchException e) {
-            return null;
-        }
-    }
+	public int getLength() {
+		Integer i = (Integer) Helper.get(attributes, "length"); //$NON-NLS-1$
+		if (i == null)
+			return 0;
+		return i.intValue();
+	}
 
-    public Node removeNamedItem(String name) throws DOMException {
-        try {
-            IDispatch i = (IDispatch) attributes.invoke1("removeNamedItem", name);
-            return baseNode.newNode(i);
-        } catch (DispatchException e) {
-            return null;
-        }
-    }
+	public Node getNamedItem(String name) {
+		try {
+			IDispatch i = (IDispatch) attributes.invoke1(
+					"removeNamedItem", name); //$NON-NLS-1$
+			return baseNode.newNode(i);
+		} catch (DispatchException e) {
+			return null;
+		}
+	}
 
-    public Node getNamedItemNS(String namespaceURI, String localName) {
-        initCache();
-        Node n = (Node) attrMap.get(new AttrKey(namespaceURI, localName));
-        return n;
-    }
+	public Node setNamedItem(Node node) throws DOMException {
+		if (!(node instanceof NodeImpl)) {
+			Helper.notSupported();
+		}
+		NodeImpl ni = (NodeImpl) node;
+		try {
+			IDispatch i = (IDispatch) attributes.invoke1("setNamedItem", //$NON-NLS-1$
+					ni.getINode());
+			return baseNode.newNode(i);
+		} catch (DispatchException e) {
+			return null;
+		}
+	}
 
-    public Node setNamedItemNS(Node node) throws DOMException {
-        initCache();
-        Node n = (Node) attrMap.get(new AttrKey(node.getNamespaceURI(), node.getLocalName()));
-        return setNamedItem(n);
-    }
+	public Node removeNamedItem(String name) throws DOMException {
+		try {
+			IDispatch i = (IDispatch) attributes.invoke1(
+					"removeNamedItem", name); //$NON-NLS-1$
+			return baseNode.newNode(i);
+		} catch (DispatchException e) {
+			return null;
+		}
+	}
 
-    public Node removeNamedItemNS(String namespaceURI, String localName) throws DOMException {
-        initCache();
-        Node n = (Node) attrMap.get(new AttrKey(namespaceURI, localName));
-        return removeNamedItem(n.getNodeName());
-    }
+	public Node getNamedItemNS(String namespaceURI, String localName) {
+		initCache();
+		Node n = attrMap.get(new AttrKey(namespaceURI, localName));
+		return n;
+	}
+
+	public Node setNamedItemNS(Node node) throws DOMException {
+		initCache();
+		Node n = attrMap.get(new AttrKey(node.getNamespaceURI(), node
+				.getLocalName()));
+		return setNamedItem(n);
+	}
+
+	public Node removeNamedItemNS(String namespaceURI, String localName)
+			throws DOMException {
+		initCache();
+		Node n = attrMap.get(new AttrKey(namespaceURI, localName));
+		return removeNamedItem(n.getNodeName());
+	}
 }

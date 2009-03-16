@@ -17,15 +17,17 @@ import org.eclipse.actf.model.dom.dombycom.impl.NodeImpl;
 import org.eclipse.actf.util.win32.comclutch.DispatchException;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 
+@SuppressWarnings("nls")
 public class ObjectElementFactory {
 
-	private static IObjectElementFactory[] factories = ObjectElementFactoryExtension.getObjectElementFactories();
-	
+	private static IObjectElementFactory[] factories = ObjectElementFactoryExtension
+			.getObjectElementFactories();
+
 	public static NodeImpl create(NodeImpl base, IDispatch inode) {
-		for (IObjectElementFactory factory : factories){
+		for (IObjectElementFactory factory : factories) {
 			NodeImpl newNode = factory.createTopNode(base, inode);
 			if (newNode != null)
-				return newNode;			
+				return newNode;
 		}
 
 		Object controls = Helper.get(inode, "controls");
