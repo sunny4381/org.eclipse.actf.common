@@ -7,7 +7,7 @@ Bundle-Activator: org.eclipse.actf.util.win32.comclutch.ComPlugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.actf.util.win32.comclutch,
  org.eclipse.actf.util.win32.keyhook,
  org.eclipse.actf.util.win32.msaa

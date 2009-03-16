@@ -23,7 +23,7 @@ import org.eclipse.actf.util.win32.keyhook.IKeyHookListener;
 public class KeyHookImpl implements IKeyHook {
     static {
         try {
-            System.loadLibrary("KeyHook");
+            System.loadLibrary("KeyHook"); //$NON-NLS-1$
         } catch( Exception e ) {
             e.printStackTrace();
         }

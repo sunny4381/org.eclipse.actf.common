@@ -59,7 +59,7 @@ public abstract class IResourceImpl implements IResource {
 
     @Override
     public String toString() {
-        return super.toString() + " PTR:" + getPtr();
+        return super.toString() + " PTR:" + getPtr(); //$NON-NLS-1$
     }
 
     public IResourceImpl(ResourceManager rm, boolean permanent) {

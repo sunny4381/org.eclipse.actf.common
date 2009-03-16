@@ -37,7 +37,7 @@ public class ComService {
 
 	static {
 		try {
-			System.loadLibrary("JavaCom");
+			System.loadLibrary("JavaCom"); //$NON-NLS-1$
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

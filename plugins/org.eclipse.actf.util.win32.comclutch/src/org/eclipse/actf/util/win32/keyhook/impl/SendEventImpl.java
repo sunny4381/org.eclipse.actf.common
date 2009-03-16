@@ -18,7 +18,7 @@ import org.eclipse.actf.util.win32.keyhook.ISendEvent;
 public class SendEventImpl implements ISendEvent {
     static {
         try {
-            System.loadLibrary("KeyHook");
+            System.loadLibrary("KeyHook"); //$NON-NLS-1$
         } catch( Exception e ) {
             e.printStackTrace();
         }

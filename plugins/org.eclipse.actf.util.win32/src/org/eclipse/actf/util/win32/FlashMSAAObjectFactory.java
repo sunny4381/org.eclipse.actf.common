@@ -22,11 +22,12 @@ import org.eclipse.actf.util.win32.msaa.MSAA;
  */
 public class FlashMSAAObjectFactory {
 	private static ResourceManager resouceManager = null;
-	
+
 	/**
 	 * @param hwnd
 	 *            the window handle to be used to obtain FlashMSAAObject
-	 * @return the instance of the FlashMSAAObject corresponding to the <i>hwnd</i>
+	 * @return the instance of the FlashMSAAObject corresponding to the
+	 *         <i>hwnd</i>
 	 * @see FlashMSAAObject
 	 */
 	public static FlashMSAAObject getFlashMSAAObjectFromWindow(long hwnd) {
@@ -34,38 +35,44 @@ public class FlashMSAAObjectFactory {
 			resouceManager = ResourceManager.newResourceManager(null);
 		}
 		long iaccPtr = MSAA.getAccessibleObjectFromWindow(hwnd);
-		IAccessible iacc = ComService.newIAccessible(resouceManager, iaccPtr, true);
+		IAccessible iacc = ComService.newIAccessible(resouceManager, iaccPtr,
+				true);
 		return new FlashMSAAObject(iacc);
 	}
 
 	/**
 	 * @param iacc
-	 *            the address of native IAccessible object 
-	 * @return the instance of the FlashMSAAObject corresponding to the <i>hwnd</i>
+	 *            the address of native IAccessible object
+	 * @return the instance of the FlashMSAAObject corresponding to the
+	 *         <i>hwnd</i>
 	 * @see FlashMSAAObject
 	 */
 	public static FlashMSAAObject getFlashMSAAObjectFromPtr(long address) {
 		if (resouceManager == null) {
 			resouceManager = ResourceManager.newResourceManager(null);
 		}
-		IAccessible iacc = ComService.newIAccessible(resouceManager, address, true);
+		IAccessible iacc = ComService.newIAccessible(resouceManager, address,
+				true);
 		return new FlashMSAAObject(iacc);
 	}
 
 	/**
 	 * @param iunk
-	 *            the IUnknown instance of the HTML element to be used to
-	 *            obtain FlashMSAAObject
-	 * @return the instance of the FlashMSAAObject corresponding to the <i>iunk</i>
+	 *            the IUnknown instance of the HTML element to be used to obtain
+	 *            FlashMSAAObject
+	 * @return the instance of the FlashMSAAObject corresponding to the
+	 *         <i>iunk</i>
 	 */
 	public static FlashMSAAObject getFlashMSAAObjectFromElement(IUnknown iunk) {
-		IServiceProvider isp = (IServiceProvider) iunk
-				.queryInterface(IUnknown.IID_IServiceProvider);
-		if (isp != null) {
-			IUnknown iacc = isp.queryService(IUnknown.IID_IAccessible,
-					IUnknown.IID_IAccessible);
-			if (iunk != null) {
-				return new FlashMSAAObject(ComService.newIAccessible(iacc));
+		if (iunk != null) {
+			IServiceProvider isp = (IServiceProvider) iunk
+					.queryInterface(IUnknown.IID_IServiceProvider);
+			if (isp != null) {
+				IUnknown iacc = isp.queryService(IUnknown.IID_IAccessible,
+						IUnknown.IID_IAccessible);
+				if (iacc != null) {
+					return new FlashMSAAObject(ComService.newIAccessible(iacc));
+				}
 			}
 		}
 		return null;

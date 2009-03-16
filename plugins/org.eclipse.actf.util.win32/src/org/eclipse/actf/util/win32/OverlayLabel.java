@@ -137,8 +137,7 @@ public class OverlayLabel extends CLabel {
 				}
 			}
 		}
-		return (OverlayLabel[]) labelList.toArray(new OverlayLabel[labelList
-				.size()]);
+		return labelList.toArray(new OverlayLabel[labelList.size()]);
 	}
 
 	private static Composite getOverlayComposite(boolean create) {

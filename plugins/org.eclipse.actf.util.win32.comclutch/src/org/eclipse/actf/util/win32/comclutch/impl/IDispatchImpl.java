@@ -20,6 +20,8 @@ import org.eclipse.actf.util.win32.comclutch.IUnknown;
 import org.eclipse.actf.util.win32.comclutch.ResourceManager;
 
 public class IDispatchImpl extends IUnknownImpl implements IDispatch {
+	private static final String IS_NOT_AVAILABLE = " is not available."; //$NON-NLS-1$
+
 	private static final int LCID_SYSTEM_DEFAULT = 0x400;
 	// private static final int LCID_USER_DEFAULT = 0x800;
 
@@ -61,7 +63,7 @@ public class IDispatchImpl extends IUnknownImpl implements IDispatch {
 		// System.err.println(method + " is invoked." + args);
 		long id = getDispID(method);
 		if (id == -1)
-			throw new DispatchException(method + " is not available.");
+			throw new DispatchException(method + IS_NOT_AVAILABLE);
 		return invoke(id, args);
 	}
 
@@ -76,7 +78,7 @@ public class IDispatchImpl extends IUnknownImpl implements IDispatch {
 		// System.err.println(method + " is invoked to " + this);
 		long id = getDispID(method);
 		if (id == -1)
-			throw new DispatchException(method + " is not available.");
+			throw new DispatchException(method + IS_NOT_AVAILABLE);
 		return invoke0(id);
 	}
 
@@ -89,7 +91,7 @@ public class IDispatchImpl extends IUnknownImpl implements IDispatch {
 		// arg1);
 		long id = getDispID(method);
 		if (id == -1)
-			throw new DispatchException(method + " is not available.");
+			throw new DispatchException(method + IS_NOT_AVAILABLE);
 		return invoke1(id, arg1);
 	}
 
@@ -136,7 +138,7 @@ public class IDispatchImpl extends IUnknownImpl implements IDispatch {
 	public void put(String prop, Object val) {
 		long id = getDispID(prop);
 		if (id == -1)
-			throw new DispatchException(prop + " is not available.");
+			throw new DispatchException(prop + IS_NOT_AVAILABLE);
 		put(id, val);
 	}
 

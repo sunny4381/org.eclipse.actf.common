@@ -59,7 +59,7 @@ public class NativeStringAccess {
 				return new String(buffer);
 			}
 		}
-		return null;// ""; //$NON-NLS-1$
+		return null;// "";
 	}
 
 	/**
