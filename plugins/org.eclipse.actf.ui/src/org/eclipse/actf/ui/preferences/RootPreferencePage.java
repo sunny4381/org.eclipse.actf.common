@@ -43,7 +43,7 @@ public class RootPreferencePage extends AbstractBasePreferencePage
 {
 
 	//This string contains the ACTF title
-	private static final String ACTF_TITLE_STRING = "Accessibility Tools Framework (ACTF).\r\n\r\n";
+	private static final String ACTF_TITLE_STRING = "Accessibility Tools Framework (ACTF).\r\n\r\n"; //$NON-NLS-1$
 
 	// Text Control to hold ACTF information.
 	private static Text actfDescription;

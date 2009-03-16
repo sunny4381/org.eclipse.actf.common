@@ -22,11 +22,11 @@ import org.osgi.framework.BundleContext;
 public class ActfUIPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String ACTF_PLUGIN_ID = "org.eclipse.actf.ui";
+	public static final String ACTF_PLUGIN_ID = "org.eclipse.actf.ui"; //$NON-NLS-1$
 
-	public static final String ACCESSIBILITY_TOOLS_MENU = "org.eclipse.actf.ui.actfContextMenu";
+	public static final String ACCESSIBILITY_TOOLS_MENU = "org.eclipse.actf.ui.actfContextMenu"; //$NON-NLS-1$
 	
-	public static final String ROOT_PREFRENCE_PAGE_ID = "org.eclipse.actf.ui.preferences.RootPreferencePage";
+	public static final String ROOT_PREFRENCE_PAGE_ID = "org.eclipse.actf.ui.preferences.RootPreferencePage"; //$NON-NLS-1$
 
 	// The shared instance
 	private static ActfUIPlugin plugin;

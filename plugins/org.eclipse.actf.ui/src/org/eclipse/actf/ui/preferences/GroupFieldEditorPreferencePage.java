@@ -58,7 +58,7 @@ public class GroupFieldEditorPreferencePage extends FieldEditorPreferencePage {
 		super.adjustGridLayout();
 		int numColumns = ((GridLayout)getFieldEditorParent().getLayout()).numColumns;
 		for( int i=0; i< groups.size(); i++ ) {
-			Group group = (Group)groups.get(i);
+			Group group = groups.get(i);
 			GridLayout layout = (GridLayout)group.getLayout();
 			GridData data = (GridData)group.getLayoutData(); 
 			layout.numColumns = numColumns;

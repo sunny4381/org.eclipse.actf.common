@@ -127,7 +127,7 @@ public class WeakSyncTimer extends Thread {
 	}
 
 	private WeakSyncTimer(Display display) {
-		super("WeakSyncTimer-scheduler");
+		super("WeakSyncTimer-scheduler"); //$NON-NLS-1$
 		this.listeners = new ArrayList<WeakReference<SyncEventListener>>();
 		this.entries = new WeakHashMap<SyncEventListener, Long>();
 		this.nextWakeup = Long.MAX_VALUE;

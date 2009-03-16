@@ -53,14 +53,14 @@ public abstract class AbstractUIPluginACTF extends AbstractUIPlugin {
 	protected void createTempDirectory() {
 		if (tmpDir == null) {
 			String tmpS = getStateLocation().toOSString() + File.separator
-					+ "tmp";
+					+ "tmp"; //$NON-NLS-1$
 			if (isAvailableDirectory(tmpS)) {
 				tmpDir = new File(tmpS);
 			} else {
-				System.err.println(toString() + " : can't open tmp Directory ("
-						+ tmpDir + ")");
-				tmpDir = new File(System.getProperty("java.io.tmpdir")
-						+ File.separator + "ACTF");
+//				System.err.println(toString() + " : can't open tmp Directory ("
+//						+ tmpDir + ")");
+				tmpDir = new File(System.getProperty("java.io.tmpdir") //$NON-NLS-1$
+						+ File.separator + "ACTF"); //$NON-NLS-1$
 			}
 		}
 	}
@@ -114,7 +114,7 @@ public abstract class AbstractUIPluginACTF extends AbstractUIPlugin {
 		File testDir = new File(path);
 		if ((!testDir.isDirectory() || !testDir.canWrite())
 				&& !testDir.mkdirs()) {
-			System.err.println(path + " is not available.");
+			//System.err.println(path + " is not available.");
 			return false;
 		}
 		return true;

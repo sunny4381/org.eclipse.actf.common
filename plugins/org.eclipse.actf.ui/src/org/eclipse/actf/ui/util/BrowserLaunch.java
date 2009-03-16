@@ -38,18 +38,18 @@ public class BrowserLaunch {
 		}).start();
 	}
 
-	private static final String FILE_STR = "file:///";
+	private static final String FILE_STR = "file:///"; //$NON-NLS-1$
 
 	private static String convertURL(String url) {
 		if (url.startsWith(FILE_STR)) {
 			url = url.substring(FILE_STR.length());
 
-			int index = url.lastIndexOf("#");
+			int index = url.lastIndexOf("#"); //$NON-NLS-1$
 			if (index != -1)
 				url = url.substring(0, index);
 
 			try {
-				url = URLDecoder.decode(url, "UTF-8");
+				url = URLDecoder.decode(url, "UTF-8"); //$NON-NLS-1$
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}

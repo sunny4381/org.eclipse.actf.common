@@ -18,8 +18,8 @@ public interface IDialogConstants {
 	/**
 	 * OK
 	 */
-	public static final String OK = " " + Messages.DialogConst_OK
-			+ " ";
+	public static final String OK = " " + Messages.DialogConst_OK //$NON-NLS-1$
+			+ " "; //$NON-NLS-1$
 	/**
 	 * cancel
 	 */
@@ -31,8 +31,8 @@ public interface IDialogConstants {
 	/**
 	 * Help
 	 */
-	public static final String HELP = " "
-			+ Messages.DialogConst_Help + " ";
+	public static final String HELP = " " //$NON-NLS-1$
+			+ Messages.DialogConst_Help + " "; //$NON-NLS-1$
 	/**
 	 * Add
 	 */

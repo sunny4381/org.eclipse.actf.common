@@ -42,7 +42,7 @@ public class ProgressContribution extends ControlContribution {
 	/**
 	 * Progress Contribution ID to share the contribution within ACTF
 	 */
-	public static final String PROGRESS_CONTRIBUTION_ID = "actf.progress";
+	public static final String PROGRESS_CONTRIBUTION_ID = "actf.progress"; //$NON-NLS-1$
 
 	private ProgressBar progressBar;
 
@@ -89,7 +89,7 @@ public class ProgressContribution extends ControlContribution {
 		if(text != null){
 			label.setText(text);
 		}else{
-			label.setText("");
+			label.setText(""); //$NON-NLS-1$
 		}
 	}
 

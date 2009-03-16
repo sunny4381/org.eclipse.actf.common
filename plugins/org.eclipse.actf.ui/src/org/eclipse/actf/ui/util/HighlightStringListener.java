@@ -113,7 +113,8 @@ public class HighlightStringListener implements LineStyleListener {
 	 * @param fgcolor
 	 *            foreground color for the target String
 	 * @param style
-	 *            style ({@link SWT} (BOLD, NORMAL, ITARIC)) for the target String
+	 *            style ({@link SWT} (BOLD, NORMAL, ITARIC)) for the target
+	 *            String
 	 */
 	public void addTarget(String target, Color fgcolor, int style) {
 		HighlightInfo hi = new HighlightInfo(target, fgcolor);
@@ -124,7 +125,9 @@ public class HighlightStringListener implements LineStyleListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.swt.custom.LineStyleListener#lineGetStyle(org.eclipse.swt.custom.LineStyleEvent)
+	 * @see
+	 * org.eclipse.swt.custom.LineStyleListener#lineGetStyle(org.eclipse.swt
+	 * .custom.LineStyleEvent)
 	 */
 	public void lineGetStyle(LineStyleEvent arg0) {
 		String text = arg0.lineText;
@@ -144,8 +147,7 @@ public class HighlightStringListener implements LineStyleListener {
 				lastIndex = index + target.length();
 			}
 		}
-		arg0.styles = (StyleRange[]) styles.toArray(new StyleRange[styles
-				.size()]);
+		arg0.styles = styles.toArray(new StyleRange[styles.size()]);
 	}
 
 }

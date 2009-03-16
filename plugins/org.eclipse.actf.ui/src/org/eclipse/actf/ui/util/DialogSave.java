@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Shell;
 /**
  * Utility class to open dialog to enable users to specify target file name.
  */
+@SuppressWarnings("nls")
 public class DialogSave {
 
 	/**
