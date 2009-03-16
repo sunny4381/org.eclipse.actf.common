@@ -19,9 +19,9 @@ import org.w3c.dom.Element;
 
 public abstract class AbstractODFNodeFactory {
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "cast" })
 	protected static Constructor<? extends ODFElement> findElementConstractor(Class<? extends ODFElement> cs) {
-		Constructor<? extends ODFElement>[] constructors = cs.getDeclaredConstructors();
+		Constructor<? extends ODFElement>[] constructors = (Constructor<? extends ODFElement>[]) cs.getDeclaredConstructors();
 		for (int i = 0; i < constructors.length; i++) {
 			Class<?>[] parms = constructors[i].getParameterTypes();
 			if (parms.length == 2 && parms[0].equals(ODFDocument.class)
