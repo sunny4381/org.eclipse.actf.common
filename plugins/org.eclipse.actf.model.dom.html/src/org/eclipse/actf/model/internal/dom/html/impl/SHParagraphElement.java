@@ -13,8 +13,14 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLParagraphElement;
 
+@SuppressWarnings("nls")
 public class SHParagraphElement extends SHElement implements
 		HTMLParagraphElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7463993950987771405L;
+
 	protected SHParagraphElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

@@ -14,6 +14,11 @@ package org.eclipse.actf.model.internal.dom.sgml.impl;
 import org.eclipse.actf.model.dom.html.ParseException;
 
 class DTDParseException extends ParseException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1148837926968828952L;
+
 	public DTDParseException() {
 		super();
 	}

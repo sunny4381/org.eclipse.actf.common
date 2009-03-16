@@ -35,6 +35,7 @@ public class CharsetHandler extends DefaultDocumentHandler {
 		this.ris = ris;
 	}
 
+	@SuppressWarnings("nls")
 	public void startElement(String name, AttributeList atts)
 			throws SAXException {
 		if (name.equalsIgnoreCase("META")) {

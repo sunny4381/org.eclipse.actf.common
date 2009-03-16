@@ -28,12 +28,14 @@ import org.xml.sax.SAXException;
  * ErrorHandler implementation for illegally closed form context.
  */
 public class FormInserter implements IErrorHandler {
+	private static final String FORM = "FORM"; //$NON-NLS-1$
+
 	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException, SAXException {
 		if (code != IParserError.FLOATING_ENDTAG)
 			return false;
 		if (errorNode instanceof EndTag
-				&& errorNode.getNodeName().equalsIgnoreCase("FORM")) {
+				&& errorNode.getNodeName().equalsIgnoreCase(FORM)) {
 			Element context = parser.getContext();
 			Vector<Node> nodes = new Vector<Node>();
 			boolean includeFormCtrl = false;
@@ -52,7 +54,7 @@ public class FormInserter implements IErrorHandler {
 			if (!includeFormCtrl)
 				return false;
 			Element form = parser.getDocument().createElement(
-					parser.changeDefaultTagCase("FORM"));
+					parser.changeDefaultTagCase(FORM));
 			for (Enumeration<Node> e = nodes.elements(); e.hasMoreElements();) {
 				Node node = e.nextElement();
 				context.removeChild(node);
@@ -64,8 +66,9 @@ public class FormInserter implements IErrorHandler {
 		return false;
 	}
 
-	private String formName[] = { "FORM" };
+	private String formName[] = { FORM };
 
+	@SuppressWarnings("nls")
 	private String formCtrls[] = { "INPUT", "SELECT", "TEXTAREA", "LABEL",
 			"BUTTON" };
 
@@ -91,7 +94,7 @@ public class FormInserter implements IErrorHandler {
 					return false;
 				}
 			}
-			while (tmp2 == null && tmp1 != null) {
+			while (tmp2 == null) {
 				tmp1 = tmp2 = tmp1.getParentNode();
 				if (tmp1 != top) {
 					tmp2 = tmp1.getNextSibling();

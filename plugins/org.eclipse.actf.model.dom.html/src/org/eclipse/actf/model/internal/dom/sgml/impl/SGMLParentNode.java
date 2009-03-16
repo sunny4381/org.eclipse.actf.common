@@ -21,7 +21,12 @@ import org.w3c.dom.Text;
  * Base class of org.w3c.dom.Node implementation. This class implements most
  * methods except for a few which depends on concrete its classes.
  */
+@SuppressWarnings("nls")
 public abstract class SGMLParentNode extends SGMLNode {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3126509435625384557L;
 	SGMLNode firstChild, lastChild;
 
 	SGMLParentNode(Document doc) {
@@ -151,6 +156,11 @@ public abstract class SGMLParentNode extends SGMLNode {
 		if (sgmlRefChild.parent != this) {
 			throw new DOMException(DOMException.NOT_FOUND_ERR, "There isn't "
 					+ refChild + " as a children") {
+
+				/**
+						 * 
+						 */
+				private static final long serialVersionUID = -401620698015402759L;
 			};
 		}
 		if (newChild instanceof SGMLDocumentFragment
@@ -198,6 +208,11 @@ public abstract class SGMLParentNode extends SGMLNode {
 				|| (sgmlOldChild = (SGMLNode) oldChild).parent != this) {
 			throw new DOMException(DOMException.NOT_FOUND_ERR, "There isn't "
 					+ oldChild + " as a children") {
+
+				/**
+						 * 
+						 */
+				private static final long serialVersionUID = -4190622701270985282L;
 			};
 		}
 		if (this.firstChild == oldChild) {
@@ -226,6 +241,11 @@ public abstract class SGMLParentNode extends SGMLNode {
 		if (sgmlOldChild.parent != this) {
 			throw new DOMException(DOMException.NOT_FOUND_ERR, this
 					+ "doesn't have " + newChild + " as a child") {
+
+				/**
+						 * 
+						 */
+				private static final long serialVersionUID = 164773639627266417L;
 			};
 		}
 

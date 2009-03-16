@@ -22,6 +22,11 @@ import org.eclipse.actf.model.dom.html.IErrorHandler;
  */
 public class ErrorHandlerTableImpl extends Hashtable<URL, IErrorHandler[]> implements
 		IErrorHandlerTable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5122037603773966517L;
+
 	public ErrorHandlerTableImpl() {
 		init();
 	}
@@ -30,7 +35,7 @@ public class ErrorHandlerTableImpl extends Hashtable<URL, IErrorHandler[]> imple
 		Properties prop = new Properties();
 		try {
 			prop.load(getClass()
-					.getResourceAsStream("errorhandlers.properties"));
+					.getResourceAsStream("errorhandlers.properties")); //$NON-NLS-1$
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,6 +81,6 @@ public class ErrorHandlerTableImpl extends Hashtable<URL, IErrorHandler[]> imple
 	}
 
 	public IErrorHandler[] getErrorHandlers(URL url) {
-		return (IErrorHandler[]) get(url);
+		return get(url);
 	}
 }

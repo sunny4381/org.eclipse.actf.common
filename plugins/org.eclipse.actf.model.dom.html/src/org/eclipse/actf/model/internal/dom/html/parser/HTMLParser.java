@@ -74,7 +74,7 @@ import org.xml.sax.SAXException;
 public class HTMLParser extends SGMLParser implements IHTMLParser {
 	static {
 		InputStream is = null;
-		is = HTMLParser.class.getResourceAsStream("public_entities.properties");
+		is = HTMLParser.class.getResourceAsStream("public_entities.properties"); //$NON-NLS-1$
 		if (is != null) {
 			Properties map = new Properties();
 			try {
@@ -107,7 +107,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 	 * added.
 	 */
 	public HTMLParser() {
-		defaultDTD = "-//W3C//DTD HTML 4.0 Transitional//EN";
+		defaultDTD = "-//W3C//DTD HTML 4.0 Transitional//EN"; //$NON-NLS-1$
 		addErrorHandler(new FramesetErrorHandler());
 		addErrorHandler(new HTMLErrorHandler());
 		setDocumentHandler(new PREHandler(this));
@@ -118,7 +118,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 	}
 
 	protected Reader getResource(String resourceName) throws IOException {
-		InputStream is = IHTMLParser.class.getResourceAsStream("dtd/"
+		InputStream is = IHTMLParser.class.getResourceAsStream("dtd/" //$NON-NLS-1$
 				+ resourceName);
 		if (is != null) {
 			return new InputStreamReader(is);
@@ -151,6 +151,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 	 * @param args
 	 *            command line argument.
 	 */
+	@SuppressWarnings("nls")
 	public static void main(String args[]) {
 		boolean dump = false;
 		String targetFileName = null;
@@ -415,7 +416,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 			return super.createDocument(docType);
 		}
 		Document ret = ((HTMLDOMImplementation) domImpl)
-				.createHTMLDocument("dummy");
+				.createHTMLDocument("dummy"); //$NON-NLS-1$
 		if (ret.getDocumentElement() != null) {
 			ret.removeChild(ret.getDocumentElement());
 		}
@@ -445,7 +446,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 
 	private static void usage() {
 		System.out
-				.println("usage java org.eclipse.actf.model.dom.html.HTMLParser [-w[#]] [-d] [-e encoding] [-c] files...");
+				.println("usage java org.eclipse.actf.model.dom.html.parser.HTMLParser [-w[#]] [-d] [-e encoding] [-c] files..."); //$NON-NLS-1$
 		System.exit(1);
 	}
 
@@ -455,6 +456,6 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 	 * @return "HTML"
 	 */
 	protected String getDefaultTopElement() {
-		return "HTML";
+		return "HTML"; //$NON-NLS-1$
 	}
 }

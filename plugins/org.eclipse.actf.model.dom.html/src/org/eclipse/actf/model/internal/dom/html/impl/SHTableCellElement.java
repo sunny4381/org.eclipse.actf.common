@@ -16,8 +16,14 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.html.HTMLTableCellElement;
 import org.w3c.dom.html.HTMLTableRowElement;
 
+@SuppressWarnings("nls")
 public class SHTableCellElement extends SHElement implements
 		HTMLTableCellElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4538969444602022762L;
+
 	protected SHTableCellElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

@@ -24,7 +24,7 @@ public class PREHandler extends DefaultDocumentHandler {
 
 	public void startElement(String name, AttributeList atts)
 			throws SAXException {
-		if (name.equalsIgnoreCase("PRE")) {
+		if (name.equalsIgnoreCase("PRE")) { //$NON-NLS-1$
 			previousPrsvWS = parser.getPreserveWhitespace();
 			parser.setPreserveWhitespace(true);
 		}
@@ -32,7 +32,7 @@ public class PREHandler extends DefaultDocumentHandler {
 	}
 
 	public void endElement(String name) throws SAXException {
-		if (name.equalsIgnoreCase("PRE")) {
+		if (name.equalsIgnoreCase("PRE")) { //$NON-NLS-1$
 			parser.setPreserveWhitespace(previousPrsvWS);
 		}
 		super.endElement(name);

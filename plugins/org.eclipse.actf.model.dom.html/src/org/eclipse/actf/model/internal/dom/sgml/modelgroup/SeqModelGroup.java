@@ -19,6 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 
+@SuppressWarnings("nls")
 public class SeqModelGroup extends CompositeModelGroup {
 	public SeqModelGroup(IModelGroup modelGroup) {
 		super(modelGroup);
@@ -53,7 +54,7 @@ public class SeqModelGroup extends CompositeModelGroup {
 	// TODO support nested seqModel
 	public boolean match(ISGMLParser parser, Node parent, Node child) {
 		Hashtable<Node, Integer> map = parser.getSeqMap();
-		Integer current = (Integer) map.get(parent);
+		Integer current = map.get(parent);
 		IModelGroup mg;
 		int index = current == null ? 0 : current.intValue();
 		// prefetch 2

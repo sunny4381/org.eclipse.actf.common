@@ -16,7 +16,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLFormElement;
 import org.w3c.dom.html.HTMLObjectElement;
 
+@SuppressWarnings("nls")
 public class SHObjectElement extends SHElement implements HTMLObjectElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1704784977052946752L;
+
 	protected SHObjectElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

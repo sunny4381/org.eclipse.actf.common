@@ -53,7 +53,7 @@ public class OrModelGroup extends CompositeModelGroup {
 
     // for debug.
     public String toString() {
-        String ret = new String("(");
+        String ret = new String("("); //$NON-NLS-1$
         for (int i = 0; i < childLength - 1; i++) {
             ret = ret + children[i] + '|';
         }

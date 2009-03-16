@@ -17,8 +17,14 @@ import org.w3c.dom.html.HTMLElement;
 import org.w3c.dom.html.HTMLOptionElement;
 import org.w3c.dom.html.HTMLSelectElement;
 
+@SuppressWarnings("nls")
 public class SHSelectElement extends SHFormCtrlElement implements
 		HTMLSelectElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7615986491286782573L;
+
 	protected SHSelectElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

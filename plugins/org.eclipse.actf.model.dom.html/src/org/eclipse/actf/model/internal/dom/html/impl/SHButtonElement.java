@@ -15,7 +15,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLButtonElement;
 import org.w3c.dom.html.HTMLFormElement;
 
+@SuppressWarnings("nls")
 public class SHButtonElement extends SHElement implements HTMLButtonElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 767270667997721051L;
+
 	protected SHButtonElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

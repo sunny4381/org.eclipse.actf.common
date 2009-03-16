@@ -16,6 +16,11 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 
 abstract class SGMLCharacterData extends SGMLNode implements CharacterData {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1099415713636567681L;
+
 	protected SGMLCharacterData(String str, Document doc) {
 		super(doc);
 		text = str;
@@ -48,6 +53,11 @@ abstract class SGMLCharacterData extends SGMLNode implements CharacterData {
 			return text.substring(offset, count);
 		} catch (StringIndexOutOfBoundsException e) {
 			throw new DOMException(DOMException.INDEX_SIZE_ERR, e.getMessage()) {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -1062458849935802630L;
 			};
 		}
 	}
@@ -61,6 +71,11 @@ abstract class SGMLCharacterData extends SGMLNode implements CharacterData {
 			text = text.substring(0, offset) + arg + text.substring(offset);
 		} catch (StringIndexOutOfBoundsException e) {
 			throw new DOMException(DOMException.INDEX_SIZE_ERR, e.getMessage()) {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 8548880661815579927L;
 			};
 		}
 	}
@@ -70,6 +85,11 @@ abstract class SGMLCharacterData extends SGMLNode implements CharacterData {
 			text = text.substring(0, offset) + text.substring(offset + count);
 		} catch (StringIndexOutOfBoundsException e) {
 			throw new DOMException(DOMException.INDEX_SIZE_ERR, e.getMessage()) {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -569324026594794225L;
 			};
 		}
 	}
@@ -85,6 +105,11 @@ abstract class SGMLCharacterData extends SGMLNode implements CharacterData {
 			}
 		} catch (StringIndexOutOfBoundsException e) {
 			throw new DOMException(DOMException.INDEX_SIZE_ERR, e.getMessage()) {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 4054773918736227727L;
 			};
 		}
 	}

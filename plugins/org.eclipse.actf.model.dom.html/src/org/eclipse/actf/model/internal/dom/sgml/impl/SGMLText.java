@@ -18,7 +18,13 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Text;
 
+@SuppressWarnings("nls")
 public class SGMLText extends SGMLCharacterData implements Text, IPrintXML {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -579697061500329505L;
+
 	public SGMLText(String str, Document doc) {
 		super(str, doc);
 	}
@@ -37,6 +43,11 @@ public class SGMLText extends SGMLCharacterData implements Text, IPrintXML {
 			sibling = new SGMLText(text.substring(offset), ownerDocument);
 		} catch (StringIndexOutOfBoundsException e) {
 			throw new DOMException(DOMException.INDEX_SIZE_ERR, e.getMessage()) {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -1750553827974411478L;
 			};
 		}
 		sibling.previousSibling = this;

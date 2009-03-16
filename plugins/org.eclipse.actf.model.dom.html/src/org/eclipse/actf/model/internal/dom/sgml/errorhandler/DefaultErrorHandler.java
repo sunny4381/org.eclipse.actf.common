@@ -75,8 +75,8 @@ public class DefaultErrorHandler implements IErrorHandler {
 						}
 						parser.setCurrentNode(another);
 						parser.setContext(another);
-						parser.error(IParserError.ILLEGAL_CHILD, errorNode + " and "
-								+ another + " are duplicated.");
+						parser.error(IParserError.ILLEGAL_CHILD, errorNode + " and " //$NON-NLS-1$
+								+ another + " are duplicated."); //$NON-NLS-1$
 						return true;
 					}
 				}

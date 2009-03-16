@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLLinkElement;
 
+@SuppressWarnings("nls")
 public class SHLinkElement extends SHElement implements HTMLLinkElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4319262268754401952L;
+
 	protected SHLinkElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

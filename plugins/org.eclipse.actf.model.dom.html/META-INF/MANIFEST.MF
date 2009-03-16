@@ -4,7 +4,6 @@ Bundle-Name: Eclipse ACTF HTML Model Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.model.dom.html
 Bundle-Version: 0.7.0.qualifier
 Bundle-Vendor: Eclipse.org
-Eclipse-LazyStart: false
 Export-Package: org.eclipse.actf.model.dom.html,
  org.eclipse.actf.model.dom.html.dochandler,
  org.eclipse.actf.model.dom.html.errorhandler

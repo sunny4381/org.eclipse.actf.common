@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLQuoteElement;
 
+@SuppressWarnings("nls")
 public class SHQuoteElement extends SHElement implements HTMLQuoteElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6314446806659581723L;
+
 	protected SHQuoteElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

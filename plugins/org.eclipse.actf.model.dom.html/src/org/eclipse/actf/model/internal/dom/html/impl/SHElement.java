@@ -16,7 +16,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.html.HTMLElement;
 
 
+@SuppressWarnings("nls")
 public class SHElement extends SGMLElement implements HTMLElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1719891221719168587L;
+
 	protected SHElement(String name, Document doc) {
 		super(name, doc);
 	}

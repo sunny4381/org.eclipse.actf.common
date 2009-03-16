@@ -24,6 +24,7 @@ import org.xml.sax.SAXException;
 /**
  * Tokenizer for document instance.
  */
+@SuppressWarnings("nls")
 class InsTokenizer implements ISGMLConstants, Locator {
 	private boolean extractChar = true;
 
@@ -136,7 +137,7 @@ class InsTokenizer implements ISGMLConstants, Locator {
 								continue;
 							}
 						} else if (ch == '!') { // doesn't meet specification,
-												// but...
+							// but...
 							if ((ch = read()) == '>') {
 								state = DEFAULT;
 								sval = new String(miscBuffer, 0, miscIndex);
@@ -190,7 +191,8 @@ class InsTokenizer implements ISGMLConstants, Locator {
 							unread(ch);
 						}
 					} else if (ch == EOF) {
-						parser.error(IParserError.MISC_ERR, "Unexpected EOF in comment.");
+						parser.error(IParserError.MISC_ERR,
+								"Unexpected EOF in comment.");
 						for (int i = 0; i < miscBuffer.length; i++) {
 							if (miscBuffer[i] == '>') {
 								unread(miscBuffer, i + 1, miscIndex - i - 1);
@@ -216,8 +218,8 @@ class InsTokenizer implements ISGMLConstants, Locator {
 				return (ttype = COMMENT);
 			}
 		} else if ((ch == 'D' || ch == 'd') && forward("OCTYPE", true)) { // chech
-																			// if
-																			// <!DOCTYPE
+			// if
+			// <!DOCTYPE
 			unread(ch);
 			state = TAG;
 			return (ttype = MDO);
@@ -463,7 +465,7 @@ class InsTokenizer implements ISGMLConstants, Locator {
 	 * Gets raw text up to end tag specified(&lt;<code>end</code>&gt;)
 	 * 
 	 * @param end
-	 *            specifed end tags name
+	 *            Specified end tags name
 	 * @return raw text up to specified end tag.
 	 */
 	final String rawText(String end) throws IOException, ParseException {
@@ -530,7 +532,8 @@ class InsTokenizer implements ISGMLConstants, Locator {
 					addCharToMiscBuffer((char) ch);
 				}
 			} else if (ch == EOF) {
-				parser.error(IParserError.MISC_ERR, "Unexpected EOF in CDATA after " + end);
+				parser.error(IParserError.MISC_ERR,
+						"Unexpected EOF in CDATA after " + end);
 				endTagBufferIndex = 0;
 				if (limitCandidate != 0) {
 					unread(miscBuffer, limitCandidate, miscIndex
@@ -645,12 +648,14 @@ class InsTokenizer implements ISGMLConstants, Locator {
 			if (ch != EOF) {
 				addCharToMiscBuffer((char) ch);
 			} else {
-				parser.error(IParserError.ATTR_VALUE, "EOF in attribute value.");
+				parser
+						.error(IParserError.ATTR_VALUE,
+								"EOF in attribute value.");
 			}
 			if (miscIndex > 1
 					&& (includeAngleBracket(miscBuffer, 1, miscIndex - 1) || miscBuffer[miscIndex - 2] == '=')
-					&& parser.handleError(IParserError.ATTR_VALUE, new String(miscBuffer, 0,
-							miscIndex))) {
+					&& parser.handleError(IParserError.ATTR_VALUE, new String(
+							miscBuffer, 0, miscIndex))) {
 				return readAttributeValue(ad, ed);
 			}
 		} else if (ch == '>') {

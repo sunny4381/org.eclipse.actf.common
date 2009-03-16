@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLHeadingElement;
 
+@SuppressWarnings("nls")
 public class SHHeadingElement extends SHElement implements HTMLHeadingElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8530200125626393739L;
+
 	protected SHHeadingElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

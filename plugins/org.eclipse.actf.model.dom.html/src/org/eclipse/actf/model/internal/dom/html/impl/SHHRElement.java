@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLHRElement;
 
+@SuppressWarnings("nls")
 public class SHHRElement extends SHElement implements HTMLHRElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 37030080476765859L;
+
 	protected SHHRElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

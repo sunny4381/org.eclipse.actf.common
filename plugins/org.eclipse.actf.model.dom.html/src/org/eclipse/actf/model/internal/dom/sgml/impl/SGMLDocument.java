@@ -37,7 +37,13 @@ import org.w3c.dom.Text;
 /**
  * Root node is a instance of this class.
  */
+@SuppressWarnings("nls")
 public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9052104600001817404L;
+
 	/**
 	 * @serial
 	 */
@@ -66,6 +72,11 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 		if (node.getOwnerDocument() != this && !(node instanceof SGMLDocType)) {
 			throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, node
 					+ " created from " + node.getOwnerDocument() + " this.") {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = -6949628537817157229L;
 			};
 		}
 		switch (node.getNodeType()) {
@@ -75,6 +86,11 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 			} else {
 				throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
 						" document cannot have roots.") {
+
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = -8867384684522317782L;
 				};
 			}
 			break;
@@ -88,6 +104,11 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 		default:
 			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, node
 					+ " is not allowed as a child of " + this) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 7083250644035192730L;
 			};
 		}
 	}
@@ -137,6 +158,11 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	public EntityReference createEntityReference(String a) throws DOMException {
 		throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
 				"cannot create Entity Ref.") {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -4581301359508117945L;
 		};
 	}
 
@@ -288,6 +314,11 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	public void setNodeValue(String nodeValue) throws DOMException {
 		throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
 				"#document is always null") {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 6689389325290139309L;
 		};
 	}
 
@@ -359,11 +390,11 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	/**
 	 * @serial
 	 */
-	private Hashtable charEntities4Xml;
-
-	String getEntityOrigin4Xml(String entity) {
-		return (String) charEntities4Xml.get(entity);
-	}
+//	private Hashtable charEntities4Xml;
+//
+//	String getEntityOrigin4Xml(String entity) {
+//		return (String) charEntities4Xml.get(entity);
+//	}
 
 	private transient SGMLDocTypeDef dtd;
 
@@ -376,7 +407,7 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	}
 
 	String getEntityOrigin(Character Ch) {
-		return (String) charNumEntities.get(Ch);
+		return charNumEntities.get(Ch);
 	}
 
 	/**
@@ -389,7 +420,7 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	}
 
 	String getCharNumEntity(Character C) {
-		return (String) charNumEntities.get(C);
+		return charNumEntities.get(C);
 	}
 
 	// DOM Level 2
@@ -429,18 +460,38 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 		case Node.ENTITY_REFERENCE_NODE:
 			throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
 					"ENTITY_REFERENCE: " + importedNode) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1578579363722608207L;
 			};
 		case Node.ENTITY_NODE:
 			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "ENTITY: "
 					+ importedNode) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = -450181572985174561L;
 			};
 		case Node.DOCUMENT_NODE:
 			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "DOCUMENT: "
 					+ importedNode) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 8785157203267073381L;
 			};
 		case Node.DOCUMENT_TYPE_NODE:
 			throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
 					"DOCUMENT_TYPE: " + importedNode) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 5629745929750604049L;
 			};
 		case Node.DOCUMENT_FRAGMENT_NODE:
 			ret = createDocumentFragment();
@@ -448,10 +499,20 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 		case Node.NOTATION_NODE:
 			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "NOTATION: "
 					+ importedNode) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 1787799543281735366L;
 			};
 		default:
 			throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
 					"Unknown node type: " + importedNode.getNodeType()) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = -9119985548894040858L;
 			};
 		}
 		if (deep) {

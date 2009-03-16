@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLImageElement;
 
+@SuppressWarnings("nls")
 public class SHImageElement extends SHElement implements HTMLImageElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7126159241890571195L;
+
 	protected SHImageElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

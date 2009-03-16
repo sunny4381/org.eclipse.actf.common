@@ -17,10 +17,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 
 /**
- * Light-weight implementation of DOM</a>.
- * This implementation is thread-unsafe. If you require thread-safe
- * implementation, use Xerces DOM.
- * This supports:
+ * Light-weight implementation of DOM</a>. This implementation is thread-unsafe.
+ * If you require thread-safe implementation, use Xerces DOM. This supports:
  * <ul>
  * <li>Level 1 Core
  * <li>Level 1 HTML
@@ -58,13 +56,16 @@ public class SGMLDOMImpl implements DOMImplementation {
 			throw new DOMException(
 					DOMException.WRONG_DOCUMENT_ERR,
 					doctype
-							+ " has been already owned or created by a different DOMImplementation") {
+							+ " has been already owned or created by a different DOMImplementation") { //$NON-NLS-1$
+
+				/**
+								 * 
+								 */
+				private static final long serialVersionUID = 7000893257059775660L;
 			};
 		} else {
 			Document ret = new SGMLDocument(this);
-			if (doctype != null) {
-				ret.appendChild(doctype);
-			}
+			ret.appendChild(doctype);
 			return ret;
 		}
 	}
@@ -81,10 +82,12 @@ public class SGMLDOMImpl implements DOMImplementation {
 	/*
 	 * DOM Level 3
 	 */
-	
+
 	/*
 	 * (non-Javadoc)
-	 * @see org.w3c.dom.DOMImplementation#getFeature(java.lang.String, java.lang.String)
+	 * 
+	 * @see org.w3c.dom.DOMImplementation#getFeature(java.lang.String,
+	 * java.lang.String)
 	 */
 	public Object getFeature(String feature, String version) {
 		// TODO Auto-generated method stub

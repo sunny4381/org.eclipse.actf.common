@@ -13,8 +13,14 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLTableCaptionElement;
 
+@SuppressWarnings("nls")
 public class SHTableCaptionElement extends SHElement implements
 		HTMLTableCaptionElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6744201758204710363L;
+
 	protected SHTableCaptionElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

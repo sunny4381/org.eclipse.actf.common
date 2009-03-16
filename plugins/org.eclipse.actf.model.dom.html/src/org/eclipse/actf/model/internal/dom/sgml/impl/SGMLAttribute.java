@@ -23,7 +23,13 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.TypeInfo;
 import org.w3c.dom.UserDataHandler;
 
+@SuppressWarnings("nls")
 class SGMLAttribute implements Attr, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1931516269113572264L;
+
 	// Node interface;
 	public String getNodeName() {
 		return name;
@@ -85,24 +91,28 @@ class SGMLAttribute implements Attr, Serializable {
 	public Node insertBefore(Node newChild, Node refChild) throws DOMException {
 		throw new DOMException(DOMException.NO_DATA_ALLOWED_ERR,
 				"attributes can't have siblings.") {
+			private static final long serialVersionUID = 6136151862849266055L;
 		};
 	}
 
 	public Node replaceChild(Node newChild, Node oldChild) throws DOMException {
 		throw new DOMException(DOMException.NO_DATA_ALLOWED_ERR,
 				"attributes can't have siblings.") {
+			private static final long serialVersionUID = 3768806169937347988L;
 		};
 	}
 
 	public Node removeChild(Node newChild) throws DOMException {
 		throw new DOMException(DOMException.NO_DATA_ALLOWED_ERR,
 				"attributes can't have siblings.") {
+			private static final long serialVersionUID = 8504678875617246364L;
 		};
 	}
 
 	public Node appendChild(Node newChild) throws DOMException {
 		throw new DOMException(DOMException.NO_DATA_ALLOWED_ERR,
 				"attributes can't have siblings.") {
+			private static final long serialVersionUID = -3997286265892179681L;
 		};
 	}
 

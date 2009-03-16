@@ -13,7 +13,10 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLBodyElement;
 
+@SuppressWarnings("nls")
 public class SHBodyElement extends SHElement implements HTMLBodyElement {
+	private static final long serialVersionUID = 7669838705165565862L;
+
 	protected SHBodyElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

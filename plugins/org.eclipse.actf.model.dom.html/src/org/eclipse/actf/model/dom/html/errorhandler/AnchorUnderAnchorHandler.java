@@ -29,7 +29,7 @@ public class AnchorUnderAnchorHandler implements IErrorHandler {
 	private boolean isAnchor(Node node) {
 		return node instanceof HTMLAnchorElement
 				|| (node instanceof Element && node.getNodeName()
-						.equalsIgnoreCase("A"));
+						.equalsIgnoreCase("A")); //$NON-NLS-1$
 	}
 
 	public boolean handleError(int code, IParser parser, Node errorNode)

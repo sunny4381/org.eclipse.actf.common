@@ -28,7 +28,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-
 /**
  * A sample implementation class of {@link IErrorHandler}.
  */
@@ -44,9 +43,9 @@ public class RangeExpander implements IErrorHandler {
 			String tagName = node.getNodeName();
 			if (tagName.equalsIgnoreCase(errorNode.getNodeName())) {
 				parser.setContext((Element) node.getParentNode());
-				for (Enumeration e = elementsToBeInserted.elements(); e
+				for (Enumeration<Element> e = elementsToBeInserted.elements(); e
 						.hasMoreElements();) {
-					Element el = (Element) e.nextElement();
+					Element el = e.nextElement();
 					parser.getContext().appendChild(el);
 					parser.setContext(el);
 				}

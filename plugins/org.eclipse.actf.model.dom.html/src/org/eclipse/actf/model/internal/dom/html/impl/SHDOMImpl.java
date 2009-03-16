@@ -19,7 +19,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.html.HTMLDocument;
 
-
 public class SHDOMImpl extends SGMLDOMImpl {
 	/**
 	 * @param title
@@ -42,13 +41,12 @@ public class SHDOMImpl extends SGMLDOMImpl {
 		} else if (doctype.getOwnerDocument() != null
 				|| !(doctype instanceof SGMLDocType)) {
 			throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, doctype
-					+ " has been already owned.") {
+					+ " has been already owned.") { //$NON-NLS-1$
+				private static final long serialVersionUID = 5706310596972371053L;
 			};
 		} else {
 			Document ret = createHTMLDocument(null);
-			if (doctype != null) {
-				ret.insertBefore(doctype, null);
-			}
+			ret.insertBefore(doctype, null);
 			return ret;
 		}
 	}

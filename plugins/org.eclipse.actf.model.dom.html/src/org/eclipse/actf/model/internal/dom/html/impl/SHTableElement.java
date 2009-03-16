@@ -19,7 +19,13 @@ import org.w3c.dom.html.HTMLTableElement;
 import org.w3c.dom.html.HTMLTableRowElement;
 import org.w3c.dom.html.HTMLTableSectionElement;
 
+@SuppressWarnings("nls")
 public class SHTableElement extends SHElement implements HTMLTableElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4310847532198779587L;
+
 	protected SHTableElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

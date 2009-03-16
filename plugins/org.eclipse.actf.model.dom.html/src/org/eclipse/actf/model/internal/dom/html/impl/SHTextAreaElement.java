@@ -13,8 +13,14 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLTextAreaElement;
 
+@SuppressWarnings("nls")
 public class SHTextAreaElement extends SHFormCtrlElement implements
 		HTMLTextAreaElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3414443046158548810L;
+
 	protected SHTextAreaElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLOListElement;
 
+@SuppressWarnings("nls")
 public class SHOListElement extends SHElement implements HTMLOListElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7241221131042587609L;
+
 	protected SHOListElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

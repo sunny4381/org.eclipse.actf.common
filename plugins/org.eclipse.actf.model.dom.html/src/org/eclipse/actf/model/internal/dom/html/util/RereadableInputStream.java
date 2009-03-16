@@ -89,7 +89,7 @@ public class RereadableInputStream extends InputStream {
 
 	public void reset() throws IOException {
 		if (buffering == false) {
-			throw new IOException("Cannot reset " + this);
+			throw new IOException("Cannot reset " + this); //$NON-NLS-1$
 		}
 		buffering = false;
 	}

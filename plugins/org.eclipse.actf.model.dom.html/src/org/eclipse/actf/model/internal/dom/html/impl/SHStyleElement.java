@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLStyleElement;
 
+@SuppressWarnings("nls")
 public class SHStyleElement extends SHElement implements HTMLStyleElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8058784497367151916L;
+
 	protected SHStyleElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

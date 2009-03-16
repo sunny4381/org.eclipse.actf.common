@@ -20,6 +20,6 @@ public class FramesetErrorHandler extends UnknownElementErrorHandler {
 	 * Default constructor of the class
 	 */
 	public FramesetErrorHandler() {
-		super("FRAMESET", "-//W3C//DTD HTML 4.01 Frameset//EN");
+		super("FRAMESET", "-//W3C//DTD HTML 4.01 Frameset//EN"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }

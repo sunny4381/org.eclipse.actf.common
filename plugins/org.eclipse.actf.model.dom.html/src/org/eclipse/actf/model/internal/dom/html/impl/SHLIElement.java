@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLLIElement;
 
+@SuppressWarnings("nls")
 public class SHLIElement extends SHElement implements HTMLLIElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9160759518224092053L;
+
 	protected SHLIElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

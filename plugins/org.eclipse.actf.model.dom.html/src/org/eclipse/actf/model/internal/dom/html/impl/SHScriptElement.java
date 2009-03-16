@@ -15,7 +15,13 @@ import org.w3c.dom.CharacterData;
 import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLScriptElement;
 
+@SuppressWarnings("nls")
 public class SHScriptElement extends SHElement implements HTMLScriptElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4183083040741115537L;
+
 	protected SHScriptElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

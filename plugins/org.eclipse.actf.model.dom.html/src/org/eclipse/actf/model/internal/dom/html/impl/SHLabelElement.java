@@ -15,7 +15,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLFormElement;
 import org.w3c.dom.html.HTMLLabelElement;
 
+@SuppressWarnings("nls")
 public class SHLabelElement extends SHElement implements HTMLLabelElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6932344923470123233L;
+
 	protected SHLabelElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

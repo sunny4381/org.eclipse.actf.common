@@ -89,15 +89,15 @@ public class MutableTreeNodeImpl implements MutableTreeNode {
 				&& !(domNode instanceof Document);
 	}
 
-	public Enumeration children() {
-		return new Enumeration() {
+	public Enumeration<MutableTreeNode> children() {
+		return new Enumeration<MutableTreeNode>() {
 			private Node nextChild = domNode.getFirstChild();
 
 			public boolean hasMoreElements() {
 				return nextChild != null;
 			}
 
-			public Object nextElement() {
+			public MutableTreeNode nextElement() {
 				if (nextChild == null)
 					throw new NoSuchElementException();
 				MutableTreeNode ret = factory.createNode(nextChild);

@@ -13,7 +13,10 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLAppletElement;
 
+@SuppressWarnings("nls")
 public class SHAppletElement extends SHElement implements HTMLAppletElement {
+	private static final long serialVersionUID = -7364854653311772304L;
+
 	protected SHAppletElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

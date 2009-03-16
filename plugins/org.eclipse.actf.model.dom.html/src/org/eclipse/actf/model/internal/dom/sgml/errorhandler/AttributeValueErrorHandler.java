@@ -48,7 +48,7 @@ public class AttributeValueErrorHandler implements ITokenErrorHandler, ISGMLCons
 			String nextTag = errorStr.substring(nextTagBegin, nextTagEnd);
 			if (parser.getDTD().getElementDefinition(nextTag) != null) {
 				parser.error(IParserError.STARTTAG_SYNTAX_ERR,
-						" attribute value missed closing quotation.");
+						" attribute value missed closing quotation."); //$NON-NLS-1$
 				parser.insert(errorStr.substring(0, gtIndex) + closingChar
 						+ errorStr.substring(gtIndex));
 				return true;
@@ -81,7 +81,7 @@ public class AttributeValueErrorHandler implements ITokenErrorHandler, ISGMLCons
 						parser.insert(errorStr.substring(0, errorPoint)
 								+ closingChar + errorStr.substring(errorPoint));
 						parser.error(IParserError.STARTTAG_SYNTAX_ERR,
-								" attribute value missed closing quotation.");
+								" attribute value missed closing quotation."); //$NON-NLS-1$
 						return true;
 					}
 				}

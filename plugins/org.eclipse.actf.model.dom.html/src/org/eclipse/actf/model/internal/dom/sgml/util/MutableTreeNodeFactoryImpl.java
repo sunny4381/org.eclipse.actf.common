@@ -24,7 +24,7 @@ public class MutableTreeNodeFactoryImpl implements IMutableTreeNodeFactory {
 	private Hashtable<Node, MutableTreeNodeImpl> table = new Hashtable<Node, MutableTreeNodeImpl>();
 
 	public MutableTreeNode createNode(Node node) {
-		MutableTreeNodeImpl ret = (MutableTreeNodeImpl) table.get(node);
+		MutableTreeNodeImpl ret = table.get(node);
 		if (ret == null) {
 			ret = new MutableTreeNodeImpl(node, this);
 			table.put(node, ret);
@@ -33,6 +33,6 @@ public class MutableTreeNodeFactoryImpl implements IMutableTreeNodeFactory {
 	}
 
 	public MutableTreeNode getNode(Node node) {
-		return (MutableTreeNodeImpl) table.get(node);
+		return table.get(node);
 	}
 }

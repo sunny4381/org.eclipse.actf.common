@@ -13,8 +13,14 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLInputElement;
 
+@SuppressWarnings("nls")
 public class SHInputElement extends SHFormCtrlElement implements
 		HTMLInputElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4263591577916637321L;
+
 	protected SHInputElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

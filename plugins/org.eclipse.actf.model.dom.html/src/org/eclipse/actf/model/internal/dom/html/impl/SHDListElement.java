@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLDListElement;
 
+@SuppressWarnings("nls")
 public class SHDListElement extends SHElement implements HTMLDListElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7619690896418307193L;
+
 	protected SHDListElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

@@ -28,6 +28,7 @@ import org.w3c.dom.TypeInfo;
  * Element class of SGML.
  * 
  */
+@SuppressWarnings("nls")
 public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 	/**
 	 * 
@@ -74,11 +75,21 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 		if (node == null) {
 			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
 					"trying to insert null") {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = -3195872655825042328L;
 			};
 		} else if (node.getOwnerDocument() != ownerDocument) {
 			throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, node
 					+ " created from " + node.getOwnerDocument() + ". " + this
 					+ " created from " + ownerDocument) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = -3952917378943559036L;
 			};
 		}
 		switch (node.getNodeType()) {
@@ -92,6 +103,11 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 		default:
 			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, node
 					+ " is not allowed as a child of " + this) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 2793178675397177186L;
 			};
 		}
 	}
@@ -168,6 +184,11 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 					throw new DOMException(
 							DOMException.NO_MODIFICATION_ALLOWED_ERR,
 							"only Attr instance can be set: " + arg) {
+
+								/**
+								 * 
+								 */
+								private static final long serialVersionUID = -8500293705674064623L;
 					};
 				}
 			}
@@ -376,6 +397,11 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 		if (!(newAttr instanceof SGMLAttribute)) {
 			throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, newAttr
 					+ "is not SGMLAttribute") {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = -2574702797917329018L;
 			};
 		}
 		for (int i = attrNum - 1; i >= 0; i--) {
@@ -398,6 +424,11 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 	public void setNodeValue(String nodeValue) throws DOMException {
 		throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
 				"can't set value in " + this) {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 159616090913212538L;
 		};
 	}
 

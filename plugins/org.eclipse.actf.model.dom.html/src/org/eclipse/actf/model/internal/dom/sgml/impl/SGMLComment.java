@@ -17,8 +17,14 @@ import org.eclipse.actf.model.internal.dom.sgml.IPrintXML;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 
+@SuppressWarnings("nls")
 public class SGMLComment extends SGMLCharacterData implements Comment,
 		IPrintXML {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3866401135787687787L;
+
 	public short getNodeType() {
 		return COMMENT_NODE;
 	}

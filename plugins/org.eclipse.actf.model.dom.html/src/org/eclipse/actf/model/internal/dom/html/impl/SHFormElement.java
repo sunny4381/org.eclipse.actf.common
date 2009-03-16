@@ -17,7 +17,13 @@ import org.w3c.dom.html.HTMLCollection;
 import org.w3c.dom.html.HTMLElement;
 import org.w3c.dom.html.HTMLFormElement;
 
+@SuppressWarnings("nls")
 public class SHFormElement extends SHElement implements HTMLFormElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4544434906167810276L;
+
 	protected SHFormElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

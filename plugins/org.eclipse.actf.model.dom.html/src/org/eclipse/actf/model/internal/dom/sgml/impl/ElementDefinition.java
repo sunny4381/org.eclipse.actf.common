@@ -223,7 +223,7 @@ public class ElementDefinition implements IModelGroup {
 	 * For debug.
 	 */
 	public String toString() {
-		String ret = "<!ELEMENT " + name + ' ' + (start ? 'O' : '-') + ' '
+		String ret = "<!ELEMENT " + name + ' ' + (start ? 'O' : '-') + ' ' //$NON-NLS-1$
 				+ (end ? 'O' : '-') + ' ' + '>';
 		return ret;
 	}

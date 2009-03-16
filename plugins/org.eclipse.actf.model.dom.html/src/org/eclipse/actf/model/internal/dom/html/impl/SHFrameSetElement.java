@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLFrameSetElement;
 
+@SuppressWarnings("nls")
 public class SHFrameSetElement extends SHElement implements HTMLFrameSetElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1412449082506625711L;
+
 	protected SHFrameSetElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

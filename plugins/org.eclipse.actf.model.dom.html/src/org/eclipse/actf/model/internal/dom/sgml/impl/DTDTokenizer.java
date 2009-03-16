@@ -16,6 +16,7 @@ import java.io.Reader;
 
 import org.eclipse.actf.model.dom.html.ParseException;
 
+@SuppressWarnings("nls")
 class DTDTokenizer extends SGMLTokenizer {
 	/**
 	 * Constructs SGMLTokenizer instance.

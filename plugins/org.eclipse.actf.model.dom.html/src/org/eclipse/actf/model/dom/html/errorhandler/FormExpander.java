@@ -69,6 +69,7 @@ public class FormExpander implements IErrorHandler {
 	 * Find the last <code>FORM</code> element and relink it to the lowest
 	 * position whereas it covers its start and end tag.
 	 */
+	@SuppressWarnings("nls")
 	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException, SAXException {
 		String nodeName = errorNode.getNodeName();

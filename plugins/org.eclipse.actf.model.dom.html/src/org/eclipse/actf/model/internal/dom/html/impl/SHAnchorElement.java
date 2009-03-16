@@ -13,8 +13,11 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLAnchorElement;
 
+@SuppressWarnings("nls")
 public class SHAnchorElement extends SHALinkElement implements
 		HTMLAnchorElement {
+	private static final long serialVersionUID = -3791078018472111266L;
+
 	protected SHAnchorElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

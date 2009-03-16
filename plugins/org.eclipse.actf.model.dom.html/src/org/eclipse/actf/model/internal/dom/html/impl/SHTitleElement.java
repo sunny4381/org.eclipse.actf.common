@@ -14,7 +14,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLTitleElement;
 
+@SuppressWarnings("nls")
 public class SHTitleElement extends SHElement implements HTMLTitleElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5821872671517102439L;
+
 	public String getText() {
 		String tmpS = "";
 		if (hasChildNodes()) {

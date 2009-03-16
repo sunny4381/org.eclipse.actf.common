@@ -14,7 +14,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 import org.w3c.dom.Document;
 import org.w3c.dom.html.HTMLIFrameElement;
 
+@SuppressWarnings("nls")
 public class SHIFrameElement extends SHElement implements HTMLIFrameElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8835158980177200627L;
+
 	protected SHIFrameElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

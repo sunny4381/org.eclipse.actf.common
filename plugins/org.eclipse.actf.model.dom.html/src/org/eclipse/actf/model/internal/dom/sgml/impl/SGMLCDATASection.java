@@ -17,8 +17,14 @@ import org.eclipse.actf.model.internal.dom.sgml.IPrintXML;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 
+@SuppressWarnings("nls")
 public class SGMLCDATASection extends SGMLText implements CDATASection,
 		IPrintXML {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8646896604778697913L;
+
 	public SGMLCDATASection(String str, Document doc) {
 		super(str, doc);
 	}

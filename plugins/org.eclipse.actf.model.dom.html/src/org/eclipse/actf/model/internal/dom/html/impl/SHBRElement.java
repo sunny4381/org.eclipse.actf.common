@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLBRElement;
 
+@SuppressWarnings("nls")
 public class SHBRElement extends SHElement implements HTMLBRElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 391213051090288734L;
+
 	protected SHBRElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

@@ -59,6 +59,7 @@ public class HTMLErrorHandler implements IErrorHandler {
 	 * @see org.eclipse.actf.model.dom.html.IParser#getContext()
 	 * @see org.eclipse.actf.model.dom.html.IParser#setContext(org.w3c.dom.Element)
 	 */
+	@SuppressWarnings("nls")
 	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException, SAXException {
 		if (code == IParserError.ILLEGAL_ATTRIBUTE) {

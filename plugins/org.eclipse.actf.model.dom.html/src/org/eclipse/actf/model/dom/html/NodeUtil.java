@@ -60,7 +60,7 @@ public class NodeUtil {
 	public static void remove(Node node) {
 		Node parent = node.getParentNode();
 		if (parent == null) {
-			throw new IllegalArgumentException(node + " doesn't have a parent");
+			throw new IllegalArgumentException(node + " doesn't have a parent"); //$NON-NLS-1$
 		}
 		for (Node child = node.getFirstChild(); child != null; child = node
 				.getFirstChild()) {
@@ -96,6 +96,7 @@ public class NodeUtil {
 	 *            end of the children moved to <code>node</code>
 	 * @throws IllegalArgumentException
 	 */
+	@SuppressWarnings("nls")
 	public static void add(Node parent, Node node, Node from, Node to) {
 		if (parent == null) {
 			throw new IllegalArgumentException("parent=null");
@@ -108,7 +109,7 @@ public class NodeUtil {
 					+ parent);
 		} else if (to.getParentNode() != parent) {
 			throw new IllegalArgumentException(to + "'s parent isn't " + parent);
-		} else if (from != null) {
+		} else {
 			for (Node child = from; child != null; child = child
 					.getNextSibling()) {
 				if (child == to) {

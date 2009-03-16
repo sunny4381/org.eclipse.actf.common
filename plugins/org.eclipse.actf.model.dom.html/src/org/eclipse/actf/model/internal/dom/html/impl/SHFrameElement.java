@@ -14,7 +14,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 import org.w3c.dom.Document;
 import org.w3c.dom.html.HTMLFrameElement;
 
+@SuppressWarnings("nls")
 public class SHFrameElement extends SHElement implements HTMLFrameElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 689216928795654584L;
+
 	protected SHFrameElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

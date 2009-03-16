@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLDivElement;
 
+@SuppressWarnings("nls")
 public class SHDivElement extends SHElement implements HTMLDivElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2263402888738941477L;
+
 	protected SHDivElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

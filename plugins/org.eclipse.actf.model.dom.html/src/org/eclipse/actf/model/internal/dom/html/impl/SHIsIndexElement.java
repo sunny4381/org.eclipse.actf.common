@@ -15,7 +15,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLFormElement;
 import org.w3c.dom.html.HTMLIsIndexElement;
 
+@SuppressWarnings("nls")
 public class SHIsIndexElement extends SHElement implements HTMLIsIndexElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1318886793394743733L;
+
 	protected SHIsIndexElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

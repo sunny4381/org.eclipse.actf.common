@@ -13,7 +13,10 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLAreaElement;
 
+@SuppressWarnings("nls")
 public class SHAreaElement extends SHALinkElement implements HTMLAreaElement {
+	private static final long serialVersionUID = 5249355768381046693L;
+
 	protected SHAreaElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

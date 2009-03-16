@@ -14,7 +14,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLFormElement;
 
+@SuppressWarnings("nls")
 abstract class SHFormCtrlElement extends SHElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3729153275976107942L;
+
 	SHFormCtrlElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

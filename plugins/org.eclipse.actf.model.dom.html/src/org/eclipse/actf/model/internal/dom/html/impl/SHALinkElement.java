@@ -11,8 +11,10 @@
 
 package org.eclipse.actf.model.internal.dom.html.impl;
 
-
+@SuppressWarnings("nls")
 abstract class SHALinkElement extends SHElement {
+	private static final long serialVersionUID = 6128418712613433758L;
+
 	SHALinkElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLMetaElement;
 
+@SuppressWarnings("nls")
 public class SHMetaElement extends SHElement implements HTMLMetaElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5032416167035491245L;
+
 	protected SHMetaElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

@@ -16,10 +16,15 @@ import java.io.InputStreamReader;
 import org.xml.sax.SAXException;
 
 class EncodingException extends SAXException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3965478640338466843L;
+
 	private InputStreamReader newReader;
 
 	EncodingException(InputStreamReader reader) {
-		super("");
+		super(""); //$NON-NLS-1$
 		this.newReader = reader;
 	}
 

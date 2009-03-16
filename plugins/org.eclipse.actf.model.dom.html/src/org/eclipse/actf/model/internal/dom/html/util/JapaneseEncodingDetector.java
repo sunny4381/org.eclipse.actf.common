@@ -35,7 +35,7 @@ import java.util.Vector;
  * 
  * Escape sequence(fin) "ESC ( J" "ESC ( H" "ESC ( B" "ESC ( I" etc.
  */
-
+@SuppressWarnings("nls")
 public class JapaneseEncodingDetector {
 	public static final int J_SJIS = 0;
 
@@ -212,7 +212,7 @@ public class JapaneseEncodingDetector {
 	private void removeKisyuIzonEUC() {
 		for (int i = eucRemoveV.size() - 1; i > -1; i--) {
 			byte bytebuf[] = new byte[length - 2];
-			int index = ((Integer) eucRemoveV.get(i)).intValue();
+			int index = (eucRemoveV.get(i)).intValue();
 			System.arraycopy(buf, 0, bytebuf, 0, index);
 			System
 					.arraycopy(buf, index + 2, bytebuf, index, length - index
@@ -557,9 +557,10 @@ public class JapaneseEncodingDetector {
 		return (c == E_KISYU_1ST);
 	}
 
-//	private boolean isEUC1st(byte c) {
-//		return (c == E_KANA_1ST || c == E_HOJO_1ST || (E_KANJI_BEGIN <= c && c <= E_KANJI_END));
-//	}
+	// private boolean isEUC1st(byte c) {
+	// return (c == E_KANA_1ST || c == E_HOJO_1ST || (E_KANJI_BEGIN <= c && c <=
+	// E_KANJI_END));
+	// }
 
 	private boolean isPayloadEUC(byte c) {
 		return (E_PAYLOAD_BEGIN <= c && c <= E_PAYLOAD_END);

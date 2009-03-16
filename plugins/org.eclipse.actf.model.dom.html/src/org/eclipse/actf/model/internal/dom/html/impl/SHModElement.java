@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLModElement;
 
+@SuppressWarnings("nls")
 public class SHModElement extends SHElement implements HTMLModElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3483927947885465633L;
+
 	protected SHModElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

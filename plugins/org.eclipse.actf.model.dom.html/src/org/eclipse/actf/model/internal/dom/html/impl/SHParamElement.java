@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLParamElement;
 
+@SuppressWarnings("nls")
 public class SHParamElement extends SHElement implements HTMLParamElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3769863277214472353L;
+
 	protected SHParamElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

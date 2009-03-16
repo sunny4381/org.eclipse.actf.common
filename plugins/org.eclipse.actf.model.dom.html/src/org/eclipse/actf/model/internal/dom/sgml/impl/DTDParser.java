@@ -27,6 +27,7 @@ import org.eclipse.actf.model.internal.dom.sgml.modelgroup.PlusModelGroup;
 import org.eclipse.actf.model.internal.dom.sgml.modelgroup.RepModelGroup;
 import org.eclipse.actf.model.internal.dom.sgml.modelgroup.SeqModelGroup;
 
+@SuppressWarnings("nls")
 class DTDParser implements ISGMLConstants {
 	private DTDTokenizer tokenizer;
 
@@ -104,7 +105,7 @@ class DTDParser implements ISGMLConstants {
 					tokenizerStack.push(tokenizer);
 					tokenizer = new DTDTokenizer(ed.getReplacementReader());
 					readDTD();
-					tokenizer = (DTDTokenizer) tokenizerStack.pop();
+					tokenizer = tokenizerStack.pop();
 				}
 				break;
 			case STAGO: // <
@@ -171,13 +172,14 @@ class DTDParser implements ISGMLConstants {
 			if (tokenizer.ttype != ')')
 				throw new DTDParseException("invalid ELEMENT type");
 			int size = 0;
-			for (Enumeration e = tmpVector.elements(); e.hasMoreElements();)
-				size += ((ElementDefinition[]) (e.nextElement())).length;
+			for (Enumeration<ElementDefinition[]> e = tmpVector.elements(); e
+					.hasMoreElements();)
+				size += e.nextElement().length;
 			ElementDefinition ret[] = new ElementDefinition[size];
 			int i = 0;
-			for (Enumeration e = tmpVector.elements(); e.hasMoreElements();) {
-				ElementDefinition defs[] = (ElementDefinition[]) (e
-						.nextElement());
+			for (Enumeration<ElementDefinition[]> e = tmpVector.elements(); e
+					.hasMoreElements();) {
+				ElementDefinition defs[] = e.nextElement();
 				for (int j = 0; j < defs.length; j++)
 					ret[i++] = defs[j];
 			}
@@ -193,7 +195,7 @@ class DTDParser implements ISGMLConstants {
 	 * 
 	 * <PRE>
 	 * 
-	 * <!ENTITY ..... > ^ ^ already read at this point. Reads until this point.
+	 * &lt;!ENTITY ..... &gt; &circ; &circ; already read at this point. Reads until this point.
 	 * 
 	 * </PRE>
 	 */
@@ -225,7 +227,7 @@ class DTDParser implements ISGMLConstants {
 						&& tokenizer.sval.equalsIgnoreCase("PUBLIC")) {
 					if (tokenizer.nextToken() == STRING) {
 						String publicID = tokenizer.sval;
-						String entityFileName = (String) SGMLParser.pubEntityMap
+						String entityFileName = SGMLParser.pubEntityMap
 								.get(publicID);
 						if (entityFileName != null) {
 							dtd.putPublicEntity(entityName, publicID,
@@ -276,7 +278,7 @@ class DTDParser implements ISGMLConstants {
 			tokenizerStack.push(tokenizer);
 			tokenizer = new DTDTokenizer(ed.getReplacementReader(), TAG);
 			readTokenGroup(attr);
-			tokenizer = (DTDTokenizer) tokenizerStack.pop();
+			tokenizer = tokenizerStack.pop();
 		} else {
 			throw new DTDParseException("invalid token");
 		}
@@ -414,7 +416,7 @@ class DTDParser implements ISGMLConstants {
 				tokenizer = new DTDTokenizer(ed.getReplacementReader(), TAG);
 				ret = exp();
 				ed.setReplacementSubtree(ret);
-				tokenizer = (DTDTokenizer) tokenizerStack.pop();
+				tokenizer = tokenizerStack.pop();
 			}
 			return ret;
 		} else {
@@ -457,7 +459,7 @@ class DTDParser implements ISGMLConstants {
 			tokenizerStack.push(tokenizer);
 			tokenizer = new DTDTokenizer(ed.getReplacementReader(), TAG);
 			declaredValue(attr);
-			tokenizer = (DTDTokenizer) tokenizerStack.pop();
+			tokenizer = tokenizerStack.pop();
 		} else {
 			throw new DTDParseException("at " + tokenizer);
 		}
@@ -480,7 +482,7 @@ class DTDParser implements ISGMLConstants {
 				attr.setDefaultType(AttributeDefinition.IMPLIED);
 			} else if (str.equalsIgnoreCase("#FIXED")) {
 				if (tokenizer.nextToken() == EOF) {
-					tokenizer = (DTDTokenizer) tokenizerStack.peek();
+					tokenizer = tokenizerStack.peek();
 				} else {
 					tokenizer.pushBack();
 				}
@@ -501,7 +503,7 @@ class DTDParser implements ISGMLConstants {
 				} catch (ParseException e) {
 					attr.setDefaultValue(str);
 				}
-				tokenizer = (DTDTokenizer) tokenizerStack.pop();
+				tokenizer = tokenizerStack.pop();
 			} else {
 				attr.setDefaultValue(str);
 			}
@@ -551,7 +553,7 @@ class DTDParser implements ISGMLConstants {
 			tokenizerStack.push(tokenizer);
 			tokenizer = new DTDTokenizer(ed.getReplacementReader(), TAG);
 			AttributeDefinition ads[] = readAttributeList(defs);
-			tokenizer = (DTDTokenizer) tokenizerStack.pop();
+			tokenizer = tokenizerStack.pop();
 			return ads;
 		} else {
 			throw new DTDParseException("illegal attlist.");
@@ -575,7 +577,7 @@ class DTDParser implements ISGMLConstants {
 			tokenizerStack.push(tokenizer);
 			tokenizer = new DTDTokenizer(ed.getReplacementReader(), TAG);
 			boolean ret = mark();
-			tokenizer = (DTDTokenizer) tokenizerStack.pop();
+			tokenizer = tokenizerStack.pop();
 			return ret;
 		} else {
 			throw new DTDParseException("sval: " + tokenizer.sval + " ttype: "
@@ -620,12 +622,14 @@ class DTDParser implements ISGMLConstants {
 			throw new DTDParseException("sval: " + tokenizer.sval + " ttype: "
 					+ tokenizer.ttype);
 		int size = 0;
-		for (Enumeration e = tmpVector.elements(); e.hasMoreElements();)
-			size += ((ElementDefinition[]) (e.nextElement())).length;
+		for (Enumeration<ElementDefinition[]> e = tmpVector.elements(); e
+				.hasMoreElements();)
+			size += e.nextElement().length;
 		ElementDefinition ret[] = new ElementDefinition[size];
 		int i = 0;
-		for (Enumeration e = tmpVector.elements(); e.hasMoreElements();) {
-			ElementDefinition defs[] = (ElementDefinition[]) (e.nextElement());
+		for (Enumeration<ElementDefinition[]> e = tmpVector.elements(); e
+				.hasMoreElements();) {
+			ElementDefinition defs[] = e.nextElement();
 			for (int j = 0; j < defs.length; j++)
 				ret[i++] = defs[j];
 		}

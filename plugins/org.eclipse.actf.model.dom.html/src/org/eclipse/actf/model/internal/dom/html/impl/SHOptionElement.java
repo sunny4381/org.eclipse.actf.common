@@ -16,7 +16,13 @@ import org.w3c.dom.html.HTMLCollection;
 import org.w3c.dom.html.HTMLFormElement;
 import org.w3c.dom.html.HTMLOptionElement;
 
+@SuppressWarnings("nls")
 public class SHOptionElement extends SHElement implements HTMLOptionElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3164490828413522255L;
+
 	protected SHOptionElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

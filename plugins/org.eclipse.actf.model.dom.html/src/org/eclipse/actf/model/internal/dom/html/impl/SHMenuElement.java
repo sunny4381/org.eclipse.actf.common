@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLMenuElement;
 
+@SuppressWarnings("nls")
 public class SHMenuElement extends SHElement implements HTMLMenuElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4858796382535968247L;
+
 	protected SHMenuElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

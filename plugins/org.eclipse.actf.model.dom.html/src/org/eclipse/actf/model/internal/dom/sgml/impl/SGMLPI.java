@@ -21,17 +21,24 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 
 /**
- * Originally <code>org.w3c.dom.ProcessingInstruction</code> is defined for
- * XML. Structure of XML's ProcessingInstruction is &lt;?<code>target data
- * </code>
- * ?&gt;. But structure of SGML's PI is &lt;?<code>data</code> &gt; So, this
- * class has no <code>target</code>. Everything is <code>data</code>
+ * Originally <code>org.w3c.dom.ProcessingInstruction</code> is defined for XML.
+ * Structure of XML's ProcessingInstruction is &lt;?<code>target data
+ * </code> ?&gt;. But structure
+ * of SGML's PI is &lt;?<code>data</code> &gt; So, this class has no
+ * <code>target</code>. Everything is <code>data</code>
  */
+@SuppressWarnings("nls")
 public class SGMLPI extends SGMLNode implements ProcessingInstruction,
 		IPrintXML {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2540695089393435586L;
+
 	void check(Node node) {
 		throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
 				"ProcessingInstruction cannot have any children.") {
+			private static final long serialVersionUID = 7449313326260141011L;
 		};
 	}
 

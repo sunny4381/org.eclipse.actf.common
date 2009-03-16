@@ -53,6 +53,7 @@ public class UnknownElementErrorHandler implements IErrorHandler {
 		this.publicID = publicID;
 	}
 
+	@SuppressWarnings("nls")
 	public boolean handleError(int code, IParser parser, Node errorNode)
 			throws ParseException, IOException {
 		if (code == IParserError.UNKNOWN_ELEMENT

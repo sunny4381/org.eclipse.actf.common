@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLOptGroupElement;
 
+@SuppressWarnings("nls")
 public class SHOptGroupElement extends SHElement implements HTMLOptGroupElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 133676314495698687L;
+
 	protected SHOptGroupElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

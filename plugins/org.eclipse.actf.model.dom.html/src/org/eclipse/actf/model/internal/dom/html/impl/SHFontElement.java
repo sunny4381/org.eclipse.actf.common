@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLFontElement;
 
+@SuppressWarnings("nls")
 public class SHFontElement extends SHElement implements HTMLFontElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9070499782522579114L;
+
 	protected SHFontElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

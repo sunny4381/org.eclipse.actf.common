@@ -16,7 +16,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Node;
 
+@SuppressWarnings("nls")
 class SGMLDocumentFragment extends SGMLParentNode implements DocumentFragment {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1284138676307716452L;
+
 	void check(Node newChild) throws DOMException {
 		switch (newChild.getNodeType()) {
 		case ELEMENT_NODE:
@@ -29,6 +35,11 @@ class SGMLDocumentFragment extends SGMLParentNode implements DocumentFragment {
 		default:
 			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, newChild
 					+ " cannot be a child of " + this) {
+
+						/**
+						 * 
+						 */
+						private static final long serialVersionUID = 8525641959587643275L;
 			};
 		}
 	}
@@ -44,6 +55,11 @@ class SGMLDocumentFragment extends SGMLParentNode implements DocumentFragment {
 	public void setNodeValue(String nodeValue) throws DOMException {
 		throw new DOMException(DOMException.NO_DATA_ALLOWED_ERR, this
 				+ " cannot have any data.") {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 4846687549476016385L;
 		};
 	}
 

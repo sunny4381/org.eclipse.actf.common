@@ -13,7 +13,10 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLBaseFontElement;
 
+@SuppressWarnings("nls")
 public class SHBaseFontElement extends SHElement implements HTMLBaseFontElement {
+	private static final long serialVersionUID = 476496807620515231L;
+
 	protected SHBaseFontElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

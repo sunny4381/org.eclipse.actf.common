@@ -14,7 +14,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 import org.w3c.dom.html.HTMLCollection;
 import org.w3c.dom.html.HTMLMapElement;
 
+@SuppressWarnings("nls")
 public class SHMapElement extends SHElement implements HTMLMapElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1519039865689712121L;
+
 	protected SHMapElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

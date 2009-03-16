@@ -73,6 +73,7 @@ public class AttributeDefinition {
 		return declaredType;
 	}
 
+	@SuppressWarnings("nls")
 	private String declaredTypeStrs[] = { null, "CDATA", "ID", "IDREF",
 			"IDREFS", "NUMBER", "NAME", "NAME_TOKEN_GROUP", "NMTOKEN", "NAMES" };
 
@@ -116,7 +117,7 @@ public class AttributeDefinition {
 	public String toString() {
 		String ret = name + '\t';
 		if (declaredType == NAME_TOKEN_GROUP) {
-			for (Enumeration e = nameTokens.elements(); e.hasMoreElements();) {
+			for (Enumeration<String> e = nameTokens.elements(); e.hasMoreElements();) {
 				ret = ret + ' ' + e.nextElement();
 			}
 		} else {
@@ -132,9 +133,11 @@ public class AttributeDefinition {
 		return ret;
 	}
 
+	@SuppressWarnings("nls")
 	private static String declaredValueTable[] = { null, "CDATA", "ID",
 			"IDREF", "IDREFS", "NUMBER", "NAME", null, "NMTOKEN" };
 
+	@SuppressWarnings("nls")
 	private static String defaultValueTable[] = { null, "#FIXED", "#REQUIRED",
 			"#IMPLIED" };
 }

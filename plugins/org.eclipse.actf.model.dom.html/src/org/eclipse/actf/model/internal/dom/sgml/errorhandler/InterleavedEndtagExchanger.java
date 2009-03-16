@@ -78,8 +78,8 @@ public class InterleavedEndtagExchanger implements IErrorHandler {
 	    if (fo instanceof EndTag) {
 		// If found exchange endtags and pushes back them to the parser
 		if (fo.getNodeName().equalsIgnoreCase(target)) {
-		    parser.error(IParserError.SUDDEN_ENDTAG, errorNode + " and " + fo + 
-				 " are interleaved. So exchange it by an error handler.");
+		    parser.error(IParserError.SUDDEN_ENDTAG, errorNode + " and " + fo +  //$NON-NLS-1$
+				 " are interleaved. So exchange it by an error handler."); //$NON-NLS-1$
 		    parser.pushBackNode(errorNode);
 		    while (i > 0) parser.pushBackNode(foBuf[--i]);
 		    parser.pushBackNode(fo);

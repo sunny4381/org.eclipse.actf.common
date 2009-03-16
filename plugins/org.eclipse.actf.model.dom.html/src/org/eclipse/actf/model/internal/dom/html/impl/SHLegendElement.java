@@ -15,7 +15,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLFormElement;
 import org.w3c.dom.html.HTMLLegendElement;
 
+@SuppressWarnings("nls")
 public class SHLegendElement extends SHElement implements HTMLLegendElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2063925160822858673L;
+
 	protected SHLegendElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

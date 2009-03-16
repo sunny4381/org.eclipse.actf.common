@@ -24,6 +24,13 @@ import org.w3c.dom.UserDataHandler;
  * methods except for a few which depends on concrete its classes.
  */
 public abstract class SGMLNode implements ISGMLNode {
+	private static final String CANNOT_HAVE_CHILDREN = " cannot have children."; //$NON-NLS-1$
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5762248895816715875L;
+
 	SGMLNode previousSibling, nextSibling, parent;
 
 	Document ownerDocument;
@@ -94,25 +101,45 @@ public abstract class SGMLNode implements ISGMLNode {
 
 	public Node appendChild(Node node) throws DOMException {
 		throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, this
-				+ " cannot have children.") {
+				+ CANNOT_HAVE_CHILDREN) {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -1406388562000040267L;
 		};
 	}
 
 	public Node insertBefore(Node newChild, Node refChild) throws DOMException {
 		throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, this
-				+ " cannot have children.") {
+				+ CANNOT_HAVE_CHILDREN) {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 6548304333974360594L;
 		};
 	}
 
 	public Node removeChild(Node oldChild) throws DOMException {
 		throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, this
-				+ " cannot have children.") {
+				+ CANNOT_HAVE_CHILDREN) {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -8738956390455008177L;
 		};
 	}
 
 	public Node replaceChild(Node newChild, Node oldChild) throws DOMException {
 		throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, this
-				+ " cannot have children.") {
+				+ CANNOT_HAVE_CHILDREN) {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -674952964898126813L;
 		};
 	}
 

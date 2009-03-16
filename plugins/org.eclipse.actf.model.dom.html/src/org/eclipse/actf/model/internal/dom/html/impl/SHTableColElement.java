@@ -13,7 +13,13 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLTableColElement;
 
+@SuppressWarnings("nls")
 public class SHTableColElement extends SHElement implements HTMLTableColElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1460706571643757807L;
+
 	protected SHTableColElement(String name, SHDocument doc) {
 		super(name, doc);
 	}

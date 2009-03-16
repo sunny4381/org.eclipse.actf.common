@@ -13,7 +13,10 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLBaseElement;
 
+@SuppressWarnings("nls")
 public class SHBaseElement extends SHElement implements HTMLBaseElement {
+	private static final long serialVersionUID = -894682460027128781L;
+
 	protected SHBaseElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

@@ -16,6 +16,11 @@ import org.w3c.dom.html.HTMLFieldSetElement;
 import org.w3c.dom.html.HTMLFormElement;
 
 public class SHFieldSetElement extends SHElement implements HTMLFieldSetElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 965402717839157036L;
+
 	protected SHFieldSetElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

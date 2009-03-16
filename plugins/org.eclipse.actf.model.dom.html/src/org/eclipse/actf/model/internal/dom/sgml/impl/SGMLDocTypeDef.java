@@ -44,7 +44,7 @@ public class SGMLDocTypeDef {
 	}
 
 	static SGMLDocTypeDef createAnonymous(SGMLParser parser) {
-		return new SGMLDocTypeDef(parser, "anonymous");
+		return new SGMLDocTypeDef(parser, "anonymous"); //$NON-NLS-1$
 	}
 
 	/**
@@ -109,15 +109,15 @@ public class SGMLDocTypeDef {
 	}
 
 	SGMLEntityDeclaration getEntityDeclaration(String entityName) {
-		return (SGMLEntityDeclaration) entityDecls.get(entityName);
+		return entityDecls.get(entityName);
 	}
 
 	SGMLEntityReference getEntityReference(String name) throws ParseException {
-		SGMLEntityReference ret = (SGMLEntityReference) entityRefs.get(name);
+		SGMLEntityReference ret = entityRefs.get(name);
 		if (ret == null) {
 			SGMLEntityDeclaration ed = getEntityDeclaration(name);
 			if (ed == null) {
-				throw new DTDParseException("No Entity Definition: " + name);
+				throw new DTDParseException("No Entity Definition: " + name); //$NON-NLS-1$
 			}
 			ret = new SGMLEntityReference(name, ed);
 			entityRefs.put(name, ret);
@@ -133,7 +133,7 @@ public class SGMLDocTypeDef {
 	 * "-//W3C//DTD HTML 4.0 Transitional//EN" </code>
 	 */
 	public static SGMLDocTypeDef getPublic(String publicID) {
-		return (SGMLDocTypeDef) table.get(publicID);
+		return table.get(publicID);
 	}
 
 	void putEntityDeclaration(String entityName, String entityString) {

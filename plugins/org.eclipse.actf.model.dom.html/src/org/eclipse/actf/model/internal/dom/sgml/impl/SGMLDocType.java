@@ -16,6 +16,7 @@ import org.w3c.dom.DocumentType;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+@SuppressWarnings("nls")
 public class SGMLDocType extends SGMLNode implements DocumentType {
 	private static final long serialVersionUID = -4133901290836989142L;
 

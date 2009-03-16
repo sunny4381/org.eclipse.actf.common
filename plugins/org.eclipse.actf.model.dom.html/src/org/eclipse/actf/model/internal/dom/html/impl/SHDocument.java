@@ -27,7 +27,11 @@ import org.w3c.dom.html.HTMLDocument;
 import org.w3c.dom.html.HTMLElement;
 import org.w3c.dom.html.HTMLTitleElement;
 
+@SuppressWarnings("nls")
 public class SHDocument extends SGMLDocument implements HTMLDocument {
+	private static final String NAME = "name";
+
+	private static final String ID = "id";
 
 	private static final long serialVersionUID = 3204066329029237578L;
 
@@ -62,8 +66,8 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 					Node node = list.item(i);
 					if (!(node instanceof Element))
 						continue;
-					if (name.equalsIgnoreCase(((Element) node)
-							.getAttribute("id"))) {
+					if (name
+							.equalsIgnoreCase(((Element) node).getAttribute(ID))) {
 						return node;
 					}
 				}
@@ -72,10 +76,10 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 					if (!(node instanceof Element))
 						continue;
 					if (name.equalsIgnoreCase(((Element) node)
-							.getAttribute("name"))) {
+							.getAttribute(NAME))) {
 						ElementDefinition def = getDTD().getElementDefinition(
 								node.getNodeName());
-						if (def != null && def.getAttributeDef("name") != null) {
+						if (def != null && def.getAttributeDef(NAME) != null) {
 							return node;
 						}
 					}
@@ -104,8 +108,8 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 					Node node = nodes[i];
 					if (!(node instanceof Element))
 						continue;
-					if (name.equalsIgnoreCase(((Element) node)
-							.getAttribute("id"))) {
+					if (name
+							.equalsIgnoreCase(((Element) node).getAttribute(ID))) {
 						return node;
 					}
 				}
@@ -114,10 +118,10 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 					if (!(node instanceof Element))
 						continue;
 					if (name.equalsIgnoreCase(((Element) node)
-							.getAttribute("name"))) {
+							.getAttribute(NAME))) {
 						ElementDefinition def = getDTD().getElementDefinition(
 								node.getNodeName());
-						if (def != null && def.getAttributeDef("name") != null) {
+						if (def != null && def.getAttributeDef(NAME) != null) {
 							return node;
 						}
 					}
@@ -435,7 +439,7 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 					tmp2 = tmp1.getNextSibling();
 				}
 			}
-			while (tmp2 == null && tmp1 != null) {
+			while (tmp2 == null) {
 				tmp1 = tmp2 = tmp1.getParentNode();
 				if (tmp1 != root) {
 					tmp2 = tmp1.getNextSibling();
@@ -466,7 +470,7 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 		tmp1 = root;
 		while (tmp1 != null) {
 			if (tmp1 instanceof Element
-					&& elementId.equals(((Element) tmp1).getAttribute("id"))) {
+					&& elementId.equals(((Element) tmp1).getAttribute(ID))) {
 				return (Element) tmp1;
 			}
 			if ((tmp2 = tmp1.getFirstChild()) == null) {
@@ -476,7 +480,7 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 					tmp2 = tmp1.getNextSibling();
 				}
 			}
-			while (tmp2 == null && tmp1 != null) {
+			while (tmp2 == null) {
 				tmp1 = tmp2 = tmp1.getParentNode();
 				if (tmp1 != root) {
 					tmp2 = tmp1.getNextSibling();
@@ -523,7 +527,7 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 			if (tmp1 instanceof Element) {
 				String name = tmp1.getNodeName();
 				if ((name.equalsIgnoreCase("A") && ((Element) tmp1)
-						.getAttributeNode("name") != null)) {
+						.getAttributeNode(NAME) != null)) {
 					if (len == links.length) {
 						Node buf[] = new Node[len * 2];
 						System.arraycopy(links, 0, buf, 0, len);
@@ -539,7 +543,7 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 					tmp2 = tmp1.getNextSibling();
 				}
 			}
-			while (tmp2 == null && tmp1 != null) {
+			while (tmp2 == null) {
 				tmp1 = tmp2 = tmp1.getParentNode();
 				if (tmp1 != root) {
 					tmp2 = tmp1.getNextSibling();
@@ -635,11 +639,11 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 	 * this method generates is a DOCTYPE declaration. Its contents is
 	 * determined as follows.
 	 * <ul>
-	 * <li> if this document's doctype is "-//W3C//DTD HTML 4.0 Frameset//EN",
+	 * <li>if this document's doctype is "-//W3C//DTD HTML 4.0 Frameset//EN",
 	 * then "-//W3C//DTD XHTML 1.0 Frameset//EN"
-	 * <li> else if "-//W3C//DTD HTML 4.0//EN" then "-//W3C//DTD XHTML 1.0
+	 * <li>else if "-//W3C//DTD HTML 4.0//EN" then "-//W3C//DTD XHTML 1.0
 	 * Strict//EN"
-	 * <li> Otherwise, "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 * <li>Otherwise, "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	 * </ul>
 	 * 
 	 * @param pw

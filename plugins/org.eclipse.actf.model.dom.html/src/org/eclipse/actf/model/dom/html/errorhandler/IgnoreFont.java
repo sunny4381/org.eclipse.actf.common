@@ -22,6 +22,7 @@ import org.w3c.dom.Node;
  * error handler makes the parser use FRAMESET while parsing.
  */
 public class IgnoreFont implements IErrorHandler {
+	@SuppressWarnings("nls")
 	public boolean handleError(int code, IParser parser, Node errorNode) {
 		if (code == IParserError.ILLEGAL_CHILD && errorNode instanceof Element
 				&& errorNode.getNodeName().equalsIgnoreCase("FONT")) {

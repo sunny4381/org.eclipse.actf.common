@@ -13,8 +13,14 @@ package org.eclipse.actf.model.internal.dom.html.impl;
 
 import org.w3c.dom.html.HTMLDirectoryElement;
 
+@SuppressWarnings("nls")
 public class SHDirectoryElement extends SHElement implements
 		HTMLDirectoryElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5500940670304267331L;
+
 	protected SHDirectoryElement(String tagName, SHDocument doc) {
 		super(tagName, doc);
 	}

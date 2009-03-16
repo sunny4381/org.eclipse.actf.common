@@ -25,7 +25,7 @@ public class OptModelGroup implements IModelGroup {
 
 	// for debug.
 	public String toString() {
-		return "(" + child + ")?";
+		return "(" + child + ")?"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	public boolean match(ISGMLParser parser, Node parent, Node child) {
