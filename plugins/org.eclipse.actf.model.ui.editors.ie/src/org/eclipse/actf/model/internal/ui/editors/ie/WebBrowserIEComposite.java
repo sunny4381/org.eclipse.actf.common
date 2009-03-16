@@ -219,7 +219,7 @@ public class WebBrowserIEComposite extends Composite {
 							break;
 						}
 					} catch (Exception e) {
-						System.err.println(dumpArags(event.arguments)); //$NON-NLS-1$
+						System.err.println(dumpArags(event.arguments));
 						e.printStackTrace();
 					}
 				}
@@ -403,6 +403,7 @@ public class WebBrowserIEComposite extends Composite {
 		return -1;
 	}
 
+	@SuppressWarnings("nls")
 	public boolean saveLiveDom(String fileName) {
 		Variant varDocument = getBrowserVariant("Document"); //$NON-NLS-1$
 		if (null != varDocument) {
@@ -469,6 +470,7 @@ public class WebBrowserIEComposite extends Composite {
 		return variant.getDispatch().getAddress();
 	}
 
+	@SuppressWarnings("nls")
 	public int[] getWholeSize() {
 		int[] result = new int[] { -1, -1 };
 		Variant varDocument = getBrowserVariant("Document"); //$NON-NLS-1$
@@ -513,6 +515,7 @@ public class WebBrowserIEComposite extends Composite {
 		return (result);
 	}
 
+	@SuppressWarnings("nls")
 	public ImagePositionInfo[] getAllImagePosition() {
 		ImagePositionInfo[] result = new ImagePositionInfo[0];
 		Variant varDocument = getBrowserVariant("Document");
@@ -541,6 +544,7 @@ public class WebBrowserIEComposite extends Composite {
 		return result;
 	}
 
+	@SuppressWarnings("nls")
 	public boolean scroll(int x, int y, int type) {
 		if (type == 0 || type == 1) {
 			Variant varDocument = getBrowserVariant("Document"); //$NON-NLS-1$
@@ -762,6 +766,7 @@ public class WebBrowserIEComposite extends Composite {
 		return setBrowserVariant(name, new Variant(value));
 	}
 
+	@SuppressWarnings("nls")
 	private int[] getBodySize(OleAutomation document) {
 		int[] result = { -1, -1 };
 		Variant varBody = getVariant(document, "body");
@@ -789,6 +794,7 @@ public class WebBrowserIEComposite extends Composite {
 		return result;
 	}
 
+	@SuppressWarnings("nls")
 	private ImagePositionInfo[] getAllImagePosition(OleAutomation images) {
 		ImagePositionInfo[] result = new ImagePositionInfo[0];
 		int size = getIntFromOleAutomation(images, "length");
@@ -826,6 +832,7 @@ public class WebBrowserIEComposite extends Composite {
 		return result;
 	}
 
+	@SuppressWarnings("nls")
 	private int[] getBoundingClientRect(OleAutomation image) {
 		int[] result = new int[] { 0, 0 };// Left, Top
 		if (null != image) {
@@ -882,7 +889,7 @@ public class WebBrowserIEComposite extends Composite {
 				varResult.dispose();
 			}
 		}
-		return "";// TODO
+		return "";// TODO //$NON-NLS-1$
 	}
 
 	/**
@@ -904,7 +911,7 @@ public class WebBrowserIEComposite extends Composite {
 			}
 			return OS.CallWindowProc(oldProc, hwnd, msg, wParam, lParam);
 		} catch (Exception e) {
-			System.out.println("error: siteWindowProc");
+			System.out.println("error: siteWindowProc"); //$NON-NLS-1$
 			// e.printStackTrace();
 		}
 		return 0;

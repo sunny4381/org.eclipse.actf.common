@@ -35,7 +35,7 @@ public class NavigateErrorParametersImpl extends AbstractEventParameters impleme
             String  targetFrameName = getTargetFrameName();
             int     statusCode =      getStatusCode();
             boolean cancel =          getCancel();
-            System.out.println("NavigateError("+dispBrowser+",\""+url+"\","+targetFrameName+"\","+statusCode+"\","+cancel+")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+            System.out.println("NavigateError("+dispBrowser+",\""+url+"\","+targetFrameName+"\","+statusCode+"\","+cancel+")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ 
         }
     }
 

@@ -13,7 +13,6 @@ package org.eclipse.actf.model.internal.ui.editors.ie;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 
 import org.eclipse.actf.model.dom.dombycom.DomByCom;
@@ -350,6 +349,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		}
 	}
 
+	@SuppressWarnings("nls")
 	public Document getDocument() {
 		try {
 			File tmpF = BrowserIE_Plugin.getDefault().createTempFile("actf",
@@ -383,6 +383,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		return null;
 	}
 
+	@SuppressWarnings("nls")
 	public File saveOriginalDocument(String file) {
 		if (null != file) {
 			if("about:blank".equals(getURL())){
@@ -417,6 +418,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	 * BrowserEventListener implementations
 	 */
 
+	@SuppressWarnings("nls")
 	public void beforeNavigate2(BeforeNavigate2Parameters param) {
 		// _inNavigation = true;
 		String target = param.getUrl();
@@ -453,9 +455,10 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		WebBrowserEventUtil.navigateComplete(this, param.getUrl());
 		toolbar
 				.setAddressTextString(browserComposite.getLocationURL()/* param.getUrl() */);
-		DebugPrintUtil.debugPrintln("NavigateComplete2");
+		DebugPrintUtil.debugPrintln("NavigateComplete2"); //$NON-NLS-1$
 	}
 
+	@SuppressWarnings("nls")
 	public void navigateError(NavigateErrorParameters param) {
 		DebugPrintUtil.debugPrintln("Navigate Error. URL:" + param.getUrl()
 				+ " Status Code:" + param.getStatusCode());
@@ -474,6 +477,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		}
 	}
 
+	@SuppressWarnings("nls")
 	public void progressChange(ProgressChangeParameters param) {
 		int prog = param.getProgress();
 		int progMax = param.getProgressMax();
@@ -510,6 +514,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		// System.out.println(param.getText());
 	}
 
+	@SuppressWarnings("nls")
 	public void titleChange(TitleChangeParameters param) {
 		try {
 			String title = param.getText();
@@ -544,7 +549,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	}
 
 	public String getID() {
-		return WebBrowserIEImpl.class.getName() + ":" + this;
+		return WebBrowserIEImpl.class.getName() + ":" + this; //$NON-NLS-1$
 	}
 
 	public String getTitle() {

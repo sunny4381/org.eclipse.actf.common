@@ -26,7 +26,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.traversal.NodeFilter;
 
 public class WebBrowserStyleInfoImpl implements IWebBrowserStyleInfo {
-	private static final String TAG_HEAD = "HEAD";
+	private static final String TAG_HEAD = "HEAD"; //$NON-NLS-1$
 	private final WebBrowserIEImpl browser;
 
 	public WebBrowserStyleInfoImpl(WebBrowserIEImpl browser) {

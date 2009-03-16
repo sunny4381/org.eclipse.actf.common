@@ -27,7 +27,7 @@ public class LaunchBrowserAction implements IWorkbenchWindowActionDelegate {
 	}
 
 	public void run(IAction action) {
-		ModelServiceUtils.launch("about:blank", WebBrowserEditor.ID);
+		ModelServiceUtils.launch("about:blank", WebBrowserEditor.ID); //$NON-NLS-1$
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {

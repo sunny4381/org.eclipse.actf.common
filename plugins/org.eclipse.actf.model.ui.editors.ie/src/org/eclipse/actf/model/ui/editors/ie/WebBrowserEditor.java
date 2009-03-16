@@ -44,6 +44,8 @@ import org.eclipse.ui.part.EditorPart;
  */
 public class WebBrowserEditor extends EditorPart implements IModelServiceHolder {
 
+	private static final String ABOUT_BLANK = "about:blank"; //$NON-NLS-1$
+
 	/**
 	 * ID of this Editor
 	 */
@@ -61,11 +63,11 @@ public class WebBrowserEditor extends EditorPart implements IModelServiceHolder 
 	}
 
 	public void createPartControl(Composite parent) {
-		String targetUrl = "about:blank";
+		String targetUrl = ABOUT_BLANK;
 		if (input instanceof DummyEditorInput) {
 			targetUrl = ((DummyEditorInput) input).getUrl();
-			if ("".equals(targetUrl)) {
-				targetUrl = "about:blank";
+			if ("".equals(targetUrl)) { //$NON-NLS-1$
+				targetUrl = ABOUT_BLANK;
 			}
 		}else if(input instanceof IPathEditorInput){
 			targetUrl = ((IPathEditorInput)input).getPath().toFile().getAbsolutePath();
@@ -75,7 +77,7 @@ public class WebBrowserEditor extends EditorPart implements IModelServiceHolder 
 		webBrowser.setNewWindow2EventListener(new INewWiondow2EventListener() {
 
 			public void newWindow2(NewWindow2Parameters param) {
-				IEditorPart newEditor = ModelServiceUtils.launch("about:blank",
+				IEditorPart newEditor = ModelServiceUtils.launch(ABOUT_BLANK,
 						ID);
 				if (newEditor instanceof WebBrowserEditor) {
 					IWebBrowserACTF browser = (IWebBrowserACTF) ((WebBrowserEditor) newEditor)

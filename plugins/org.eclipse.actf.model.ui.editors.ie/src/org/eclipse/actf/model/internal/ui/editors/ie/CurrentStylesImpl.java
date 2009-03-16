@@ -19,6 +19,7 @@ import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.util.xpath.XPathCreator;
 import org.eclipse.swt.graphics.Rectangle;
 
+@SuppressWarnings("nls")
 public class CurrentStylesImpl implements ICurrentStyles {
 
 	private static final String A_VISIBILITY = "visibility";

@@ -82,8 +82,8 @@ public class WebBrowserEditorContributor extends EditorActionBarContributor {
         // Display TODO only for Browser
         // TODO
         MenuManager displayMenu = new MenuManager(Messages.MenuConst__Display_1,
-                "displayMenu");
-        displayMenu.add(new Separator("navigate"));
+                "displayMenu"); //$NON-NLS-1$
+        displayMenu.add(new Separator("navigate")); //$NON-NLS-1$
         displayMenu.add(new GoBackAction(false));
         displayMenu.add(new GoForwardAction(false));
         displayMenu.add(new RefreshAction(false));
@@ -93,7 +93,7 @@ public class WebBrowserEditorContributor extends EditorActionBarContributor {
         }
 
         displayMenu.add(new Separator());
-        displayMenu.add(new Separator("view"));
+        displayMenu.add(new Separator("view")); //$NON-NLS-1$
         displayMenu.add(new TextSizeMenu(PlatformUI.getWorkbench().getActiveWorkbenchWindow()));
         menuManager.insertAfter(IWorkbenchActionConstants.M_FILE, displayMenu);
 

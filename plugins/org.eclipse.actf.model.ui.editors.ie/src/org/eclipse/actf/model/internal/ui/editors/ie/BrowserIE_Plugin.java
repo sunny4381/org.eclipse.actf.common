@@ -19,7 +19,7 @@ import org.osgi.framework.BundleContext;
 public class BrowserIE_Plugin extends AbstractUIPluginACTF {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.eclipse.actf.model.ui.editors.ie";
+    public static final String PLUGIN_ID = "org.eclipse.actf.model.ui.editors.ie"; //$NON-NLS-1$
 
     // The shared instance
     private static BrowserIE_Plugin plugin;
