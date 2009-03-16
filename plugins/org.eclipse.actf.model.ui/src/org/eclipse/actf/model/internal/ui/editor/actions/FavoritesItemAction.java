@@ -30,7 +30,7 @@ public class FavoritesItemAction extends FavoritesAction {
         this.useExistingEditor = useExistingEditor;
         
         setText(name);
-        setId(ID + "_" + name);
+        setId(ID + "_" + name); //$NON-NLS-1$
     }
 
     public void run() {

@@ -16,8 +16,6 @@ import org.eclipse.actf.model.internal.ui.FavoritesChangeEvent;
 import org.eclipse.actf.model.internal.ui.FavoritesChangeListener;
 import org.eclipse.jface.action.Action;
 
-
-
 abstract public class FavoritesAction extends Action {
 
 	private Vector<FavoritesChangeListener> _favoritesChangeListeners = new Vector<FavoritesChangeListener>();
@@ -33,7 +31,8 @@ abstract public class FavoritesAction extends Action {
 	protected void fireFavoritesChanged(FavoritesChangeEvent fce) {
 		if (this._favoritesChangeListeners.size() > 0) {
 			for (int i = 0; i < this._favoritesChangeListeners.size(); i++) {
-				((FavoritesChangeListener) this._favoritesChangeListeners.elementAt(i)).favoritesChanged(fce);
+				this._favoritesChangeListeners.elementAt(i).favoritesChanged(
+						fce);
 			}
 		}
 	}

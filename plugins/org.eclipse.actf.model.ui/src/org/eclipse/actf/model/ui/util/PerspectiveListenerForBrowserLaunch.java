@@ -25,8 +25,8 @@ import org.eclipse.ui.IWorkbenchPage;
 public class PerspectiveListenerForBrowserLaunch implements
 		IPerspectiveListener {
 
-	private static final String BROWSER_ID = "org.eclipse.actf.model.ui.editors.ie.WebBrowserEditor";
-	private static String TARGET_URL = "about:blank";
+	private static final String BROWSER_ID = "org.eclipse.actf.model.ui.editors.ie.WebBrowserEditor"; //$NON-NLS-1$
+	private static String TARGET_URL = "about:blank"; //$NON-NLS-1$
 
 	private String id;
 
@@ -40,7 +40,7 @@ public class PerspectiveListenerForBrowserLaunch implements
 		if (targetUrl != null) {
 			TARGET_URL = targetUrl.toString();
 		} else {
-			TARGET_URL = "about:blank";
+			TARGET_URL = "about:blank"; //$NON-NLS-1$
 		}
 	}
 

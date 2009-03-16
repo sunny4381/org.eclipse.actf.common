@@ -94,8 +94,8 @@ public class FavoritesMenu extends MenuManager implements
 
 		removeAllFavoritesItemAction();
 		while (favoritesIt.hasNext()) {
-			String name = (String) favoritesIt.next();
-			String url = (String) favoritesMap.get(name);
+			String name = favoritesIt.next();
+			String url = favoritesMap.get(name);
 			addFavoritesItemAction(name, url);
 		}
 
@@ -104,7 +104,7 @@ public class FavoritesMenu extends MenuManager implements
 
 	private void removeAllFavoritesItemAction() {
 		for (int i = 0; i < this._favoritesItemIdList.size(); i++) {
-			remove((String) this._favoritesItemIdList.get(i));
+			remove(this._favoritesItemIdList.get(i));
 		}
 		this._favoritesItemIdList.clear();
 	}
@@ -113,7 +113,7 @@ public class FavoritesMenu extends MenuManager implements
 		FavoritesItemAction favoritesItemAction = new FavoritesItemAction(
 				this._window, name, url, useExistingEditor);
 		add(favoritesItemAction);
-		this._favoritesItemIdList.add(FavoritesItemAction.ID + "_" + name);
+		this._favoritesItemIdList.add(FavoritesItemAction.ID + "_" + name); //$NON-NLS-1$
 	}
 
 }

@@ -13,5 +13,5 @@ package org.eclipse.actf.model.internal.ui.preferences;
 
 
 public interface IPreferenceConstants {
-    public static final String NOT_FIRST_TIME = "brwoser.preferences.notFirstTime";
+    public static final String NOT_FIRST_TIME = "brwoser.preferences.notFirstTime"; //$NON-NLS-1$
 }

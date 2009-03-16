@@ -43,14 +43,14 @@ public class DisableDebugMessageAction extends Action implements
 	 *            if true, set image icon to the Action
 	 */
 	public DisableDebugMessageAction(boolean flag) {
-		super("script", AS_CHECK_BOX);
+		super("script", AS_CHECK_BOX); //$NON-NLS-1$
 		setText(message);
 		setToolTipText(message_tp);
 		// TODO refer current setting
 		setChecked(true);
 		if (flag)
 			setImageDescriptor(ModelUIPlugin
-					.getImageDescriptor("icons/toolbar/scriptDebug.png"));
+					.getImageDescriptor("icons/toolbar/scriptDebug.png")); //$NON-NLS-1$
 	}
 
 	public void run() {

@@ -24,9 +24,9 @@ import org.eclipse.ui.IPersistableElement;
  */
 public class DummyEditorInput implements IEditorInput {
 
-	private String name = "";
+	private String name = ""; //$NON-NLS-1$
 
-	private String url = "";
+	private String url = ""; //$NON-NLS-1$
 
 	/**
 	 * 
@@ -60,7 +60,7 @@ public class DummyEditorInput implements IEditorInput {
 	}
 
 	public String getToolTipText() {
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	@SuppressWarnings("unchecked")

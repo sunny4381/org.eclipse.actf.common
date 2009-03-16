@@ -21,7 +21,7 @@ import org.osgi.framework.BundleContext;
 public class ModelUIPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.actf.model.ui";
+	public static final String PLUGIN_ID = "org.eclipse.actf.model.ui"; //$NON-NLS-1$
 
 	// The shared instance
 	private static ModelUIPlugin plugin;

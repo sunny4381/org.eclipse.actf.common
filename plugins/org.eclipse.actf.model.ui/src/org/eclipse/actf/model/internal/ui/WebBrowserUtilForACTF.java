@@ -17,9 +17,9 @@ import org.eclipse.ui.IEditorPart;
 
 public class WebBrowserUtilForACTF {
 
-	private static final String BROWSER_EDITOR_GET_URL_METHOD = "getURL";
-	private static final String BROWSER_EDITOR_ID = "org.eclipse.ui.browser.editor";
-	private static final String BROWSER_VIEWER_CLASS = "org.eclipse.ui.internal.browser.BrowserViewer";
+	private static final String BROWSER_EDITOR_GET_URL_METHOD = "getURL"; //$NON-NLS-1$
+	private static final String BROWSER_EDITOR_ID = "org.eclipse.ui.browser.editor"; //$NON-NLS-1$
+	private static final String BROWSER_VIEWER_CLASS = "org.eclipse.ui.internal.browser.BrowserViewer"; //$NON-NLS-1$
 
 	// need to ask swt team to provide APIs
 

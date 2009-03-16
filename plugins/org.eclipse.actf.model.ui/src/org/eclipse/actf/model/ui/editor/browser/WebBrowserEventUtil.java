@@ -24,9 +24,9 @@ import org.eclipse.core.runtime.Platform;
  * {@link IWebBrowserACTFEventListener}
  */
 public class WebBrowserEventUtil {
-	private static final String TAG_LISTENER = "listener";
+	private static final String TAG_LISTENER = "listener"; //$NON-NLS-1$
 	// private static final String ATTR_ID = "id";
-	private static final String ATTR_CLASS = "class";
+	private static final String ATTR_CLASS = "class"; //$NON-NLS-1$
 
 	private static WebBrowserEventUtil[] cachedExtensions;
 
@@ -36,7 +36,7 @@ public class WebBrowserEventUtil {
 
 		IExtension[] extensions = Platform.getExtensionRegistry()
 				.getExtensionPoint(ModelUIPlugin.PLUGIN_ID,
-						"webBrowserEventListener").getExtensions();
+						"webBrowserEventListener").getExtensions(); //$NON-NLS-1$
 		List<WebBrowserEventUtil> l = new ArrayList<WebBrowserEventUtil>();
 		for (int i = 0; i < extensions.length; i++) {
 			IConfigurationElement[] configElements = extensions[i]
@@ -48,8 +48,7 @@ public class WebBrowserEventUtil {
 					l.add(ex);
 			}
 		}
-		cachedExtensions = (WebBrowserEventUtil[]) l
-				.toArray(new WebBrowserEventUtil[l.size()]);
+		cachedExtensions = l.toArray(new WebBrowserEventUtil[l.size()]);
 		return cachedExtensions;
 	}
 

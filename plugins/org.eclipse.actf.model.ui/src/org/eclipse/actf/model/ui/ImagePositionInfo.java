@@ -18,7 +18,7 @@ public class ImagePositionInfo {
 	int y = 0;
 	int width = 0;
 	int height = 0;
-	String url = "";
+	String url = ""; //$NON-NLS-1$
 
 	/**
 	 * Constructor of {@link ImagePositionInfo}

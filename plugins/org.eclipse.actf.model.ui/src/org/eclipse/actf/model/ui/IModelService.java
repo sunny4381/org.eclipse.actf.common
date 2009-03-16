@@ -25,6 +25,7 @@ import org.w3c.dom.Node;
  * 
  * @see IModelServiceHolder
  */
+@SuppressWarnings("nls")
 public interface IModelService {
 
 	/**

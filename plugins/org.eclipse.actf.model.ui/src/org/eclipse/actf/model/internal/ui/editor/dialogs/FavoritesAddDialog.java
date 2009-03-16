@@ -45,11 +45,11 @@ public class FavoritesAddDialog extends Dialog {
 
 	protected void okPressed() {
 		_name = _nameText.getText();
-		if (_name.equals("")) {
-			MessageDialog.openError(getShell(), "Error", ModelServiceMessages.DialogAddFavorite_Text_Empty_Alert);
+		if (_name.equals("")) { //$NON-NLS-1$
+			MessageDialog.openError(getShell(), "Error", ModelServiceMessages.DialogAddFavorite_Text_Empty_Alert); //$NON-NLS-1$
 			return;
 		} else if (_map.containsKey(_name)) {
-			MessageDialog.openError(getShell(), "Error", ModelServiceMessages.DialogAddFavorite_Text_Exist_Alert);
+			MessageDialog.openError(getShell(), "Error", ModelServiceMessages.DialogAddFavorite_Text_Exist_Alert); //$NON-NLS-1$
 			return;
 		}
 

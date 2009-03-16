@@ -23,11 +23,11 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 
 public class BrowserFavoritesExtension {
-	private static final String EXTENSION_NAME = "browserFavorites";
+	private static final String EXTENSION_NAME = "browserFavorites"; //$NON-NLS-1$
 
-	private static final String FAVORITES = "favorites";
+	private static final String FAVORITES = "favorites"; //$NON-NLS-1$
 
-	private static final String ATTR_PREF_FILE = "prefFile";
+	private static final String ATTR_PREF_FILE = "prefFile"; //$NON-NLS-1$
 
 	private static BrowserFavoritesExtension[] extensions;
 
@@ -62,7 +62,7 @@ public class BrowserFavoritesExtension {
 				.getExtensionPoint(ModelUIPlugin.PLUGIN_ID, EXTENSION_NAME)
 				.getExtensions();
 
-		DebugPrintUtil.devOrDebugPrintln(BrowserFavoritesExtension.class.getName()+":"
+		DebugPrintUtil.devOrDebugPrintln(BrowserFavoritesExtension.class.getName()+":" //$NON-NLS-1$
 				+ tmpExtensions.length);
 
 		List<BrowserFavoritesExtension> l = new ArrayList<BrowserFavoritesExtension>();

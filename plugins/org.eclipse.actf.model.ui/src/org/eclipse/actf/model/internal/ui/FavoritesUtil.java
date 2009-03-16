@@ -42,7 +42,7 @@ public class FavoritesUtil {
 	private FavoritesUtil() {
 		plugin = ModelUIPlugin.getDefault();
 		IPath favoritesPath = plugin.getStateLocation().append(
-				"favorites.properties");
+				"favorites.properties"); //$NON-NLS-1$
 		favoritesProp = new Properties();
 		String targetFileName = favoritesPath.toOSString();
 		try {
@@ -80,7 +80,7 @@ public class FavoritesUtil {
 				try {
 					InputStream prefIS = FileLocator.openStream(Platform
 							.getBundle(ModelUIPlugin.PLUGIN_ID), new Path(
-							"config/favorites.pref"), false);
+							"config/favorites.pref"), false); //$NON-NLS-1$
 					if (prefIS != null) {
 						PreferenceStore tmpStore = new PreferenceStore();
 						tmpStore.load(prefIS);
@@ -94,7 +94,7 @@ public class FavoritesUtil {
 			}
 		}
 		try {
-			favoritesProp.store(new FileOutputStream(targetFile), "");
+			favoritesProp.store(new FileOutputStream(targetFile), ""); //$NON-NLS-1$
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -122,12 +122,12 @@ public class FavoritesUtil {
 			Iterator<String> favoritesIt = favoritesMap.keySet().iterator();
 			String key;
 			while (favoritesIt.hasNext()) {
-				key = (String) favoritesIt.next();
-				INSTANCE.favoritesProp.put(key, (String) favoritesMap.get(key));
+				key = favoritesIt.next();
+				INSTANCE.favoritesProp.put(key, favoritesMap.get(key));
 			}
 			try {
 				INSTANCE.favoritesProp.store(new FileOutputStream(
-						INSTANCE.targetFile), "");
+						INSTANCE.targetFile), ""); //$NON-NLS-1$
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -82,6 +82,7 @@ public class ModelServiceSizeInfo {
 	}
 
 	@Override
+	@SuppressWarnings("nls")
 	public String toString() {
 		return "View: (" + viewSizeX + ", " + viewSizeY + ") Whole: ("
 				+ wholeSizeX + ", " + wholeSizeY + ")";

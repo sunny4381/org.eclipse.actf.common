@@ -60,7 +60,7 @@ public class FavoritesArrangeDialog extends Dialog {
 
 		String[] cols = {
 				ModelServiceMessages.DialogConst_Name_Label,
-				"URL: " };
+				"URL: " }; //$NON-NLS-1$
 		TableColumn col = new TableColumn(table, SWT.BEGINNING);
 		col.setText(cols[0]);
 		col.setWidth(200);

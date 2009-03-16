@@ -48,7 +48,7 @@ public class StopAction extends Action {
 		setToolTipText(message_tp);
 		if (flag)
 			setImageDescriptor(ModelUIPlugin
-					.getImageDescriptor("icons/toolbar/stop.png"));
+					.getImageDescriptor("icons/toolbar/stop.png")); //$NON-NLS-1$
 	}
 
 	public void run() {

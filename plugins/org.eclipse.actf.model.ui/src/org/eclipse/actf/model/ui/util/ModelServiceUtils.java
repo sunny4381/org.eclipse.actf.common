@@ -72,7 +72,7 @@ public class ModelServiceUtils {
 			try {
 				return (launch(targetUrl, getEditorId(targetUrl)));
 			} catch (EditorNotFoundException e) {
-				System.err.println("Editor not found: " + targetUrl);
+				System.err.println("Editor not found: " + targetUrl); //$NON-NLS-1$
 			}
 		}
 		return null;
@@ -82,7 +82,7 @@ public class ModelServiceUtils {
 		if (desc == null) {
 			return false;
 		}
-		return desc.getId().indexOf("actf.model.ui") >= 0;
+		return desc.getId().indexOf("actf.model.ui") >= 0; //$NON-NLS-1$
 	}
 
 	private static String getEditorId(String targetUrl)
@@ -92,8 +92,8 @@ public class ModelServiceUtils {
 		IEditorDescriptor[] candidates;
 		IEditorDescriptor editor;
 
-		if (!targetUrl.startsWith("http://")
-				&& !targetUrl.startsWith("https://")) {
+		if (!targetUrl.startsWith("http://") //$NON-NLS-1$
+				&& !targetUrl.startsWith("https://")) { //$NON-NLS-1$
 			editor = editors.getDefaultEditor(targetUrl);
 			if (isModelService(editor)) {
 				return editor.getId();
@@ -106,11 +106,11 @@ public class ModelServiceUtils {
 				}
 			}
 		}
-		editor = editors.getDefaultEditor("default.html");
+		editor = editors.getDefaultEditor("default.html"); //$NON-NLS-1$
 		if (isModelService(editor)) {
 			return editor.getId();
 		} else {
-			candidates = editors.getEditors("default.html");
+			candidates = editors.getEditors("default.html"); //$NON-NLS-1$
 			for (IEditorDescriptor desc : candidates) {
 				if (isModelService(desc)) {
 					return desc.getId();
@@ -138,7 +138,7 @@ public class ModelServiceUtils {
 		if (targetUrl != null) {
 			targetUrl = targetUrl.trim();
 		} else {
-			targetUrl = "";
+			targetUrl = ""; //$NON-NLS-1$
 		}
 
 		IEditorPart blankEditorPart = getBlankBrowserEditorPart(id);
@@ -166,7 +166,7 @@ public class ModelServiceUtils {
 			}
 
 			try {
-				String editorName = "";
+				String editorName = ""; //$NON-NLS-1$
 				IEditorRegistry editors = PlatformUI.getWorkbench()
 						.getEditorRegistry();
 				IEditorDescriptor editorDesc = editors.findEditor(id);
@@ -175,7 +175,7 @@ public class ModelServiceUtils {
 					return activePage.openEditor(new DummyEditorInput(
 							targetUrl, editorName), id);
 				} else {
-					System.err.println("Editor not found: " + id);
+					System.err.println("Editor not found: " + id); //$NON-NLS-1$
 				}
 			} catch (PartInitException e) {
 				e.printStackTrace();
@@ -197,7 +197,7 @@ public class ModelServiceUtils {
 					if (modelService.getURL() == null)
 						return (IEditorPart) part;
 					if (modelService instanceof IWebBrowserACTF
-							&& ("about:blank".equals(modelService.getURL()) || (""
+							&& ("about:blank".equals(modelService.getURL()) || ("" //$NON-NLS-1$ //$NON-NLS-2$
 									.equals(modelService.getURL()))))
 						return (IEditorPart) part;
 				}
@@ -228,7 +228,7 @@ public class ModelServiceUtils {
 		try {
 			editorId = getEditorId(targetUrl);
 		} catch (EditorNotFoundException e) {
-			System.err.println("Editor not found: " + targetUrl);
+			System.err.println("Editor not found: " + targetUrl); //$NON-NLS-1$
 			return;
 		}
 		if (activateEditorPart(editorId)) {
@@ -291,8 +291,8 @@ public class ModelServiceUtils {
 			return (IModelServiceHolder) editor;
 		}
 
-		DebugPrintUtil.devOrDebugPrintln("ModelServiceUtils: " + editor
-				+ " isn't IModelServiceHolder");
+		DebugPrintUtil.devOrDebugPrintln("ModelServiceUtils: " + editor //$NON-NLS-1$
+				+ " isn't IModelServiceHolder"); //$NON-NLS-1$
 
 		return null;
 	}

@@ -50,7 +50,7 @@ public class RefreshAction extends Action {
 		setToolTipText(message_tp);
 		if (flag)
 			setImageDescriptor(ModelUIPlugin
-					.getImageDescriptor("icons/toolbar/reload.png"));
+					.getImageDescriptor("icons/toolbar/reload.png")); //$NON-NLS-1$
 	}
 
 	public void run() {
