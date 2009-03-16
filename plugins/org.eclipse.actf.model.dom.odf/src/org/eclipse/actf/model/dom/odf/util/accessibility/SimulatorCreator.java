@@ -17,6 +17,6 @@ import org.eclipse.actf.model.dom.odf.util.accessibility.impl.ScreenReaderSimula
  */
 public class SimulatorCreator {
 	static public ScreenReaderSimulator createSimulatorController() {
-		return (ScreenReaderSimulator) (new ScreenReaderSimulatorImpl());
+		return new ScreenReaderSimulatorImpl();
 	}
 }

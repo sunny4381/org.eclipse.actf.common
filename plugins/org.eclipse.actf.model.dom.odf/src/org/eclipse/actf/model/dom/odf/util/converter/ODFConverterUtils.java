@@ -14,6 +14,7 @@ package org.eclipse.actf.model.dom.odf.util.converter;
  * Utility class used by ODF converter classes
  */
 public class ODFConverterUtils {
+	@SuppressWarnings("nls")
 	public static String convertXMLCharacter(String val) {
 		String newVal = val.replaceAll("&", "&amp;");
 		newVal = newVal.replaceAll("<", "&lt;");

@@ -43,16 +43,22 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
+
+	@SuppressWarnings("nls")
 	private static final Object EXP1 = xpathService
 			.compile("./*[namespace-uri()='"
 					+ TableConstants.TABLE_NAMESPACE_URI
 					+ "' and local-name()='"
 					+ TableConstants.ELEMENT_TABLE_HEADER_COLUMNS + "']");
+
+	@SuppressWarnings("nls")
 	private static final Object EXP2 = xpathService
 			.compile("./*[namespace-uri()='"
 					+ TableConstants.TABLE_NAMESPACE_URI
 					+ "' and local-name()='"
 					+ TableConstants.ELEMENT_TABLE_HEADER_ROWS + "']");
+
+	@SuppressWarnings("nls")
 	private static final Object EXP3 = xpathService
 			.compile("following-sibling::*[namespace-uri()='"
 					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
@@ -60,6 +66,8 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 					+ "/*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI
 					+ "' and local-name()='" + TextConstants.ELEMENT_SEQUENCE
 					+ "']");
+
+	@SuppressWarnings("nls")
 	private static final Object EXP4 = xpathService
 			.compile("preceding-sibling::*[namespace-uri()='"
 					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
@@ -110,7 +118,7 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 
 	public int getTableIndex() {
 		NodeList list = getContent().getElementsByTagNameNS(
-				TableConstants.TABLE_NAMESPACE_URI, "table");
+				TableConstants.TABLE_NAMESPACE_URI, TableConstants.ELEMENT_TABLE);
 		for (int i = 0; i < list.getLength(); i++) {
 			if (list.item(i).equals(this)) {
 				return i;
@@ -305,7 +313,7 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 				.lookupPrefix(TableConstants.TABLE_NAMESPACE_URI);
 		TableRowElement rowElement = (TableRowElement) getOwnerDocument()
 				.createElement(
-						tablePrefix + ":" + TableConstants.ELEMENT_TABLE_ROW);
+						tablePrefix + ":" + TableConstants.ELEMENT_TABLE_ROW); //$NON-NLS-1$
 		return (TableRowElement) this.appendChild(rowElement);
 	}
 
@@ -323,7 +331,7 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 			return (SequenceElement) fnl.item(0);
 		if ((fnl != null) && (fnl.getLength() > 1)) {
 			new ODFException(
-					"draw:image has more than one text:sequence elements.")
+					"draw:image has more than one text:sequence elements.") //$NON-NLS-1$
 					.printStackTrace();
 		}
 
@@ -332,7 +340,7 @@ class TableElementImpl extends ODFStylableElementImpl implements TableElement {
 			return (SequenceElement) pnl.item(0);
 		if ((pnl != null) && (pnl.getLength() > 1)) {
 			new ODFException(
-					"draw:image has more than one text:sequence elements.")
+					"draw:image has more than one text:sequence elements.") //$NON-NLS-1$
 					.printStackTrace();
 		}
 		return null;

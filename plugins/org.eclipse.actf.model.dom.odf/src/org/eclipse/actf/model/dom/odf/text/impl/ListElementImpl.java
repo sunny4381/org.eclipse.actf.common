@@ -35,6 +35,8 @@ class ListElementImpl extends ODFStylableElementImpl implements ListElement {
 
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
+
+	@SuppressWarnings("nls")
 	private static final Object EXP1 = xpathService
 			.compile("./*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI
 					+ "' and local-name()='list-item']");
@@ -47,6 +49,7 @@ class ListElementImpl extends ODFStylableElementImpl implements ListElement {
 		return xpathService.evalForNodeList(EXP1, this).getLength();
 	}
 
+	@SuppressWarnings("nls")
 	public ListItemElement getItem(long idx) {
 		NodeList nodeList = xpathService.evalPathForNodeList(
 				"./*[namespace-uri()='" + TextConstants.TEXT_NAMESPACE_URI

@@ -94,10 +94,10 @@ class ObjectElementImpl extends EmbedDrawingObjectElementImpl implements
 
 		String fileUrl = doc.getURL();
 		String objUrl = this.getAttrXlinkHref();
-		if (objUrl.startsWith("./")) {
+		if (objUrl.startsWith("./")) { //$NON-NLS-1$
 			objUrl = objUrl.substring(2);
 		}
-		objUrl = objUrl + "/" + ODFConstants.ODF_CONTENT_FILENAME;
+		objUrl = objUrl + "/" + ODFConstants.ODF_CONTENT_FILENAME; //$NON-NLS-1$
 
 		ODFParser parser = new ODFParser();
 		Document objDoc = parser.getDocument(fileUrl, objUrl);

@@ -57,7 +57,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
-
+@SuppressWarnings("nls")
 public class TextExtractorImpl implements TextExtractor {
 	public static final String IMAGE_NO_ALT = "[image]";
 
@@ -120,8 +120,7 @@ public class TextExtractorImpl implements TextExtractor {
 
 	private boolean writeControlElementContent(Writer writer,
 			ControlElement elem) {
-		FormControlElement form = ((ControlElement) elem)
-				.getFormControlElement();
+		FormControlElement form = elem.getFormControlElement();
 		if (form != null) {
 			try {
 				if (!(form instanceof FixedTextElement)) {
@@ -146,7 +145,7 @@ public class TextExtractorImpl implements TextExtractor {
 	private boolean writeFrameElementContent(Writer writer, File dir,
 			FrameElement elem, boolean enableStyle) {
 		boolean addedTextContent = false;
-		Iterator<ODFElement> iter = ((FrameElement) elem).getChildIterator();
+		Iterator<ODFElement> iter = elem.getChildIterator();
 		if (iter.hasNext()) {
 			ODFElement firstContent = iter.next();
 			if (firstContent != null) {
@@ -169,7 +168,7 @@ public class TextExtractorImpl implements TextExtractor {
 	private boolean writeImageMapElementContent(Writer writer, File dir,
 			ImageMapElement elem, boolean enableStyle) {
 		boolean addedTextContent = false;
-		NodeList nl = ((ImageMapElement) elem).getAreaElements();
+		NodeList nl = elem.getAreaElements();
 		for (int i = 0; i < nl.getLength(); i++) {
 			addedTextContent |= converter.extractContent(writer, dir,
 					(ImageMapAreaElement) nl.item(i), enableStyle);
@@ -214,7 +213,7 @@ public class TextExtractorImpl implements TextExtractor {
 	private boolean writeSElementContent(Writer writer, SElement elem) {
 		if (elem.hasAttributeNS(TextConstants.TEXT_NAMESPACE_URI,
 				TextConstants.ATTR_C)) {
-			int c = ((SElement) elem).getAttrTextC();
+			int c = (elem).getAttrTextC();
 			if (c > 0) {
 				String value = "";
 				for (int i = 0; i < c; i++)
@@ -241,7 +240,7 @@ public class TextExtractorImpl implements TextExtractor {
 		NodeList pList = elem.getElementsByTagNameNS(
 				TextConstants.TEXT_NAMESPACE_URI, TextConstants.ELEMENT_P);
 		if ((pList != null) && (pList.getLength() != 0)) { // if this custom
-															// shape is caption
+			// shape is caption
 			for (int i = 0; i < pList.getLength(); i++) {
 				Node pElem = pList.item(i);
 				String content = pElem.getTextContent();
@@ -299,7 +298,7 @@ public class TextExtractorImpl implements TextExtractor {
 		NodeList pList = elem.getElementsByTagNameNS(
 				TextConstants.TEXT_NAMESPACE_URI, TextConstants.ELEMENT_P);
 		if ((pList != null) && (pList.getLength() != 0)) { // if this custom
-															// shape is caption
+			// shape is caption
 			for (int i = 0; i < pList.getLength(); i++) {
 				Node pElem = pList.item(i);
 				String content = pElem.getTextContent();
@@ -313,11 +312,9 @@ public class TextExtractorImpl implements TextExtractor {
 		if (!addedTextContent) {
 			IEditable shortDesc = null;
 			if (odfVersion != -1.0) {
-				shortDesc = (IEditable) ((DrawingObjectBaseElement) elem)
-						.getShortDescElement(odfVersion);
+				shortDesc = (IEditable) (elem).getShortDescElement(odfVersion);
 			} else {
-				shortDesc = (IEditable) ((DrawingObjectBaseElement) elem)
-						.getShortDescElement();
+				shortDesc = (IEditable) (elem).getShortDescElement();
 			}
 
 			if (shortDesc == null) {
@@ -390,8 +387,8 @@ public class TextExtractorImpl implements TextExtractor {
 
 	private boolean writeTableCellElementContent(Writer writer, File dir,
 			TableCellElement elem, boolean enableStyle) {
-		boolean addedToCell = writeODFElementContent(writer, dir,
-				(ODFElement) elem, enableStyle);
+		boolean addedToCell = writeODFElementContent(writer, dir, elem,
+				enableStyle);
 		if (!addedToCell) {
 			try {
 				writer.write("&nbsp;");
@@ -443,8 +440,7 @@ public class TextExtractorImpl implements TextExtractor {
 		ODFParser parser = new ODFParser();
 		Document doc = curElem.getOwnerDocument();
 		if (doc instanceof ODFDocument) {
-			parser.copyFile(((ODFDocument) doc).getURL(), href,
-					outputFileName);
+			parser.copyFile(((ODFDocument) doc).getURL(), href, outputFileName);
 		}
 	}
 
@@ -482,16 +478,16 @@ public class TextExtractorImpl implements TextExtractor {
 				addedTextContent |= writeCustomShapeElementContent(writer, dir,
 						(CustomShapeElement) elem, enableStyle);
 			} else if (elem instanceof GElement) {
-				addedTextContent |= writeODFElementContent(writer, dir,
-						(ODFElement) elem, enableStyle);
+				addedTextContent |= writeODFElementContent(writer, dir, elem,
+						enableStyle);
 			} else {
 				addedTextContent |= writeDrawingObjectBaseElementContent(
 						writer, dir, (DrawingObjectBaseElement) elem,
 						enableStyle);
 			}
 		} else if (elem instanceof PElement) {
-			addedTextContent |= writeODFElementContent(writer, dir,
-					(ODFElement) elem, enableStyle);
+			addedTextContent |= writeODFElementContent(writer, dir, elem,
+					enableStyle);
 			if (addedTextContent) {
 				try {
 					writer.write(System.getProperty("line.separator"));
@@ -500,8 +496,8 @@ public class TextExtractorImpl implements TextExtractor {
 				}
 			}
 		} else {
-			addedTextContent |= writeODFElementContent(writer, dir,
-					(ODFElement) elem, enableStyle);
+			addedTextContent |= writeODFElementContent(writer, dir, elem,
+					enableStyle);
 		}
 
 		return addedTextContent;

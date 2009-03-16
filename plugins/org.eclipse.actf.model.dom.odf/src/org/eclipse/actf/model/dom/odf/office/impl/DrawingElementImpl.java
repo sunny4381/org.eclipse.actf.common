@@ -28,6 +28,8 @@ class DrawingElementImpl extends ODFElementImpl implements DrawingElement {
 
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
+
+	@SuppressWarnings("nls")
 	private static final Object EXP1 = xpathService
 			.compile("./*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
 					+ "' and local-name()='" + DrawConstants.ELEMENT_PAGE
@@ -49,7 +51,7 @@ class DrawingElementImpl extends ODFElementImpl implements DrawingElement {
 	public PageElement getPage(long idx) {
 		NodeList nl = xpathService.evalForNodeList(EXP1, this);
 		if ((idx < 0) || (idx >= nl.getLength())) {
-			new ODFException("invalid page index").printStackTrace();
+			new ODFException("invalid page index").printStackTrace(); //$NON-NLS-1$
 			return null;
 		}
 		return (PageElement) nl.item((int) idx);

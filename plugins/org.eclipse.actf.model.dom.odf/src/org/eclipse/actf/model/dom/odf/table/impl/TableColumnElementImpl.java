@@ -80,7 +80,7 @@ class TableColumnElementImpl extends ODFStylableElementImpl implements
 	public int getTableColumnIndex() {
 		int columnStartIndex = 0;
 		NodeList list = getTableElement().getElementsByTagNameNS(
-				TableConstants.TABLE_NAMESPACE_URI, "table-column");
+				TableConstants.TABLE_NAMESPACE_URI, TableConstants.ELEMENT_TABLE_COLUMN);
 		for (int i = 0; i < list.getLength(); i++) {
 			if (list.item(i).equals(this)) {
 				return columnStartIndex;

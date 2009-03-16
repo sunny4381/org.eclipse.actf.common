@@ -20,6 +20,11 @@ import org.w3c.dom.Element;
 
 public abstract class ODFStylableElementImpl extends ODFElementImpl implements
 		ODFElement, IStylable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1550683236941591367L;
+
 	protected ODFStylableElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
 	}

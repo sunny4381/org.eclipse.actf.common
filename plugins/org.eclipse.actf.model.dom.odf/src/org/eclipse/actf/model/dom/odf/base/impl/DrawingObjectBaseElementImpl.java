@@ -17,8 +17,14 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
 import org.w3c.dom.Element;
 
 
+@SuppressWarnings("nls")
 public abstract class DrawingObjectBaseElementImpl extends ODFElementImpl
 		implements DrawingObjectBaseElement {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4526393398550531657L;
 
 	protected DrawingObjectBaseElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);

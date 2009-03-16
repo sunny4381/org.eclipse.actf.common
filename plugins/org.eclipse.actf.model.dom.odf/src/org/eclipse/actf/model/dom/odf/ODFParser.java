@@ -58,7 +58,7 @@ public class ODFParser {
 			} else {
 				zipFile = new ZipFile(odfName);
 			}
-			String zipFileName = fileName.replaceAll("\\\\", "/");
+			String zipFileName = fileName.replaceAll("\\\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
 			zipEntry = zipFile.getEntry(zipFileName);
 		} catch (IOException e) {
 			e.printStackTrace();

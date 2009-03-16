@@ -33,9 +33,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@SuppressWarnings("nls")
 public abstract class DrawingObjectElementImpl extends
 		DrawingObjectBaseElementImpl implements DrawingObjectElement {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -934587640960571482L;
+	
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
 	private static final Object EXP1 = xpathService
@@ -109,7 +115,7 @@ public abstract class DrawingObjectElementImpl extends
 				page = (PageElement) parent;
 				break;
 			}
-			if ((null == parent) || (parent instanceof BodyElement))
+			if (parent instanceof BodyElement)
 				break;
 			parent = parent.getParentNode();
 		}
@@ -127,7 +133,7 @@ public abstract class DrawingObjectElementImpl extends
 					break;
 				}
 			}
-			if ((null == parent) || (parent instanceof BodyElement))
+			if (parent instanceof BodyElement)
 				break;
 			parent = parent.getParentNode();
 		}

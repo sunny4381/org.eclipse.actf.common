@@ -37,6 +37,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
+	private static final String LINE_SEP = System.getProperty("line.separator"); //$NON-NLS-1$
+
 	private ODFElement curElem = null;
 
 	private TextExtractorImpl textExtractor;
@@ -66,8 +68,8 @@ public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
 
 	private void writePageElementContent(Writer writer, PageElement page) {
 		/*
-		 * NodeList children = page.getChildNodes(); for (int j=0; j<children.getLength();
-		 * j++) { Node child = children.item(j);
+		 * NodeList children = page.getChildNodes(); for (int j=0;
+		 * j<children.getLength(); j++) { Node child = children.item(j);
 		 */
 		List<ODFElement> children = page.getChildNodesInNavOrder();
 		for (int j = 0; j < children.size(); j++) {
@@ -88,8 +90,7 @@ public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
 
 	public boolean extractContent(Writer writer, File dir, ODFElement elem,
 			boolean enableStyle) {
-		return textExtractor.extractContent(writer, dir, (ODFElement) elem,
-				enableStyle);
+		return textExtractor.extractContent(writer, dir, elem, enableStyle);
 	}
 
 	public String getElementContent(ODFElement elem) {
@@ -100,10 +101,10 @@ public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
 		if (elem instanceof PageElement) {
 			writePageElementContent(writer, (PageElement) elem);
 		} else {
-			extractContent(writer, null, (ODFElement) elem, false);
+			extractContent(writer, null, elem, false);
 		}
 
-		String str = "";
+		String str = ""; //$NON-NLS-1$
 		try {
 			writer.flush();
 			writer.close();
@@ -122,14 +123,14 @@ public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
 		StringWriter writer = new StringWriter();
 		for (Iterator<ITextElementContainer> iter = textElem.getChildIterator(); iter
 				.hasNext();) {
-			Element child = (Element) iter.next();
+			Element child = iter.next();
 			if (child instanceof ODFElement) {
 				String str = getElementContent((ODFElement) child);
 				if (str != null)
 					writer.write(str);
 			}
 		}
-		String str = "";
+		String str = ""; //$NON-NLS-1$
 		try {
 			writer.flush();
 			writer.close();
@@ -146,9 +147,9 @@ public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
 			TableElement table = spreadElem.getTable(i);
 			String str = getElementContent(table);
 			if (str != null)
-				writer.write(str + System.getProperty("line.separator"));
+				writer.write(str + LINE_SEP);
 		}
-		String str = "";
+		String str = ""; //$NON-NLS-1$
 		try {
 			writer.flush();
 			writer.close();
@@ -164,18 +165,18 @@ public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
 		for (int i = 0; i < presenElem.getPageSize(); i++) {
 			PageElement page = presenElem.getPage(i);
 			NotesElement notes = page.getPresentationNotesElement();
-			writer.write("Page ");
+			writer.write("Page "); //$NON-NLS-1$
 			writer.write(i + 1);
-			writer.write(System.getProperty("line.separator"));
+			writer.write(LINE_SEP);
 			writer.write(getElementContent(page));
-			writer.write(System.getProperty("line.separator"));
-			writer.write("--------------------------------------");
-			writer.write(System.getProperty("line.separator"));
-			writer.write("Speaker Notes");
-			writer.write(System.getProperty("line.separator"));
+			writer.write(LINE_SEP);
+			writer.write("--------------------------------------"); //$NON-NLS-1$
+			writer.write(LINE_SEP);
+			writer.write("Speaker Notes"); //$NON-NLS-1$
+			writer.write(LINE_SEP);
 			writer.write(getElementContent(notes));
 		}
-		String str = "";
+		String str = ""; //$NON-NLS-1$
 		try {
 			writer.flush();
 			writer.close();
@@ -204,10 +205,10 @@ public class ScreenReaderSimulatorImpl implements ScreenReaderSimulator {
 					&& (content instanceof PresentationElement)) {
 				return getPresentationDocumentContent((PresentationElement) content);
 			} else {
-				new ODFException("invalid content element").printStackTrace();
+				new ODFException("invalid content element").printStackTrace(); //$NON-NLS-1$
 			}
 		} else {
-			new ODFException("invalid odf document").printStackTrace();
+			new ODFException("invalid odf document").printStackTrace(); //$NON-NLS-1$
 		}
 		return null;
 	}

@@ -57,8 +57,12 @@ import org.w3c.dom.Text;
  */
 public class AccessibilityFixEngine {
 
+	private static final String COLON = ":"; //$NON-NLS-1$
+
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
+
+	@SuppressWarnings("nls")
 	private static final Object EXP1 = xpathService
 			.compile("./ancestor::*[namespace-uri()='"
 					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
@@ -67,6 +71,8 @@ public class AccessibilityFixEngine {
 					+ TextConstants.TEXT_NAMESPACE_URI + "' and local-name()='"
 					+ TextConstants.ATTR_DISPLAY + "']='"
 					+ TextConstants.ATTR_DISPLAY_VALUE_NONE + "']");
+
+	@SuppressWarnings("nls")
 	private static final Object EXP2 = xpathService
 			.compile("./ancestor::*[(namespace-uri()='"
 					+ TableConstants.TABLE_NAMESPACE_URI
@@ -76,6 +82,8 @@ public class AccessibilityFixEngine {
 					+ TableConstants.TABLE_NAMESPACE_URI
 					+ "' and local-name()='"
 					+ TableConstants.ELEMENT_COVERED_TABLE_CELL + "')]");
+
+	@SuppressWarnings("nls")
 	private static final Object EXP3 = xpathService
 			.compile("./ancestor::*[namespace-uri()='"
 					+ TableConstants.TABLE_NAMESPACE_URI
@@ -120,12 +128,12 @@ public class AccessibilityFixEngine {
 
 					if ((odfVersion == 1.0)
 							|| ((odfVersion == -1.0) && (odfDoc.getODFVersion() == 1.0))) {
-						newElem = doc.createElement(svgPrefix + ":"
+						newElem = doc.createElement(svgPrefix + COLON
 								+ SVGConstants.ELEMENT_DESC);
 						newElem.setTextContent(shortDesc);
 					} else if ((odfVersion > 1.0)
 							|| ((odfVersion == -1.0) && (odfDoc.getODFVersion() > 1.0))) {
-						newElem = doc.createElement(svgPrefix + ":"
+						newElem = doc.createElement(svgPrefix + COLON
 								+ SVGConstants.ELEMENT_TITLE);
 						newElem.setTextContent(shortDesc);
 					}
@@ -177,7 +185,7 @@ public class AccessibilityFixEngine {
 						if (svgPrefix == null)
 							return false;
 
-						newElem = doc.createElement(svgPrefix + ":"
+						newElem = doc.createElement(svgPrefix + COLON
 								+ SVGConstants.ELEMENT_DESC);
 						newElem.setTextContent(longDesc);
 					}
@@ -227,7 +235,7 @@ public class AccessibilityFixEngine {
 				if (tablePrefix == null)
 					return false;
 
-				Element headerRow = doc.createElement(tablePrefix + ":"
+				Element headerRow = doc.createElement(tablePrefix + COLON
 						+ TableConstants.ELEMENT_TABLE_HEADER_ROWS);
 
 				List<TableRowElement> rowList = ((TableElement) target)
@@ -279,7 +287,7 @@ public class AccessibilityFixEngine {
 				if (tablePrefix == null)
 					return false;
 
-				Element headerColumn = doc.createElement(tablePrefix + ":"
+				Element headerColumn = doc.createElement(tablePrefix + COLON
 						+ TableConstants.ELEMENT_TABLE_HEADER_COLUMNS);
 
 				List<TableColumnElement> colList = ((TableElement) target)
@@ -304,6 +312,7 @@ public class AccessibilityFixEngine {
 		return false;
 	}
 
+	@SuppressWarnings("nls")
 	public boolean fixTableCaption(ODFElement target, String caption) {
 		if ((caption == null) || (caption.length() == 0))
 			return false;
@@ -327,9 +336,9 @@ public class AccessibilityFixEngine {
 				if (stylePrefix == null)
 					return false;
 
-				Element pElem = doc.createElement(textPrefix + ":"
+				Element pElem = doc.createElement(textPrefix + COLON
 						+ TextConstants.ELEMENT_P);
-				pElem.setAttribute(textPrefix + ":"
+				pElem.setAttribute(textPrefix + COLON
 						+ TextConstants.ATTR_STYLE_NAME, "Table");
 				Node parent = target.getParentNode();
 				Node nextNode = target.getNextSibling();
@@ -343,13 +352,13 @@ public class AccessibilityFixEngine {
 					newPElem.appendChild(doc.createTextNode("Table "));
 
 					// set content of text:p element
-					Element seqElem = doc.createElement(textPrefix + ":"
+					Element seqElem = doc.createElement(textPrefix + COLON
 							+ TextConstants.ELEMENT_SEQUENCE);
-					seqElem.setAttribute(textPrefix + ":"
+					seqElem.setAttribute(textPrefix + COLON
 							+ TextConstants.ATTR_NAME, "Table");
-					seqElem.setAttribute(textPrefix + ":"
+					seqElem.setAttribute(textPrefix + COLON
 							+ TextConstants.ATTR_FORMULA, "ooow:Table+1");
-					seqElem.setAttribute(stylePrefix + ":"
+					seqElem.setAttribute(stylePrefix + COLON
 							+ StyleConstants.ATTR_NUM_FORMAT, "1");
 					newPElem.appendChild(seqElem);
 					Text captionText = doc.createTextNode(" : " + caption);
@@ -362,6 +371,7 @@ public class AccessibilityFixEngine {
 		return false;
 	}
 
+	@SuppressWarnings("nls")
 	public boolean isFormLabelFixCapable(ODFElement target) {
 		final String CONTROL_IMPL_CHECKBOX = "com.sun.star.form.component.CheckBox";
 		final String CONTROL_IMPL_OPTIONBUTTON = "com.sun.star.form.component.OptionButton";
@@ -396,7 +406,7 @@ public class AccessibilityFixEngine {
 						FormConstants.ATTR_LABEL);
 			}
 			String formPrefix = formControl.getPrefix();
-			formControl.setAttribute(formPrefix + ":"
+			formControl.setAttribute(formPrefix + COLON
 					+ FormConstants.ATTR_LABEL, label);
 			return true;
 		}
@@ -413,7 +423,7 @@ public class AccessibilityFixEngine {
 						FormConstants.ATTR_TAB_STOP);
 			}
 			String formPrefix = formControl.getPrefix();
-			formControl.setAttribute(formPrefix + ":"
+			formControl.setAttribute(formPrefix + COLON
 					+ FormConstants.ATTR_TAB_STOP, new Boolean(tabStop)
 					.toString());
 			return true;
@@ -533,7 +543,7 @@ public class AccessibilityFixEngine {
 	}
 
 	public void setSpeakerNotesContent(NotesElement notes, String content) {
-		String[] contentList = content.split("\n");
+		String[] contentList = content.split("\n"); //$NON-NLS-1$
 
 		NodeList frameList = notes.getElementsByTagNameNS(
 				DrawConstants.DRAW_NAMESPACE_URI, DrawConstants.ELEMENT_FRAME);

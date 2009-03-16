@@ -19,6 +19,11 @@ import org.w3c.dom.Element;
 
 abstract class FormControlElementImpl extends ODFElementImpl implements
 		FormControlElement {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2496037340231132413L;
+
 	protected FormControlElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
 	}

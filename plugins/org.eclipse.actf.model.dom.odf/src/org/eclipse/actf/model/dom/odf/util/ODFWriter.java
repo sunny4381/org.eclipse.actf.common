@@ -42,13 +42,15 @@ import org.eclipse.core.runtime.IPath;
  * Utility class to save ODF document
  */
 public class ODFWriter {
+	private static final String SLASH = "/"; //$NON-NLS-1$
+
 	private void addFileToZip(ZipOutputStream zos, String inputDir, File file)
 			throws IOException, Exception {
 		if (file.isDirectory()) {
 			String entry = file.getPath();
 			entry = entry.substring(inputDir.length() + 1);
-			entry = entry.replaceAll("\\\\", "/");
-			ZipEntry target = new ZipEntry(entry + "/");
+			entry = entry.replaceAll("\\\\", SLASH); //$NON-NLS-1$
+			ZipEntry target = new ZipEntry(entry + SLASH);
 			target.setSize(0);
 			zos.putNextEntry(target);
 			zos.closeEntry();
@@ -62,7 +64,7 @@ public class ODFWriter {
 					new FileInputStream(file));
 			String entry = file.getPath();
 			entry = entry.substring(inputDir.length() + 1);
-			entry = entry.replaceAll("\\\\", "/");
+			entry = entry.replaceAll("\\\\", SLASH); //$NON-NLS-1$
 			ZipEntry target = new ZipEntry(entry);
 			zos.putNextEntry(target);
 			byte buf[] = new byte[1024];
@@ -79,32 +81,33 @@ public class ODFWriter {
 		List<String> outputFileList = new ArrayList<String>();
 		ZipInputStream zis = null;
 		FileOutputStream fos = null;
-		
+
 		URL url = null;
 		try {
 			url = new URL(odfName);
 		} catch (MalformedURLException e) {
 		}
-		
+
 		try {
 			if (url != null) {
-				zis = new ZipInputStream(new FileInputStream(new File(url.toURI())));
-			} else {			
+				zis = new ZipInputStream(new FileInputStream(new File(url
+						.toURI())));
+			} else {
 				zis = new ZipInputStream(new FileInputStream(odfName));
 			}
 			ZipEntry zent = null;
 			String fileName = null;
 			while ((zent = zis.getNextEntry()) != null) {
 				fileName = zent.getName();
-				if (fileName.contains("/")) {
-					int lastIndex = fileName.lastIndexOf("/");
+				if (fileName.contains(SLASH)) {
+					int lastIndex = fileName.lastIndexOf(SLASH);
 					File dir = new File(outputDir + File.separator
 							+ fileName.substring(0, lastIndex));
 					if (!dir.exists()) {
 						dir.mkdirs();
 					}
 				}
-				if (!fileName.endsWith("/")) {
+				if (!fileName.endsWith(SLASH)) {
 					BufferedInputStream bis = new BufferedInputStream(zis);
 					String outputFile = outputDir + File.separator + fileName;
 					outputFileList.add(outputFile);
@@ -142,7 +145,7 @@ public class ODFWriter {
 				url = new URL(outputODFName);
 			} catch (MalformedURLException e) {
 			}
-						
+
 			try {
 				File zipFile = null;
 				if (url != null) {
@@ -150,9 +153,10 @@ public class ODFWriter {
 				} else {
 					zipFile = new File(outputODFName);
 				}
-				
+
 				File[] fileList = inputDirFile.listFiles();
-				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(	zipFile));
+				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
+						zipFile));
 				for (int i = 0; i < fileList.length; i++) {
 					addFileToZip(zos, inputDir, fileList[i]);
 				}
@@ -186,7 +190,7 @@ public class ODFWriter {
 		String inFile = doc.getURL();
 
 		// create tmp directory
-		IPath tmpDir = OdfPlugin.getDefault().getStateLocation().append("tmp");
+		IPath tmpDir = OdfPlugin.getDefault().getStateLocation().append("tmp"); //$NON-NLS-1$
 		File tmpDirFile = tmpDir.toFile();
 		tmpDirFile.mkdir();
 		String tmpDirPath = tmpDirFile.getPath();
@@ -198,22 +202,22 @@ public class ODFWriter {
 		// save content.xml
 		try {
 			FileOutputStream writer = new FileOutputStream(tmpDirPath
-					+ System.getProperty("file.separator")
+					+ System.getProperty("file.separator") //$NON-NLS-1$
 					+ ODFConstants.ODF_CONTENT_FILENAME);
 			TransformerFactory tFactory = TransformerFactory.newInstance();
 			Source source = new DOMSource(doc);
 			Result target = new StreamResult(writer);
-			if (source != null) {
-				try {
-					tFactory.newTransformer().transform(source, target);
-				} catch (TransformerConfigurationException e) {
-					e.printStackTrace();
-				} catch (TransformerException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				}
+			// if (source != null) {
+			try {
+				tFactory.newTransformer().transform(source, target);
+			} catch (TransformerConfigurationException e) {
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
 			}
+			// }
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();

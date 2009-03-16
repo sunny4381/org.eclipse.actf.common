@@ -76,7 +76,7 @@ class TableCellElementImpl extends ODFStylableElementImpl implements
 			return -1;
 
 		for (int i = 0; i < rowList.size(); i++) {
-			TableRowElement row = (TableRowElement) rowList.get(i);
+			TableRowElement row = rowList.get(i);
 			List<TableCellElement> cellList = row.getTableCellChildren();
 			if (cellList != null) {
 				for (int j = 0; j < cellList.size(); j++) {

@@ -28,10 +28,14 @@ class ImageMapElementImpl extends EmbedDrawingObjectElementImpl implements
 
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
+
+	@SuppressWarnings("nls")
 	private static final Object EXP1 = xpathService
 			.compile("./*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
 					+ "' and local-name()='" + DrawConstants.ELEMENT_IMAGE
 					+ "']");
+
+	@SuppressWarnings("nls")
 	private static final Object EXP2 = xpathService.compile("./*["
 			+ "(namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
 			+ "' and local-name()='" + DrawConstants.ELEMENT_AREA_CIRCLE + "')"
@@ -53,7 +57,7 @@ class ImageMapElementImpl extends EmbedDrawingObjectElementImpl implements
 				return (ImageElement) nl.item(0);
 			if ((nl != null) && (nl.getLength() > 1)) {
 				new ODFException(
-						"draw:image has more than one text:sequence elements.")
+						"draw:image has more than one text:sequence elements.") //$NON-NLS-1$
 						.printStackTrace();
 			}
 		}

@@ -15,6 +15,7 @@ import org.eclipse.actf.model.dom.odf.base.ODFDocument;
 /**
  * ODF converter class should implement this interface
  */
+@SuppressWarnings("nls")
 public interface ODFConverter extends TextExtractor {
 	public static final String OUTPUT_ATTR_ODF_CONTENT_ID = "actf-odf-content-id";
 

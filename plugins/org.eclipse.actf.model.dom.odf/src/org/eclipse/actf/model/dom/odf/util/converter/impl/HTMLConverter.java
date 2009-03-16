@@ -80,6 +80,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@SuppressWarnings("nls")
 public class HTMLConverter implements ODFConverter {
 	private static final String HTML_ENCODING = "UTF8";
 
@@ -393,7 +394,8 @@ public class HTMLConverter implements ODFConverter {
 
 	private void convertTextDoc(PrintWriter writer, File dir,
 			TextElement textElem, boolean enableStyle) {
-		for (Iterator<ITextElementContainer> iter = textElem.getChildIterator(); iter.hasNext();) {
+		for (Iterator<ITextElementContainer> iter = textElem.getChildIterator(); iter
+				.hasNext();) {
 			ODFElement child = iter.next();
 			extractContent(writer, dir, child, enableStyle);
 		}
@@ -435,7 +437,7 @@ public class HTMLConverter implements ODFConverter {
 			NotesElement notesElem = page.getPresentationNotesElement();
 			if (notesElem != null) {
 				writer.write("<h2>Notes of Page " + (i + 1) + "</h2>");
-				extractContent(writer, dir, (ODFElement) notesElem, enableStyle);
+				extractContent(writer, dir, notesElem, enableStyle);
 			}
 			writer.write("</div>");
 		}

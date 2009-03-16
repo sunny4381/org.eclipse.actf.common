@@ -36,7 +36,7 @@ public class SVGNodeFactory extends AbstractODFNodeFactory {
 		}
 
 		try {
-			return (Element) findElementConstractor(cs).newInstance(
+			return findElementConstractor(cs).newInstance(
 					new Object[] { odfDoc, element });
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();

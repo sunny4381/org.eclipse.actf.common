@@ -321,7 +321,7 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 	private Method findCreateElementMethod(Class<? extends AbstractODFNodeFactory> cs) {
 		Method[] methods = cs.getDeclaredMethods();
 		for (int i = 0; i < methods.length; i++) {
-			if ("createElement".equals(methods[i].getName())) {
+			if ("createElement".equals(methods[i].getName())) { //$NON-NLS-1$
 				Class<?>[] parms = methods[i].getParameterTypes();
 				if (parms.length == 3 && parms[0].equals(ODFDocument.class)
 						&& parms[1].equals(String.class)

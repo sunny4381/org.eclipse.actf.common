@@ -30,6 +30,8 @@ class DocumentContentElementImpl extends ODFElementImpl implements
 
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
+
+	@SuppressWarnings("nls")
 	private static final Object EXP1 = xpathService
 			.compile("./*[namespace-uri()='"
 					+ OfficeConstants.OFFICE_NAMESPACE_URI
@@ -77,7 +79,7 @@ class DocumentContentElementImpl extends ODFElementImpl implements
 	public BodyElement getBodyElement() {
 		NodeList body = xpathService.evalForNodeList(EXP1, this);
 		if ((body == null) || (body.getLength() != 1)) {
-			new ODFException("ODF document must have one office:body element")
+			new ODFException("ODF document must have one office:body element") //$NON-NLS-1$
 					.printStackTrace();
 			return null;
 		}

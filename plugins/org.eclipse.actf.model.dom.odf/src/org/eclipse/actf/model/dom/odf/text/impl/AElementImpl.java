@@ -32,6 +32,7 @@ import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+@SuppressWarnings("nls")
 class AElementImpl extends ODFElementImpl implements AElement {
 	private static final long serialVersionUID = 884129871818293857L;
 

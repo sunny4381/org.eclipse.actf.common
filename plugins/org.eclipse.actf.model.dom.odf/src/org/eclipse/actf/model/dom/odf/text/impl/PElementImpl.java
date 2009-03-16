@@ -55,7 +55,7 @@ class PElementImpl extends ODFStylableElementImpl implements PElement {
 		if (data instanceof String) {
 			this.setTextContent((String) data);
 		} else {
-			new ODFException("invalid object for text:p setValue function.")
+			new ODFException("invalid object for text:p setValue function.") //$NON-NLS-1$
 					.printStackTrace();
 		}
 	}

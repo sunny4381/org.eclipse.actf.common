@@ -39,6 +39,7 @@ class ControlElementImpl extends DrawingObjectElementImpl implements
 		return null;
 	}
 
+	@SuppressWarnings("nls")
 	public FormControlElement getFormControlElement() {
 		NodeList nl = XPathServiceFactory.newService().evalPathForNodeList(
 				"ancestor::*/*[namespace-uri()='"
@@ -74,6 +75,7 @@ class ControlElementImpl extends DrawingObjectElementImpl implements
 		return null;
 	}
 
+	@SuppressWarnings("nls")
 	public FixedTextElement getFormLabelFixedTextElement() {
 		String drawControl = getAttrDrawControl();
 		NodeList nl = XPathServiceFactory.newService().evalPathForNodeList(

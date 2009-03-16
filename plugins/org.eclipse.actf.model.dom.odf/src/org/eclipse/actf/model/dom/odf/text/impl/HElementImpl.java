@@ -71,7 +71,7 @@ class HElementImpl extends ODFStylableElementImpl implements HElement {
 		if (data instanceof String) {
 			this.setTextContent((String) data);
 		} else {
-			new ODFException("invalid object for text:h setValue function.")
+			new ODFException("invalid object for text:h setValue function.") //$NON-NLS-1$
 					.printStackTrace();
 		}
 	}

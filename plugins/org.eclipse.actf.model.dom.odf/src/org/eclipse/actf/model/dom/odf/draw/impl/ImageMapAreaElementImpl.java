@@ -19,6 +19,11 @@ import org.w3c.dom.Element;
 abstract class ImageMapAreaElementImpl extends DrawingObjectElementImpl
 		implements ImageMapAreaElement {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 255390661568044657L;
+
 	protected ImageMapAreaElementImpl(ODFDocument odfDoc, Element element) {
 		super(odfDoc, element);
 	}

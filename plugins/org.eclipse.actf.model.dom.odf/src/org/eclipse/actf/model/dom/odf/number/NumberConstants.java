@@ -13,6 +13,7 @@ package org.eclipse.actf.model.dom.odf.number;
 /**
  * NumberConstants defines the constant values used by data style namespace of ODF DOM API
  */
+@SuppressWarnings("nls")
 public final class NumberConstants {
 	static public final String NUMBER_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0";
 

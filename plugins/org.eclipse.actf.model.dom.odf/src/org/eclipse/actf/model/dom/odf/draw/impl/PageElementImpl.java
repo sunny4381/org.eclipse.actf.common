@@ -39,6 +39,7 @@ class PageElementImpl extends ODFElementImpl implements PageElement {
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
 
+	@SuppressWarnings("nls")
 	private static final Object EXP1 = xpathService
 			.compile("./*[(namespace-uri()='"
 					+ DrawConstants.DRAW_NAMESPACE_URI + "' and local-name()='"
@@ -78,10 +79,14 @@ class PageElementImpl extends ODFElementImpl implements PageElement {
 					+ "(namespace-uri()='" + Dr3dConstants.DR3D_NAMESPACE_URI
 					+ "' and local-name()='" + Dr3dConstants.ELEMENT_SCENE
 					+ "')]");
+
+	@SuppressWarnings("nls")
 	private static final Object EXP2 = xpathService
 			.compile("./*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
 					+ "' and local-name()='" + DrawConstants.ELEMENT_PAGE
 					+ "']");
+
+	@SuppressWarnings("nls")
 	private static final Object EXP3 = xpathService
 			.compile("./*[namespace-uri()='"
 					+ PresentationConstants.PRESENTATION_NAMESPACE_URI
@@ -243,7 +248,7 @@ class PageElementImpl extends ODFElementImpl implements PageElement {
 			return (NotesElement) nl.item(0);
 		else if ((nl != null) && (nl.getLength() > 1)) {
 			new ODFException(
-					"draw:page has more than one presentation:notes element")
+					"draw:page has more than one presentation:notes element") //$NON-NLS-1$
 					.printStackTrace();
 		}
 		return null;

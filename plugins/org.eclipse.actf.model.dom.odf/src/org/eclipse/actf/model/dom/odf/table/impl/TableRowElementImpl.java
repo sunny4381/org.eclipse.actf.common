@@ -65,7 +65,7 @@ class TableRowElementImpl extends ODFStylableElementImpl implements
 			return -1;
 
 		NodeList list = tableElement.getElementsByTagNameNS(
-				TableConstants.TABLE_NAMESPACE_URI, "table-row");
+				TableConstants.TABLE_NAMESPACE_URI, TableConstants.ELEMENT_TABLE_ROW);
 		if (list == null)
 			return -1;
 

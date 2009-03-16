@@ -13,6 +13,7 @@ package org.eclipse.actf.model.dom.odf.xlink;
 /**
  * XLinkConstants defines the constant values used by xlink namespace of ODF DOM API
  */
+@SuppressWarnings("nls")
 public final class XLinkConstants {
 	static public final String XLINK_NAMESPACE_URI = "http://www.w3.org/1999/xlink";
 

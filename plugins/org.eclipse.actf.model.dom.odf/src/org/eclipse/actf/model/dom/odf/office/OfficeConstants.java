@@ -13,6 +13,7 @@ package org.eclipse.actf.model.dom.odf.office;
 /**
  * OfficeConstants defines the constant values used by office namespace of ODF DOM API
  */
+@SuppressWarnings("nls")
 public final class OfficeConstants {
 	static public final String OFFICE_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:office:1.0";
 

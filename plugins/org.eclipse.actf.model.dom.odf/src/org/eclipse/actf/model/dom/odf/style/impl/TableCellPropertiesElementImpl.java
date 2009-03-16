@@ -95,13 +95,13 @@ class TableCellPropertiesElementImpl extends ODFElementImpl implements
 		return null;
 	}
 
-	static private final String CELL_PROTECT_VALUE_NONE = "none";
+	static private final String CELL_PROTECT_VALUE_NONE = "none"; //$NON-NLS-1$
 
-	static private final String CELL_PROTECT_VALUE_PROTECTED = "protected";
+	static private final String CELL_PROTECT_VALUE_PROTECTED = "protected"; //$NON-NLS-1$
 
-	static private final String CELL_PROTECT_VALUE_FORMULA_HIDDEN = "formula-hidden";
+	static private final String CELL_PROTECT_VALUE_FORMULA_HIDDEN = "formula-hidden"; //$NON-NLS-1$
 
-	static private final String CELL_PROTECT_VALUE_HIDDEN_AND_PROTECTED = "hidden-and-protected";
+	static private final String CELL_PROTECT_VALUE_HIDDEN_AND_PROTECTED = "hidden-and-protected"; //$NON-NLS-1$
 
 	public int getAttrStyleCellProtect() {
 		if (hasAttributeNS(StyleConstants.STYLE_NAMESPACE_URI,
@@ -114,7 +114,7 @@ class TableCellPropertiesElementImpl extends ODFElementImpl implements
 				return StyleConstants.CELL_PROTECT_VALUE_HIDDEN_AND_PROTECTED;
 			} else {
 				int val = StyleConstants.CELL_PROTECT_VALUE_NOT_DEFINED;
-				String[] values = str.split(" ");
+				String[] values = str.split(" "); //$NON-NLS-1$
 				for (int i = 0; i < values.length; i++) {
 					if (values[i].equals(CELL_PROTECT_VALUE_PROTECTED)) {
 						if (val == StyleConstants.CELL_PROTECT_VALUE_HIDDEN)

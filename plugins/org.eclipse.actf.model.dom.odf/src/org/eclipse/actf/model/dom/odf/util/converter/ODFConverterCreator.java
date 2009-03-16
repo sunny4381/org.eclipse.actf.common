@@ -17,6 +17,6 @@ import org.eclipse.actf.model.dom.odf.util.converter.impl.HTMLConverter;
  */
 public class ODFConverterCreator {
 	static public ODFConverter createHTMLConverter() {
-		return (ODFConverter) (new HTMLConverter());
+		return new HTMLConverter();
 	}
 }

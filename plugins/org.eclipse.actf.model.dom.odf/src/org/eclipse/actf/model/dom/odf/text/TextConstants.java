@@ -13,6 +13,7 @@ package org.eclipse.actf.model.dom.odf.text;
 /**
  * TextConstants defines the constant values used by text namespace of ODF DOM API
  */
+@SuppressWarnings("nls")
 public final class TextConstants {
 	static public final String TEXT_NAMESPACE_URI = "urn:oasis:names:tc:opendocument:xmlns:text:1.0";
 

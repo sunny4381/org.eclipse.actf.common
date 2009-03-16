@@ -24,8 +24,14 @@ import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+@SuppressWarnings("nls")
 public abstract class EmbedDrawingObjectElementImpl extends
 		DrawingObjectBaseElementImpl implements EmbedDrawingObjectElement {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1100047270119869010L;
 
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();

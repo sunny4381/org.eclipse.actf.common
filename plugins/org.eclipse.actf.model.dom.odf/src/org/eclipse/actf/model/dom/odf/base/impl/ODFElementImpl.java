@@ -31,6 +31,7 @@ public class ODFElementImpl extends ODFNodeImpl implements ODFElement,
 		super(odfDoc, iElement);
 	}
 
+	@SuppressWarnings("nls")
 	public ODFElement findElementByAttrValue(String elemNamespaceURI,
 			String elemLocalName, String attrNamespaceURI,
 			String attrLocalName, String attrValue) {
@@ -202,8 +203,8 @@ public class ODFElementImpl extends ODFNodeImpl implements ODFElement,
 					e.printStackTrace();
 				}
 
-				if (iNewAttr == null)
-					return null;
+				// if (iNewAttr == null)
+				// return null;
 				return (Attr) odfDoc.getODFNode(iNewAttr);
 			}
 		}
