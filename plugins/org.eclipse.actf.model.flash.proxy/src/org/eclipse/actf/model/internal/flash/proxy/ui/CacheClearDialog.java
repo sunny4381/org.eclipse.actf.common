@@ -27,94 +27,102 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-
-
-
 public class CacheClearDialog extends Dialog {
 
-    private String status;
-    
-    private String appName;
+	private String status;
 
-    public CacheClearDialog(Shell shell, String appName) {
-        super(shell);
-        this.appName = appName;
-    }
+	private String appName;
 
-    protected Control createDialogArea(Composite parent) {
-        
-        parent.getShell().setText(Messages.proxy_dialog_text);
-        
-        Composite composite = new Composite(parent, SWT.NULL);
+	public CacheClearDialog(Shell shell, String appName) {
+		super(shell);
+		this.appName = appName;
+	}
 
-        GridData gridData = new GridData(GridData.HORIZONTAL_ALIGN_END | GridData.VERTICAL_ALIGN_END);
-        composite.setLayoutData(gridData);
+	protected Control createDialogArea(Composite parent) {
 
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 1;
-        layout.verticalSpacing = 20;
-        layout.marginWidth = 20;
-        layout.marginHeight = 20;
-        composite.setLayout(layout);
-        
-//        String settings = ProxyPlugin.getDefault().getPreferenceStore().getString(
-//                ProxyPreferenceConstants.P_CACHE_CLEAR);
-        
-        Label label1 = new Label(composite, SWT.NONE | SWT.READ_ONLY);
-        label1.setText("    "+appName+" "+Messages.proxy_cache_confirmation1);
+		parent.getShell().setText(Messages.proxy_dialog_text);
 
-        Font f = label1.getFont();
-        Font f9b = new Font(f.getDevice(), f.getFontData()[0].getName(), 9, SWT.BOLD);
-        Font f9 = new Font(f.getDevice(), f.getFontData()[0].getName(), 9, SWT.NORMAL);
-        label1.setFont(f9b);
-        
-        new Label(composite, SWT.NONE);
-        
-        status = ProxyPreferenceConstants.CACHE_CLEAR_WHEN_STARTUP_AND_CACHE_CLEAR;
+		Composite composite = new Composite(parent, SWT.NULL);
 
-        createRadioButton(ProxyPreferenceConstants.CACHE_CLEAR_WHEN_STARTUP_AND_CACHE_CLEAR, //
-                Messages.proxy_cache_clear_when_startup_and_cache_clear, composite, true).setFont(f9b);
-        createRadioButton(ProxyPreferenceConstants.CONFIRM_AND_CACHE_CLEAR, //
-                Messages.proxy_confirm_and_cache_clear, composite, false).setFont(f9);
-        createRadioButton(ProxyPreferenceConstants.CONFIRM_AND_NO_OPERATION, //
-                Messages.proxy_confirm_and_no_operation, composite, false).setFont(f9);
+		GridData gridData = new GridData(GridData.HORIZONTAL_ALIGN_END
+				| GridData.VERTICAL_ALIGN_END);
+		composite.setLayoutData(gridData);
 
-        return composite;
-    }
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 1;
+		layout.verticalSpacing = 20;
+		layout.marginWidth = 20;
+		layout.marginHeight = 20;
+		composite.setLayout(layout);
 
-    private Button createRadioButton(final String id, String text, Composite parent, boolean flag) {
-        Button radio = new Button(parent, SWT.RADIO);
-        radio.setText(text);
-        radio.setSelection(flag);
+		// String settings =
+		// ProxyPlugin.getDefault().getPreferenceStore().getString(
+		// ProxyPreferenceConstants.P_CACHE_CLEAR);
 
-        radio.addSelectionListener(new SelectionListener() {
-            public void widgetDefaultSelected(SelectionEvent e) {
-                status = id;
-            }
+		Label label1 = new Label(composite, SWT.NONE | SWT.READ_ONLY);
+		label1.setText("    " + appName + " " //$NON-NLS-1$ //$NON-NLS-2$
+				+ Messages.proxy_cache_confirmation1);
 
-            public void widgetSelected(SelectionEvent e) {
-                status = id;
-            }
-        });
-        return radio;
-    }
+		Font f = label1.getFont();
+		Font f9b = new Font(f.getDevice(), f.getFontData()[0].getName(), 9,
+				SWT.BOLD);
+		Font f9 = new Font(f.getDevice(), f.getFontData()[0].getName(), 9,
+				SWT.NORMAL);
+		label1.setFont(f9b);
 
-    protected void createButtonsForButtonBar(Composite parent) {
-        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
-    }
+		new Label(composite, SWT.NONE);
 
-    protected void buttonPressed(int buttonId) {
-        if (buttonId == IDialogConstants.OK_ID) {
-            close();
-        }
-    }
+		status = ProxyPreferenceConstants.CACHE_CLEAR_WHEN_STARTUP_AND_CACHE_CLEAR;
 
-    public String getSelection() {
-        return status;
-    }
+		createRadioButton(
+				ProxyPreferenceConstants.CACHE_CLEAR_WHEN_STARTUP_AND_CACHE_CLEAR, //
+				Messages.proxy_cache_clear_when_startup_and_cache_clear,
+				composite, true).setFont(f9b);
+		createRadioButton(ProxyPreferenceConstants.CONFIRM_AND_CACHE_CLEAR, //
+				Messages.proxy_confirm_and_cache_clear, composite, false)
+				.setFont(f9);
+		createRadioButton(ProxyPreferenceConstants.CONFIRM_AND_NO_OPERATION, //
+				Messages.proxy_confirm_and_no_operation, composite, false)
+				.setFont(f9);
 
-    protected void handleShellCloseEvent() {
-        this.status = ProxyPreferenceConstants.CONFIRM_AND_NO_OPERATION;
-        super.handleShellCloseEvent();
-    }
+		return composite;
+	}
+
+	private Button createRadioButton(final String id, String text,
+			Composite parent, boolean flag) {
+		Button radio = new Button(parent, SWT.RADIO);
+		radio.setText(text);
+		radio.setSelection(flag);
+
+		radio.addSelectionListener(new SelectionListener() {
+			public void widgetDefaultSelected(SelectionEvent e) {
+				status = id;
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				status = id;
+			}
+		});
+		return radio;
+	}
+
+	protected void createButtonsForButtonBar(Composite parent) {
+		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
+				true);
+	}
+
+	protected void buttonPressed(int buttonId) {
+		if (buttonId == IDialogConstants.OK_ID) {
+			close();
+		}
+	}
+
+	public String getSelection() {
+		return status;
+	}
+
+	protected void handleShellCloseEvent() {
+		this.status = ProxyPreferenceConstants.CONFIRM_AND_NO_OPERATION;
+		super.handleShellCloseEvent();
+	}
 }

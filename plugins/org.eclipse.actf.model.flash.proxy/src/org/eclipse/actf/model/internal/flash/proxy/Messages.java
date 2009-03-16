@@ -20,8 +20,7 @@ public final class Messages extends NLS {
 		// Do not instantiate
 	}
 
-	public static String NO_DELETE;
-	public static String NO_PROXY;
+	public static String DeleteCacheAction_0;
 	public static String proxy_clear_tip;
 	public static String proxy_clear;
 	public static String proxy_source;

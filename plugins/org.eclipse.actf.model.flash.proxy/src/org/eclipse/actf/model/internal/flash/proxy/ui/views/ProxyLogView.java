@@ -56,7 +56,7 @@ import com.ibm.icu.text.MessageFormat;
 public class ProxyLogView extends ViewPart {
 	public static final String ID = ProxyLogView.class.getName();
 
-	private static final String[] HEADINGS = { Messages.proxy_message, "ID",
+	private static final String[] HEADINGS = { Messages.proxy_message, "ID", //$NON-NLS-1$
 			Messages.proxy_source, Messages.proxy_time };
 	private static final int[] WEIGHTS = { 30, 3, 10, 5 };
 	private static final int[] ALIGNMENTS = { SWT.LEFT, SWT.LEFT, SWT.LEFT,
@@ -282,7 +282,7 @@ public class ProxyLogView extends ViewPart {
 					}
 					for (int col = 0; col < HEADINGS.length; col++) {
 						sb.append(labelProvider.getColumnText(element, col));
-						sb.append(col == HEADINGS.length - 1 ? "\r\n" : "\t");
+						sb.append(col == HEADINGS.length - 1 ? "\r\n" : "\t"); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}
 				if (sb.length() > 0) {

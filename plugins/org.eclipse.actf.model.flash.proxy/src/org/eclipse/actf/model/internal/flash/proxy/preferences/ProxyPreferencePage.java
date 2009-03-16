@@ -50,7 +50,7 @@ public class ProxyPreferencePage extends FieldEditorPreferencePage implements IW
         super.adjustGridLayout();
         int numColumns = ((GridLayout)getFieldEditorParent().getLayout()).numColumns;
         for( int i=0; i< groups.size(); i++ ) {
-            Group group = (Group)groups.get(i);
+            Group group = groups.get(i);
             GridLayout layout = (GridLayout)group.getLayout();
             GridData data = (GridData)group.getLayoutData(); 
             layout.numColumns = numColumns;
@@ -81,8 +81,8 @@ public class ProxyPreferencePage extends FieldEditorPreferencePage implements IW
                     Messages.proxy_swfmethod,1, 
                     new String[][]{
                         {Messages.proxy_swfmethod_none, ProxyPreferenceConstants.PROXY_SWF_METHOD_NONE}, 
-                        {Messages.proxy_swfmethod_bootloader, ProxyPreferenceConstants.PROXY_SWF_METHOD_BOOTLOADER}/*, //$NON-NLS-1$
-                        {Messages.getString("proxy.swfmethod.transcoder"), ProxyPreferenceConstants.PROXY_SWF_METHOD_TRANSCODER}*/ }, //$NON-NLS-1$
+                        {Messages.proxy_swfmethod_bootloader, ProxyPreferenceConstants.PROXY_SWF_METHOD_BOOTLOADER}/*, 
+                        {Messages.getString("proxy.swfmethod.transcoder"), ProxyPreferenceConstants.PROXY_SWF_METHOD_TRANSCODER}*/ },
                     httpProxyGroup));
         }
 

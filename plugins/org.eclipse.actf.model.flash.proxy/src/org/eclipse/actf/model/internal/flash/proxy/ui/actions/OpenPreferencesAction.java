@@ -25,7 +25,7 @@ public class OpenPreferencesAction extends ActionDelegate implements IViewAction
 
     public void run(IAction action) {
         PreferencesUtil
-        .createPreferenceDialogOn(view.getSite().getShell(), "org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferencePage", null, null)
+        .createPreferenceDialogOn(view.getSite().getShell(), "org.eclipse.actf.model.flash.proxy.preferences.ProxyPreferencePage", null, null) //$NON-NLS-1$
         .open();
     }
 

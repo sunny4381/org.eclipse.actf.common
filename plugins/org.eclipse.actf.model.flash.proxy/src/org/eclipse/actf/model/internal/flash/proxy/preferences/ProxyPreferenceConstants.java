@@ -12,6 +12,7 @@
 
 package org.eclipse.actf.model.internal.flash.proxy.preferences;
 
+@SuppressWarnings("nls")
 public class ProxyPreferenceConstants {
 
     public static final String P_PROXY_TYPE = "ProxyType"; //$NON-NLS-1$

@@ -26,14 +26,14 @@ public class ProxyLogRecord {
     private String loggerName;
     private String id;
     // private static final Pattern pattern = Pattern.compile("-(\\d+):");
-    private static final Pattern pattern = Pattern.compile("\\[id:(\\d+)\\] (.*)");
+    private static final Pattern pattern = Pattern.compile("\\[id:(\\d+)\\] (.*)"); //$NON-NLS-1$
     
     public ProxyLogRecord(LogRecord record) {
         millis = record.getMillis();
         level = record.getLevel();
         loggerName = record.getLoggerName();
         message = record.getMessage();
-        id = "";
+        id = ""; //$NON-NLS-1$
         if( null != message ) {
             Matcher matcher = pattern.matcher(message);
             if( matcher.find() ) {
@@ -42,7 +42,7 @@ public class ProxyLogRecord {
                 message=matcher.group(2);
             }
             if( message.length()>256 ) {
-                message = message.substring(0,256)+"...";
+                message = message.substring(0,256)+"..."; //$NON-NLS-1$
             }
         }
     }

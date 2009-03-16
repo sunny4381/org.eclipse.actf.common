@@ -67,7 +67,7 @@ public class ProxyPlugin extends AbstractUIPlugin implements
 				}
 			}
 		});
-		getDefault().getWorkbench().getDisplay().asyncExec(new Runnable(){
+		getDefault().getWorkbench().getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				setProxySettings();
 			}
@@ -137,7 +137,7 @@ public class ProxyPlugin extends AbstractUIPlugin implements
 
 	public void propertyChange(PropertyChangeEvent event) {
 		for (int i = 0; i < listeners.size(); i++) {
-			((IPropertyChangeListener) listeners.get(i)).propertyChange(event);
+			listeners.get(i).propertyChange(event);
 		}
 	}
 
