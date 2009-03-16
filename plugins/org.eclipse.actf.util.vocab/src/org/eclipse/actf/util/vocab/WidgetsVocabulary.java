@@ -15,6 +15,7 @@ package org.eclipse.actf.util.vocab;
  * WidgetsVocabulary defines propositions related to widgets such as button and
  * radio button.
  */
+@SuppressWarnings("nls")
 public class WidgetsVocabulary {
 	private static class IsButton implements IProposition {
 		public boolean eval(IEvalTarget node) {

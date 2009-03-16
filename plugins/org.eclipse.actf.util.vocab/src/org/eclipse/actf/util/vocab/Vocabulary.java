@@ -24,8 +24,8 @@ import org.w3c.dom.Node;
  * {@link IProposition}. {@link IProposition} represents a question whether a
  * {@link IEvalTarget} instance is matched with the proposition or not. Actual
  * meaning is provided by the term implementation which extends
- * {@link AbstractTerms}. Each instance of the {@link IEvalTarget} is
- * associated with a term implementation.
+ * {@link AbstractTerms}. Each instance of the {@link IEvalTarget} is associated
+ * with a term implementation.
  * 
  * The following is the flow to get the meaning of the {@link IEvalTarget}
  * instance.
@@ -38,6 +38,7 @@ import org.w3c.dom.Node;
  *     For example, {@link Vocabulary#isClickable()} calls {@link AbstractTerms#isClickable(IEvalTarget)}.
  * </pre>
  */
+@SuppressWarnings("nls")
 public class Vocabulary {
 	private static HashMap<String, IProposition> propMap = new HashMap<String, IProposition>();
 
@@ -387,7 +388,8 @@ public class Vocabulary {
 	}
 
 	/**
-	 * text box, text area, password, combo box, check box, radio button, and so on.
+	 * text box, text area, password, combo box, check box, radio button, and so
+	 * on.
 	 * 
 	 * @return the instance of {@link IProposition} which evaluates whether a
 	 *         node can be edited.
@@ -471,7 +473,7 @@ public class Vocabulary {
 	public static IProposition isCheckbox() {
 		return get("Checkbox");
 	}
-	
+
 	/**
 	 * @return the instance of {@link IProposition} which evaluates whether a
 	 *         node is checked or not
@@ -586,7 +588,8 @@ public class Vocabulary {
 
 	/**
 	 * @return the instance of {@link IProposition} which evaluates whether a
-	 *         node can be omitted to create simplified tree by fennec auto translator
+	 *         node can be omitted to create simplified tree by fennec auto
+	 *         translator
 	 */
 	public static IProposition isReducible() {
 		return get("Reducible");
@@ -649,8 +652,10 @@ public class Vocabulary {
 	}
 
 	/**
-	 * @param str the string to be found
-	 * @param exact if true then case-sensitive
+	 * @param str
+	 *            the string to be found
+	 * @param exact
+	 *            if true then case-sensitive
 	 * @return the instance of {@link IProposition} which evaluates whether a
 	 *         node has the string
 	 */
@@ -659,18 +664,22 @@ public class Vocabulary {
 	}
 
 	/**
-	 * @param str the string to be found
-	 * @param exact if true then case-sensitive
+	 * @param str
+	 *            the string to be found
+	 * @param exact
+	 *            if true then case-sensitive
 	 * @return the instance of {@link IProposition} which evaluates whether a
 	 *         node has string which starts with str
 	 */
 	public static IProposition startsWith(String str, boolean exact) {
 		return new StartsWithProposition(str, exact);
 	}
-	
+
 	/**
-	 * @param refNode the reference node to be compared
-	 * @param backward the target node is appeared before the refNode or not
+	 * @param refNode
+	 *            the reference node to be compared
+	 * @param backward
+	 *            the target node is appeared before the refNode or not
 	 * @return the instance of {@link IProposition} which evaluates whether a
 	 *         node is appeared before or after the reference node
 	 */
@@ -679,7 +688,8 @@ public class Vocabulary {
 	}
 
 	/**
-	 * @param key the character of the access key
+	 * @param key
+	 *            the character of the access key
 	 * @return the instance of {@link IProposition} which evaluates whether a
 	 *         node has the access key
 	 */
@@ -760,7 +770,8 @@ public class Vocabulary {
 	}
 
 	/**
-	 * @param baseNode the node to be checked for reaching
+	 * @param baseNode
+	 *            the node to be checked for reaching
 	 * @return the instance of {@link IProposition} which evaluates whether a
 	 *         node can be read with next element in HTML level.
 	 */

@@ -28,7 +28,7 @@ public class FalseImpl implements IProposition {
     }
 
     public String getName() {
-        return "false";
+        return "false"; //$NON-NLS-1$
     }
 
     public static FalseImpl getInstance() {

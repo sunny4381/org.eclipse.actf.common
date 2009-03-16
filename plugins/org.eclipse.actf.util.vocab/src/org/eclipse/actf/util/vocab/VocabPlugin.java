@@ -19,7 +19,7 @@ import org.osgi.framework.BundleContext;
 public class VocabPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.actf.util.vocab";
+	public static final String PLUGIN_ID = "org.eclipse.actf.util.vocab"; //$NON-NLS-1$
 
 	// The shared instance
 	private static VocabPlugin plugin;

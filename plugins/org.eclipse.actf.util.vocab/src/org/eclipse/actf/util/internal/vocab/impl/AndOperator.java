@@ -34,7 +34,7 @@ public class AndOperator extends AbstractOperator {
     }
 
     public String getName() {
-        return "and";
+        return "and"; //$NON-NLS-1$
     }
 
 }

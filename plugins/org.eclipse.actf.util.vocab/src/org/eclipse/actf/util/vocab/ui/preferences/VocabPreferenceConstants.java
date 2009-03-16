@@ -13,24 +13,26 @@ package org.eclipse.actf.util.vocab.ui.preferences;
 /**
  * Constant definitions for plug-in preferences
  */
+@SuppressWarnings("nls")
 public class VocabPreferenceConstants {
-    
-    public static final String NORMAL_FLASH = "normal_flash";
-    public static final String WNDLESS_FLASH = "wndless_flash";
+
+	public static final String NORMAL_FLASH = "normal_flash";
+
+	public static final String WNDLESS_FLASH = "wndless_flash";
 
 	public static final String VALUE_FLASH_DOM = "flash_dom";
 
-    public static final String VALUE_MSAA_FLASH = "msaa_flash";
+	public static final String VALUE_MSAA_FLASH = "msaa_flash";
 
-    public static final String VALUE_NO_FLASH = "no_flash";
+	public static final String VALUE_NO_FLASH = "no_flash";
 
-    public static final String READ_NO_ALT = "read_no_alt";
-    
-    public static final String READ_NULL_ALT = "read_null_alt";
-    
-    public static final String READ_NO_ALT_LINK = "read_no_alt_link";
-    
-    public static final String READ_NULL_ALT_LINK = "read_null_alt_link";
-    
-    public static final String SKIP_ICON_LINK = "skip_icon_link";
+	public static final String READ_NO_ALT = "read_no_alt";
+
+	public static final String READ_NULL_ALT = "read_null_alt";
+
+	public static final String READ_NO_ALT_LINK = "read_no_alt_link";
+
+	public static final String READ_NULL_ALT_LINK = "read_null_alt_link";
+
+	public static final String SKIP_ICON_LINK = "skip_icon_link";
 }

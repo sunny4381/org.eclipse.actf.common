@@ -54,7 +54,7 @@ public class Function implements IProposition {
         if(method != null){
             try {
                 this.args[0] = node;
-                return (Boolean)method.invoke(node.getTerms(), (Object[])args);
+                return (Boolean)method.invoke(node.getTerms(), args);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {

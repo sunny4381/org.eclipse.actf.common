@@ -34,7 +34,7 @@ public class OrOperator extends AbstractOperator {
     }
 
     public String getName() {
-        return "or";
+        return "or"; //$NON-NLS-1$
     }
 
 }

@@ -28,6 +28,6 @@ public class NotOperator extends AbstractOperator1 {
     }
 
     public String getName() {
-        return "not";
+        return "not"; //$NON-NLS-1$
     }
 }

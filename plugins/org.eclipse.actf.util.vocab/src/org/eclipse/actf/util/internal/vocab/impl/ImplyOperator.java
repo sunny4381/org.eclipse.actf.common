@@ -23,6 +23,6 @@ public class ImplyOperator extends OrOperator {
 
     @Override
     public String getName() {
-        return "implies";
+        return "implies"; //$NON-NLS-1$
     }
 }
