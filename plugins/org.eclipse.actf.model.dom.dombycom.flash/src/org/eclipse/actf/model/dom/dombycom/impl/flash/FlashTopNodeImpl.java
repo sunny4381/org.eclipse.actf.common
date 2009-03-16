@@ -34,6 +34,7 @@ import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@SuppressWarnings("nls")
 class FlashTopNodeImpl extends ElementImpl implements IFlashNode, IFlashConst {
 
 	private static final String CLSID = "CLSID:D27CDB6E-AE6D-11CF-96B8-444553540000";
@@ -136,13 +137,13 @@ class FlashTopNodeImpl extends ElementImpl implements IFlashNode, IFlashConst {
 
 	@Override
 	public Node getFirstChild() {
-		//System.err.println("invalid(getFirstChild).");
+		// System.err.println("invalid(getFirstChild).");
 		return null;
 	}
 
 	@Override
 	public Node getLastChild() {
-		//System.err.println("invalid(getLastChild).");
+		// System.err.println("invalid(getLastChild).");
 		return null;
 	}
 

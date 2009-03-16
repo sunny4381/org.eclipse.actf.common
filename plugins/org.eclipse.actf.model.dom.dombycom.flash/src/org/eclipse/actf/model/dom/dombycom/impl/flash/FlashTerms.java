@@ -106,7 +106,7 @@ public class FlashTerms extends AbstractTerms {
             ElementImpl element = (ElementImpl) target;
 
             String name = element.getLocalName();
-            if ("EMBED".equals(name) || "OBJECT".equals(name))
+            if ("EMBED".equals(name) || "OBJECT".equals(name)) //$NON-NLS-1$ //$NON-NLS-2$
                 return true;
         }
         return false;

@@ -36,6 +36,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.UserDataHandler;
 
+@SuppressWarnings("nls")
 class FlashNodeImpl implements IFlashNode, IFlashConst {
 	// final ASObject nodeASObj;
 	private final ASAccInfo accInfo;
@@ -317,7 +318,7 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 	public String extractString() {
 		String r = null;
 		if (null != accInfo) {
-			accInfo.getName();
+			accInfo.getName(); // r=??
 		}
 		if (r == null) {
 			r = flashNode.getText(false);
