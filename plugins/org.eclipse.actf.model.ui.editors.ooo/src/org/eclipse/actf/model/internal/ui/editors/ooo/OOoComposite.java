@@ -47,7 +47,7 @@ public class OOoComposite extends Composite implements IModelService {
 
 	private String lastURL = null;
 
-	private String title = "";
+	private String title = ""; //$NON-NLS-1$
 	
 	private IModelServiceHolder holder;
 
@@ -106,7 +106,7 @@ public class OOoComposite extends Composite implements IModelService {
 			 * (IOException ioe) { ioe.printStackTrace(); return; } }
 			 */
 			File file = new File(url);
-			if ((null != file) && (file.exists())) {
+			if (file.exists()) {
 				this._oOoWindowComposite.open(url);
 				this._toolbar.getAddressText().setText(url);
 
@@ -128,7 +128,7 @@ public class OOoComposite extends Composite implements IModelService {
 		if (null != _oOoWindowComposite) {
 			return this._oOoWindowComposite.getUrl();
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	public List<Element> getElemList(Node root) {
@@ -250,7 +250,7 @@ public class OOoComposite extends Composite implements IModelService {
 	}
 
 	public String getID() {
-		return OOoComposite.class.getName() + ":" + this;
+		return OOoComposite.class.getName() + ":" + this; //$NON-NLS-1$
 	}
 
 	public String getTitle() {

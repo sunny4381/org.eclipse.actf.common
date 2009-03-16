@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.model.ui.editors.ooo.initializer;visibility:=reexport,
  org.eclipse.actf.ui,
  org.eclipse.actf.util.win32
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  external:$OOo_PROGRAM_PATH$\..\URE\java\juh.jar,
  external:$OOo_PROGRAM_PATH$\..\URE\java\jurt.jar,

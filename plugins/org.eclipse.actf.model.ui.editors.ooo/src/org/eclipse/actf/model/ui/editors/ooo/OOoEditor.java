@@ -82,7 +82,7 @@ public class OOoEditor extends EditorPart implements IModelServiceHolder {
 		String targetUrl = null;
 		if (input instanceof DummyEditorInput) {
 			targetUrl = ((DummyEditorInput) input).getUrl();
-			if ("".equals(targetUrl)) {
+			if ("".equals(targetUrl)) { //$NON-NLS-1$
 				targetUrl = null;
 			}
 		} else if (input instanceof IPathEditorInput) {

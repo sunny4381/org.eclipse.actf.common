@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.actf.model.internal.ui.editors.ooo;
 
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.actf.model.ui.editors.ooo.initializer.kicker.IOOoEditorInitializerKicker;
@@ -25,7 +24,7 @@ import org.osgi.framework.BundleContext;
  */
 public class OOoEditorPlugin extends AbstractUIPlugin implements IOOoEditorInitializerKicker {
 
-	public static final String PLUGIN_ID = "org.eclipse.actf.model.ui.editors.ooo";
+	public static final String PLUGIN_ID = "org.eclipse.actf.model.ui.editors.ooo"; //$NON-NLS-1$
 
 	//The shared instance.
 	private static OOoEditorPlugin plugin;
@@ -80,16 +79,7 @@ public class OOoEditorPlugin extends AbstractUIPlugin implements IOOoEditorIniti
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
-    
-    public static String getResourceString(String key) {
-        ResourceBundle bundle = OOoEditorPlugin.getDefault().getResourceBundle();
-        try {
-            return (null != bundle) ? bundle.getString(key) : key;
-        } catch (MissingResourceException mre) {
-            return "???" + key + "???";
-        }
-    }    
-    
+        
     public ResourceBundle getResourceBundle() {
         if (null == _resourceBundle && null != _context) {
             Bundle bundle = _context.getBundle();

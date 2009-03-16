@@ -20,7 +20,7 @@ import org.eclipse.ui.PlatformUI;
 public class OOoEditorInitUtil {
 
 	private static boolean IS_INITIALIZED = false;
-	private static final String ENTRY = "SOFTWARE\\OpenOffice.org\\UNO\\InstallPath";
+	private static final String ENTRY = "SOFTWARE\\OpenOffice.org\\UNO\\InstallPath"; //$NON-NLS-1$
 
 	/**
 	 * check existence of OOo.
@@ -38,17 +38,18 @@ public class OOoEditorInitUtil {
 		String path = getOpenOfficePath();
 		if (path == null) {
 			if (showHelp) {
+				//TODO
 				PlatformUI
 						.getWorkbench()
 						.getHelpSystem()
 						.displayHelpResource(
-								"/org.eclipse.actf.examples.adesigner.doc/docs/odf/install.html");
+								"/org.eclipse.actf.examples.adesigner.doc/docs/odf/install.html"); //$NON-NLS-1$
 			}
 			return false;
 		}
 
 		IS_INITIALIZED = true;
-		System.setProperty("OOo_PROGRAM_PATH", path);
+		System.setProperty("OOo_PROGRAM_PATH", path); //$NON-NLS-1$
 
 		return true;
 	}
@@ -62,7 +63,7 @@ public class OOoEditorInitUtil {
 	public static String getOpenOfficePath() {
 
 		return RegistryUtil.getRegistryString(RegistryUtil.HKEY_LOCAL_MACHINE,
-				ENTRY, "");
+				ENTRY, ""); //$NON-NLS-1$
 	}
 
 }

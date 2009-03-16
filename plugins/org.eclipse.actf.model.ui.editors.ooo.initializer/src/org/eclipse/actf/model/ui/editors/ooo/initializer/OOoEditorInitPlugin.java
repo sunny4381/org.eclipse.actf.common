@@ -20,7 +20,7 @@ import org.osgi.framework.BundleContext;
 public class OOoEditorInitPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.actf.model.ui.editors.ooo.initializer";
+	public static final String PLUGIN_ID = "org.eclipse.actf.model.ui.editors.ooo.initializer"; //$NON-NLS-1$
 
 	// The shared instance
 	private static OOoEditorInitPlugin plugin;

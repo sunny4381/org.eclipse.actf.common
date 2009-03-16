@@ -37,7 +37,8 @@ public class BootstrapForOOoComposite extends Bootstrap {
 	private static XMultiServiceFactory xMSF = null;
 	private static XDesktop xDesktop = null;
 	
-    public static final Process bootstrap(ClassLoader classLoader) throws BootstrapException {
+    @SuppressWarnings("nls")
+	public static final Process bootstrap(ClassLoader classLoader) throws BootstrapException {
         
         Process process  = null;
         
@@ -49,9 +50,9 @@ public class BootstrapForOOoComposite extends Bootstrap {
 
             String sOfficeExeName = System.getProperty("os.name").startsWith("Windows") ? "soffice.exe" : "soffice";
             File sOfficeFile = new File(OOoEditorInitUtil.getOpenOfficePath() + "\\" + sOfficeExeName);
-            if (null == sOfficeFile) {
-                throw new BootstrapException("no office executable found");
-            }
+//            if (null == sOfficeFile) {
+//                throw new BootstrapException("no office executable found");
+//            }
 
             XMultiComponentFactory xMCF = xComponentContext.getServiceManager();
             if (null == xMCF) {
@@ -100,7 +101,8 @@ public class BootstrapForOOoComposite extends Bootstrap {
         return process;
     }
 
-    private static String getPipeName() {
+    @SuppressWarnings("nls")
+	private static String getPipeName() {
         String s = System.getProperty("user.name") + "_Office";
         s = replaceAll(s, "_", "%B7");
         try {

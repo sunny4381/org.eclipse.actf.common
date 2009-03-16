@@ -54,6 +54,8 @@ import com.sun.star.view.XSelectionSupplier;
 
 public class OOoNavigation {
 
+	private static final String COLON = ":"; //$NON-NLS-1$
+	
 	private String _targetContentID = null;
 	private ODFDocument _contentXML = null;
 	private ContentType _fileType = null;
@@ -104,42 +106,42 @@ public class OOoNavigation {
 		String targetNodeName = targetNode.getNodeName();
 		String targetOdfNodeName = ((Element) targetNode)
 				.getAttribute(ODFConverter.OUTPUT_ATTR_ODF_TAGNAME);
-		if (targetNodeName.equalsIgnoreCase("img")) {
+		if (targetNodeName.equalsIgnoreCase("img")) { //$NON-NLS-1$
 			jumpToProblemImage(targetNode);
-		} else if (targetOdfNodeName.equals(drawPrefix + ":"
+		} else if (targetOdfNodeName.equals(drawPrefix + COLON
 				+ DrawConstants.ELEMENT_OBJECT)) {
 			jumpToProblemObject(targetNode);
-		} else if (targetNodeName.equalsIgnoreCase("table")) {
+		} else if (targetNodeName.equalsIgnoreCase("table")) { //$NON-NLS-1$
 			jumpToProblemTable(targetNode);
-		} else if ((targetOdfNodeName.equals(drawPrefix + ":"
+		} else if ((targetOdfNodeName.equals(drawPrefix + COLON
 				+ DrawConstants.ELEMENT_CAPTION))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_CIRCLE))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_CUSTOM_SHAPE))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_ELLIPSE))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_G))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_LINE))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_CONNECTOR))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_POLYGON))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_POLYLINE))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_RECT))
-				|| (targetOdfNodeName.equals(drawPrefix + ":"
+				|| (targetOdfNodeName.equals(drawPrefix + COLON
 						+ DrawConstants.ELEMENT_REGULAR_POLYGON))
-				|| (targetOdfNodeName.equals(dr3dPrefix + ":"
+				|| (targetOdfNodeName.equals(dr3dPrefix + COLON
 						+ Dr3dConstants.ELEMENT_SCENE))) {
 			jumpToProblemDrawingShape(targetNode);
-		} else if (targetOdfNodeName.equals(drawPrefix + ":"
+		} else if (targetOdfNodeName.equals(drawPrefix + COLON
 				+ DrawConstants.ELEMENT_PAGE)) {
 			jumpToProblemDrawingPage(targetNode);
-		} else if (targetOdfNodeName.equals(drawPrefix + ":"
+		} else if (targetOdfNodeName.equals(drawPrefix + COLON
 				+ DrawConstants.ELEMENT_CONTROL)) {
 			jumpToProblemFormControl(targetNode);
 		}
@@ -173,6 +175,8 @@ public class OOoNavigation {
 					return;
 				String odfContentId = ((Element) targetNode)
 						.getAttribute(ODFConverter.OUTPUT_ATTR_ODF_CONTENT_ID);
+
+				@SuppressWarnings("nls")
 				NodeList nl = XPathServiceFactory
 						.newService()
 						.evalPathForNodeList(
@@ -233,6 +237,8 @@ public class OOoNavigation {
 			return;
 		String odfContentId = ((Element) targetNode)
 				.getAttribute(ODFConverter.OUTPUT_ATTR_ODF_CONTENT_ID);
+
+		@SuppressWarnings("nls")		
 		NodeList nl = XPathServiceFactory.newService()
 				.evalPathForNodeList(
 						"//*[@" + ODFConverter.OUTPUT_ATTR_ODF_CONTENT_ID
@@ -313,6 +319,8 @@ public class OOoNavigation {
 			return;
 		String odfContentId = ((Element) targetNode)
 				.getAttribute(ODFConverter.OUTPUT_ATTR_ODF_CONTENT_ID);
+
+		@SuppressWarnings("nls")		
 		NodeList nl = XPathServiceFactory.newService()
 				.evalPathForNodeList(
 						"//*[@" + ODFConverter.OUTPUT_ATTR_ODF_CONTENT_ID
@@ -395,6 +403,8 @@ public class OOoNavigation {
 				return;
 			String odfContentId = ((Element) targetNode)
 					.getAttribute(ODFConverter.OUTPUT_ATTR_ODF_CONTENT_ID);
+
+			@SuppressWarnings("nls")
 			NodeList nl = XPathServiceFactory.newService().evalPathForNodeList(
 					"//*[@" + ODFConverter.OUTPUT_ATTR_ODF_CONTENT_ID + "='"
 							+ odfContentId + "']",
@@ -470,6 +480,8 @@ public class OOoNavigation {
 					return;
 				String odfContentId = ((Element) targetNode)
 						.getAttribute(ODFConverter.OUTPUT_ATTR_ODF_CONTENT_ID);
+
+				@SuppressWarnings("nls")
 				NodeList nl = XPathServiceFactory
 						.newService()
 						.evalPathForNodeList(
@@ -485,7 +497,7 @@ public class OOoNavigation {
 					return;
 				if (nl.item(0) instanceof PageElement) {
 					PageElement pageElem = (PageElement) nl.item(0);
-					int pageIndex = (int) pageElem.getPageIndex();
+					int pageIndex = pageElem.getPageIndex();
 					XDrawPage xDrawPage = ODFUtils.getDrawPageByIndex(
 							this._xComp, pageIndex);
 					selectionSupplier.select(xDrawPage);
@@ -510,6 +522,8 @@ public class OOoNavigation {
 				return;
 			String odfContentId = ((Element) targetNode)
 					.getAttribute(ODFConverter.OUTPUT_ATTR_ODF_CONTENT_ID);
+
+			@SuppressWarnings("nls")
 			NodeList nl = XPathServiceFactory.newService().evalPathForNodeList(
 					"//*[namespace-uri()='" + DrawConstants.DRAW_NAMESPACE_URI
 							+ "' and local-name()='"

@@ -61,7 +61,7 @@ public class OOoEditorToolbar extends Composite {
 		Label addressLabel = new Label(this, SWT.NONE);
 		addressLabel.setLayoutData(new GridData());
 		addressLabel
-				.setText(" " + ModelServiceMessages.WebBrowser_Address); 
+				.setText(" " + ModelServiceMessages.WebBrowser_Address);  //$NON-NLS-1$
 		addressLabel.addTraverseListener(new TraverseListener() {
 			public void keyTraversed(TraverseEvent arg0) {
 				if (arg0.stateMask == SWT.ALT
@@ -115,9 +115,9 @@ public class OOoEditorToolbar extends Composite {
 		Button searchButton = new Button(this, SWT.NULL);
 		searchButton.setLayoutData(getButtonsGridData());
 		searchButton.setText(ModelServiceMessages.WebBrowser_Go); 
-		searchButton.setToolTipText(ModelServiceMessages.WebBrowser_Go_tp); //$NON-NLS-1$
+		searchButton.setToolTipText(ModelServiceMessages.WebBrowser_Go_tp);
 		searchButton.setImage(OOoEditorPlugin.imageDescriptorFromPlugin(
-				"org.eclipse.actf.model.ui", "icons/browser/go.png")
+				"org.eclipse.actf.model.ui", "icons/browser/go.png") //$NON-NLS-1$ //$NON-NLS-2$
 				.createImage());
 		searchButton.addMouseListener(new MouseAdapter() {
 			public void mouseUp(MouseEvent e) {

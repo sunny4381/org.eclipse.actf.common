@@ -31,90 +31,113 @@ import com.sun.star.uno.Exception;
 import com.sun.star.uno.UnoRuntime;
 import com.sun.star.util.XURLTransformer;
 
-
-
+@SuppressWarnings("nls")
 public class OOoUIControls {
 
-	public static void hideUIElements(XFrame xFrame, XMultiServiceFactory xMSF) throws ODFException {
+	public static void hideUIElements(XFrame xFrame, XMultiServiceFactory xMSF)
+			throws ODFException {
 		try {
-	        XDispatchProvider xDispatchProvider = (XDispatchProvider) UnoRuntime.queryInterface(XDispatchProvider.class, xFrame);			
-	        Object oDispatchHelper = xMSF.createInstance("com.sun.star.frame.DispatchHelper");
-	    	XDispatchHelper dispatchHelper = (XDispatchHelper)AnyConverter.toObject(XDispatchHelper.class, oDispatchHelper);
+			XDispatchProvider xDispatchProvider = (XDispatchProvider) UnoRuntime
+					.queryInterface(XDispatchProvider.class, xFrame);
+			Object oDispatchHelper = xMSF
+					.createInstance("com.sun.star.frame.DispatchHelper");
+			XDispatchHelper dispatchHelper = (XDispatchHelper) AnyConverter
+					.toObject(XDispatchHelper.class, oDispatchHelper);
 
-	    	executeXDispatch("NormalMultiPaneGUI", Boolean.TRUE, xDispatchProvider, dispatchHelper);
-	        executeXDispatch("InputLineVisible", Boolean.FALSE, xDispatchProvider, dispatchHelper);
-            executeXDispatch("LeftPaneDraw", Boolean.FALSE, xDispatchProvider, dispatchHelper);
-            executeXDispatch("LeftPaneImpress", Boolean.FALSE, xDispatchProvider, dispatchHelper);
-	        executeXDispatch("RightPane", Boolean.FALSE, xDispatchProvider, dispatchHelper);
-	        executeXDispatch("Ruler", Boolean.FALSE, xDispatchProvider, dispatchHelper);
-            executeXDispatch("ShowRuler", Boolean.FALSE, xDispatchProvider, dispatchHelper);
-            executeXDispatch("ZoomPage", Boolean.TRUE, xDispatchProvider, dispatchHelper);
-            
-	        hideXUIElements(xFrame);
+			executeXDispatch("NormalMultiPaneGUI", Boolean.TRUE,
+					xDispatchProvider, dispatchHelper);
+			executeXDispatch("InputLineVisible", Boolean.FALSE,
+					xDispatchProvider, dispatchHelper);
+			executeXDispatch("LeftPaneDraw", Boolean.FALSE, xDispatchProvider,
+					dispatchHelper);
+			executeXDispatch("LeftPaneImpress", Boolean.FALSE,
+					xDispatchProvider, dispatchHelper);
+			executeXDispatch("RightPane", Boolean.FALSE, xDispatchProvider,
+					dispatchHelper);
+			executeXDispatch("Ruler", Boolean.FALSE, xDispatchProvider,
+					dispatchHelper);
+			executeXDispatch("ShowRuler", Boolean.FALSE, xDispatchProvider,
+					dispatchHelper);
+			executeXDispatch("ZoomPage", Boolean.TRUE, xDispatchProvider,
+					dispatchHelper);
+
+			hideXUIElements(xFrame);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
-    }
+		}
+	}
 
-    public static boolean setDrawingMode(XMultiServiceFactory xMSF, XController controller) throws ODFException {
-    	return executeXDispatchAction(xMSF, controller, "slot:27009");
-    }
-    
-    private static void hideXUIElements(XFrame xFrame) throws ODFException {
+	public static boolean setDrawingMode(XMultiServiceFactory xMSF,
+			XController controller) throws ODFException {
+		return executeXDispatchAction(xMSF, controller, "slot:27009");
+	}
 
-        try {
-            XLayoutManager xLayoutManager = ODFUtils.getXLayoutManager(xFrame);
-            XUIElement[] xUIElems = xLayoutManager.getElements();
+	private static void hideXUIElements(XFrame xFrame) throws ODFException {
 
-            XPropertySet xUIElemPropSet;
-            XPropertySetInfo xUIElemPropSetInfo;
-            Property[] xUIElemProps;
-            for (int i = 0; i < xUIElems.length; i++) {
-                xUIElemPropSet = (XPropertySet) UnoRuntime.queryInterface(XPropertySet.class, xUIElems[i]);
-                xUIElemPropSetInfo = xUIElemPropSet.getPropertySetInfo();
-                if(xUIElemPropSetInfo.hasPropertyByName("Persistent")) {
-                    xUIElemPropSet.setPropertyValue("Persistent", Boolean.FALSE);
-                }
-                xUIElemProps = xUIElemPropSetInfo.getProperties();
-                for (int j = 0; j < xUIElemProps.length; j++) {
-                    if (xUIElemProps[j].Name.equals("ResourceURL")) {
-                        xLayoutManager.hideElement(xUIElemPropSet.getPropertyValue(xUIElemProps[j].Name).toString());
-                    }
-                }
-            }
-        } catch (UnknownPropertyException upe) {
-            throw new ODFException(upe.getMessage());
-        } catch (WrappedTargetException wte) {
-            throw new ODFException(wte.getMessage());
-        } catch (PropertyVetoException pve) {
-            throw new ODFException(pve.getMessage());
-        } catch (IllegalArgumentException iae) {
-            throw new ODFException(iae.getMessage());
-        }
-    }
-
-    private static void executeXDispatch(String name, Object value, XDispatchProvider xDispatchProvider,
-    		XDispatchHelper dispatchHelper) throws ODFException {
-    	PropertyValue[] pValue = new PropertyValue[1];
-        pValue[0] = new PropertyValue();
-        pValue[0].Name = name;
-        pValue[0].Value = value;
-
-        dispatchHelper.executeDispatch(xDispatchProvider, ".uno:" + name, "", 0, pValue);
-    }
-    
-
-	private static boolean executeXDispatchAction(XMultiServiceFactory xMSF, XController controller, String action) {
 		try {
-			XDispatchProvider dispatchProvider = (XDispatchProvider)UnoRuntime.queryInterface(XDispatchProvider.class, controller);
+			XLayoutManager xLayoutManager = ODFUtils.getXLayoutManager(xFrame);
+			XUIElement[] xUIElems = xLayoutManager.getElements();
+
+			XPropertySet xUIElemPropSet;
+			XPropertySetInfo xUIElemPropSetInfo;
+			Property[] xUIElemProps;
+			for (int i = 0; i < xUIElems.length; i++) {
+				xUIElemPropSet = (XPropertySet) UnoRuntime.queryInterface(
+						XPropertySet.class, xUIElems[i]);
+				xUIElemPropSetInfo = xUIElemPropSet.getPropertySetInfo();
+				if (xUIElemPropSetInfo.hasPropertyByName("Persistent")) {
+					xUIElemPropSet
+							.setPropertyValue("Persistent", Boolean.FALSE);
+				}
+				xUIElemProps = xUIElemPropSetInfo.getProperties();
+				for (int j = 0; j < xUIElemProps.length; j++) {
+					if (xUIElemProps[j].Name.equals("ResourceURL")) {
+						xLayoutManager.hideElement(xUIElemPropSet
+								.getPropertyValue(xUIElemProps[j].Name)
+								.toString());
+					}
+				}
+			}
+		} catch (UnknownPropertyException upe) {
+			throw new ODFException(upe.getMessage());
+		} catch (WrappedTargetException wte) {
+			throw new ODFException(wte.getMessage());
+		} catch (PropertyVetoException pve) {
+			throw new ODFException(pve.getMessage());
+		} catch (IllegalArgumentException iae) {
+			throw new ODFException(iae.getMessage());
+		}
+	}
+
+	private static void executeXDispatch(String name, Object value,
+			XDispatchProvider xDispatchProvider, XDispatchHelper dispatchHelper)
+			throws ODFException {
+		PropertyValue[] pValue = new PropertyValue[1];
+		pValue[0] = new PropertyValue();
+		pValue[0].Name = name;
+		pValue[0].Value = value;
+
+		dispatchHelper.executeDispatch(xDispatchProvider, ".uno:" + name, "",
+				0, pValue);
+	}
+
+	private static boolean executeXDispatchAction(XMultiServiceFactory xMSF,
+			XController controller, String action) {
+		try {
+			XDispatchProvider dispatchProvider = (XDispatchProvider) UnoRuntime
+					.queryInterface(XDispatchProvider.class, controller);
 			if (null != dispatchProvider) {
 				com.sun.star.util.URL actionURL[] = new com.sun.star.util.URL[1];
 				actionURL[0] = new com.sun.star.util.URL();
 				actionURL[0].Complete = action;
-				XURLTransformer urlTransformer = (XURLTransformer) UnoRuntime.queryInterface(XURLTransformer.class,
-						xMSF.createInstance("com.sun.star.util.URLTransformer"));
+				XURLTransformer urlTransformer = (XURLTransformer) UnoRuntime
+						.queryInterface(
+								XURLTransformer.class,
+								xMSF
+										.createInstance("com.sun.star.util.URLTransformer"));
 				urlTransformer.parseStrict(actionURL);
-				XDispatch dispatch = dispatchProvider.queryDispatch(actionURL[0], "", 0);
+				XDispatch dispatch = dispatchProvider.queryDispatch(
+						actionURL[0], "", 0);
 				if (null != dispatch) {
 					dispatch.dispatch(actionURL[0], new PropertyValue[0]);
 					return true;
@@ -124,5 +147,5 @@ public class OOoUIControls {
 			e.printStackTrace();
 		}
 		return false;
-	}    
+	}
 }

@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.model.ui.editors.ooo.actions;
+package org.eclipse.actf.model.internal.ui.editors.ooo.actions;
 
 import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.jface.action.Action;
@@ -18,22 +18,22 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
+public class SaveODFAction extends Action {
 
+	//TODO
+	private final String message = "Save"; //$NON-NLS-1$
 
+	public SaveODFAction() {
+		setText(message);
+		setToolTipText(message);
+		setImageDescriptor(PlatformUIUtil
+				.getSharedImageDescriptor(ISharedImages.IMG_DEF_VIEW));
+	}
 
-public class EditODFAction extends Action{
-    
-    private final String message = "Edit";
-
-    public EditODFAction() {
-        setText(message);
-        setToolTipText(message);
-        setImageDescriptor(PlatformUIUtil.getSharedImageDescriptor(ISharedImages.IMG_DEF_VIEW)); 
-    }
-
-    public void run() {
-        MessageBox msgBox = new MessageBox(PlatformUI.getWorkbench().getDisplay().getActiveShell(), SWT.OK);
-        msgBox.setMessage("not implemented yet");
-        msgBox.open();
-    }
+	public void run() {
+		MessageBox msgBox = new MessageBox(PlatformUI.getWorkbench()
+				.getDisplay().getActiveShell(), SWT.OK);
+		msgBox.setMessage("not implemented yet"); //$NON-NLS-1$
+		msgBox.open();
+	}
 }
