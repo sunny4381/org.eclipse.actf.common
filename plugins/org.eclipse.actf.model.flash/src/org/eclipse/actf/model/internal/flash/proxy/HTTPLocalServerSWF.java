@@ -66,21 +66,31 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 	}
 
 	private static byte[] bridgeInitSwf;
+	private static byte[] bridgeInitSwfV9;
 
-	public static void setBridgeInitSwf(InputStream is) {
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		int b;
+	private static byte[] readBridgeSWFFile(InputStream is) {
 		try {
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			int b;
 			while (true) {
 				b = is.read();
 				if (b < 0)
 					break;
 				os.write(b);
 			}
-		} catch (IOException e) {
-			return;
+			return os.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new byte[0];
 		}
-		bridgeInitSwf = os.toByteArray();
+	}
+
+	public static void setBridgeInitSwf(InputStream is) {
+		bridgeInitSwf = readBridgeSWFFile(is);
+	}
+
+	public static void setBridgeInitSwfV9(InputStream is) {
+		bridgeInitSwfV9 = readBridgeSWFFile(is);
 	}
 
 	private IHTTPResponseMessage processBridgeInitSwf(
@@ -89,6 +99,17 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 				.createHTTPResponseInMemoryMessage(request.getSerial(),
 						IHTTPHeader.HTTP_VERSION_1_0_A, "200".getBytes(), "OK"
 								.getBytes(), bridgeInitSwf);
+		response.setHeader(IHTTPHeader.CONTENT_TYPE_A,
+				SWFUtil.MIME_TYPE_APPLICATION_X_SHOCKWAVE_FLASH_A);
+		return response;
+	}
+
+	private IHTTPResponseMessage processBridgeInitSwfV9(
+			IHTTPRequestMessage request) {
+		IHTTPResponseMessage response = HTTPUtil
+				.createHTTPResponseInMemoryMessage(request.getSerial(),
+						IHTTPHeader.HTTP_VERSION_1_0_A, "200".getBytes(), "OK"
+								.getBytes(), bridgeInitSwfV9);
 		response.setHeader(IHTTPHeader.CONTENT_TYPE_A,
 				SWFUtil.MIME_TYPE_APPLICATION_X_SHOCKWAVE_FLASH_A);
 		return response;
@@ -185,10 +206,11 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.util.httpproxy.proxy.IHTTPLocalServer#processRequest(int,
-	 *      org.eclipse.actf.util.httpproxy.proxy.HTTPProxyConnection,
-	 *      org.eclipse.actf.util.httpproxy.core.HTTPRequestMessage,
-	 *      org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoder)
+	 * @see
+	 * org.eclipse.actf.util.httpproxy.proxy.IHTTPLocalServer#processRequest
+	 * (int, org.eclipse.actf.util.httpproxy.proxy.HTTPProxyConnection,
+	 * org.eclipse.actf.util.httpproxy.core.HTTPRequestMessage,
+	 * org.eclipse.actf.util.httpproxy.proxy.IHTTPProxyTranscoder)
 	 */
 	public boolean processRequest(int id, IHTTPProxyConnection fClient,
 			IHTTPRequestMessage request, IHTTPProxyTranscoder transcoder)
@@ -216,6 +238,8 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 		IHTTPResponseMessage response = null;
 		if (absPath.endsWith(SWFUtil.BRIDGE_INIT_SWF_FILENAME)) {
 			response = processBridgeInitSwf(request);
+		} else if (absPath.endsWith(SWFUtil.BRIDGE_INIT_SWF_V9_FILENAME)) {
+			response = processBridgeInitSwfV9(request);
 		} else if (absPath.endsWith(SWFUtil.LOADVARS_PROPERTY_FILENAME)) {
 			response = processLoadVarsForSwf(request, fClient
 					.getSecretManager());

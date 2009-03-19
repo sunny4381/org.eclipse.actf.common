@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * Copyright (c) 2007, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,8 +19,8 @@ import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
 
 public class SWFUtil {
-	// private final byte[] CT_SHOCKWAVE_FLASH =
-	// "application/x-shockwave-flash".getBytes();
+	static private final byte[] CT_SHOCKWAVE_FLASH = "application/x-shockwave-flash"
+			.getBytes();
 	static private final byte[] CT_IMAGE = "image".getBytes();
 	static private final byte[] CT_VIDEO = "video".getBytes();
 
@@ -30,7 +30,9 @@ public class SWFUtil {
 	static public final byte[] MIME_TYPE_APPLICATION_X_WWW_FORM_URLENCODED_A = "application/x-www-form-urlencoded"
 			.getBytes();
 
+	static public final String MSIE = "MSIE";
 	public static final String BRIDGE_INIT_SWF_FILENAME = "Eclipse-ACTF-SWF-Initialize-Bridge-Package-1082017309130187472.swf";
+	public static final String BRIDGE_INIT_SWF_V9_FILENAME = "bridge_as3.swf";
 	public static final String LOADVARS_PROPERTY_FILENAME = "Eclipse-ACTF-SWF-LoadVars-1082017309130187472.txt";
 
 	static public final int FLASH_MAGIC_NUMBER_SIZE = 4;
@@ -59,6 +61,15 @@ public class SWFUtil {
 				return false;
 		}
 		return true;
+	}
+
+	public static boolean isSWFContentType(IHTTPResponseMessage response) {
+		IHTTPHeader contentTypeH = response
+				.getHeader(IHTTPHeader.CONTENT_TYPE_A);
+		if (contentTypeH != null) {
+			return contentTypeH.compareValueIgnoreCase(CT_SHOCKWAVE_FLASH);
+		}
+		return false;
 	}
 
 	static public int isSWF(PushbackInputStream pbis) {

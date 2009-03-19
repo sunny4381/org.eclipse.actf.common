@@ -16,11 +16,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
+import org.eclipse.actf.model.flash.util.AsVersionChecker;
 import org.eclipse.actf.model.internal.flash.bridge.WaXcodingConfig;
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
@@ -39,16 +36,20 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	private static final Logger LOGGER = Logger.getLogger(SWFBootloader.class);
 
 	private static byte[] bootLoaderSWF;
+	private static byte[] bootLoaderSWFv9;
 
 	private boolean replacedFlag;
 	private boolean bootloaderRequestingFlag;
+	private boolean hasXFlashVersionHeader;
 
 	private IHTTPRequestMessage sessionRequest;
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider#getSessionRequest()
+	 * @see
+	 * org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider#getSessionRequest
+	 * ()
 	 */
 	public IHTTPRequestMessage getSessionRequest() {
 		return sessionRequest;
@@ -59,7 +60,8 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider#getSessionResponse()
+	 * @seeorg.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider#
+	 * getSessionResponse()
 	 */
 	public IHTTPResponseMessage getSessionResponse() {
 		return sessionResponse;
@@ -71,24 +73,29 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 		this.id = id;
 	}
 
-	public static void setSWFBootLoaderFile(InputStream is) {
+	private static byte[] readSWFBootLoaderFile(InputStream is) {
 		try {
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			int b;
-			try {
-				while (true) {
-					b = is.read();
-					if (b < 0)
-						break;
-					os.write(b);
-				}
-			} catch (IOException e) {
-				return;
+			while (true) {
+				b = is.read();
+				if (b < 0)
+					break;
+				os.write(b);
 			}
-			bootLoaderSWF = os.toByteArray();
+			return os.toByteArray();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new byte[0];
 		}
+	}
+
+	public static void setSWFBootLoaderFile(InputStream is) {
+		bootLoaderSWF = readSWFBootLoaderFile(is);
+	}
+
+	public static void setSWFBootLoaderFileV9(InputStream is) {
+		bootLoaderSWFv9 = readSWFBootLoaderFile(is);
 	}
 
 	private static class CachedSlot {
@@ -106,11 +113,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	private static final int MAX_REFERER_LENGTH = 128;
 
 	private Object getCachedObject(IClientStateManager csm, String uri) {
-		CacheMap map = (CacheMap) csm.get(SWFBootloader.class);
-		if (map == null) {
-			map = new CacheMap(128, 20);
-			csm.put(SWFBootloader.class, map);
-		}
+		CacheMap map = getCacheMap(csm);
 		if (uri.length() > MAX_REFERER_LENGTH) {
 			synchronized (map) {
 				return map.matchStartsWith(uri);
@@ -123,14 +126,26 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	}
 
 	private void cacheObject(IClientStateManager csm, String uri, Object cobj) {
-		Map map = (Map) csm.get(SWFBootloader.class);
-		if (map == null) {
-			map = new HashMap();
-			csm.put(SWFBootloader.class, map);
-		}
+		CacheMap map = getCacheMap(csm);
 		synchronized (map) {
 			map.put(uri, cobj);
 		}
+	}
+
+	private Object removeObject(IClientStateManager csm, String uri) {
+		CacheMap map = getCacheMap(csm);
+		synchronized (map) {
+			return (map.remove(uri));
+		}
+	}
+
+	private CacheMap getCacheMap(IClientStateManager csm) {
+		CacheMap map = (CacheMap) csm.get(SWFBootloader.class);
+		if (map == null) {
+			map = new CacheMap(256, 20);
+			csm.put(SWFBootloader.class, map);
+		}
+		return map;
 	}
 
 	private static IHTTPResponseMessage bootloaderResponseMessage(
@@ -146,18 +161,39 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 		return msg;
 	}
 
+	private static IHTTPResponseMessage bootloaderResponseMessageV9(
+			IHTTPRequestMessage request) {
+		IHTTPResponseMessage msg = HTTPUtil.createHTTPResponseInMemoryMessage(
+				request.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A, "200"
+						.getBytes(), "OK".getBytes(), bootLoaderSWFv9);
+		msg
+				.setHeader(IHTTPHeader.CACHE_CONTROL_A, "must-revalidate"
+						.getBytes());
+		msg.setHeader(IHTTPHeader.CONTENT_TYPE_A,
+				SWFUtil.MIME_TYPE_APPLICATION_X_SHOCKWAVE_FLASH_A);
+		return msg;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider#replaceRequest(org.eclipse.actf.util.httpproxy.proxy.ClientStateManager,
-	 *      org.eclipse.actf.util.httpproxy.core.HTTPRequestMessage)
+	 * @see
+	 * org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider#replaceRequest
+	 * (org.eclipse.actf.util.httpproxy.proxy.ClientStateManager,
+	 * org.eclipse.actf.util.httpproxy.core.HTTPRequestMessage)
 	 */
 	public boolean replaceRequest(IClientStateManager csm,
 			IHTTPRequestMessage request) throws IOException {
 		replacedFlag = false;
 		if (!WaXcodingConfig.getInstance().getSWFBootloaderFlag())
 			return false;
-		if (request.getHeader(SWFUtil.X_FLASH_VERSION_A) == null)
+
+		IHTTPHeader uaHeader = request.getHeader(IHTTPHeader.USER_AGENT_A);
+		hasXFlashVersionHeader = uaHeader != null
+				&& (new String(uaHeader.getValue()).contains(SWFUtil.MSIE));
+
+		if (hasXFlashVersionHeader
+				&& request.getHeader(SWFUtil.X_FLASH_VERSION_A) == null)
 			return false;
 
 		String uriStr = request.getRequestURIString();
@@ -168,10 +204,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 			buf.append(method);
 			buf.append(' ');
 			buf.append(uriStr);
-			List<IHTTPHeader> l = request.getHeaders();
-			Iterator<IHTTPHeader> it = l.iterator();
-			while (it.hasNext()) {
-				IHTTPHeader h = (IHTTPHeader) it.next();
+			for (IHTTPHeader h : request.getHeaders()) {
 				if (!h.isRemoved()) {
 					buf.append(h.toString());
 					buf.append('\n');
@@ -227,6 +260,14 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 				}
 				return false;
 			}
+		} else if (!hasXFlashVersionHeader) {
+			// requests from SWF do not have referer in the case of FireFox
+			// 2.0.0.14/FlashPlayer 9.0.124
+
+			INFO(uriStr + " seems to be referred by other swf");
+
+			// System.err.println("R: null\tU: " + uriStr);
+			return false;
 		}
 
 		// send bootloader swf
@@ -260,9 +301,11 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider#replaceResponse(org.eclipse.actf.util.httpproxy.proxy.ClientStateManager,
-	 *      org.eclipse.actf.util.httpproxy.core.HTTPRequestMessage,
-	 *      org.eclipse.actf.util.httpproxy.core.HTTPResponseMessage, int)
+	 * @see
+	 * org.eclipse.actf.util.httpproxy.proxy.IHTTPSessionOverrider#replaceResponse
+	 * (org.eclipse.actf.util.httpproxy.proxy.ClientStateManager,
+	 * org.eclipse.actf.util.httpproxy.core.HTTPRequestMessage,
+	 * org.eclipse.actf.util.httpproxy.core.HTTPResponseMessage, int)
 	 */
 	public boolean replaceResponse(IClientStateManager csm,
 			IHTTPRequestMessage request, IHTTPResponseMessage response,
@@ -278,11 +321,20 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 			this.sessionResponse = response;
 			return true;
 		} else {
-			if (!SWFUtil.isPossiblySWFContentType(response))
-				return false;
+			if (hasXFlashVersionHeader) {
+				if (!SWFUtil.isPossiblySWFContentType(response))
+					return false;
+			} else {
+				if (!SWFUtil.isSWFContentType(response)) {
+					removeObject(csm, sessionCachedSlot.uri);
+					return false;
+				}
+			}
+
 			IHTTPResponsePushbackMessage newResponse = HTTPUtil
 					.createHTTPResponsePushbackMessage(response,
-							SWFUtil.FLASH_MAGIC_NUMBER_SIZE);
+					// SWFUtil.FLASH_MAGIC_NUMBER_SIZE);
+							AsVersionChecker.READBUFFER_SIZE);
 
 			IPushbackMessageBody body = newResponse.getPushbackMessageBody();
 			if (body == null)
@@ -290,14 +342,45 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 			PushbackInputStream bodyInputStream = body
 					.getMessageBodyPushBackInputStream();
 			int version = SWFUtil.isSWF(bodyInputStream);
+			int asVersion = -1;
+
 			INFO("The incoming SWF is version " + version);
 			String uriStr = request.getRequestURIString();
 			if ((version >= WaXcodingConfig.getInstance()
-					.getSWFTranscodingMinimumVersion())
-					// Flash Version 9 or later is not supported yet.
-					&& (version < 9)) {
-				INFO("bootloader is used for " + uriStr);
-				IHTTPResponseMessage msg = bootloaderResponseMessage(request);
+					.getSWFTranscodingMinimumVersion())) {
+					// Need to test Flash Version 10 or later
+					//&& (version < 10)) {
+
+				IHTTPResponseMessage msg;
+				if (version < 9) {
+					msg = bootloaderResponseMessage(request);
+					INFO("bootloader is used for " + uriStr);
+				} else {
+
+					AsVersionChecker asChecker = new AsVersionChecker();
+					asChecker.setSwfFile(bodyInputStream);
+					asVersion = asChecker.getVersion();
+
+					DEBUG("SWF9 content - AS version:" + asVersion);
+
+					switch (asVersion) {
+					case 3:
+						msg = bootloaderResponseMessageV9(request);
+						INFO("bootloader v9 is used for " + uriStr);
+						break;
+					case 2:
+						msg = bootloaderResponseMessage(request);
+						INFO("bootloader (v9-as2) is used for " + uriStr);
+						break;
+					default:
+						INFO("Flash V9 (AS version:" + asVersion
+								+ "). The bootloader is not applied to "
+								+ uriStr);
+						this.sessionResponse = newResponse;
+						return true;
+					}
+				}
+
 				this.sessionResponse = msg;
 				ByteArrayOutputStream os = new ByteArrayOutputStream();
 				newResponse.writeBody(timeout, body, os);
@@ -314,10 +397,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 				INFO("The original response is cached for later use.");
 				if (LOGGER.isDebugEnabled()) {
 					StringBuffer buf = new StringBuffer("CachedMessage: ");
-					List<IHTTPHeader> l = cachedResponse.getHeaders();
-					Iterator<IHTTPHeader> it = l.iterator();
-					while (it.hasNext()) {
-						IHTTPHeader h = (IHTTPHeader) it.next();
+					for (IHTTPHeader h : cachedResponse.getHeaders()) {
 						if (!h.isRemoved()) {
 							buf.append(h.toString());
 							buf.append('\n');

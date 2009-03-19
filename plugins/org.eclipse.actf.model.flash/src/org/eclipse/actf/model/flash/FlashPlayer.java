@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * Copyright (c) 2007, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
 package org.eclipse.actf.model.flash;
 
 import org.eclipse.actf.model.internal.flash.ASBridgeImplV8;
+import org.eclipse.actf.model.internal.flash.ASBridgeImplV9;
 import org.eclipse.actf.model.internal.flash.FlashStatusUtil;
 import org.eclipse.actf.util.win32.FlashMSAAObject;
 import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
@@ -61,8 +62,25 @@ public class FlashPlayer implements IFlashPlayer {
 		if (null != asBrigde) {
 			return true;
 		}
-		asBrigde = new ASBridgeImplV8(this);
-		return true;
+		switch (getSWFVersion()) {
+		case 8:
+			asBrigde = new ASBridgeImplV8(this);
+			return true;
+		case 9:
+			asBrigde = new ASBridgeImplV9(this);
+			return true;
+		default:
+			asBrigde = new ASBridgeImplV8(this);
+			if (null != asBrigde.getRootNode()) {
+				return true;
+			}
+			asBrigde = new ASBridgeImplV9(this);
+			if (null != asBrigde.getRootNode()) {
+				return true;
+			}
+			asBrigde = null;
+			return false;
+		}
 	}
 
 	/*

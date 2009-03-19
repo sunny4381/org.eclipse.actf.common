@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * Copyright (c) 2007, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public class WaXcodingImpl implements IWaXcoding {
 	private IHTTPProxy proxy;
 	private ProxyConfig proxyConfig;
 	private ExternalProxyConfig exProxyConfig;
-	private WaXcodingConfig waxConfig;
+	public WaXcodingConfig waxConfig;
 
 	private static final String logConfig = "handlers = java.util.logging.ConsoleHandler, java.util.logging.FileHandler\n"
 			+ "java.util.logging.ConsoleHandler.level=INFO\n"
@@ -136,9 +136,16 @@ public class WaXcodingImpl implements IWaXcoding {
 		waxConfig.setSWFBootLoader(is);
 	}
 
+	public void setSWFBootloaderV9(InputStream is) {
+		waxConfig.setSWFBootLoaderV9(is);
+	}
+
 	public void setSWFBridgeInit(InputStream is) {
 		waxConfig.setSWFBridgeInit(is);
+	}
 
+	public void setSWFBridgeInitV9(InputStream is) {
+		waxConfig.setSWFBridgeInitV9(is);
 	}
 
 }
