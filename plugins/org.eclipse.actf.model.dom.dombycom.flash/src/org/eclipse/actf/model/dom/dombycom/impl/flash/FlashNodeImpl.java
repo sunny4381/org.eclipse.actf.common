@@ -318,7 +318,7 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 	public String extractString() {
 		String r = null;
 		if (null != accInfo) {
-			accInfo.getName(); // r=??
+			r = accInfo.getName();
 		}
 		if (r == null) {
 			r = flashNode.getText(false);
