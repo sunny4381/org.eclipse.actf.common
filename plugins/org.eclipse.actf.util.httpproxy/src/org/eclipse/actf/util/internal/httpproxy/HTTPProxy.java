@@ -132,8 +132,9 @@ public class HTTPProxy implements ClientConnectionListener, IHTTPProxy {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.util.httpproxy.IHTTPProxy#getSecret(java.lang.String,
-	 *      boolean)
+	 * @see
+	 * org.eclipse.actf.util.httpproxy.IHTTPProxy#getSecret(java.lang.String,
+	 * boolean)
 	 */
 	public String getSecret(String id, boolean remove) {
 		if (null == secretManager) {
@@ -165,12 +166,11 @@ public class HTTPProxy implements ClientConnectionListener, IHTTPProxy {
 				sock.setSoTimeout(1);
 				if (exit)
 					break;
-				if (sock != null) {
-					connection.init(ClientStateManager
-							.getClientStateManager(this), sock, fKeepAlive,
-							getCurrentServerGroupIndex());
-					wpc.input(connection);
-				}
+				// if (sock != null) {
+				connection.init(ClientStateManager.getClientStateManager(this),
+						sock, fKeepAlive, getCurrentServerGroupIndex());
+				wpc.input(connection);
+				// }
 			} catch (InterruptedException e) {
 				if (exit) {
 					LOGGER.info("Stopping WaXcoding...");

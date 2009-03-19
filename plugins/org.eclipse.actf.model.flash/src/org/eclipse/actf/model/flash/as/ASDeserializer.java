@@ -31,20 +31,20 @@ public class ASDeserializer {
 	/**
 	 * String constant to denote JSON <code>undefined</code> value.
 	 */
-	private static final Object UNDEFINED = "undefined".intern();
+	private static final Object UNDEFINED = "undefined".intern(); //$NON-NLS-1$
 	/**
 	 * String constant to denote JSON <code>null</code> value.
 	 */
-	private static final Object NULL = "null".intern();
+	private static final Object NULL = "null".intern(); //$NON-NLS-1$
 
 	/**
 	 * Initializes the token dictionary.
 	 */
 	static {
-		tokenDic.put("true", Boolean.valueOf(true));
-		tokenDic.put("false", Boolean.valueOf(false));
-		tokenDic.put("undefined", UNDEFINED);
-		tokenDic.put("null", NULL);
+		tokenDic.put("true", Boolean.valueOf(true)); //$NON-NLS-1$
+		tokenDic.put("false", Boolean.valueOf(false)); //$NON-NLS-1$
+		tokenDic.put("undefined", UNDEFINED); //$NON-NLS-1$
+		tokenDic.put("null", NULL); //$NON-NLS-1$
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class ASDeserializer {
 				idx++;
 				if (idx == str.length()) {
 					throw new IllegalArgumentException(
-							"Abnormal end of the string:" + str);
+							"Abnormal end of the string:" + str); //$NON-NLS-1$
 				}
 				ret.append(str.charAt(idx));
 				idx++;
@@ -142,7 +142,7 @@ public class ASDeserializer {
 				idx++;
 			}
 		}
-		throw new IllegalArgumentException("Invalid String:" + str);
+		throw new IllegalArgumentException("Invalid String:" + str); //$NON-NLS-1$
 	}
 
 	/**
@@ -172,11 +172,11 @@ public class ASDeserializer {
 				return ret.toArray(new Object[ret.size()]);
 			}
 			if (ch != ',') {
-				throw new IllegalArgumentException("Missing ',':" + str);
+				throw new IllegalArgumentException("Missing ',':" + str); //$NON-NLS-1$
 			}
 			idx++;
 		}
-		throw new IllegalArgumentException("Abnormal end of the array:" + str);
+		throw new IllegalArgumentException("Abnormal end of the array:" + str); //$NON-NLS-1$
 	}
 
 	/**
@@ -200,7 +200,7 @@ public class ASDeserializer {
 				String prop = deserializeString();
 				skipSP();
 				if (str.charAt(idx) != ':') {
-					throw new IllegalArgumentException("Missing ':':" + str);
+					throw new IllegalArgumentException("Missing ':':" + str); //$NON-NLS-1$
 				}
 				idx++;
 				Object o = deserialize();
@@ -213,11 +213,11 @@ public class ASDeserializer {
 				return ret;
 			}
 			if (str.charAt(idx) != ',') {
-				throw new IllegalArgumentException("Missing ',':" + str);
+				throw new IllegalArgumentException("Missing ',':" + str); //$NON-NLS-1$
 			}
 			idx++;
 		}
-		throw new IllegalArgumentException("Abnormal end of the array:" + str);
+		throw new IllegalArgumentException("Abnormal end of the array:" + str); //$NON-NLS-1$
 	}
 
 	/**
@@ -264,7 +264,7 @@ public class ASDeserializer {
 				return new Double(d);
 			} catch (NumberFormatException e) {
 			}
-			throw new IllegalArgumentException(tok + " is not a valid token.");
+			throw new IllegalArgumentException(tok + " is not a valid token."); //$NON-NLS-1$
 		}
 
 	}

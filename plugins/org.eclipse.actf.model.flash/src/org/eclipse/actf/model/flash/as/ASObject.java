@@ -87,11 +87,7 @@ public class ASObject {
 	 *         <code>{id:123,mes:'Hello',}</code>. Note that a comma appears
 	 *         after the last key-value pair.
 	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+	@SuppressWarnings("nls")
 	@Override
 	public String toString() {
 		StringBuffer ret = new StringBuffer();

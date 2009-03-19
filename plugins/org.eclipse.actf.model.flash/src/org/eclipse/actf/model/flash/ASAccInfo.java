@@ -172,7 +172,7 @@ public class ASAccInfo {
 		if (accInfo != null) {
 			return accInfo.toString();
 		} else {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 	}
 

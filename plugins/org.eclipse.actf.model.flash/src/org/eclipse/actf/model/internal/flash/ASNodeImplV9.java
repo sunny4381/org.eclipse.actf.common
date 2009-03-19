@@ -27,8 +27,8 @@ import com.ibm.icu.text.MessageFormat;
 
 public class ASNodeImplV9 implements IFlashConst, IASNode {
 
-	private static final String LEVEL0_FOCUS_MANAGER = "_level0.focusManager";
-	private static final String LEVEL0_RESERVED = "_level0.reserved";
+	private static final String LEVEL0_FOCUS_MANAGER = "_level0.focusManager"; //$NON-NLS-1$
+	private static final String LEVEL0_RESERVED = "_level0.reserved"; //$NON-NLS-1$
 
 	private IFlashPlayer player;
 	private ASObject asObject;
@@ -76,24 +76,24 @@ public class ASNodeImplV9 implements IFlashConst, IASNode {
 				}
 			}
 			String parentObjectName = parent.getObjectName();
-			if (ACC_PROPS.equals(parentObjectName) || //$NON-NLS-1$
-					ACC_IMPL.equals(parentObjectName)) { //$NON-NLS-1$
+			if (ACC_PROPS.equals(parentObjectName) || 
+					ACC_IMPL.equals(parentObjectName)) { 
 				isAccProperties = true;
 			}
 		}
-		if (ASNODE_TYPE_NUMBER.equals(strType) || //$NON-NLS-1$
-				ASNODE_TYPE_NULL.equals(strType) || //$NON-NLS-1$
-				ASNODE_TYPE_BOOLEAN.equals(strType) || //$NON-NLS-1$
-				ASNODE_TYPE_STRING.equals(strType) || //$NON-NLS-1$
-				ASNODE_TYPE_UNDEFINED.equals(strType)) { //$NON-NLS-1$
+		if (ASNODE_TYPE_NUMBER.equals(strType) || 
+				ASNODE_TYPE_NULL.equals(strType) || 
+				ASNODE_TYPE_BOOLEAN.equals(strType) || 
+				ASNODE_TYPE_STRING.equals(strType) || 
+				ASNODE_TYPE_UNDEFINED.equals(strType)) { 
 			skipChildren = true;
-		} else if (ASNODE_TYPE_OBJECT.equals(strType)) { //$NON-NLS-1$
-			if (null == strClassName || ASNODE_CLASS_ARRAY.equals(strClassName)) { //$NON-NLS-1$
+		} else if (ASNODE_TYPE_OBJECT.equals(strType)) { 
+			if (null == strClassName || ASNODE_CLASS_ARRAY.equals(strClassName)) { 
 				skipChildren = true;
 			}
-		} else if (ASNODE_TYPE_MOVIECLIP.equals(strType)) { //$NON-NLS-1$
-			if (LEVEL0_RESERVED.equals(strTarget) || //$NON-NLS-1$
-					LEVEL0_FOCUS_MANAGER.equals(strTarget)) { //$NON-NLS-1$
+		} else if (ASNODE_TYPE_MOVIECLIP.equals(strType)) { 
+			if (LEVEL0_RESERVED.equals(strTarget) || 
+					LEVEL0_FOCUS_MANAGER.equals(strTarget)) { 
 				skipChildren = true;
 			}
 		}
@@ -102,8 +102,9 @@ public class ASNodeImplV9 implements IFlashConst, IASNode {
 		initIconType();
 	}
 
+	@SuppressWarnings("nls")
 	private void initIconType() {
-		if (ASNODE_TYPE_MOVIECLIP.equals(strType)) { //$NON-NLS-1$
+		if (ASNODE_TYPE_MOVIECLIP.equals(strType)) { 
 			strIconType = strType;
 			if (accInfo != null) {
 				int accRole = accInfo.getRole();
@@ -115,29 +116,29 @@ public class ASNodeImplV9 implements IFlashConst, IASNode {
 			if (hasOnRelease()) {
 				strIconType = ASNODE_CLASS_BUTTON;
 			}
-		} else if (ASNODE_TYPE_OBJECT.equals(strType)) { //$NON-NLS-1$
+		} else if (ASNODE_TYPE_OBJECT.equals(strType)) { 
 			strIconType = strType;
-			if (ASNODE_CLASS_BUTTON.equals(strClassName)) { //$NON-NLS-1$
+			if (ASNODE_CLASS_BUTTON.equals(strClassName)) { 
 				strIconType = ASNODE_CLASS_BUTTON;
-			} else if (strClassName.startsWith(ASNODE_CLASS_TEXTFIELD)) { //$NON-NLS-1$
+			} else if (strClassName.startsWith(ASNODE_CLASS_TEXTFIELD)) { 
 				strIconType = ASNODE_ICON_TEXT;
 			} else {
-				if (ACC_IMPL.equals(strObjectName) || //$NON-NLS-1$
-						ACC_PROPS.equals(strObjectName)) { //$NON-NLS-1$
+				if (ACC_IMPL.equals(strObjectName) || 
+						ACC_PROPS.equals(strObjectName)) { 
 					strIconType = ASNODE_ICON_ACCPROPS;
 				}
 			}
-		} else if (ASNODE_TYPE_FUNCTION.equals(strType) || //$NON-NLS-1$
-				ASNODE_TYPE_STRING.equals(strType)) { //$NON-NLS-1$
+		} else if (ASNODE_TYPE_FUNCTION.equals(strType) || 
+				ASNODE_TYPE_STRING.equals(strType)) { 
 			strIconType = strType;
-		} else if (ASNODE_TYPE_NUMBER.equals(strType) || //$NON-NLS-1$
-				ASNODE_TYPE_NULL.equals(strType) || //$NON-NLS-1$
-				ASNODE_TYPE_BOOLEAN.equals(strType) || //$NON-NLS-1$
-				ASNODE_TYPE_UNDEFINED.equals(strType)) { //$NON-NLS-1$
+		} else if (ASNODE_TYPE_NUMBER.equals(strType) || 
+				ASNODE_TYPE_NULL.equals(strType) || 
+				ASNODE_TYPE_BOOLEAN.equals(strType) || 
+				ASNODE_TYPE_UNDEFINED.equals(strType)) { 
 			strIconType = ASNODE_ICON_VARIABLE;
-		} else if (ASNODE_TYPE_DISPLAYOBJECT.equals(strType)) { //$NON-NLS-1$
+		} else if (ASNODE_TYPE_DISPLAYOBJECT.equals(strType)) { 
 			// flash.display::
-			if (strClassName.contains(ASNODE_CLASS_TEXTFIELD)) { //$NON-NLS-1$
+			if (strClassName.contains(ASNODE_CLASS_TEXTFIELD)) { 
 				strIconType = ASNODE_ICON_TEXT;
 			} else if (strClassName.contains("mx.controls::RichTextEditor")
 					|| strClassName.contains("mx.controls::DateChooser")) {
@@ -409,7 +410,7 @@ public class ASNodeImplV9 implements IFlashConst, IASNode {
 			throw new Error(MessageFormat.format(
 					Messages.flash_error_target_length,
 					new Object[] { new Integer(level) })
-					+ "\n" + strTarget); //$NON-NLS-1$ //$NON-NLS-2$
+					+ "\n" + strTarget); //$NON-NLS-1$ 
 		}
 		return player.hasChild(this, visual, debugMode);
 	}
@@ -505,7 +506,7 @@ public class ASNodeImplV9 implements IFlashConst, IASNode {
 	public boolean hasOnRelease() {
 		if (null == hasOnRelease) {
 			IASNode onReleaseNode = player.getNodeFromPath(strTarget
-					+ PATH_ON_RELEASE); //$NON-NLS-1$
+					+ PATH_ON_RELEASE); 
 			if (null != onReleaseNode) {
 				hasOnRelease = Boolean.TRUE;
 			} else {

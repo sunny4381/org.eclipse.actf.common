@@ -52,7 +52,7 @@ public class SwfHeaderParser {
 
 	private int readSBits(int numBits) throws IOException {
 		if (numBits > 32) {
-			throw new IOException("Number of bits > 32");
+			throw new IOException("Number of bits > 32"); //$NON-NLS-1$
 		}
 
 		int num = readUBits(numBits);
@@ -110,17 +110,17 @@ public class SwfHeaderParser {
 	}
 
 	public void parse() throws IOException {
-		LOGGER.fine("skipping header...");
+		LOGGER.fine("skipping header..."); //$NON-NLS-1$
 		in.read(buf1);
 		if (buf1[0] == COMPRESSED_FLAG) {
 			isCompressed = true;
 		}
-		LOGGER.fine("compressed=" + isCompressed);
+		LOGGER.fine("compressed=" + isCompressed); //$NON-NLS-1$
 		version = buf1[3] & 0xFF;
-		LOGGER.fine("version=" + version);
+		LOGGER.fine("version=" + version); //$NON-NLS-1$
 		length = buf1[4] & 0xFF | (buf1[5] & 0xFF) << 8
 				| (buf1[6] & 0xFF) << 16 | buf1[7] << 24;
-		LOGGER.fine("length=" + length);
+		LOGGER.fine("length=" + length); //$NON-NLS-1$
 
 		if (isCompressed) {
 			in = new InflaterInputStream(in);
@@ -134,7 +134,7 @@ public class SwfHeaderParser {
 		in.read(buf3);
 		rate = ((buf3[0] & 0xff) << 8) | (buf3[1] & 0xff);
 		framecount = (buf3[2] & 0xff) | ((buf3[3] & 0xff) << 8);
-		LOGGER.fine("rate=" + rate + ", framecount=" + framecount);
+		LOGGER.fine("rate=" + rate + ", framecount=" + framecount); //$NON-NLS-1$ //$NON-NLS-2$
 		// }
 		// return in;
 						
@@ -146,10 +146,10 @@ public class SwfHeaderParser {
 
 	private void skipRect() throws IOException {
 		int nBits = readUBits(5);
-		LOGGER.fine("" + readSBits(nBits));
-		LOGGER.fine("" + readSBits(nBits));
-		LOGGER.fine("" + readSBits(nBits));
-		LOGGER.fine("" + readSBits(nBits));
+		LOGGER.fine(Integer.toString(readSBits(nBits)));
+		LOGGER.fine(Integer.toString(readSBits(nBits)));
+		LOGGER.fine(Integer.toString(readSBits(nBits)));
+		LOGGER.fine(Integer.toString(readSBits(nBits)));
 	}
 
 	public boolean isCompressed() {

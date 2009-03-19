@@ -457,7 +457,7 @@ public class FlashPlayer implements IFlashPlayer {
 		if (result != null) {
 			return result;
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	/*

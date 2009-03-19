@@ -44,7 +44,7 @@ public class AsVersionChecker {
 				System.arraycopy(buf, 0, result, 0, count);
 				return result;
 			}
-			LOGGER.severe("load size over: " + buf.length);
+			LOGGER.severe("load size over: " + buf.length); //$NON-NLS-1$
 			return new byte[0];
 		}
 
@@ -97,11 +97,11 @@ public class AsVersionChecker {
 			// byte[] headerBytes = shp.getHeaderBytes();
 			byte[] buf;
 
-			LOGGER.fine("search tag...");
+			LOGGER.fine("search tag..."); //$NON-NLS-1$
 			while (true) {
 				buf = readBytes(is, 2);
 				int typelen = (buf[0] & 0xff) | ((buf[1] & 0xff) << 8);
-				LOGGER.fine("**" + Integer.toHexString(typelen));
+				LOGGER.fine("**" + Integer.toHexString(typelen)); //$NON-NLS-1$
 				int type = typelen >> 6;
 				int length = typelen & 0x3f;
 				if (length == 0x3f) {
@@ -109,7 +109,7 @@ public class AsVersionChecker {
 					length = (buf[0] & 0xff) | ((buf[1] & 0xff) << 8)
 							| ((buf[2] & 0xff) << 16) | ((buf[3] & 0xff) << 24);
 				}
-				LOGGER.fine("type=" + type + ", length=" + length);
+				LOGGER.fine("type=" + type + ", length=" + length); //$NON-NLS-1$ //$NON-NLS-2$
 				// System.out.println("type=" + type + ", length=" + length);
 				if (type == 0) {
 					pushBack(mbis.getBuffer());
@@ -164,18 +164,18 @@ public class AsVersionChecker {
 	}
 
 	public static void main(String[] args) throws IOException {
-		LOGGER.info("started");
-		System.out.println("1 - AS3, 2 - AS3 no compress, 3 - AS2\n?");
+		LOGGER.info("started"); //$NON-NLS-1$
+		System.out.println("1 - AS3, 2 - AS3 no compress, 3 - AS2\n?"); //$NON-NLS-1$
 		BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
 		int choice = Integer.parseInt(r.readLine());
 		AsVersionChecker checker = new AsVersionChecker();
 		if (choice == 1)
-			checker.setSwfFile("checker/f9as3.swf");
+			checker.setSwfFile("checker/f9as3.swf"); //$NON-NLS-1$
 		else if (choice == 2)
-			checker.setSwfFile("checker/f9as3-noc.swf");
+			checker.setSwfFile("checker/f9as3-noc.swf"); //$NON-NLS-1$
 		else
-			checker.setSwfFile("checker/f9as2.swf");
+			checker.setSwfFile("checker/f9as2.swf"); //$NON-NLS-1$
 		int ver = checker.getVersion();
-		LOGGER.info("version=" + ver);
+		LOGGER.info("version=" + ver); //$NON-NLS-1$
 	}
 }

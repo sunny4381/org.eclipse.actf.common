@@ -19,16 +19,16 @@ import org.eclipse.actf.model.flash.IFlashPlayer;
 public class FlashStatusUtil {
 
 	// messages for status text
-	private static final String STATUS_OK = Messages.flash_player_ok; //$NON-NLS-1$
-	private static final String STATUS_NG = Messages.flash_player_embed; //$NON-NLS-1$
-	private static final String STATUS_NA = Messages.flash_player_no_xcode; //$NON-NLS-1$
-	private static final String STATUS_WAIT = Messages.flash_player_loading; //$NON-NLS-1$	
+	private static final String STATUS_OK = Messages.flash_player_ok; 
+	private static final String STATUS_NG = Messages.flash_player_embed; 
+	private static final String STATUS_NA = Messages.flash_player_no_xcode; 
+	private static final String STATUS_WAIT = Messages.flash_player_loading; 
 	private static final String STATUS_HTTPS = Messages.flash_player_https;
 
 	// constants for check
-	private static final String OBJECT = "OBJECT";
-	private static final String TAG_NAME = "tagName";
-	private static final String HTTPS = "https://";
+	private static final String OBJECT = "OBJECT"; //$NON-NLS-1$
+	private static final String TAG_NAME = "tagName"; //$NON-NLS-1$
+	private static final String HTTPS = "https://"; //$NON-NLS-1$
 
 	public static String getStatus(IFlashPlayer player) {
 		if (null == player) {

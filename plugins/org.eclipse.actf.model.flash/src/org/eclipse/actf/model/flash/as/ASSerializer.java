@@ -34,10 +34,10 @@ public class ASSerializer {
 				char ch = str.charAt(i);
 				switch (ch) {
 				case '"':
-					ret.append("\\\"");
+					ret.append("\\\""); //$NON-NLS-1$
 					break;
 				case '\\':
-					ret.append("\\\\");
+					ret.append("\\\\"); //$NON-NLS-1$
 					break;
 				default:
 					ret.append(ch);
@@ -46,7 +46,7 @@ public class ASSerializer {
 			ret.append('"');
 			return ret.toString();
 		} else {
-			return "\"" + str + "\"";
+			return "\"" + str + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -69,14 +69,14 @@ public class ASSerializer {
 			StringBuffer ret = new StringBuffer();
 			for (Object tmp : (Object[]) a) {
 				ret.append(serialize(tmp));
-				ret.append(",");
+				ret.append(","); //$NON-NLS-1$
 			}
 			if (ret.length() > 1) {
 				return ret.substring(0, ret.length() - 2);
 			}
-			return "";
+			return ""; //$NON-NLS-1$
 		}
-		throw new IllegalArgumentException(a + " cannot be serialized.");
+		throw new IllegalArgumentException(a + " cannot be serialized."); //$NON-NLS-1$
 	}
 
 	/**
@@ -98,12 +98,12 @@ public class ASSerializer {
 		if (args.length > 0) {
 			ret.append(serialize(args[0]));
 			for (int i = 1; i < args.length; i++) {
-				ret.append(",");
+				ret.append(","); //$NON-NLS-1$
 				Object a = args[i];
 				ret.append(serialize(a));
 			}
 		}
-		ret.append("]");
+		ret.append("]"); //$NON-NLS-1$
 		return ret.toString();
 	}
 

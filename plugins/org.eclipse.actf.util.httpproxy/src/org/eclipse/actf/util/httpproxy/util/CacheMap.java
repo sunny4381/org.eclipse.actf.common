@@ -21,7 +21,7 @@ import java.util.TreeMap;
 /**
  * Utility class for cache map.
  */
-public class CacheMap extends TreeMap<Object, Object> {
+public class CacheMap extends TreeMap<String, Object> {
 	private static final long serialVersionUID = 6681131647931821052L;
 
 	private final int maxSize;
@@ -66,7 +66,7 @@ public class CacheMap extends TreeMap<Object, Object> {
 		accessList.add(key);
 	}
 
-	public Object put(Object key, Object val) {
+	public Object put(String key, Object val) {
 		if (size() >= maxSize)
 			evict();
 		accessEntry(key);
@@ -87,7 +87,7 @@ public class CacheMap extends TreeMap<Object, Object> {
 	 * @return the value whose key starts with prefix, or null if not available
 	 */
 	public Object matchStartsWith(String prefix) {
-		SortedMap<Object, Object> smap = super.tailMap(prefix);
+		SortedMap<String, Object> smap = super.tailMap(prefix);
 		Object okey;
 		try {
 			okey = smap.firstKey();

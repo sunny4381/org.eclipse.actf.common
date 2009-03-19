@@ -32,6 +32,7 @@ public class WaXcodingImpl implements IWaXcoding {
 	private ExternalProxyConfig exProxyConfig;
 	public WaXcodingConfig waxConfig;
 
+	@SuppressWarnings("nls")
 	private static final String logConfig = "handlers = java.util.logging.ConsoleHandler, java.util.logging.FileHandler\n"
 			+ "java.util.logging.ConsoleHandler.level=INFO\n"
 			+ "java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter\n"

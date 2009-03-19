@@ -13,6 +13,7 @@ package org.eclipse.actf.model.flash;
 /**
  * Interface holding constants used by Flash related classes.
  */
+@SuppressWarnings("nls")
 public interface IFlashConst {
 
 	// general

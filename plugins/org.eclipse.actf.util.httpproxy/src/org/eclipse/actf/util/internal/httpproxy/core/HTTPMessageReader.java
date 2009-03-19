@@ -64,7 +64,7 @@ public abstract class HTTPMessageReader extends HTTPReader {
 
             if (header.isFieldNameEqualsTo(IHTTPHeader.CONTENT_LENGTH_A)) {
                 String v = new String(header.getValue());
-                if (v != null && v.length() > 0) {
+                if (v.length() > 0) {
                     try {
                         contentLength = Integer.parseInt(v);
                     } catch (NumberFormatException e) {

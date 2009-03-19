@@ -57,13 +57,11 @@ public class FlashDetect {
 		if (sep > 0) {
 			try {
 				if (Integer.parseInt(strVersion.substring(0, sep)) < 8) {
-					MessageDialog
-							.openWarning(
-									Display.getCurrent().getActiveShell(),
-									Messages.flash_warning, 
-									MessageFormat
-											.format(
-													Messages.flash_bad_flash_version, new Object[] { strVersion })); //$NON-NLS-1$
+					MessageDialog.openWarning(Display.getCurrent()
+							.getActiveShell(), Messages.flash_warning,
+							MessageFormat.format(
+									Messages.flash_bad_flash_version,
+									new Object[] { strVersion }));
 				}
 			} catch (Exception e) {
 			}

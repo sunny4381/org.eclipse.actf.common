@@ -18,7 +18,9 @@ import java.io.PushbackInputStream;
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPResponseMessage;
 
+@SuppressWarnings("nls")
 public class SWFUtil {
+	
 	static private final byte[] CT_SHOCKWAVE_FLASH = "application/x-shockwave-flash"
 			.getBytes();
 	static private final byte[] CT_IMAGE = "image".getBytes();

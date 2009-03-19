@@ -200,7 +200,7 @@ public class FlashMSAAUtil {
 		public void find(FlashMSAAObject accObject, boolean showOffScreen,
 				boolean scanAll) {
 			this.showOffScreen = showOffScreen;
-			if (scanAll || 0 != findFlashWindow((int) accObject.getWindow())) {
+			if (scanAll || 0 != findFlashWindow(accObject.getWindow())) {
 				findChildren(accObject);
 			}
 		}
@@ -224,7 +224,7 @@ public class FlashMSAAUtil {
 
 		private void findChildren(FlashMSAAObject[] inputElements) {
 			for (int i = 0; i < inputElements.length; i++) {
-				findChildren((FlashMSAAObject) inputElements[i]);
+				findChildren(inputElements[i]);
 			}
 		}
 

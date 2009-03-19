@@ -34,10 +34,15 @@ import org.eclipse.actf.util.httpproxy.util.Logger;
 import org.eclipse.actf.util.httpproxy.util.ParseURI;
 
 public class HTTPLocalServerSWF implements IHTTPLocalServer {
+
+	private static final String OK = "OK"; //$NON-NLS-1$
+
+	private static final String RESPONSE_200 = "200"; //$NON-NLS-1$
+
 	private static final boolean LOCAL_FILE_ACCESS = false;
 
 	private static final int HTTP_WELL_KNOWN_PORT = 80;
-	private static final byte[] MIME_TYPE_APPLICATION_XML_A = "application/xml"
+	private static final byte[] MIME_TYPE_APPLICATION_XML_A = "application/xml" //$NON-NLS-1$
 			.getBytes();
 
 	private static final Logger LOGGER = Logger
@@ -62,7 +67,7 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 	}
 
 	public static MIMEType getMIMEType(String suffix) {
-		return (MIMEType) mimeTypeMap.get(suffix);
+		return mimeTypeMap.get(suffix);
 	}
 
 	private static byte[] bridgeInitSwf;
@@ -97,7 +102,7 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 			IHTTPRequestMessage request) {
 		IHTTPResponseMessage response = HTTPUtil
 				.createHTTPResponseInMemoryMessage(request.getSerial(),
-						IHTTPHeader.HTTP_VERSION_1_0_A, "200".getBytes(), "OK"
+						IHTTPHeader.HTTP_VERSION_1_0_A, RESPONSE_200.getBytes(), OK
 								.getBytes(), bridgeInitSwf);
 		response.setHeader(IHTTPHeader.CONTENT_TYPE_A,
 				SWFUtil.MIME_TYPE_APPLICATION_X_SHOCKWAVE_FLASH_A);
@@ -108,7 +113,7 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 			IHTTPRequestMessage request) {
 		IHTTPResponseMessage response = HTTPUtil
 				.createHTTPResponseInMemoryMessage(request.getSerial(),
-						IHTTPHeader.HTTP_VERSION_1_0_A, "200".getBytes(), "OK"
+						IHTTPHeader.HTTP_VERSION_1_0_A, RESPONSE_200.getBytes(), OK
 								.getBytes(), bridgeInitSwfV9);
 		response.setHeader(IHTTPHeader.CONTENT_TYPE_A,
 				SWFUtil.MIME_TYPE_APPLICATION_X_SHOCKWAVE_FLASH_A);
@@ -119,7 +124,7 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 			IHTTPRequestMessage request, ISecretManager secretManager) {
 		IHTTPResponseMessage response = HTTPUtil
 				.createHTTPResponseInMemoryMessage(request.getSerial(),
-						IHTTPHeader.HTTP_VERSION_1_0_A, "200".getBytes(), "OK"
+						IHTTPHeader.HTTP_VERSION_1_0_A, RESPONSE_200.getBytes(), OK
 								.getBytes(), secretManager.requestSecret());
 		response.setHeader(IHTTPHeader.CONTENT_TYPE_A,
 				SWFUtil.MIME_TYPE_APPLICATION_X_WWW_FORM_URLENCODED_A);
@@ -129,7 +134,7 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 	private IHTTPResponseMessage processSwfCrossDomainPolicyFile(
 			IHTTPRequestMessage request) {
 		// int port = SwfORBFactory.getInstance().getListenPort();
-		LOGGER.info("Request crossdomain.xml policy file.");
+		LOGGER.info("Request crossdomain.xml policy file."); //$NON-NLS-1$
 
 		/*
 		 * int port = getSwfORBPort(); String contents = "<?xml version=\"1.0\"
@@ -137,10 +142,10 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 		 * domain=\"*\" to-ports=\"" + port + "\"/></cross-domain-policy>\n";
 		 */
 
-		String contents = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<cross-domain-policy><allow-access-from domain=\"*\"/></cross-domain-policy>\n";
+		String contents = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<cross-domain-policy><allow-access-from domain=\"*\"/></cross-domain-policy>\n"; //$NON-NLS-1$
 		IHTTPResponseMessage response = HTTPUtil
 				.createHTTPResponseInMemoryMessage(request.getSerial(),
-						IHTTPHeader.HTTP_VERSION_1_0_A, "200".getBytes(), "OK"
+						IHTTPHeader.HTTP_VERSION_1_0_A, RESPONSE_200.getBytes(), OK
 								.getBytes(), contents.getBytes());
 		response.setHeader(IHTTPHeader.CONTENT_TYPE_A,
 				MIME_TYPE_APPLICATION_XML_A);
@@ -151,11 +156,11 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 			IHTTPRequestMessage request, String absPath,
 			IHTTPProxyTranscoder transcoder) {
 		try {
-			absPath = URLDecoder.decode(absPath, "UTF-8");
+			absPath = URLDecoder.decode(absPath, "UTF-8"); //$NON-NLS-1$
 		} catch (UnsupportedEncodingException e) {
 		}
 
-		LOGGER.info("Local Server Mode. Send:" + absPath);
+		LOGGER.info("Local Server Mode. Send:" + absPath); //$NON-NLS-1$
 
 		File f = new File(absPath);
 		if (!f.canRead()) {
@@ -180,11 +185,11 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 
 		IHTTPResponseMessage response = HTTPUtil
 				.createHTTPResponseInMemoryMessage(request.getSerial(),
-						IHTTPHeader.HTTP_VERSION_1_0_A, "200".getBytes(), "OK"
+						IHTTPHeader.HTTP_VERSION_1_0_A, RESPONSE_200.getBytes(), OK
 								.getBytes(), contents);
-		int dotPos = absPath.lastIndexOf(".");
+		int dotPos = absPath.lastIndexOf("."); //$NON-NLS-1$
 		if (dotPos > 0) {
-			int sPos = absPath.lastIndexOf("/");
+			int sPos = absPath.lastIndexOf("/"); //$NON-NLS-1$
 			if (dotPos > sPos) {
 				String suffix = absPath.substring(dotPos + 1);
 				MIMEType mt = getMIMEType(suffix);
@@ -244,10 +249,10 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 			response = processLoadVarsForSwf(request, fClient
 					.getSecretManager());
 		} else {
-			if (!("localhost".equals(host)))
+			if (!("localhost".equals(host))) //$NON-NLS-1$
 				return false;
 			if ((port == HTTP_WELL_KNOWN_PORT)
-					&& ("/crossdomain.xml".equals(absPath))) {
+					&& ("/crossdomain.xml".equals(absPath))) { //$NON-NLS-1$
 				response = processSwfCrossDomainPolicyFile(request);
 			} else if (LOCAL_FILE_ACCESS) {
 				if (port != fClient.getListenPort())
@@ -265,7 +270,7 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 		try {
 			fClient.sendResponse(0, response);
 		} catch (TimeoutException e) {
-			LOGGER.fatal("Timeout in local server mode", e);
+			LOGGER.fatal("Timeout in local server mode", e); //$NON-NLS-1$
 		}
 		return true;
 	}
@@ -275,7 +280,7 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 
 	public int getSwfORBPort() {
 		if (swfORBPort < 0)
-			throw new IllegalStateException("swfORBPort is not set");
+			throw new IllegalStateException("swfORBPort is not set"); //$NON-NLS-1$
 		return swfORBPort;
 	}
 
@@ -283,6 +288,7 @@ public class HTTPLocalServerSWF implements IHTTPLocalServer {
 		this.swfORBPort = swfORBPort;
 	}
 
+	@SuppressWarnings("nls")
 	public HTTPLocalServerSWF() {
 		addMIMEType("html", "text", "html");
 		addMIMEType("htm", "text", "html");

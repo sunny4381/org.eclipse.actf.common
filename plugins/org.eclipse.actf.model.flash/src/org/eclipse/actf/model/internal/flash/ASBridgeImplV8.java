@@ -43,10 +43,10 @@ public class ASBridgeImplV8 implements IASBridge {
 		this.flashPlayer = flashPlayer;
 		idispFlash = flashPlayer.getDispatch();
 
-		String rootPath = "";
-		if ("true".equals(getVariable(PATH_ROOTLEVEL + PATH_IS_AVAILABLE))) { //$NON-NLS-1$ //$NON-NLS-2$
+		String rootPath = ""; //$NON-NLS-1$
+		if ("true".equals(getVariable(PATH_ROOTLEVEL + PATH_IS_AVAILABLE))) { //$NON-NLS-1$ 
 			rootPath = PATH_ROOTLEVEL;
-		} else if ("true".equals(getVariable(PATH_BRIDGELEVEL + PATH_IS_AVAILABLE))) { //$NON-NLS-1$ //$NON-NLS-2$
+		} else if ("true".equals(getVariable(PATH_BRIDGELEVEL + PATH_IS_AVAILABLE))) { //$NON-NLS-1$ 
 			rootPath = PATH_BRIDGELEVEL;
 		}
 
@@ -118,13 +118,13 @@ public class ASBridgeImplV8 implements IASBridge {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (counter != 1) {
-				System.out.println("FlashPlayer: " + counter);
-				for (int i = 0; i < args.length; i++) {
-					System.out.println(" args[" + i + "]=" + args[i]); //$NON-NLS-1$
-					//$NON-NLS-2$
-				}
-			}
+			// for debug
+			// if (counter != 1) {
+			//				System.out.println("FlashPlayer: " + counter); //$NON-NLS-1$
+			// for (int i = 0; i < args.length; i++) {
+			//					System.out.println(" args[" + i + "]=" + args[i]); //$NON-NLS-1$ //$NON-NLS-2$
+			// }
+			// }
 		}
 		return null;
 	}
@@ -149,7 +149,7 @@ public class ASBridgeImplV8 implements IASBridge {
 			return;
 		Object result = invoke(M_NEW_MARKER);
 		if (result instanceof Integer) {
-			objMarker = (Integer) result;
+			objMarker = result;
 			return;
 		}
 		objMarker = null;
@@ -158,8 +158,9 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(org.eclipse.actf.model.flash.IASNode,
-	 *      java.lang.String)
+	 * @see
+	 * org.eclipse.actf.model.flash.IASBridge#callMethod(org.eclipse.actf.model
+	 * .flash.IASNode, java.lang.String)
 	 */
 	public Object callMethod(IASNode targetNode, String method) {
 		return invoke(new Object[] { M_CALL_METHOD, targetNode.getTarget(),
@@ -169,8 +170,9 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#callMethod(org.eclipse.actf.model.flash.IASNode,
-	 *      java.lang.String, java.lang.Object[])
+	 * @see
+	 * org.eclipse.actf.model.flash.IASBridge#callMethod(org.eclipse.actf.model
+	 * .flash.IASNode, java.lang.String, java.lang.Object[])
 	 */
 	public Object callMethod(IASNode targetNode, String method, Object[] args) {
 		if (null == args) {
@@ -187,8 +189,9 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#getChildren(org.eclipse.actf.model.flash.ASNode,
-	 *      boolean, boolean)
+	 * @see
+	 * org.eclipse.actf.model.flash.IASBridge#getChildren(org.eclipse.actf.model
+	 * .flash.ASNode, boolean, boolean)
 	 */
 	public IASNode[] getChildren(IASNode parentNode, boolean visual,
 			boolean debugMode) {
@@ -205,8 +208,9 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#getNodeAtDepthWithPath(java.lang.String,
-	 *      int)
+	 * @see
+	 * org.eclipse.actf.model.flash.IASBridge#getNodeAtDepthWithPath(java.lang
+	 * .String, int)
 	 */
 	public IASNode getNodeAtDepthWithPath(String path, int depth) {
 		Object result = invoke(new Object[] { M_GET_NODE_AT_DEPTH, path,
@@ -220,7 +224,8 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#getNodeFromPath(java.lang.String)
+	 * @see
+	 * org.eclipse.actf.model.flash.IASBridge#getNodeFromPath(java.lang.String)
 	 */
 	public IASNode getNodeFromPath(String path) {
 		Object result = invoke(M_GET_NODE_FROM_PATH, path);
@@ -234,7 +239,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#getProperty(java.lang.String,
-	 *      java.lang.String)
+	 * java.lang.String)
 	 */
 	public Object getProperty(String path, String prop) {
 		return invoke(new Object[] { M_GET_PROPERTY, path, prop });
@@ -256,8 +261,9 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#hasChild(org.eclipse.actf.model.flash.ASNode,
-	 *      boolean, boolean)
+	 * @see
+	 * org.eclipse.actf.model.flash.IASBridge#hasChild(org.eclipse.actf.model
+	 * .flash.ASNode, boolean, boolean)
 	 */
 	public boolean hasChild(IASNode parentNode, boolean visual,
 			boolean debugMode) {
@@ -327,7 +333,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#setMarker(java.lang.Number,
-	 *      java.lang.Number, java.lang.Number, java.lang.Number)
+	 * java.lang.Number, java.lang.Number, java.lang.Number)
 	 */
 	public boolean setMarker(Number x, Number y, Number width, Number height) {
 		unsetMarker();
@@ -345,7 +351,9 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#setMarker(org.eclipse.actf.model.flash.IASNode)
+	 * @see
+	 * org.eclipse.actf.model.flash.IASBridge#setMarker(org.eclipse.actf.model
+	 * .flash.IASNode)
 	 */
 	public boolean setMarker(IASNode node) {
 		return setMarker(node.getX(), node.getY(), node.getWidth(), node
@@ -356,7 +364,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#setProperty(java.lang.String,
-	 *      java.lang.String, java.lang.Object)
+	 * java.lang.String, java.lang.Object)
 	 */
 	public void setProperty(String path, String prop, Object value) {
 		invoke(new Object[] { M_SET_PROPERTY, path, prop, value });
@@ -365,7 +373,9 @@ public class ASBridgeImplV8 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#translateWithPath(java.lang.String)
+	 * @see
+	 * org.eclipse.actf.model.flash.IASBridge#translateWithPath(java.lang.String
+	 * )
 	 */
 	public IASNode[] translateWithPath(String path) {
 		Object result = null;

@@ -40,8 +40,8 @@ public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
 	private static ISwfTranscoderFactory getSwfTranscoderFactory() {
 		try {
 			// TODO: maybe we should rename the factory package.
-			Class clazz = Class
-					.forName("org.eclipse.actf.util.swftranscoder.SwfTranscoderFactory");
+			Class<?> clazz = Class
+					.forName("org.eclipse.actf.util.swftranscoder.SwfTranscoderFactory"); //$NON-NLS-1$
 			return (ISwfTranscoderFactory) clazz.newInstance();
 		} catch (Exception e) {
 		}
@@ -76,11 +76,11 @@ public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
 	}
 
 	private File getTemporaryDestSWF(File src) throws IOException {
-		return new File(src.getAbsolutePath() + ".out");
+		return new File(src.getAbsolutePath() + ".out"); //$NON-NLS-1$
 	}
 
 	private File getTemporarySrcSWF() throws IOException {
-		return File.createTempFile("SWFTC-", ".swf");
+		return File.createTempFile("SWFTC-", ".swf"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	private boolean isTranscodeTarget(int id, IHTTPRequestMessage request,
@@ -99,15 +99,15 @@ public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
 		//
 		if (version >= WaXcodingConfig.getInstance()
 				.getSWFTranscodingMinimumVersion()) {
-			LOGGER.info("[id:" + id + "] SWTTranscoder: SWF to be transcoded ("
-					+ request.getOriginalRequestURIString() + ")- Version:"
+			LOGGER.info("[id:" + id + "] SWTTranscoder: SWF to be transcoded (" //$NON-NLS-1$ //$NON-NLS-2$
+					+ request.getOriginalRequestURIString() + ")- Version:" //$NON-NLS-1$
 					+ version);
 			return true;
 		} else {
 			if (version > 0)
-				LOGGER.info("[id:" + id
-						+ "] SWTTranscoder: SWF not to be transcoded ("
-						+ request.getOriginalRequestURIString() + ")- Version:"
+				LOGGER.info("[id:" + id //$NON-NLS-1$
+						+ "] SWTTranscoder: SWF not to be transcoded (" //$NON-NLS-1$
+						+ request.getOriginalRequestURIString() + ")- Version:" //$NON-NLS-1$
 						+ version);
 			return false;
 		}
@@ -115,14 +115,14 @@ public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
 
 	private void outputFailureLog(StringBuffer buf, IHTTPRequestMessage request,
 			File outFile, Throwable e) {
-		buf.append("(");
+		buf.append("("); //$NON-NLS-1$
 		buf.append(request.getOriginalRequestURIString());
-		buf.append(")\n");
+		buf.append(")\n"); //$NON-NLS-1$
 		buf.append(stackTraceToString(e));
 		if (LOGGER.isDebugEnabled() && (outFile != null)) {
-			buf.append("The SWF file is secured in ");
+			buf.append("The SWF file is secured in "); //$NON-NLS-1$
 			buf.append(outFile.getAbsolutePath());
-			buf.append("\n");
+			buf.append("\n"); //$NON-NLS-1$
 		}
 		LOGGER.fatal(buf.toString());
 	}
@@ -168,12 +168,12 @@ public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
 			try {
 				targetBytes = newResponse.readBody(0, false);
 			} catch (TimeoutException e) {
-				LOGGER.fatal("[id:" + id
-						+ "] Message body cannot be read by timeout.");
+				LOGGER.fatal("[id:" + id //$NON-NLS-1$
+						+ "] Message body cannot be read by timeout."); //$NON-NLS-1$
 				// This should be integrated with sendGatewayTimeout...
 				return HTTPUtil.createHTTPResponseInMemoryMessage(request.getSerial(),
-						IHTTPHeader.HTTP_VERSION_1_0_A, "504".getBytes(),
-						"Gateway Timeout".getBytes(),
+						IHTTPHeader.HTTP_VERSION_1_0_A, "504".getBytes(), //$NON-NLS-1$
+						"Gateway Timeout".getBytes(), //$NON-NLS-1$
 						IHTTPResponseMessage.EMPTY_BODY);
 			}
 			if (targetBytes == null)
@@ -195,7 +195,7 @@ public class ProxyTranscoderSWF implements IHTTPProxyTranscoder {
 			e.printStackTrace();
 			return response;
 		} catch (Exception e) {
-			StringBuffer buf = new StringBuffer("SWF transcoding failed ");
+			StringBuffer buf = new StringBuffer("SWF transcoding failed "); //$NON-NLS-1$
 			outputFailureLog(buf, request, srcSWFFile, e);
 			return response;
 		}

@@ -47,7 +47,7 @@ public class ASBridgeImplV9 implements IASBridge {
 		try {
 			// obtains content ID
 			String id = (String) idispFlash.invoke(DISPATCH_METHOD,
-					new String[] { "", M_GET_CONTENT_ID });
+					new String[] { "", M_GET_CONTENT_ID }); //$NON-NLS-1$
 			if (id.length() == 0) {
 				// TODO
 			}
@@ -56,7 +56,7 @@ public class ASBridgeImplV9 implements IASBridge {
 			IWaXcoding waxcoding = WaXcodingFactory.getWaXcoding();
 			secret = waxcoding.getSecret(id, false);
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return (null != secret);
 	}
@@ -177,7 +177,7 @@ public class ASBridgeImplV9 implements IASBridge {
 	public void repairFlash() {
 		if (!_isRepaired) {
 			_isRepaired = true;
-			//TODO impl repair
+			// TODO impl repair
 		}
 	}
 
@@ -201,7 +201,7 @@ public class ASBridgeImplV9 implements IASBridge {
 			return;
 		Object result = dispatchMethod(M_NEW_MARKER);
 		if (result instanceof Integer) {
-			objMarker = (Integer) result;
+			objMarker = result;
 			return;
 		}
 		objMarker = null;
@@ -223,7 +223,9 @@ public class ASBridgeImplV9 implements IASBridge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.flash.IASBridge#setMarker(org.eclipse.actf.model.flash.IASNode)
+	 * @see
+	 * org.eclipse.actf.model.flash.IASBridge#setMarker(org.eclipse.actf.model
+	 * .flash.IASNode)
 	 */
 	public boolean setMarker(IASNode node) {
 		return setMarker(node.getX(), node.getY(), node.getWidth(), node
@@ -252,7 +254,9 @@ public class ASBridgeImplV9 implements IASBridge {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.flash.IASBridge#clearAllMarkers()
 	 */
 	public boolean clearAllMarkers() {

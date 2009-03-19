@@ -28,20 +28,20 @@ import org.osgi.framework.BundleContext;
 public class FlashModelPlugin extends Plugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.actf.model.flash";
+	public static final String PLUGIN_ID = "org.eclipse.actf.model.flash"; //$NON-NLS-1$
 
 	// The shared instance
 	private static FlashModelPlugin plugin;
 
-	private static final Path imposedSWFPath = new Path("bridgeSWF/imposed.swf");
+	private static final Path imposedSWFPath = new Path("bridgeSWF/imposed.swf"); //$NON-NLS-1$
 	private static final Path bootloaderSWFPath = new Path(
-			"bridgeSWF/boot_loader.swf");
+			"bridgeSWF/boot_loader.swf"); //$NON-NLS-1$
 	private static final Path bridgeInitSWFPath = new Path(
-			"bridgeSWF/boot_bridge.swf");
+			"bridgeSWF/boot_bridge.swf"); //$NON-NLS-1$
 	private static final Path bootloaderSWFV9Path = new Path(
-			"bridgeSWF/v9/bootloader_as3.swf");
+			"bridgeSWF/v9/bootloader_as3.swf"); //$NON-NLS-1$
 	private static final Path bridgeInitSWFV9Path = new Path(
-			"bridgeSWF/v9/bridge_as3.swf");
+			"bridgeSWF/v9/bridge_as3.swf"); //$NON-NLS-1$
 
 	/**
 	 * The constructor

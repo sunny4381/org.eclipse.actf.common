@@ -33,6 +33,12 @@ import org.eclipse.actf.util.httpproxy.util.Logger;
 import org.eclipse.actf.util.httpproxy.util.ParseURI;
 
 public class SWFBootloader implements IHTTPSessionOverrider {
+
+	private static final String MUST_REVALIDATE = "must-revalidate"; //$NON-NLS-1$
+	private static final String NO_CACHE = "no-cache"; //$NON-NLS-1$
+	private static final String OK = "OK"; //$NON-NLS-1$
+	private static final String RESPONSE_200 = "200"; //$NON-NLS-1$
+
 	private static final Logger LOGGER = Logger.getLogger(SWFBootloader.class);
 
 	private static byte[] bootLoaderSWF;
@@ -151,11 +157,9 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	private static IHTTPResponseMessage bootloaderResponseMessage(
 			IHTTPRequestMessage request) {
 		IHTTPResponseMessage msg = HTTPUtil.createHTTPResponseInMemoryMessage(
-				request.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A, "200"
-						.getBytes(), "OK".getBytes(), bootLoaderSWF);
-		msg
-				.setHeader(IHTTPHeader.CACHE_CONTROL_A, "must-revalidate"
-						.getBytes());
+				request.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A,
+				RESPONSE_200.getBytes(), OK.getBytes(), bootLoaderSWF);
+		msg.setHeader(IHTTPHeader.CACHE_CONTROL_A, MUST_REVALIDATE.getBytes());
 		msg.setHeader(IHTTPHeader.CONTENT_TYPE_A,
 				SWFUtil.MIME_TYPE_APPLICATION_X_SHOCKWAVE_FLASH_A);
 		return msg;
@@ -164,11 +168,9 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	private static IHTTPResponseMessage bootloaderResponseMessageV9(
 			IHTTPRequestMessage request) {
 		IHTTPResponseMessage msg = HTTPUtil.createHTTPResponseInMemoryMessage(
-				request.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A, "200"
-						.getBytes(), "OK".getBytes(), bootLoaderSWFv9);
-		msg
-				.setHeader(IHTTPHeader.CACHE_CONTROL_A, "must-revalidate"
-						.getBytes());
+				request.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A,
+				RESPONSE_200.getBytes(), OK.getBytes(), bootLoaderSWFv9);
+		msg.setHeader(IHTTPHeader.CACHE_CONTROL_A, MUST_REVALIDATE.getBytes());
 		msg.setHeader(IHTTPHeader.CONTENT_TYPE_A,
 				SWFUtil.MIME_TYPE_APPLICATION_X_SHOCKWAVE_FLASH_A);
 		return msg;
@@ -182,6 +184,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	 * (org.eclipse.actf.util.httpproxy.proxy.ClientStateManager,
 	 * org.eclipse.actf.util.httpproxy.core.HTTPRequestMessage)
 	 */
+	@SuppressWarnings("nls")
 	public boolean replaceRequest(IClientStateManager csm,
 			IHTTPRequestMessage request) throws IOException {
 		replacedFlag = false;
@@ -245,8 +248,8 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 				refStrBase = ParseURI.eliminateQuery(new String(referer
 						.getValue()).trim());
 				uriStrBase = ParseURI.eliminateQuery(uriStr);
-				System.err.println("R: " + refStrBase);
-				System.err.println("U: " + uriStrBase);
+				// System.err.println("R: " + refStrBase);
+				// System.err.println("U: " + uriStrBase);
 			} else {
 				refStrBase = new String(referer.getValue()).trim();
 				uriStrBase = uriStr;
@@ -307,6 +310,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	 * org.eclipse.actf.util.httpproxy.core.HTTPRequestMessage,
 	 * org.eclipse.actf.util.httpproxy.core.HTTPResponseMessage, int)
 	 */
+	@SuppressWarnings("nls")
 	public boolean replaceResponse(IClientStateManager csm,
 			IHTTPRequestMessage request, IHTTPResponseMessage response,
 			int timeout) throws IOException, TimeoutException {
@@ -315,7 +319,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 
 		if (bootloaderRequestingFlag) {
 			if (response != sessionCachedSlot.response) {
-				response.setHeader(IHTTPHeader.CACHE_CONTROL_A, "no-cache"
+				response.setHeader(IHTTPHeader.CACHE_CONTROL_A, NO_CACHE
 						.getBytes());
 			}
 			this.sessionResponse = response;
@@ -348,8 +352,8 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 			String uriStr = request.getRequestURIString();
 			if ((version >= WaXcodingConfig.getInstance()
 					.getSWFTranscodingMinimumVersion())) {
-					// Need to test Flash Version 10 or later
-					//&& (version < 10)) {
+				// Need to test Flash Version 10 or later
+				// && (version < 10)) {
 
 				IHTTPResponseMessage msg;
 				if (version < 9) {
@@ -389,7 +393,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 								.toByteArray());
 				cachedResponse.setHeader(IHTTPHeader.CACHE_CONTROL_A,
 						"no-cache,must-revalidate".getBytes());
-				cachedResponse.setHeader(IHTTPHeader.PRAGMA_A, "no-cache"
+				cachedResponse.setHeader(IHTTPHeader.PRAGMA_A, NO_CACHE
 						.getBytes());
 				cachedResponse
 						.setHeader(IHTTPHeader.EXPIRES_A, "-1".getBytes());
@@ -418,7 +422,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("[id:").append(id).append("] SWFBootloader");
+		sb.append("[id:").append(id).append("] SWFBootloader"); //$NON-NLS-1$ //$NON-NLS-2$
 		return sb.toString();
 	}
 
