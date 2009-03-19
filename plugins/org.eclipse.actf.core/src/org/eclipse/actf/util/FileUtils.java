@@ -194,7 +194,7 @@ public class FileUtils {
 						files[f].getName()));
 				copyFile(fis, fos);
 			} catch (IOException e) {
-				logger.log(Level.WARNING, "Could not copy file " + files[f].getName());
+				logger.log(Level.WARNING, "Could not copy file " + files[f].getName()); //$NON-NLS-1$
 			}
 		}
 		for (int d = 0; directories != null && d < directories.length; ++d) {
@@ -202,7 +202,7 @@ public class FileUtils {
 			if (newDir.mkdir() || newDir.exists()) {
 				copyFiles(directories[d], newDir, pattern);
 			} else {
-				logger.log(Level.WARNING, "Could not create directory " + newDir.getName());
+				logger.log(Level.WARNING, "Could not create directory " + newDir.getName()); //$NON-NLS-1$
 			}
 		}
 	} // copyFile
@@ -327,7 +327,7 @@ public class FileUtils {
 			File dir = new File(baseDir, directories[d].getName());
 			deleteFiles(dir, pattern);
 			if (!dir.delete()) {
-				logger.log(Level.WARNING, "Could not delete directory " + dir);
+				logger.log(Level.WARNING, "Could not delete directory " + dir); //$NON-NLS-1$
 			}
 		}
 	}
