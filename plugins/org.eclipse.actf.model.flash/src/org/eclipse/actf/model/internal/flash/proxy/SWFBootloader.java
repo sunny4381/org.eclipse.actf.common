@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.PushbackInputStream;
 
 import org.eclipse.actf.model.flash.util.AsVersionChecker;
+import org.eclipse.actf.model.flash.util.SwfInfo;
 import org.eclipse.actf.model.internal.flash.bridge.WaXcodingConfig;
 import org.eclipse.actf.util.httpproxy.core.IHTTPHeader;
 import org.eclipse.actf.util.httpproxy.core.IHTTPRequestMessage;
@@ -346,7 +347,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 			PushbackInputStream bodyInputStream = body
 					.getMessageBodyPushBackInputStream();
 			int version = SWFUtil.isSWF(bodyInputStream);
-			int asVersion = -1;
+			SwfInfo swfInfo = null;
 
 			INFO("The incoming SWF is version " + version);
 			String uriStr = request.getRequestURIString();
@@ -360,12 +361,14 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 					msg = bootloaderResponseMessage(request);
 					INFO("bootloader is used for " + uriStr);
 				} else {
+					DEBUG("Checking AS version...");
 
 					AsVersionChecker asChecker = new AsVersionChecker();
 					asChecker.setSwfFile(bodyInputStream);
-					asVersion = asChecker.getVersion();
-
-					DEBUG("SWF9 content - AS version:" + asVersion);
+					swfInfo = asChecker.getSwfInfo();
+					int asVersion = swfInfo.getAsVersion();
+					
+					INFO("AS version of SWF: " + asVersion);
 
 					switch (asVersion) {
 					case 3:

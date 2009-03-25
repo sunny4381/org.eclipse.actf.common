@@ -76,12 +76,13 @@ public class AsVersionChecker {
 		url = null;
 	}
 
-	public int getVersion() {
+	public SwfInfo getSwfInfo() {
+		SwfInfo swfInfo = new SwfInfo();
 		try {
 			InputStream is;
 			if (url == null) {
 				if (in == null)
-					return -1;
+					return swfInfo;
 				else
 					is = in;
 			} else {
@@ -93,11 +94,15 @@ public class AsVersionChecker {
 
 			SwfHeaderParser shp = new SwfHeaderParser(mbis);
 			shp.parse();
+
+			swfInfo.setFrameSizeX(shp.getFrameSizeX());
+			swfInfo.setFrameSizeY(shp.getFrameSizeY());
+
 			is = shp.getInputStream();
 			// byte[] headerBytes = shp.getHeaderBytes();
 			byte[] buf;
 
-			LOGGER.fine("search tag..."); //$NON-NLS-1$
+			LOGGER.fine("searching AS related tag..."); //$NON-NLS-1$
 			while (true) {
 				buf = readBytes(is, 2);
 				int typelen = (buf[0] & 0xff) | ((buf[1] & 0xff) << 8);
@@ -113,26 +118,30 @@ public class AsVersionChecker {
 				// System.out.println("type=" + type + ", length=" + length);
 				if (type == 0) {
 					pushBack(mbis.getBuffer());
-					return -1;
+					swfInfo.setAsVersion(-1);
+					return swfInfo;
 				} else if (type == 69) {
 					// type 69 is usually at first
 					buf = readBytes(is, 1);
 					if ((buf[0] & 0x08) > 0) {
 						pushBack(mbis.getBuffer());
-						return 3;
+						swfInfo.setAsVersion(3);
+						return swfInfo;
 					} else {
 						pushBack(mbis.getBuffer());
-						return 2;
+						swfInfo.setAsVersion(2);
+						return swfInfo;
 					}
 					// items below are backup method for non-standard format
 					// content
 				} else if (type == 59 || type == 12) {// DoInitAction,
 														// DoAction
 					pushBack(mbis.getBuffer());
-					return 2;
+					swfInfo.setAsVersion(2);
+					return swfInfo;
 				} else if (type == 82) {// DoABC
 					pushBack(mbis.getBuffer());
-					return 3;
+					swfInfo.setAsVersion(3);
 				} else {
 					// is.skip(length);
 					readBytes(is, length);
@@ -140,7 +149,8 @@ public class AsVersionChecker {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			return -1;
+			swfInfo.setAsVersion(-1);
+			return swfInfo;
 		}
 	}
 
@@ -175,7 +185,7 @@ public class AsVersionChecker {
 			checker.setSwfFile("checker/f9as3-noc.swf"); //$NON-NLS-1$
 		else
 			checker.setSwfFile("checker/f9as2.swf"); //$NON-NLS-1$
-		int ver = checker.getVersion();
+		int ver = checker.getSwfInfo().getAsVersion();
 		LOGGER.info("version=" + ver); //$NON-NLS-1$
 	}
 }

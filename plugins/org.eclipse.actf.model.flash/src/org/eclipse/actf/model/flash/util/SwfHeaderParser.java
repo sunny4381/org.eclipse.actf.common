@@ -42,6 +42,10 @@ public class SwfHeaderParser {
 
 	private int length;
 
+	private int frameSizeX;
+
+	private int frameSizeY;
+
 	private int rate;
 
 	private int framecount;
@@ -126,7 +130,7 @@ public class SwfHeaderParser {
 			in = new InflaterInputStream(in);
 		}
 
-		skipRect();
+		readFrameSize();
 
 		// if (false) {
 		// in.skip(4);
@@ -144,12 +148,14 @@ public class SwfHeaderParser {
 				
 	}
 
-	private void skipRect() throws IOException {
+	private void readFrameSize() throws IOException {
 		int nBits = readUBits(5);
-		LOGGER.fine(Integer.toString(readSBits(nBits)));
-		LOGGER.fine(Integer.toString(readSBits(nBits)));
-		LOGGER.fine(Integer.toString(readSBits(nBits)));
-		LOGGER.fine(Integer.toString(readSBits(nBits)));
+		LOGGER.fine("frame size X min = " + Integer.toString(readSBits(nBits))); //$NON-NLS-1$
+		frameSizeX = readSBits(nBits);
+		LOGGER.fine("frame size X max (twips) = " + Integer.toString(frameSizeX)); //$NON-NLS-1$
+		LOGGER.fine("frame size Y min = " + Integer.toString(readSBits(nBits))); //$NON-NLS-1$
+		frameSizeY = readSBits(nBits);
+		LOGGER.fine("frame size Y max (twips) = " + Integer.toString(frameSizeY)); //$NON-NLS-1$
 	}
 
 	public boolean isCompressed() {
@@ -162,6 +168,14 @@ public class SwfHeaderParser {
 
 	public int getLength() {
 		return length;
+	}
+
+	public int getFrameSizeX() {
+		return frameSizeX;
+	}
+
+	public int getFrameSizeY() {
+		return frameSizeY;
 	}
 
 	public InputStream getInputStream() {
