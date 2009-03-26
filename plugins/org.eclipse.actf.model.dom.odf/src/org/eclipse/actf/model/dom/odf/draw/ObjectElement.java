@@ -16,17 +16,53 @@ import org.eclipse.actf.model.dom.odf.base.EmbedDrawingObjectElement;
  * Interface for &lt;draw:object&gt; element.
  */
 public interface ObjectElement extends EmbedDrawingObjectElement {
+	/**
+	 * Return draw:notify-on-update-of-ranges attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrDrawNotifyOnUpdateOfRanges();
 
+	/**
+	 * Set xlink:href attribute
+	 * 
+	 * @param href
+	 *            xlink:href attribute
+	 */	
 	public void setAttrXlinkHref(String href);
 
+	/**
+	 * Return xlink:href attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrXlinkHref();
 
+	/**
+	 * Return xlink:type attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrXlinkType();
 
+	/**
+	 * Return xlink:show attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrXlinkShow();
 
+	/**
+	 * Return xlink:actuate attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrXlinkActuate();
 
+	/**
+	 * Return true if this object is embedded spreadsheet in presentation document
+	 * 
+	 * @return boolean
+	 */	
 	public boolean isPresentationTable();
 }

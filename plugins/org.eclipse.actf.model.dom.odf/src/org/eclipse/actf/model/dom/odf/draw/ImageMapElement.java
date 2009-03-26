@@ -17,7 +17,17 @@ import org.w3c.dom.NodeList;
  * Interface for &lt;draw:image-map&gt; element.
  */
 public interface ImageMapElement extends EmbedDrawingObjectElement {
+	/**
+	 * Return &lt;draw:image&gt; element 
+	 * 
+	 * @return ImageElement
+	 */	
 	public ImageElement getImageElements();
 
+	/**
+	 * Return node list of image map area elements
+	 * 
+	 * @return NodeList
+	 */	
 	public NodeList getAreaElements();
 }

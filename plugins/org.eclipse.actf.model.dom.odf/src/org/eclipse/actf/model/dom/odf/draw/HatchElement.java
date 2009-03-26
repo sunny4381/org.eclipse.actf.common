@@ -16,15 +16,45 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for &lt;draw:hatch&gt; element.
  */
 public interface HatchElement extends ODFElement {
+	/**
+	 * Return draw:name attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawName();
 
+	/**
+	 * Return draw:display-name attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawDisplayName();
 
+	/**
+	 * Return draw:style attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawStyle();
 
+	/**
+	 * Return draw:color attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawColor();
 
+	/**
+	 * Return draw:distance attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawDistance();
-
+	
+	/**
+	 * Return draw:rotation attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawRotation();
 }

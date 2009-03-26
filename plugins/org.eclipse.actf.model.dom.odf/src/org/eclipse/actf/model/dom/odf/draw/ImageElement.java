@@ -16,11 +16,31 @@ import org.eclipse.actf.model.dom.odf.base.EmbedDrawingObjectElement;
  * Interface for &lt;draw:image&gt; element.
  */
 public interface ImageElement extends EmbedDrawingObjectElement {
+	/**
+	 * Return xlink:href attribute
+	 * 
+	 * @return xlink:href attribute.
+	 */		
 	String getAttrXlinkHref();
 
+	/**
+	 * Return xlink:type attribute
+	 * 
+	 * @return xlink:type attribute.
+	 */		
 	String getAttrXlinkType();
 
+	/**
+	 * Return xlink:show attribute
+	 * 
+	 * @return xlink:show attribute.
+	 */		
 	String getAttrXlinkShow();
 
+	/**
+	 * Return xlink:actuate attribute
+	 * 
+	 * @return xlink:actuate attribute.
+	 */		
 	String getAttrXlinkActuate();
 }

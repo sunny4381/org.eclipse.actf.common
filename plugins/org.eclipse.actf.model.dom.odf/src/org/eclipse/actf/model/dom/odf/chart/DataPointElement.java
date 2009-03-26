@@ -16,5 +16,10 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for &lt;chart:data-point&gt; element.
  */
 public interface DataPointElement extends ODFElement {
+	/**
+	 * Return chart:repeated attribute
+	 * 
+	 * @return int
+	 */		
 	public int getAttrChartRepeated();
 }

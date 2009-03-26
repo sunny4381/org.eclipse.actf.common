@@ -16,5 +16,10 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for &lt;number:number-style&gt; element.
  */
 public interface NumberStyleElement extends ODFElement {
+	/**
+	 * Return style:name attribute
+	 * 
+	 * @return String
+	 */			
 	public String getAttrStyleName();
 }

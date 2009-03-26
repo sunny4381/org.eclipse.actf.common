@@ -16,9 +16,24 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for &lt;number:number&gt; element.
  */
 public interface NumberElement extends ODFElement {
+	/**
+	 * Return number:min-integer-digits attribute
+	 * 
+	 * @return String
+	 */			
 	public int getAttrNumberMinIntegerDigits();
 
+	/**
+	 * Return number:decimal-places attribute
+	 * 
+	 * @return String
+	 */			
 	public int getAttrNumberDecimalPlaces();
 
+	/**
+	 * Return number:grouping attribute
+	 * 
+	 * @return String
+	 */			
 	public boolean getAttrNumberGrouping();
 }

@@ -17,17 +17,57 @@ import org.eclipse.actf.model.dom.odf.svg.TitleElement;
  * All graphics ODF elements should implement this interface.
  */
 public interface DrawingObjectBaseElement extends ODFElement {
+	/**
+	 * Return &lt;svg:title&gt; element
+	 * 
+	 * @return TitleElement
+	 */	
 	public TitleElement getSVGTitleElement();
 
+	/**
+	 * Return &lt;svg:desc&gt; element
+	 * 
+	 * @return DescElement
+	 */	
 	public DescElement getSVGDescElement();
 
+	/**
+	 * Return short description element
+	 * &lt;svg:desc&gt; element for ODF 1.0
+	 * &lt;svg:title&gt; element for ODF later than 1.0
+	 * 
+	 * @return ODFElement
+	 */		
 	public ODFElement getShortDescElement();
 
+	/**
+	 * Return long description element
+	 * &lt;svg:desc&gt; element for ODF later than 1.0
+	 * For ODF 1.0, this function always returns null
+	 * 
+	 * @return ODFElement
+	 */	
 	public ODFElement getLongDescElement();
 
-	// for Notes8, Notes8 save document by ODF 1.1 schema,
-	// but odf:version is set as 1.0
+	/**
+	 * Return short description element
+	 * &lt;svg:desc&gt; element for ODF 1.0
+	 * &lt;svg:title&gt; element for ODF later than 1.0
+	 *
+	 * @param version
+	 *            version of ODF
+	 * @return ODFElement
+	 */		
 	public ODFElement getShortDescElement(double version);
 
+	/**
+	 * Return long description element
+	 * &lt;svg:desc&gt; element for ODF later than 1.0
+	 * For ODF 1.0, this function always returns null
+	 * 
+	 * @param version
+	 *            version of ODF
+	 * @return ODFElement
+	 */	
 	public ODFElement getLongDescElement(double version);
 }

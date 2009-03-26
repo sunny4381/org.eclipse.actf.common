@@ -17,5 +17,10 @@ import org.eclipse.actf.model.dom.odf.content.IStylable;
  * Interface for &lt;chart:series&gt; element.
  */
 public interface SeriesElement extends ODFElement, IStylable {
+	/**
+	 * Return chart:attached-axis attribute
+	 * 
+	 * @return String
+	 */			
 	public String getAttrChartAttachedAxis();
 }

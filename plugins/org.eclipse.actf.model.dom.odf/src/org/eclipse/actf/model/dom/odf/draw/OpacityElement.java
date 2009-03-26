@@ -16,17 +16,52 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for &lt;draw:opacity&gt; element.
  */
 public interface OpacityElement extends ODFElement {
+	/**
+	 * Return draw:name attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrDrawName();
 
+	/**
+	 * Return draw:display-name attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawDisplayName();
 
+	/**
+	 * Return draw:style attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawStyle();
 
+	/**
+	 * Return draw:start attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawStart();
 
+	/**
+	 * Return draw:end attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawEnd();
 
+	/**
+	 * Return draw:angle attribute
+	 * 
+	 * @return int
+	 */	
 	public int getAttrDrawAngle();
 
+	/**
+	 * Return draw:border attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawBorder();
 }

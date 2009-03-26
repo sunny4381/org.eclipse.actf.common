@@ -20,21 +20,74 @@ import org.w3c.dom.NodeList;
  * Interface for &lt;draw:page&gt; element.
  */
 public interface PageElement extends ODFElement {
+	/**
+	 * Create new object in page
+	 * 
+	 * @param x
+	 *            x position of new object
+	 * @param y
+	 *            y position of new object
+	 * @param width
+	 *            width of new object
+	 * @param height
+	 *            height of new object
+	 * @return ODFElement
+	 */		
 	public ODFElement createObject(long x, long y, long width, long height);
 
+	/**
+	 * Return draw:name attribute
+	 * 
+	 * @return String
+	 */
 	public String getAttrDrawName();
 
+	/**
+	 * Return draw:style-name attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrDrawStyleName();
 
+	/**
+	 * Return draw:master-page-name attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrDrawMasterPageName();
 
+	/**
+	 * Return draw:nav-order attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrDrawNavOrder();
 
+	/**
+	 * Return page index
+	 * 
+	 * @return int
+	 */		
 	public int getPageIndex();
 
+	/**
+	 * Return child ODF nodes by navigation order
+	 * 
+	 * @return List&lt;ODFElement&gt;
+	 */		
 	public List<ODFElement> getChildNodesInNavOrder();
 
+	/**
+	 * Return graphic elements in page
+	 * 
+	 * @return NodeList
+	 */		
 	public NodeList getDrawingObjectElements();
 
+	/**
+	 * Return &lt;presentation:notes&gt; element
+	 * 
+	 * @return NotesElement
+	 */		
 	public NotesElement getPresentationNotesElement();
 }

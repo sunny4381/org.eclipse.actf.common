@@ -17,9 +17,24 @@ import org.eclipse.actf.model.dom.odf.content.IStylable;
  * Interface for &lt;chart:legend&gt; element.
  */
 public interface LegendElement extends ODFElement, IStylable {
+	/**
+	 * Return svg:x attribute
+	 * 
+	 * @return String
+	 */			
 	public String getAttrSvgX();
 
+	/**
+	 * Return svg:y attribute
+	 * 
+	 * @return String
+	 */			
 	public String getAttrSvgY();
 
+	/**
+	 * Return chart:legend-position attribute
+	 * 
+	 * @return String
+	 */			
 	public String getAttrChartLegendPosition();
 }

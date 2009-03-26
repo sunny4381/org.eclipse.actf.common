@@ -18,9 +18,24 @@ import org.eclipse.actf.model.dom.odf.form.FormControlElement;
  * Interface for &lt;draw:control&gt; element.
  */
 public interface ControlElement extends DrawingObjectElement {
+	/**
+	 * Return draw:control attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawControl();
 
+	/**
+	 * Return form control element specified by draw:control attribute
+	 * 
+	 * @return FormControlElement
+	 */	
 	public FormControlElement getFormControlElement();
 
+	/**
+	 * Return &lt;form:fixed-text&gt; element bound as label by form:for attribute
+	 * 
+	 * @return FixedTextElement
+	 */	
 	public FixedTextElement getFormLabelFixedTextElement();
 }

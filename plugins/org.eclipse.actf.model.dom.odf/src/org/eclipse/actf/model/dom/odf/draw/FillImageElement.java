@@ -16,13 +16,38 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for &lt;draw:fill-image&gt; element.
  */
 public interface FillImageElement extends ODFElement {
+	/**
+	 * Return draw:name attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrDrawName();
 
+	/**
+	 * Return xlink:href attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrXLinkHref();
 
+	/**
+	 * Return xlink:type attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrXLinkType();
 
+	/**
+	 * Return xlink:show attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrXLinkShow();
 
+	/**
+	 * Return xlink:actuate attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrXLinkActuate();
 }

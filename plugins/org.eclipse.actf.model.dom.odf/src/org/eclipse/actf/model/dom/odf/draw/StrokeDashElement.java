@@ -16,19 +16,59 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for &lt;draw:stroke-dash&gt; element.
  */
 public interface StrokeDashElement extends ODFElement {
+	/**
+	 * Return draw:name attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawName();
 
+	/**
+	 * Return draw:display-name attribute
+	 * 
+	 * @return String
+	 */	
 	public String getAttrDrawDisplayName();
 
+	/**
+	 * Return draw:style attribute
+	 * 
+	 * @return String
+	 */
 	public String getAttrDrawStyle();
 
+	/**
+	 * Return draw:dots1 attribute
+	 * 
+	 * @return int
+	 */
 	public int getAttrDrawDots1();
 
+	/**
+	 * Return draw:dots1-length attribute
+	 * 
+	 * @return String
+	 */
 	public String getAttrDrawDots1Length();
 
+	/**
+	 * Return draw:dots2 attribute
+	 * 
+	 * @return int
+	 */
 	public int getAttrDrawDots2();
 
+	/**
+	 * Return draw:dots2-length attribute
+	 * 
+	 * @return String
+	 */
 	public String getAttrDrawDots2Length();
 
+	/**
+	 * Return draw:distance attribute
+	 * 
+	 * @return String
+	 */
 	public String getAttrDrawDistance();
 }

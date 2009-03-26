@@ -16,11 +16,31 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * ODF elements representing form controls should implement this interface.
  */
 public interface FormControlElement extends ODFElement {
+	/**
+	 * Return form:label attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrFormLabel();
 
+	/**
+	 * Return form:tab-index attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrFormTabIndex();
 
+	/**
+	 * Return form:tab-stop attribute
+	 * 
+	 * @return String
+	 */		
 	public boolean getAttrFormTabStop();
 
+	/**
+	 * Return form:control-implementation attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrFormControlImplementation();
 }

@@ -16,11 +16,31 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for &lt;dr3d:light&gt; element.
  */
 public interface LightElement extends ODFElement {
+	/**
+	 * Return dr3d:diffuse-color attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrDr3dDiffuseColor();
 
+	/**
+	 * Return dr3d:direction attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrDr3dDirection();
 
+	/**
+	 * Return dr3d:enabled attribute
+	 * 
+	 * @return String
+	 */		
 	public boolean getAttrDr3dEnabled();
 
+	/**
+	 * Return dr3d:specular attribute
+	 * 
+	 * @return String
+	 */		
 	public boolean getAttrDr3dSpecular();
 }

@@ -16,5 +16,10 @@ import org.eclipse.actf.model.dom.odf.base.ODFElement;
  * Interface for &lt;chart:categories&gt; element.
  */
 public interface CategoriesElement extends ODFElement {
+	/**
+	 * Return table:cell-range-address attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrTableCellRangeAddress();
 }

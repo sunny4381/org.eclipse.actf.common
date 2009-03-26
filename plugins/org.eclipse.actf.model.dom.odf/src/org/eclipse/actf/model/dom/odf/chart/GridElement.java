@@ -17,5 +17,10 @@ import org.eclipse.actf.model.dom.odf.content.IStylable;
  * Interface for &lt;chart:grid&gt; element.
  */
 public interface GridElement extends ODFElement, IStylable {
+	/**
+	 * Return chart:class attribute
+	 * 
+	 * @return String
+	 */		
 	public String getAttrChartClass();
 }
