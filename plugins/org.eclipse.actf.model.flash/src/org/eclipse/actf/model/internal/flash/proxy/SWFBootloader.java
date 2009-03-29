@@ -166,11 +166,18 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 		return msg;
 	}
 
+	/**
+	 * Resizes bootloader and returns response message including it 
+	 * @param request Request message from client
+	 * @param w width of bootloader in 'twips' 
+	 * @param h height of bootloader in 'twips'
+	 * @return Response message
+	 */
 	private static IHTTPResponseMessage bootloaderResponseMessageV9(
-			IHTTPRequestMessage request) {
+			IHTTPRequestMessage request, int w, int h) {
 		IHTTPResponseMessage msg = HTTPUtil.createHTTPResponseInMemoryMessage(
 				request.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A,
-				RESPONSE_200.getBytes(), OK.getBytes(), bootLoaderSWFv9);
+				RESPONSE_200.getBytes(), OK.getBytes(), SwfStageResizer.resize(bootLoaderSWFv9, w, h));
 		msg.setHeader(IHTTPHeader.CACHE_CONTROL_A, MUST_REVALIDATE.getBytes());
 		msg.setHeader(IHTTPHeader.CONTENT_TYPE_A,
 				SWFUtil.MIME_TYPE_APPLICATION_X_SHOCKWAVE_FLASH_A);
@@ -367,12 +374,16 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 					asChecker.setSwfFile(bodyInputStream);
 					swfInfo = asChecker.getSwfInfo();
 					int asVersion = swfInfo.getAsVersion();
+					// note that frame size is in 'twips' (= 1/20 pixel)
+					int frameX = swfInfo.getFrameSizeX();
+					int frameY = swfInfo.getFrameSizeY();
 					
 					INFO("AS version of SWF: " + asVersion);
 
 					switch (asVersion) {
 					case 3:
-						msg = bootloaderResponseMessageV9(request);
+						INFO("resizing bootloader to " + frameX + "x" + frameY + "...");
+						msg = bootloaderResponseMessageV9(request, frameX, frameY);
 						INFO("bootloader v9 is used for " + uriStr);
 						break;
 					case 2:
