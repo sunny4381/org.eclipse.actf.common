@@ -10,11 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.model.internal.flash.proxy;
 
-
 class BitBuffer {
-//	private static final Logger LOGGER = Logger.getLogger(BitBuffer.class
-//			.getName());
-
 	/**
 	 * Byte array where encoded bits are stored.
 	 */
@@ -61,8 +57,6 @@ class BitBuffer {
 	}
 
 	private void expandCapacity(int newbitlength) {
-		// LOGGER.info("bitpos = " + bitpos);
-		// LOGGER.info("new bit length = " + newbitlength);
 		int newbytelength = newbitlength / 8 + 1;
 		assert newbytelength > m_value.length;
 		byte[] newvalue = new byte[newbytelength];

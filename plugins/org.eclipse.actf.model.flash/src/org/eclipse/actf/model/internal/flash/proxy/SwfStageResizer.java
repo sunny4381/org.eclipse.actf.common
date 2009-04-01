@@ -12,20 +12,12 @@ package org.eclipse.actf.model.internal.flash.proxy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.zip.InflaterInputStream;
 
-import org.eclipse.actf.model.flash.util.SwfHeaderParser;
-
 class SwfStageResizer {
-	// TODO for debug
 	private static final Logger LOGGER = Logger.getLogger(SwfStageResizer.class
 			.getName());
 	private static final int COMPRESSED_FLAG = 0x43; // 'C'
@@ -44,7 +36,8 @@ class SwfStageResizer {
 
 	public byte[] doResize(byte[] swf, int w, int h) {
 		try {
-			LOGGER.info("resizing to " + w + "x" + h); //$NON-NLS-1$ //$NON-NLS-2$
+			LOGGER
+					.info("Resizing SWF to " + (w / 20) + "x" + (h / 20) + " pixels..."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			bo = new ByteArrayOutputStream();
 			bi = new ByteArrayInputStream(swf);
 
@@ -52,10 +45,9 @@ class SwfStageResizer {
 			byte[] buf;
 
 			data = bi.read();
-			// bo.write(data);
 			bo.write('F');
 			boolean isCompressed = (data == COMPRESSED_FLAG);
-			LOGGER.info("compressed? = " + isCompressed); //$NON-NLS-1$
+			LOGGER.fine("compressed? = " + isCompressed); //$NON-NLS-1$
 
 			bo.write(bi.read());
 			bo.write(bi.read());
@@ -106,13 +98,14 @@ class SwfStageResizer {
 			// modify file size field
 			byte[] array = bo.toByteArray();
 			int fileSize = array.length;
-			LOGGER.info("modifying file size to " + fileSize); //$NON-NLS-1$
+			LOGGER
+					.info("Modifying file size field from " + length + " to " + fileSize); //$NON-NLS-1$ //$NON-NLS-2$
 			for (int i = 4; i <= 7; i++) {
 				array[i] = (byte) (fileSize & 0xFF);
 				fileSize = fileSize >> 8;
 			}
 
-			LOGGER.info("done"); //$NON-NLS-1$
+			LOGGER.fine("done"); //$NON-NLS-1$
 			return array;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -187,7 +180,6 @@ class SwfStageResizer {
 				bitPos -= bitsLeft;
 				bitBuf &= 0xff >> (8 - bitPos); // mask off the consumed bits
 
-				// if (print) System.out.println(" read"+numBits+" " + result);
 				return result;
 			}
 		}
@@ -196,7 +188,7 @@ class SwfStageResizer {
 	private void writeFrameSize(int w, int h) throws IOException {
 		int dw = numDigit(w) + 1;
 		int dh = numDigit(h) + 1;
-		LOGGER.info("required number of digits = " + dw + ", " + dh); //$NON-NLS-1$ //$NON-NLS-2$
+		LOGGER.fine("required number of digits = " + dw + ", " + dh); //$NON-NLS-1$ //$NON-NLS-2$
 		int d = Math.max(dw, dh);
 		BitBuffer bb = new BitBuffer();
 		bb.append(d, 5);
@@ -217,52 +209,6 @@ class SwfStageResizer {
 				d++;
 			}
 			return d;
-		}
-	}
-
-	public static void main(String[] args) throws FileNotFoundException,
-			IOException {
-		LogManager.getLogManager().readConfiguration(
-				new FileInputStream("logging.conf")); //$NON-NLS-1$
-		final String FNAME = "bridgeSWF/v9/uncompressed.swf"; //$NON-NLS-1$
-		final String OUT_FNAME = "bridgeSWF/v9/uncompressed.resized.swf"; //$NON-NLS-1$
-		byte[] result = SwfStageResizer.resize(readSwfFile(FNAME), 800 * 20,
-				600 * 20);
-		SwfHeaderParser shp = new SwfHeaderParser(new ByteArrayInputStream(
-				result));
-		shp.parse();
-		LOGGER
-				.info("******************\ndouble checking...\n******************"); //$NON-NLS-1$
-		LOGGER.info("x = " + shp.getFrameSizeX()); //$NON-NLS-1$
-		LOGGER.info("y = " + shp.getFrameSizeY()); //$NON-NLS-1$
-		LOGGER.info("len = " + shp.getLength()); //$NON-NLS-1$
-
-		OutputStream os = new FileOutputStream(OUT_FNAME);
-		os.write(result);
-		os.close();
-	}
-
-	// TODO for debug
-	private static byte[] readSwfFile(String fname) {
-		try {
-			LOGGER.info("file name = " + fname); //$NON-NLS-1$
-			InputStream is = new FileInputStream(fname);
-			LOGGER.info("file length = " + is.available()); //$NON-NLS-1$
-			ByteArrayOutputStream os = new ByteArrayOutputStream();
-			int b;
-			LOGGER.info("start reading..."); //$NON-NLS-1$
-			while (true) {
-				b = is.read();
-				if (b < 0)
-					break;
-				os.write(b);
-			}
-			LOGGER.info("reading done"); //$NON-NLS-1$
-			return os.toByteArray();
-		} catch (Exception e) {
-			e.printStackTrace();
-			LOGGER.info("error. returns 0 length array"); //$NON-NLS-1$
-			return new byte[0];
 		}
 	}
 }

@@ -382,7 +382,7 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 
 					switch (asVersion) {
 					case 3:
-						INFO("resizing bootloader to " + frameX + "x" + frameY + "...");
+						INFO("Resizing bootloader...");
 						msg = bootloaderResponseMessageV9(request, frameX, frameY);
 						INFO("bootloader v9 is used for " + uriStr);
 						break;
