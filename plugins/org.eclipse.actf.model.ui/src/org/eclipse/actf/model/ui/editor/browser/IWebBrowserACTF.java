@@ -229,6 +229,40 @@ public interface IWebBrowserACTF extends IModelService {
 	 * 
 	 * @return pointer
 	 */
-	int getBrowserAddress();
+	public int getBrowserAddress();
+	
+	/**
+	 * Evaluates a script after a specified interval (msec) has elapsed.
+	 * 
+	 * @param script target script
+	 * @param interval interval (msec)
+	 * @return id of this timer
+	 */
+	public int setTimeout(String script, int interval);
 
+	/**
+	 * Cancels setTimeout
+	 * 
+	 * @param id id of target timer
+	 * @return true if succeeded
+	 */
+	public boolean clearTimeout(int id);
+	
+	/**
+	 * Evaluates a script each time a specified interval (msec) has elapsed.
+	 * 
+	 * @param script target script 
+	 * @param interval interval (msec)
+	 * @return id of this timer
+	 */
+	public int setInterval(String script, int interval);
+	
+	/**
+	 * Cancels setInterval
+	 * 
+	 * @param id id of target timer
+	 * @return true if succeeded
+	 */
+	public boolean clearInterval(int id);
+		
 }

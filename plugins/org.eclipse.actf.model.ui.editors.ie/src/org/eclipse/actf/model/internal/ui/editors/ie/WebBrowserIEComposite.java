@@ -971,4 +971,78 @@ public class WebBrowserIEComposite extends Composite {
 		return sb.toString();
 	}
 
+	private Variant invokeWindowMethod(String method, Variant[] vars) {
+		Variant varDocument = getBrowserVariant("Document"); //$NON-NLS-1$
+		if (null != varDocument) {
+			try {
+				OleAutomation document = varDocument.getAutomation();
+				Variant varWindow = getVariant(document, "parentWindow");
+				document.dispose();
+				if (null != varWindow) {
+					try {
+						OleAutomation window = varWindow.getAutomation();
+						int[] id = window
+								.getIDsOfNames(new String[] { method });
+						if (null != id) {
+							Variant result = window.invoke(id[0], vars);
+							window.dispose();
+							return result;
+						}
+						window.dispose();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					} finally {
+						varWindow.dispose();
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				varDocument.dispose();
+			}
+		}
+		return null;
+	}
+
+	public boolean clearInterval(int id) {
+		Variant varResult = invokeWindowMethod("clearInterval",
+				new Variant[] { new Variant(id) });
+		if (varResult != null) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean clearTimeout(int id) {
+		Variant varResult = invokeWindowMethod("clearTimeout",
+				new Variant[] { new Variant(id) });
+		if (varResult != null) {
+			return true;
+		}
+		return false;
+	}
+
+	public int setInterval(String script, int interval) {
+		Variant[] vars = new Variant[] { new Variant(script),
+				new Variant((long) interval), new Variant("JavaScript"),
+				new Variant((long) 0) };
+		Variant varResult = invokeWindowMethod("setInterval", vars);
+		if (varResult != null) {
+			return varResult.getInt();
+		}
+		return -1;
+	}
+
+	public int setTimeout(String script, int msec) {
+		Variant[] vars = new Variant[] { new Variant(script),
+				new Variant((long) msec), new Variant("JavaScript"),
+				new Variant((long) 0) };
+		Variant varResult = invokeWindowMethod("setTimeout", vars);
+		if (varResult != null) {
+			return varResult.getInt();
+		}
+		return -1;
+	}
+
 }

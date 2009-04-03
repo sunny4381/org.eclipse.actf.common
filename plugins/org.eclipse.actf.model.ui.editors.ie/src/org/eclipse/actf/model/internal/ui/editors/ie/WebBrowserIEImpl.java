@@ -386,13 +386,13 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	@SuppressWarnings("nls")
 	public File saveOriginalDocument(String file) {
 		if (null != file) {
-			if("about:blank".equals(getURL())){
-				try{
+			if ("about:blank".equals(getURL())) {
+				try {
 					FileWriter fw = new FileWriter(file);
 					fw.write("<html></html>");
 					fw.flush();
 					fw.close();
-				}catch(Exception e){
+				} catch (Exception e) {
 					return null;
 				}
 				return new File(file);
@@ -453,8 +453,10 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 	public void navigateComplete2(NavigateComplete2Parameters param) {
 		WebBrowserEventUtil.navigateComplete(this, param.getUrl());
-		toolbar
-				.setAddressTextString(browserComposite.getLocationURL()/* param.getUrl() */);
+		toolbar.setAddressTextString(browserComposite.getLocationURL()/*
+																	 * param.getUrl
+																	 * ()
+																	 */);
 		DebugPrintUtil.debugPrintln("NavigateComplete2"); //$NON-NLS-1$
 	}
 
@@ -582,12 +584,29 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF#getStyleInfo()
+	 * @see
+	 * org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF#getStyleInfo()
 	 */
 	public IWebBrowserStyleInfo getStyleInfo() {
 		// TODO obtain current style info from live DOM [233615]
 		// need to wait IPZilla [2323]
 		return new WebBrowserStyleInfoImpl(this);
+	}
+
+	public boolean clearInterval(int id) {
+		return browserComposite.clearInterval(id);
+	}
+
+	public boolean clearTimeout(int id) {
+		return browserComposite.clearTimeout(id);
+	}
+
+	public int setInterval(String script, int interval) {
+		return browserComposite.setInterval(script, interval);
+	}
+
+	public int setTimeout(String script, int interval) {
+		return browserComposite.setTimeout(script, interval);
 	}
 
 }
