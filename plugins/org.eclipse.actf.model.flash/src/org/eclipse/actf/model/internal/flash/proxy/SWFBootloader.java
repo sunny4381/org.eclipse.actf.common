@@ -167,17 +167,22 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 	}
 
 	/**
-	 * Resizes bootloader and returns response message including it 
-	 * @param request Request message from client
-	 * @param w width of bootloader in 'twips' 
-	 * @param h height of bootloader in 'twips'
+	 * Resizes bootloader and returns response message including it
+	 * 
+	 * @param request
+	 *            Request message from client
+	 * @param w
+	 *            width of bootloader in 'twips'
+	 * @param h
+	 *            height of bootloader in 'twips'
 	 * @return Response message
 	 */
 	private static IHTTPResponseMessage bootloaderResponseMessageV9(
 			IHTTPRequestMessage request, int w, int h) {
 		IHTTPResponseMessage msg = HTTPUtil.createHTTPResponseInMemoryMessage(
 				request.getSerial(), IHTTPHeader.HTTP_VERSION_1_0_A,
-				RESPONSE_200.getBytes(), OK.getBytes(), SwfStageResizer.resize(bootLoaderSWFv9, w, h));
+				RESPONSE_200.getBytes(), OK.getBytes(), SwfStageResizer.resize(
+						bootLoaderSWFv9, w, h));
 		msg.setHeader(IHTTPHeader.CACHE_CONTROL_A, MUST_REVALIDATE.getBytes());
 		msg.setHeader(IHTTPHeader.CONTENT_TYPE_A,
 				SWFUtil.MIME_TYPE_APPLICATION_X_SHOCKWAVE_FLASH_A);
@@ -359,9 +364,9 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 			INFO("The incoming SWF is version " + version);
 			String uriStr = request.getRequestURIString();
 			if ((version >= WaXcodingConfig.getInstance()
-					.getSWFTranscodingMinimumVersion())) {
+					.getSWFTranscodingMinimumVersion())
+					&& (version < 10)) {
 				// Need to test Flash Version 10 or later
-				// && (version < 10)) {
 
 				IHTTPResponseMessage msg;
 				if (version < 9) {
@@ -377,13 +382,14 @@ public class SWFBootloader implements IHTTPSessionOverrider {
 					// note that frame size is in 'twips' (= 1/20 pixel)
 					int frameX = swfInfo.getFrameSizeX();
 					int frameY = swfInfo.getFrameSizeY();
-					
+
 					INFO("AS version of SWF: " + asVersion);
 
 					switch (asVersion) {
 					case 3:
 						INFO("Resizing bootloader...");
-						msg = bootloaderResponseMessageV9(request, frameX, frameY);
+						msg = bootloaderResponseMessageV9(request, frameX,
+								frameY);
 						INFO("bootloader v9 is used for " + uriStr);
 						break;
 					case 2:
