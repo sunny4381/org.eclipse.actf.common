@@ -81,6 +81,9 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 	private IWindowClosedEventListener windowClosedEventListener = null;
 
+	private String errorUrl = null;
+	private int tmpErrorCode = 0;
+
 	public WebBrowserIEImpl(IModelServiceHolder holder, Composite parent,
 			String startURL) {
 		this._holder = holder;
@@ -134,6 +137,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 		toolbar.setAddressTextString(url);
 
+		errorUrl = null;
 		this._urlExist = true;
 		this._navigateErrorCode = 200;
 
@@ -145,10 +149,12 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 	public void goBackward() {
 		// TODO rename?
+		errorUrl = null;
 		browserComposite.goBack();
 	}
 
 	public void goForward() {
+		errorUrl = null;
 		browserComposite.goForward();
 	}
 
@@ -159,6 +165,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 			_inReload = false;
 			_inJavascript = false;
 		}
+		errorUrl = null;
 		browserComposite.stop();
 	}
 
@@ -168,6 +175,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 			_inJavascript = false;
 			WebBrowserEventUtil.refreshStart(WebBrowserIEImpl.this);
 		}
+		errorUrl = null;
 		browserComposite.refresh();
 	}
 
@@ -442,11 +450,18 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 	public void documentComplete(DocumentCompleteParameters param) {
 		if (param.isTopWindow()) {
+			if (errorUrl != null && errorUrl.equals(param.getUrl())) {
+				_navigateErrorCode = tmpErrorCode;
+				_urlExist = false;
+				_inNavigation = false;
+			}
+
 			WebBrowserEventUtil.rootDocumentComplete(this);
 			// System.out.println("myDocComplete");
 			_inNavigation = false;
 			_inJavascript = false;
 			_inReload = false;
+			errorUrl = null;
 		}
 		// System.out.println("Document Complete:"+param.getUrl();
 	}
@@ -462,12 +477,19 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
 	@SuppressWarnings("nls")
 	public void navigateError(NavigateErrorParameters param) {
-		DebugPrintUtil.debugPrintln("Navigate Error. URL:" + param.getUrl()
-				+ " Status Code:" + param.getStatusCode());
+		String tmpUrl = param.getUrl();
+		tmpErrorCode = param.getStatusCode();
+		DebugPrintUtil.debugPrintln("Navigate Error. URL:" + tmpUrl
+				+ " Status Code:" + tmpErrorCode + " "
+				+ browserComposite.getLocationURL());
 
-		_navigateErrorCode = param.getStatusCode();
-		_urlExist = false;
-		_inNavigation = false;
+		if (browserComposite.getLocationURL().equals(tmpUrl)) {
+			_navigateErrorCode = tmpErrorCode;
+			_urlExist = false;
+			_inNavigation = false;
+		} else {
+			errorUrl = tmpUrl;
+		}
 	}
 
 	public void newWindow2(NewWindow2Parameters param) {
