@@ -48,16 +48,16 @@ import org.xml.sax.SAXException;
  * HTML Parser. To use this class,
  * <ol>
  * <li>Construct HTMLParser instance with a file to read.
- * <li>call parse(...) method. If an error occurred,
- * <code>ParseException</code> or IOException raises.
- * <li> get <code>Document</code> instance by calling {@link #getDocument()}.
- * If a <code>ParseException</code> was thrown, the returned instance holds
- * sub DOM created from sub document to the error point.
+ * <li>call parse(...) method. If an error occurred, <code>ParseException</code>
+ * or IOException raises.
+ * <li>get <code>Document</code> instance by calling {@link #getDocument()}. If
+ * a <code>ParseException</code> was thrown, the returned instance holds sub DOM
+ * created from sub document to the error point.
  * </ol>
  * For example,
  * 
  * <pre>
- * <code>
+ * &lt;code&gt;
  * HTMLParser parser = new HTMLParser();
  * try {
  * 	parser.parse(new FileInputStream(&quot;xxx.html&quot;));
@@ -67,7 +67,7 @@ import org.xml.sax.SAXException;
  * 	e.printStackTrace();
  * }
  * org.w3c.Document doc = parser.getDocument();
- * </code>
+ * &lt;/code&gt;
  * </pre>
  * 
  */
@@ -127,7 +127,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 		}
 	}
 
-	/**
+/**
 	 * Reads files and print their top elements. This method is just for test.
 	 * usage: java org.eclipse.actf.model.dom.html.HTMLParser [options] files...
 	 * <br>
@@ -314,6 +314,11 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 			encoding = JED.detect();
 		} catch (IOException e) {
 			throw (e);
+		} finally {
+			try {
+				is.close();
+			} catch (Exception e) {
+			}
 		}
 
 		try {
@@ -321,6 +326,11 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 		} catch (Exception e) {
 			isReader = new InputStreamReader(JED.getInputStream());
 			return parse(isReader);
+		} finally {
+			try {
+				is.close();
+			} catch (Exception e) {
+			}
 		}
 	}
 
@@ -342,15 +352,20 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 			this.encoding = charEncoding;
 			isReader = new InputStreamReader(is, charEncoding);
 		}
-		return parse(isReader);
+		Node result = parse(isReader);
+		try {
+			is.close();
+		} catch (Exception e) {
+		}
+		return result;
 	}
 
 	/**
 	 * Parses a HTML document and return its top element. This method is almost
 	 * same as {@link #parse(InputStream) parse(InputStream)}. If it meets
 	 * <code> &lt;META http-equiv="Content-Type" 
-	 * content="text/html; charset=xxx"&gt;</code>
-	 * tag in a document, it tries to change encoding to <code>xxx</code>.
+	 * content="text/html; charset=xxx"&gt;</code> tag in a document, it tries
+	 * to change encoding to <code>xxx</code>.
 	 * 
 	 * @param is
 	 *            inputstream to parse
@@ -368,8 +383,8 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 	 * Parses a HTML document and return its top element. This method is the
 	 * same as {@link #parse(InputStream,String) parse(InputStream,String)} If
 	 * it meets <code> &lt;META http-equiv="Content-Type"
-	 * content="text/html; charset=xxx"&gt;</code>
-	 * tag in a document, it tries to change encoding to <code>xxx</code>.
+	 * content="text/html; charset=xxx"&gt;</code> tag in a document, it tries
+	 * to change encoding to <code>xxx</code>.
 	 * 
 	 * @param is
 	 *            inputstream to parse
@@ -403,6 +418,11 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 			init();
 			encoding = e.getNewReader().getEncoding();
 			return parse(e.getNewReader());
+		} finally {
+			try {
+				is.close();
+			} catch (Exception e2) {
+			}
 		}
 	}
 

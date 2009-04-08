@@ -23,7 +23,8 @@ public interface IHTMLParser extends IParser {
 	 * Parses an HTML document and return its top element.
 	 * 
 	 * @param is
-	 *            target {@link InputStream} to parse with default encoding.
+	 *            target {@link InputStream} to parse with default encoding. 
+	 *            The InputStream will be closed after parsing.
 	 * @return Top element.
 	 * @exception PaserException
 	 *                If unrecoverable syntax or token error occurred, thrown
@@ -37,6 +38,7 @@ public interface IHTMLParser extends IParser {
 	 * 
 	 * @param is
 	 *            target {@link InputStream} to parse.
+	 *            The InputStream will be closed after parsing.
 	 * @param charEncoding
 	 *            encoding used for parse
 	 * @return Top element.
@@ -55,7 +57,8 @@ public interface IHTMLParser extends IParser {
 	 * tag in a document, it tries to change encoding to <code>xxx</code>.
 	 * 
 	 * @param is
-	 *            target {@link InputStream} to parse
+	 *            target {@link InputStream} to parse.
+	 *            The InputStream will be closed after parsing.
 	 * @return Top element.
 	 * @exception PaserException
 	 *                If unrecoverable syntax or token error occurred, thrown
@@ -72,7 +75,8 @@ public interface IHTMLParser extends IParser {
 	 * tag in a document, it tries to change encoding to <code>xxx</code>.
 	 * 
 	 * @param is
-	 *            target {@link InputStream} to parse
+	 *            target {@link InputStream} to parse.
+	 *            The InputStream will be closed after parsing.
 	 * @param defaultEncoding
 	 *            default encoding before switching encoding.
 	 * @return Top element.
