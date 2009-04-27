@@ -202,7 +202,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isMultilineEdit()
 	 */
@@ -211,7 +211,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isReducible()
 	 */
@@ -220,7 +220,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isConnectable()
 	 */
@@ -229,16 +229,20 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param str the str to be searched in the text of the node
+	 * @param caseSensitive whether the matching is case sensitive or not
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#find(String, boolean)
 	 */
-	public boolean find(String str, boolean exact, IEvalTarget node) {
+	public boolean find(String str, boolean caseSensitive, IEvalTarget node) {
 		return false;
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param str the str to be checked in the text of the node
+	 * @param caseSensitive whether the matching is case sensitive or not
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#startsWith(String, boolean)
 	 */
@@ -247,7 +251,8 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param level the level of the heading
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isHeading()
 	 */
@@ -256,7 +261,9 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param refNode the reference node for the evaluation
+	 * @param backward the direction of the evaluation
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#nodeLocation(Node, boolean)
 	 */
@@ -265,7 +272,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 */
 	public boolean isHeadingJumpPoint(IEvalTarget node) {
@@ -273,7 +280,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#hasReadingContent()
 	 */
@@ -282,7 +289,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 */
 	public boolean isListItemJumpPoint(IEvalTarget node) {
@@ -290,7 +297,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isBlockJumpPointF()
 	 */
@@ -299,7 +306,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isBlockJumpPointB()
 	 */
@@ -308,7 +315,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isFileEdit()
 	 */
@@ -317,7 +324,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isChecked()
 	 */
@@ -326,7 +333,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isListItem()
 	 */
@@ -335,7 +342,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isListTop()
 	 */
@@ -344,7 +351,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isSelectOption()
 	 */
@@ -353,7 +360,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isVisitedLink()
 	 */
@@ -362,7 +369,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isMultiSelectable()
 	 */
@@ -371,7 +378,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isAccessKey(char)
 	 */
@@ -380,7 +387,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isMedia()
 	 */
@@ -389,7 +396,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isFlashTopNode()
 	 */
@@ -398,7 +405,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isFlashLastNode()
 	 */
@@ -407,7 +414,7 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isMSAAFlash()
 	 */
@@ -416,7 +423,8 @@ public abstract class AbstractTerms {
 	}
 
 	/**
-	 * @param target the node to be evaluated
+	 * @param node the node to be evaluated
+	 * @param target the target node for the evaluation of reaching
 	 * @return whether the node matches the condition
 	 * @see Vocabulary#isReachable(Node)
 	 */
