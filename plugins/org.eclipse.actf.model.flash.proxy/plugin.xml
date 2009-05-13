@@ -22,6 +22,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
+            category="org.eclipse.actf.visualization.ui.views"
             class="org.eclipse.actf.model.internal.flash.proxy.ui.views.ProxyLogView"
             icon="icons/view16/proxylogview.gif"
             id="org.eclipse.actf.model.internal.flash.proxy.ui.views.ProxyLogView"
