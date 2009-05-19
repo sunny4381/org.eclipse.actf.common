@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Eclipse ACTF Web Browser IE Plug-in (Incubation)
+Bundle-Name: ACTF Web Browser IE Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.model.ui.editors.ie;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-Activator: org.eclipse.actf.model.internal.ui.editors.ie.BrowserIE_Plugin
