@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.eclipse.actf.util.vocab;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-Activator: org.eclipse.actf.util.vocab.VocabPlugin
 Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
