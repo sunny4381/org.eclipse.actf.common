@@ -12,17 +12,21 @@
 
 package org.eclipse.actf.model.ui.editors.ooo;
 
+import java.net.URI;
+
 import org.eclipse.actf.model.internal.ui.editors.ooo.OOoComposite;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.editor.DummyEditorInput;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPathEditorInput;
+import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
@@ -43,6 +47,8 @@ public class OOoEditor extends EditorPart implements IModelServiceHolder {
 	private OOoComposite _odfBrowser;
 
 	private IEditorInput input;
+
+	private boolean hasIde = Platform.getBundle("org.eclipse.ui.ide") != null; //$NON-NLS-1$
 
 	/**
 	 * Creates a new OpenOffice.org Editor.
@@ -88,6 +94,24 @@ public class OOoEditor extends EditorPart implements IModelServiceHolder {
 		} else if (input instanceof IPathEditorInput) {
 			targetUrl = ((IPathEditorInput) input).getPath().toFile()
 					.getAbsolutePath();
+		} else {
+			// to support RCP use
+			if (hasIde) {
+				if (input instanceof IURIEditorInput) {
+					URI uri = ((IURIEditorInput) input).getURI();
+					if (uri != null) {
+						targetUrl = uri.toString();
+						if (targetUrl.startsWith("file:/")) {//$NON-NLS-1$
+							targetUrl = targetUrl.substring(6);
+						}
+						targetUrl = targetUrl.replaceAll("%20", " ");//$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}
+				// if(input instanceof IFileEditorInput){
+				// IFile file = ((IFileEditorInput)input).getFile();
+				// targetUrl = file.getFullPath().toFile().getAbsolutePath();
+				// }
+			}
 		}
 
 		this._odfBrowser = new OOoComposite(parent, SWT.NONE, this);

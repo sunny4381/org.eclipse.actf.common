@@ -11,6 +11,8 @@
 
 package org.eclipse.actf.model.ui.editors.ie;
 
+import java.net.URI;
+
 import org.eclipse.actf.model.internal.ui.editors.ie.WebBrowserIEImpl;
 import org.eclipse.actf.model.internal.ui.editors.ie.events.INewWiondow2EventListener;
 import org.eclipse.actf.model.internal.ui.editors.ie.events.IWindowClosedEventListener;
@@ -23,12 +25,14 @@ import org.eclipse.actf.model.ui.editor.browser.WebBrowserEventUtil;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPathEditorInput;
+import org.eclipse.ui.IURIEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
@@ -51,6 +55,8 @@ public class WebBrowserEditor extends EditorPart implements IModelServiceHolder 
 	 */
 	public static final String ID = WebBrowserEditor.class.getName();
 
+	private boolean hasIde = Platform.getBundle("org.eclipse.ui.ide") != null; //$NON-NLS-1$
+
 	WebBrowserIEImpl webBrowser;
 
 	IEditorInput input;
@@ -69,8 +75,27 @@ public class WebBrowserEditor extends EditorPart implements IModelServiceHolder 
 			if ("".equals(targetUrl)) { //$NON-NLS-1$
 				targetUrl = ABOUT_BLANK;
 			}
-		}else if(input instanceof IPathEditorInput){
-			targetUrl = ((IPathEditorInput)input).getPath().toFile().getAbsolutePath();
+		} else if (input instanceof IPathEditorInput) {
+			targetUrl = ((IPathEditorInput) input).getPath().toFile()
+					.getAbsolutePath();
+		} else {
+			// to support RCP use
+			if (hasIde) {
+				if (input instanceof IURIEditorInput) {
+					URI uri = ((IURIEditorInput) input).getURI();
+					if (uri != null) {
+						targetUrl = uri.toString();
+//						if (targetUrl.startsWith("file:/")) {//$NON-NLS-1$
+//							targetUrl = targetUrl.substring(6);
+//						}
+//						targetUrl = targetUrl.replaceAll("%20", " ");//$NON-NLS-1$ //$NON-NLS-2$
+					}
+				}
+				// if(input instanceof IFileEditorInput){
+				// IFile file = ((IFileEditorInput)input).getFile();
+				// targetUrl = file.getFullPath().toFile().getAbsolutePath();
+				// }
+			}
 		}
 
 		webBrowser = new WebBrowserIEImpl(this, parent, targetUrl);
