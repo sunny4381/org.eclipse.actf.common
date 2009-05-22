@@ -7,7 +7,7 @@
             class="org.eclipse.actf.model.ui.editors.ooo.OOoEditor"
             contributorClass="org.eclipse.actf.model.internal.ui.editors.ooo.OOoEditorContributor"
             extensions="odt, odp, ods"
-            icon="icons/exclawhite16.gif"
+            icon="icons/obj16/odf.png"
             id="org.eclipse.actf.model.ui.editors.ooo.OOoEditor"
             name="%odf.editor.title"/>
    </extension>
