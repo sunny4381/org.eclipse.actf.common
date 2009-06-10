@@ -22,7 +22,7 @@
                   definitionId="org.eclipse.actf.model.ui.editors.ie.actions.launch"
                   label="%browser.ie.launch"
                   icon="icons/view16/browser.gif"
-                  toolbarPath="ACTF/browser"
+                  toolbarPath="ACTFbrowser"
                   style="push"/>
          </actionSet>            
       </extension>
