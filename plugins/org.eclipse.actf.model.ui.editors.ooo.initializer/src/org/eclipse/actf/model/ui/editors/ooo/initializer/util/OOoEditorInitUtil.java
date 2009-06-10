@@ -43,7 +43,7 @@ public class OOoEditorInitUtil {
 						.getWorkbench()
 						.getHelpSystem()
 						.displayHelpResource(
-								"/org.eclipse.actf.examples.adesigner.doc/docs/odf/install.html"); //$NON-NLS-1$
+								"/org.eclipse.actf.visualization.doc.user/docs/odf/install.html"); //$NON-NLS-1$
 			}
 			return false;
 		}
