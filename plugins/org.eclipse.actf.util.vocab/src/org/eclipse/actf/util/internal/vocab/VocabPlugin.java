@@ -8,7 +8,7 @@
  * Contributors:
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.util.vocab;
+package org.eclipse.actf.util.internal.vocab;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

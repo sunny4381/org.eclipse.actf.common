@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.util.vocab.ui.preferences;
 
-import org.eclipse.actf.util.vocab.VocabPlugin;
+import org.eclipse.actf.util.internal.vocab.VocabPlugin;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 

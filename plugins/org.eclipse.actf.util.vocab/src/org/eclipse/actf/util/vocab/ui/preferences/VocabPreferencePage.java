@@ -11,7 +11,7 @@
 package org.eclipse.actf.util.vocab.ui.preferences;
 
 import org.eclipse.actf.util.internal.vocab.Messages;
-import org.eclipse.actf.util.vocab.VocabPlugin;
+import org.eclipse.actf.util.internal.vocab.VocabPlugin;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;

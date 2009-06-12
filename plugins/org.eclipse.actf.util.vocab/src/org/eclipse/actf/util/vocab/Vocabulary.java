@@ -13,6 +13,7 @@ package org.eclipse.actf.util.vocab;
 
 import java.util.HashMap;
 
+import org.eclipse.actf.util.internal.vocab.VocabPlugin;
 import org.eclipse.actf.util.internal.vocab.impl.AndOperator;
 import org.eclipse.actf.util.internal.vocab.impl.Function;
 import org.eclipse.actf.util.internal.vocab.impl.OrOperator;
