@@ -63,7 +63,7 @@ public class ModelServiceUtils {
 							.getModelService();
 					if (targetUrl.equals(modelService.getURL())) {
 						activePage.activate(part);
-						// reload?
+						modelService.open(targetUrl);
 						return part;
 					}
 				}
