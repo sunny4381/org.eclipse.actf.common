@@ -464,6 +464,8 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 		return null;
 	}
 
+	/*
+	replaced for performance reason @2009/06/25 by dsato@jp.ibm.com
 	public Element getElementById(String elementId) {
 		Node tmp1, tmp2;
 		Node root = getDocumentElement();
@@ -491,7 +493,7 @@ public class SHDocument extends SGMLDocument implements HTMLDocument {
 			tmp1 = tmp2;
 		}
 		return null;
-	}
+	}*/
 
 	public NodeList getElementsByName(String elementName) {
 		if (elementName.equals("*")) {

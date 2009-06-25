@@ -53,12 +53,15 @@ public class OrModelGroup extends CompositeModelGroup {
 
     // for debug.
     public String toString() {
-        String ret = new String("("); //$NON-NLS-1$
+		StringBuilder ret = new StringBuilder();
+		ret.append("(");
         for (int i = 0; i < childLength - 1; i++) {
-            ret = ret + children[i] + '|';
+            ret.append(children[i]);
+            ret.append('|');
         }
-        ret = ret + children[childLength - 1] + ')';
-        return ret;
+        ret.append(children[childLength - 1]);
+        ret.append(")");
+        return ret.toString();
     }
 
     public boolean match(ISGMLParser parser, Node parent, Node child) {

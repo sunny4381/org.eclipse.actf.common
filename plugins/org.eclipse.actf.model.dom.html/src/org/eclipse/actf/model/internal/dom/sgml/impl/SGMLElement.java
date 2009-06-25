@@ -12,13 +12,13 @@
 package org.eclipse.actf.model.internal.dom.sgml.impl;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import org.eclipse.actf.model.internal.dom.sgml.IPrintXML;
 import org.eclipse.actf.model.internal.dom.sgml.ISGMLElement;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -232,6 +232,61 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 	}
 
 	public NodeList getElementsByTagName(String name) {
+		class MyNodeList implements NodeList {
+			private String name;
+			private ArrayList<Node> list;
+			private int s;
+			private int e;
+			private long lastupdated;
+			MyNodeList(String name) {
+				this.name = name;
+				list = getNodeList(ownerDocument, name);
+				init();
+			}
+			
+			private void init() {
+				s = 0;
+				Node start = findPreviousNodeByTagName(SGMLElement.this, name);
+				if (start != null) {
+					s = list.indexOf(start) + 1;
+				}
+				e = list.size();
+				Node next = SGMLElement.this.getNextSibling();
+				Node p = SGMLElement.this.getParentNode();
+				while (p != null && next == null) {
+					next = p.getNextSibling();
+					if (next == null) {
+						p = p.getParentNode();
+					}
+				}
+				if (next != null) {
+					Node end = findPreviousNodeByTagName(next, name);
+					if (end != null) {
+						e = list.indexOf(end) + 1;
+					}
+				}
+				lastupdated = getNodeListUpdatedAt(ownerDocument, name);
+			}
+			public int getLength() {
+				if (lastupdated != getNodeListUpdatedAt(ownerDocument, name)) {
+					init();
+				}
+				return e-s;
+			}
+			public Node item(int index) {
+				if (getLength() <= index) {
+					return null;
+				}
+				return list.get(s+index); 
+			}
+			
+		}
+
+		return new MyNodeList(name);
+	}
+	
+	/* replaced for performance reason @2009/06/25 by dsato@jp.ibm.com
+	public NodeList getElementsByTagName(String name) {
 		final boolean all = name.equals("*");
 		final String targetName = name;
 		return new NodeList() {
@@ -302,6 +357,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 		};
 
 	}
+	*/
 
 	public String getNodeName() {
 		return tagName;

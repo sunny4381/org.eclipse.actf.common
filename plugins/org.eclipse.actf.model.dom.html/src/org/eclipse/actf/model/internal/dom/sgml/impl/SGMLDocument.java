@@ -14,6 +14,7 @@ package org.eclipse.actf.model.internal.dom.sgml.impl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import org.eclipse.actf.model.internal.dom.sgml.ISGMLDocument;
@@ -129,6 +130,10 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 
 	private void setOwnerDocument(SGMLNode ret, Document doc) {
 		ret.ownerDocument = doc;
+		if (ret instanceof SGMLElement) { 
+			((SGMLElement)ret).processNodeForOptimization((Element) ret);
+		}
+
 		for (SGMLNode child = (SGMLNode) ret.getFirstChild(); child != null; child = (SGMLNode) child
 				.getNextSibling()) {
 			setOwnerDocument(child, doc);
@@ -188,6 +193,12 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 		return doctype;
 	}
 
+	public NodeList getElementsByTagName(String tagname) {
+		// replaced for performance reason @2009/06/25 by dsato@jp.ibm.com
+		return documentElement.getElementsByTagName(tagname);
+	}
+	
+	/* very slow
 	public NodeList getElementsByTagName(String tagname) {
 		final boolean all = tagname.equals("*");
 		final String targetName = tagname;
@@ -256,6 +267,7 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 			}
 		};
 	}
+	*/
 
 	public DOMImplementation getImplementation() {
 		return this.domImpl;
@@ -560,9 +572,16 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	 * traversal is returned.
 	 */
 	public Element getElementById(String elementID) {
-		return getElementById(documentElement, elementID);
+		// replaced for performance reason @2009/06/25 by dsato@jp.ibm.com
+		if (documentElement instanceof SGMLElement) {
+			HashMap<String, Element> map = SGMLParentNode.getIdMap(this);
+			return map.get(elementID);
+		}
+		return null;
+		// very slow
+		// return getElementById(documentElement, elementID);
 	}
-
+	/*
 	private Element getElementById(Element el, String elementID) {
 		if (el.getAttribute("id").equals(elementID)) {
 			return el;
@@ -579,6 +598,7 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 			return null;
 		}
 	}
+	*/
 
 	/**
 	 * DOM Level 3

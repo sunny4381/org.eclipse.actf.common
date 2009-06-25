@@ -11,8 +11,13 @@
 
 package org.eclipse.actf.model.internal.dom.sgml.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
@@ -139,11 +144,19 @@ public abstract class SGMLParentNode extends SGMLNode {
 		sgmlNode.parent = this;
 		if (firstChild == null) {
 			this.firstChild = this.lastChild = sgmlNode;
+			// added for performance reason @2009/06/25 by dsato@jp.ibm.com
+			if (node instanceof Element) {
+				processNodeForOptimization((Element) node);
+			}
 			return node;
 		} else {
 			this.lastChild.nextSibling = sgmlNode;
 			sgmlNode.previousSibling = this.lastChild;
 			this.lastChild = sgmlNode;
+			// added for performance reason @2009/06/25 by dsato@jp.ibm.com
+			if (node instanceof Element) {
+				processNodeForOptimization((Element) node);
+			}
 			return node;
 		}
 	}
@@ -199,6 +212,11 @@ public abstract class SGMLParentNode extends SGMLNode {
 			sgmlRefChild.previousSibling = sgmlNewChild;
 			sgmlNewChild.parent = this;
 		}
+
+		// added for performance reason @2009/06/25 by dsato@jp.ibm.com
+		if (newChild instanceof Element) {
+			processNodeForOptimization((Element) newChild);
+		}
 		return newChild;
 	}
 
@@ -231,6 +249,11 @@ public abstract class SGMLParentNode extends SGMLNode {
 		}
 		sgmlOldChild.previousSibling = sgmlOldChild.nextSibling = null;
 		sgmlOldChild.parent = null;
+
+		// added for performance reason @2009/06/25 by dsato@jp.ibm.com
+		if (oldChild instanceof Element) {
+			processNodeForOptimization((Element) oldChild);
+		}
 		return oldChild;
 	}
 
@@ -298,5 +321,140 @@ public abstract class SGMLParentNode extends SGMLNode {
 				n = n.nextSibling;
 			}
 		}
+	}
+
+	/**
+	 * @2009/06/25 by dsato@jp.ibm.com
+	 * Optimization for the following functions
+	 *  - getElementsByTagName
+	 *  - getElementById
+	 */
+	
+	protected void processNodeForOptimization(Element element) {
+		String id = element.getAttribute("id");
+		HashMap<String,Element> idMap = getIdMap(ownerDocument);
+		if (id != null) {
+			Node node = idMap.get(id);
+			if (node == null) {
+				idMap.put(id, element);
+			}
+		} else {
+			if (idMap.containsValue(element)) {
+				for (String key: idMap.keySet()) {
+					if (idMap.get(key) == element) {
+						idMap.remove(key);
+						break;
+					}
+				}
+			}
+		}
+		
+		String name = element.getNodeName().toLowerCase();
+		if (name != null) {
+			ArrayList<Node> nodeList = getNodeList(ownerDocument, name);
+			if (element.getParentNode() == null) {
+				nodeList.remove(element);
+			} else if (nodeList.size() == 0) {
+				nodeList.add(element);
+			} else {
+				// find previous node whose tagName is <name>;
+				Node node = findPreviousNodeByTagName(element, name);
+				int index1 = 0;
+				if (node != null) {
+					index1 = nodeList.indexOf(node);
+				}
+				
+				if (nodeList.contains(element)) {
+					int index2 = nodeList.indexOf(element);
+					if (index1 + 1 != index2) {
+						nodeList.remove(index2);
+						nodeList.add(index1+1, element);
+					}
+				} else {
+					nodeList.add(index1+1, element);
+				}
+			}
+		}
+		updateNodeList(ownerDocument, name);
+	}
+	
+	protected Node findPreviousNodeByTagName(Node element, String name) {
+		while (true) {
+			Node prev = element.getPreviousSibling();
+			Node p = element.getParentNode();
+			
+			if (prev == null) {
+				if (p != null) {
+					element = p;
+				} else {
+					element = null;
+				}
+			} else {
+				while(prev.getLastChild() != null) {
+					prev = prev.getLastChild();
+				}
+				element = prev;
+			}
+			
+			if (element == null) {
+				break;
+			} else if (element.getNodeName().toLowerCase().equals(name)) {
+				return element;
+			}
+		}
+		return null;
+	}
+
+
+
+	private static HashMap<Document,HashMap<String,ArrayList<Node>>> documentTagNameMap = new HashMap<Document,HashMap<String,ArrayList<Node>>>();
+	
+	protected static ArrayList<Node> getNodeList(Document doc, String name) {
+		HashMap<String,ArrayList<Node>> tagNameMap = documentTagNameMap.get(doc);
+		if (tagNameMap == null) {
+			tagNameMap = new HashMap<String, ArrayList<Node>>();
+			documentTagNameMap.put(doc, tagNameMap);
+		}
+		ArrayList<Node> nodeList = tagNameMap.get(name);
+		if (nodeList == null) {
+			nodeList = new ArrayList<Node>();
+			tagNameMap.put(name, nodeList);
+		}
+		return nodeList;
+	}
+	
+	private static HashMap<Document,HashMap<String,Element>> documentIdMap = new HashMap<Document,HashMap<String,Element>>();
+
+	protected static HashMap<String,Element> getIdMap(Document doc) {
+		HashMap<String,Element> idMap = documentIdMap.get(doc);
+		if (idMap == null) {
+			idMap = new HashMap<String, Element>();
+			documentIdMap.put(doc, idMap);
+		}
+		return idMap;
+	}
+	
+	private static HashMap<Document,HashMap<String, Long>> documentUpdatedMap = new HashMap<Document,HashMap<String, Long>>();
+
+	protected static long getNodeListUpdatedAt(Document doc, String name) {
+		HashMap<String, Long> updatedMap = documentUpdatedMap.get(doc);
+		if (updatedMap == null) {
+			updatedMap = new HashMap<String, Long>();
+			documentUpdatedMap.put(doc, updatedMap);
+		}
+		Long l = updatedMap.get(name);
+		if (l == null) {
+			return -1;
+		}
+		return l;
+	}
+
+	protected static void updateNodeList(Document doc, String name) {
+		HashMap<String, Long> updatedMap = documentUpdatedMap.get(doc);
+		if (updatedMap == null) {
+			updatedMap = new HashMap<String, Long>();
+			documentUpdatedMap.put(doc, updatedMap);
+		}
+		updatedMap.put(name, (new Date()).getTime());
 	}
 }
