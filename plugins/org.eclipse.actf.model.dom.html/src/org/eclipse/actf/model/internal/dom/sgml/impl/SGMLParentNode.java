@@ -379,7 +379,11 @@ public abstract class SGMLParentNode extends SGMLNode {
 				if (index2 != -1) {
 					if (index1 + 1 != index2) {
 						nodeList.remove(index2);
-						nodeList.add(index1+1, new WeakReference<Node>(element));
+						if (index1 + 1 < nodeList.size()) {
+							nodeList.add(index1+1, new WeakReference<Node>(element));
+						} else {
+							nodeList.add(new WeakReference<Node>(element));
+						}
 					}
 				} else {
 					nodeList.add(index1+1, new WeakReference<Node>(element));
