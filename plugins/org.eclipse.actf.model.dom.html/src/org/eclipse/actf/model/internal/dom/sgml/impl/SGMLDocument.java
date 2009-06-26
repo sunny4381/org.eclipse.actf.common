@@ -13,6 +13,7 @@ package org.eclipse.actf.model.internal.dom.sgml.impl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -574,8 +575,12 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	public Element getElementById(String elementID) {
 		// replaced for performance reason @2009/06/25 by dsato@jp.ibm.com
 		if (documentElement instanceof SGMLElement) {
-			HashMap<String, Element> map = SGMLParentNode.getIdMap(this);
-			return map.get(elementID);
+			HashMap<String, WeakReference<Element>> map = SGMLParentNode.getIdMap(this);
+			WeakReference<Element> wr = map.get(elementID);
+			if (wr == null) {
+				return null;
+			}
+			return wr.get();
 		}
 		return null;
 		// very slow

@@ -12,6 +12,7 @@
 package org.eclipse.actf.model.internal.dom.sgml.impl;
 
 import java.io.PrintWriter;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import org.eclipse.actf.model.internal.dom.sgml.IPrintXML;
@@ -234,7 +235,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 	public NodeList getElementsByTagName(String name) {
 		class MyNodeList implements NodeList {
 			private String name;
-			private ArrayList<Node> list;
+			private ArrayList<WeakReference<Node>> list;
 			private int s;
 			private int e;
 			private long lastupdated;
@@ -248,7 +249,12 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 				s = 0;
 				Node start = findPreviousNodeByTagName(SGMLElement.this, name);
 				if (start != null) {
-					s = list.indexOf(start) + 1;
+					for (; s < list.size(); s++) {
+						if (list.get(s) == start) {
+							s++;
+							break;
+						}
+					}
 				}
 				e = list.size();
 				Node next = SGMLElement.this.getNextSibling();
@@ -262,7 +268,12 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 				if (next != null) {
 					Node end = findPreviousNodeByTagName(next, name);
 					if (end != null) {
-						e = list.indexOf(end) + 1;
+						for (; e < list.size(); e++) {
+							if (list.get(e) == end) {
+								e++;
+								break;
+							}
+						}
 					}
 				}
 				lastupdated = getNodeListUpdatedAt(ownerDocument, name);
@@ -277,7 +288,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 				if (getLength() <= index) {
 					return null;
 				}
-				return list.get(s+index); 
+				return list.get(s+index).get(); 
 			}
 			
 		}
