@@ -250,7 +250,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 				Node start = findPreviousNodeByTagName(SGMLElement.this, name);
 				if (start != null) {
 					for (; s < list.size(); s++) {
-						if (list.get(s) == start) {
+						if (list.get(s).get() == start) {
 							s++;
 							break;
 						}
@@ -268,8 +268,8 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 				if (next != null) {
 					Node end = findPreviousNodeByTagName(next, name);
 					if (end != null) {
-						for (; e < list.size(); e++) {
-							if (list.get(e) == end) {
+						for (e--; e >= 0; e--) {
+							if (list.get(e).get() == end) {
 								e++;
 								break;
 							}
@@ -288,7 +288,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 				if (getLength() <= index) {
 					return null;
 				}
-				return list.get(s+index).get(); 
+				return list.get(s+index).get();
 			}
 			
 		}

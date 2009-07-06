@@ -126,14 +126,25 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 				ret.doctype = (DocumentType) child;
 			}
 		}
+		processNodeDeepForOptimization(ret.documentElement);
 		return ret;
+	}
+	
+	private void processNodeDeepForOptimization(Element element) {
+		Node f = element.getFirstChild();
+		while(f != null) {
+			if (f instanceof Element) {
+				processNodeDeepForOptimization((Element) f);
+			}
+			f = f.getNextSibling();
+		}
+		if (element instanceof SGMLElement) {
+			((SGMLElement)element).processNodeForOptimization(element);
+		}
 	}
 
 	private void setOwnerDocument(SGMLNode ret, Document doc) {
 		ret.ownerDocument = doc;
-		if (ret instanceof SGMLElement) { 
-			((SGMLElement)ret).processNodeForOptimization((Element) ret);
-		}
 
 		for (SGMLNode child = (SGMLNode) ret.getFirstChild(); child != null; child = (SGMLNode) child
 				.getNextSibling()) {

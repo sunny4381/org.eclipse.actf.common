@@ -13,7 +13,6 @@ package org.eclipse.actf.model.internal.dom.sgml.impl;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.WeakHashMap;
 
@@ -333,6 +332,46 @@ public abstract class SGMLParentNode extends SGMLNode {
 	 */
 	
 	protected void processNodeForOptimization(Element element) {
+		if (element.getParentNode() == null) {
+			removeNodeForOptimization(element);
+		} else {
+			addNodeForOptimization(element);
+		}
+	}
+	
+	private void removeNodeForOptimization(Element element) {
+		String id = element.getAttribute("id");
+		HashMap<String,WeakReference<Element>> idMap = getIdMap(ownerDocument);
+		if (id != null) {
+			idMap.remove(id);
+		}
+
+		String name = element.getNodeName().toLowerCase();
+		if (name != null) {
+			ArrayList<WeakReference<Node>> nodeList = getNodeList(ownerDocument, name);
+
+			int index = nodeList.size()-1;
+			for(; index >= 0; index--) {
+				if (nodeList.get(index).get() == element) {
+					break;
+				}
+			}
+			if (index != -1) {
+				nodeList.remove(index);
+			}
+		}
+		updateNodeList(ownerDocument, name);
+
+		Node f = element.getFirstChild();
+		while(f != null) {
+			if (f instanceof Element) {
+				removeNodeForOptimization((Element) f);
+			}
+			f = f.getNextSibling();
+		}
+	}
+	
+	private void addNodeForOptimization(Element element) {
 		String id = element.getAttribute("id");
 		HashMap<String,WeakReference<Element>> idMap = getIdMap(ownerDocument);
 		if (id != null) {
@@ -350,13 +389,11 @@ public abstract class SGMLParentNode extends SGMLNode {
 				}
 			}
 		}
-		
+
 		String name = element.getNodeName().toLowerCase();
 		if (name != null) {
 			ArrayList<WeakReference<Node>> nodeList = getNodeList(ownerDocument, name);
-			if (element.getParentNode() == null) {
-				nodeList.remove(element);
-			} else if (nodeList.size() == 0) {
+			if (nodeList.size() == 0) {
 				nodeList.add(new WeakReference<Node>(element));
 			} else {
 				// find previous node whose tagName is <name>;
@@ -391,8 +428,15 @@ public abstract class SGMLParentNode extends SGMLNode {
 			}
 		}
 		updateNodeList(ownerDocument, name);
+		Node f = element.getFirstChild();
+		while(f != null) {
+			if (f instanceof Element) {
+				addNodeForOptimization((Element) f);
+			}
+			f = f.getNextSibling();
+		}
 	}
-	
+
 	protected Node findPreviousNodeByTagName(Node element, String name) {
 		while (true) {
 			Node prev = element.getPreviousSibling();
@@ -470,6 +514,11 @@ public abstract class SGMLParentNode extends SGMLNode {
 
 	protected static void updateNodeList(Document doc, String name) {
 		HashMap<String, Long> updatedMap = getUpdatedMap(doc, name);
-		updatedMap.put(name, (new Date()).getTime());
+		Long n = updatedMap.get(name);
+		if (n == null) {
+			n = 0L;
+		}
+		n = n + 1;
+		updatedMap.put(name, n);
 	}
 }
