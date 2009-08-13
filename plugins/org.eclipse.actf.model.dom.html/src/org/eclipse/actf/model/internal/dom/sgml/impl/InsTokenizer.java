@@ -1057,7 +1057,7 @@ class InsTokenizer implements ISGMLConstants, Locator {
 		case ETAG:
 			return etag();
 		default:
-			return -1;
+			return (ttype = EOF);
 		}
 	}
 
