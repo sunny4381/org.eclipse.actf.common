@@ -365,6 +365,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 			saveOriginalDocument(tmpF.getAbsolutePath());
 			IHTMLParser parser = HTMLParserFactory.createHTMLParser();
 			parser.parse(new FileInputStream(tmpF));
+			tmpF.delete();
 			return parser.getDocument();
 		} catch (Exception e) {
 			e.printStackTrace();
