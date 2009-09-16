@@ -930,11 +930,21 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	public Element ancesters[] = new Element[BUF_SIZ];
 
 	public int depth = 0;
+	public int bufSize = BUF_SIZ;
 
 	public AttributeListImpl nullAttributeList = createAttributeList();
 
 	private void setContextForward(Element element) throws SAXException {
 		ElementDefinition ed;
+		if (depth >= bufSize) {
+			Element tmpAncesters[] = new Element[bufSize * 2];
+			System.arraycopy(ancesters, 0, tmpAncesters, 0, bufSize);
+			ancesters = tmpAncesters;
+			ElementDefinition tmpAncesterElementDefs[] = new ElementDefinition[bufSize * 2];
+			System.arraycopy(ancesterElementDefs, 0, tmpAncesterElementDefs, 0, bufSize);
+			ancesterElementDefs = tmpAncesterElementDefs;
+			bufSize = bufSize * 2;
+		}
 		if (eHandleLogical && docHandler != null) {
 			for (Node down = context.getLastChild(); down instanceof Element; down = down
 					.getLastChild()) {
@@ -1515,7 +1525,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 
 	private Vector<CATB> commentsBeforeDoctype = new Vector<CATB>();
 
-//	private Vector commentsAftereDoctype = new Vector();
+	// private Vector commentsAftereDoctype = new Vector();
 
 	/**
 	 * comment at the beginning
@@ -1726,7 +1736,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		seqMap.clear();
 		plusMap.clear();
 		commentsBeforeDoctype.removeAllElements();
-//		commentsAftereDoctype.removeAllElements();
+		// commentsAftereDoctype.removeAllElements();
 		if (getDOMImplementation() != null) {
 			setDOMImplementation(getDOMImplementation());
 		} else {
