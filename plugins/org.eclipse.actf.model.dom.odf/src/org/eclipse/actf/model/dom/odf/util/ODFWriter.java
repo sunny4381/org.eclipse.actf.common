@@ -20,9 +20,10 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 import javax.xml.transform.Result;
@@ -79,7 +80,6 @@ public class ODFWriter {
 
 	public List<String> unzipODFFile(String odfName, String outputDir) {
 		List<String> outputFileList = new ArrayList<String>();
-		ZipInputStream zis = null;
 		FileOutputStream fos = null;
 
 		URL url = null;
@@ -89,16 +89,16 @@ public class ODFWriter {
 		}
 
 		try {
+			ZipFile zipFile = null;
 			if (url != null) {
-				zis = new ZipInputStream(new FileInputStream(new File(url
-						.toURI())));
+				zipFile = new ZipFile(new File(url.toURI()));
 			} else {
-				zis = new ZipInputStream(new FileInputStream(odfName));
+				zipFile = new ZipFile(odfName);
 			}
-			ZipEntry zent = null;
-			String fileName = null;
-			while ((zent = zis.getNextEntry()) != null) {
-				fileName = zent.getName();
+			Enumeration<? extends ZipEntry> entries = zipFile.entries();
+			while (entries.hasMoreElements()) {
+				ZipEntry zent = entries.nextElement();
+				String fileName = zent.getName();
 				if (fileName.contains(SLASH)) {
 					int lastIndex = fileName.lastIndexOf(SLASH);
 					File dir = new File(outputDir + File.separator
@@ -108,7 +108,8 @@ public class ODFWriter {
 					}
 				}
 				if (!fileName.endsWith(SLASH)) {
-					BufferedInputStream bis = new BufferedInputStream(zis);
+					BufferedInputStream bis = new BufferedInputStream(zipFile
+							.getInputStream(zent));
 					String outputFile = outputDir + File.separator + fileName;
 					outputFileList.add(outputFile);
 					fos = new FileOutputStream(outputFile);
@@ -127,12 +128,6 @@ public class ODFWriter {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				zis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		return outputFileList;
 	}
