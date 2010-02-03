@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ACTF ODF Browser Initializer Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.model.ui.editors.ooo.initializer;singleton:=true
-Bundle-Version: 0.7.1.qualifier
+Bundle-Version: 0.7.2.qualifier
 Bundle-Vendor: Eclipse.org
 Export-Package: org.eclipse.actf.model.ui.editors.ooo.initializer.kicker;x-friends:="org.eclipse.actf.model.ui.editors.ooo",
  org.eclipse.actf.model.ui.editors.ooo.initializer.util
