@@ -65,6 +65,11 @@ public class ASDeserializer {
 	 *         it reaches the end of the string.
 	 */
 	private int skipSP() {
+		if(str==null){
+			//TODO
+			//System.out.println("AS Str is null");
+			return -1;
+		}
 		while (idx < str.length()) {
 			char ch = str.charAt(idx);
 			switch (ch) {
