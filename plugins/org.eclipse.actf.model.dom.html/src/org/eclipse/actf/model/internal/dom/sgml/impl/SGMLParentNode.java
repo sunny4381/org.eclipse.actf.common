@@ -284,24 +284,30 @@ public abstract class SGMLParentNode extends SGMLNode {
 			sgmlOldChild.previousSibling = sgmlOldChild.nextSibling = null;
 			sgmlOldChild.parent = null;
 			sgmlNewChild.parent = this;
-			return newChild;
 		}
-		if (this.lastChild == oldChild) {
+		else if (this.lastChild == oldChild) {
 			this.lastChild.previousSibling.nextSibling = sgmlNewChild;
 			sgmlNewChild.previousSibling = this.lastChild.previousSibling;
 			this.lastChild = sgmlNewChild;
 			sgmlOldChild.previousSibling = null;
 			sgmlOldChild.parent = null;
 			sgmlNewChild.parent = this;
-			return newChild;
+		} 
+		else {
+			sgmlNewChild.previousSibling = sgmlOldChild.previousSibling;
+			sgmlNewChild.nextSibling = sgmlOldChild.nextSibling;
+			sgmlOldChild.previousSibling.nextSibling = sgmlNewChild;
+			sgmlOldChild.nextSibling.previousSibling = sgmlNewChild;
+			sgmlOldChild.previousSibling = sgmlOldChild.nextSibling = null;
+			sgmlOldChild.parent = null;
+			sgmlNewChild.parent = this;
 		}
-		sgmlNewChild.previousSibling = sgmlOldChild.previousSibling;
-		sgmlNewChild.nextSibling = sgmlOldChild.nextSibling;
-		sgmlOldChild.previousSibling.nextSibling = sgmlNewChild;
-		sgmlOldChild.nextSibling.previousSibling = sgmlNewChild;
-		sgmlOldChild.previousSibling = sgmlOldChild.nextSibling = null;
-		sgmlOldChild.parent = null;
-		sgmlNewChild.parent = this;
+		if (sgmlOldChild instanceof Element) {
+			processNodeForOptimization((Element) sgmlOldChild);
+		}
+		if (sgmlNewChild instanceof Element) {
+			processNodeForOptimization((Element) sgmlNewChild);
+		}
 		return newChild;
 	}
 
