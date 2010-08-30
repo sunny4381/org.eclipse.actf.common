@@ -53,7 +53,7 @@ public class ChartNodeFactory extends AbstractODFNodeFactory {
 		}
 
 		try {
-			return findElementConstractor(cs).newInstance(
+			return (Element)findElementConstractor(cs).newInstance(
 					new Object[] { odfDoc, element });
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();

@@ -200,8 +200,11 @@ public class ODFUtils {
 		}
 
 		System.load(openOfficeProgramPath + "..\\URE\\bin\\uwinapi.dll");
-		System.load(openOfficeProgramPath
-				+ "..\\Basis\\program\\officebean.dll");
+		try {
+			System.load(openOfficeProgramPath + "officebean.dll");			
+		} catch (UnsatisfiedLinkError e) {
+			System.load(openOfficeProgramPath + "..\\Basis\\program\\officebean.dll"); // older than OpenOffice 3.2.1
+		}
 		System.load(openOfficeProgramPath + "..\\URE\\bin\\sal3.dll");
 		System.load(openOfficeProgramPath + "..\\URE\\bin\\jpipe.dll");
 
