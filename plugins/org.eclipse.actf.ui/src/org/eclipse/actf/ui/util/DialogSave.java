@@ -41,21 +41,26 @@ public class DialogSave {
 	 */
 	public static final int XML = 3;
 
-	private static final int TYPE_MAX = 3;
+	/**
+	 * The constant to specify CSV files as a target.
+	 */
+	public static final int CSV = 4;
+
+	private static final int TYPE_MAX = 4;
 
 	private static final int MAX_FILENAME_LENGTH = 100;
 
 	private static final String[][] FILTER = { { "All Files (*.*)" },
 			{ "HTML Files (*.htm, *.html)" }, { "BMP Files (*.bmp)" },
-			{ "XML Files (*.xml)" } };
+			{ "XML Files (*.xml)" }, {"CSV Files (*.csv)" } };
 
 	private static final String[][] FILTER_EXT = { { "*.*" },
-			{ "*.htm;*.html" }, { "*.bmp" }, { "*.xml" } };
+			{ "*.htm;*.html" }, { "*.bmp" }, { "*.xml" } , { "*.csv" }};
 
 	private static final String[][] EXT_CHECK = { {}, { ".htm", ".html" },
-			{ ".bmp" }, { ".xml" } };
+			{ ".bmp" }, { ".xml" }, { ".csv" } };
 
-	private static final String[] DEFAULT_EXT = { "", ".html", ".bmp", ".xml" };
+	private static final String[] DEFAULT_EXT = { "", ".html", ".bmp", ".xml" , ".csv" };
 
 	/**
 	 * Open dialog to enable users to specify target file name to save.
