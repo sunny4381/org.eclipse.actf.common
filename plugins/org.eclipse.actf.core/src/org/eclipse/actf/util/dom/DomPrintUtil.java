@@ -21,6 +21,7 @@ import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.html.HTMLTitleElement;
 import org.w3c.dom.traversal.NodeFilter;
 
@@ -207,6 +208,21 @@ public class DomPrintUtil {
 					System.out
 							.println("Document Type node does not implement DocumentType: "
 									+ tmpN);
+				}
+				break;
+			case Node.PROCESSING_INSTRUCTION_NODE:
+				if(tmpN instanceof ProcessingInstruction){
+					String tmpS = ((ProcessingInstruction) tmpN).getData();
+					if(tmpS.startsWith("?")){
+						tmpSB.append(lt);
+					}else{
+						tmpSB.append(lt+"?");
+					}
+					if(tmpS.endsWith("?")){
+						tmpSB.append(tmpS+">"+LINE_SEP);
+					}else{
+						tmpSB.append(tmpS+"?>"+LINE_SEP);						
+					}
 				}
 				break;
 			default:
