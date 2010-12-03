@@ -25,6 +25,8 @@ public class SGMLDocType extends SGMLNode implements DocumentType {
 	 */
 	private String name;
 
+	private String orgId = null;
+
 	/**
 	 * ID. For HTML4.0 strict, it is "-//W3C//DTD HTML 4.0//EN".
 	 * 
@@ -118,7 +120,7 @@ public class SGMLDocType extends SGMLNode implements DocumentType {
 	public void setNodeValue(String nodeValue) throws DOMException {
 		throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
 				"cannot set value on " + this) {
-					private static final long serialVersionUID = -2040752127102111247L;
+			private static final long serialVersionUID = -2040752127102111247L;
 		};
 	}
 
@@ -132,12 +134,24 @@ public class SGMLDocType extends SGMLNode implements DocumentType {
 	}
 
 	/**
-	 * @return raw string from original document if {@link 
-	 *         #setRawString(java.lang.String)} has been invoked. Otherwise,
-	 *         <code>&lt;!DOCTYPE name PUBLIC "id" &gt;</code>
+	 * @return raw string from original document if
+	 *         {@link #setRawString(java.lang.String)} has been invoked.
+	 *         Otherwise, <code>&lt;!DOCTYPE name PUBLIC "id" &gt;</code>
 	 */
 	public String toString() {
 		return rawString != null ? rawString : "<!DOCTYPE " + name
 				+ " PUBLIC \"" + id + "\">";
+	}
+
+	/**
+	 * 
+	 * @return original ID if HTML Parser overrides it. If not, it returns null.
+	 */
+	public String getOrgId() {
+		return orgId;
+	}
+
+	protected void setOrgId(String orgId) {
+		this.orgId = orgId;
 	}
 }

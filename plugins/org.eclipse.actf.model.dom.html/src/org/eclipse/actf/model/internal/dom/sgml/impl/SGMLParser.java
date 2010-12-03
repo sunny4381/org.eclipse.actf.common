@@ -27,8 +27,8 @@ import org.eclipse.actf.model.internal.dom.sgml.ISGMLParser;
 import org.eclipse.actf.model.internal.dom.sgml.errorhandler.AttributeValueErrorHandler;
 import org.eclipse.actf.model.internal.dom.sgml.errorhandler.DefaultErrorHandler;
 import org.eclipse.actf.model.internal.dom.sgml.errorhandler.ITokenErrorHandler;
-import org.eclipse.actf.model.internal.dom.sgml.modelgroup.IModelGroup;
 import org.eclipse.actf.model.internal.dom.sgml.modelgroup.AndModelGroup.AndContext;
+import org.eclipse.actf.model.internal.dom.sgml.modelgroup.IModelGroup;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.DOMException;
@@ -1599,6 +1599,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 					&& tokenizer.sval.equalsIgnoreCase("PUBLIC")) {
 				if (tokenizer.nextToken() == '"') {
 					String publicID = tokenizer.eatUntil('"');
+					String orgId = publicID;
 					if (enforcedDoctype != null) {
 						publicID = enforcedDoctype;
 					}
@@ -1628,6 +1629,9 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 					if (domImpl != null) {
 						currentNode = ret = createDocType(domImpl, docTypeName,
 								publicID);
+						if(!publicID.equals(orgId) && ret instanceof SGMLDocType){
+							((SGMLDocType)ret).setOrgId(orgId);
+						}
 					}
 					// consume '>'
 					tokenizer.consumeUntil('>');
