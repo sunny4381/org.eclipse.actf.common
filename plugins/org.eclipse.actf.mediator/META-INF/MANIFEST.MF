@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ACTF Mediator Plug-in
+Bundle-Name: ACTF Mediator Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.mediator
 Bundle-Version: 0.8.1.qualifier
 Bundle-Vendor: Eclipse.org
