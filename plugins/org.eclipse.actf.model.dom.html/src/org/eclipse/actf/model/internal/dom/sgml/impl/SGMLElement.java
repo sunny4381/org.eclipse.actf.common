@@ -274,6 +274,8 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 								break;
 							}
 						}
+					}else{
+						e = 0;
 					}
 				}
 				lastupdated = getNodeListUpdatedAt(ownerDocument, name);
