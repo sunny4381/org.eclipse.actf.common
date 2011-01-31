@@ -77,20 +77,20 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
 					"trying to insert null") {
 
-						/**
+				/**
 						 * 
 						 */
-						private static final long serialVersionUID = -3195872655825042328L;
+				private static final long serialVersionUID = -3195872655825042328L;
 			};
 		} else if (node.getOwnerDocument() != ownerDocument) {
 			throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, node
 					+ " created from " + node.getOwnerDocument() + ". " + this
 					+ " created from " + ownerDocument) {
 
-						/**
+				/**
 						 * 
 						 */
-						private static final long serialVersionUID = -3952917378943559036L;
+				private static final long serialVersionUID = -3952917378943559036L;
 			};
 		}
 		switch (node.getNodeType()) {
@@ -105,10 +105,10 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, node
 					+ " is not allowed as a child of " + this) {
 
-						/**
+				/**
 						 * 
 						 */
-						private static final long serialVersionUID = 2793178675397177186L;
+				private static final long serialVersionUID = 2793178675397177186L;
 			};
 		}
 	}
@@ -186,10 +186,10 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 							DOMException.NO_MODIFICATION_ALLOWED_ERR,
 							"only Attr instance can be set: " + arg) {
 
-								/**
+						/**
 								 * 
 								 */
-								private static final long serialVersionUID = -8500293705674064623L;
+						private static final long serialVersionUID = -8500293705674064623L;
 					};
 				}
 			}
@@ -239,12 +239,13 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 			private int s;
 			private int e;
 			private long lastupdated;
+
 			MyNodeList(String name) {
 				this.name = name;
 				list = getNodeList(ownerDocument, name);
 				init();
 			}
-			
+
 			private void init() {
 				s = 0;
 				Node start = findPreviousNodeByTagName(SGMLElement.this, name);
@@ -274,103 +275,61 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 								break;
 							}
 						}
-					}else{
+					} else {
 						e = 0;
 					}
+				} else {
+					e = 0;
 				}
 				lastupdated = getNodeListUpdatedAt(ownerDocument, name);
 			}
+
 			public int getLength() {
 				if (lastupdated != getNodeListUpdatedAt(ownerDocument, name)) {
 					init();
 				}
-				return e-s;
+				return e - s;
 			}
+
 			public Node item(int index) {
 				if (getLength() <= index) {
 					return null;
 				}
-				return list.get(s+index).get();
+				return list.get(s + index).get();
 			}
-			
+
 		}
 
 		return new MyNodeList(name);
 	}
-	
-	/* replaced for performance reason @2009/06/25 by dsato@jp.ibm.com
-	public NodeList getElementsByTagName(String name) {
-		final boolean all = name.equals("*");
-		final String targetName = name;
-		return new NodeList() {
-			public int getLength() {
-				int ret = 0;
-				Node tmp1, tmp2;
-				tmp1 = SGMLElement.this.firstChild;
-				outer: while (tmp1 != null) {
-					if (tmp1 instanceof Element
-							&& (all || targetName.equalsIgnoreCase(tmp1
-									.getNodeName()))
-							&& tmp1 != SGMLElement.this) {
-						ret++;
-					}
-					if ((tmp2 = tmp1.getFirstChild()) == null) {
-						if (tmp1 == SGMLElement.this) {
-							break outer;
-						} else {
-							tmp2 = tmp1.getNextSibling();
-						}
-					}
-					while (tmp2 == null && tmp1 != null) {
-						tmp1 = tmp2 = tmp1.getParentNode();
-						if (tmp1 != SGMLElement.this) {
-							tmp2 = tmp1.getNextSibling();
-						} else {
-							break outer;
-						}
-					}
-					tmp1 = tmp2;
-				}
-				return ret;
-			}
 
-			public Node item(int index) {
-				Node tmp1, tmp2;
-				tmp1 = SGMLElement.this.firstChild;
-				outer: while (tmp1 != null) {
-					if (tmp1 instanceof Element
-							&& (all || targetName.equalsIgnoreCase(tmp1
-									.getNodeName()))
-							&& tmp1 != SGMLElement.this) {
-						if (index == 0) {
-							return tmp1;
-						} else {
-							index--;
-						}
-					}
-					if ((tmp2 = tmp1.getFirstChild()) == null) {
-						if (tmp1 == SGMLElement.this) {
-							break outer;
-						} else {
-							tmp2 = tmp1.getNextSibling();
-						}
-					}
-					while (tmp2 == null && tmp1 != null) {
-						tmp1 = tmp2 = tmp1.getParentNode();
-						if (tmp1 != SGMLElement.this) {
-							tmp2 = tmp1.getNextSibling();
-						} else {
-							break outer;
-						}
-					}
-					tmp1 = tmp2;
-				}
-				return null;
-			}
-		};
-
-	}
-	*/
+	/*
+	 * replaced for performance reason @2009/06/25 by dsato@jp.ibm.com public
+	 * NodeList getElementsByTagName(String name) { final boolean all =
+	 * name.equals("*"); final String targetName = name; return new NodeList() {
+	 * public int getLength() { int ret = 0; Node tmp1, tmp2; tmp1 =
+	 * SGMLElement.this.firstChild; outer: while (tmp1 != null) { if (tmp1
+	 * instanceof Element && (all || targetName.equalsIgnoreCase(tmp1
+	 * .getNodeName())) && tmp1 != SGMLElement.this) { ret++; } if ((tmp2 =
+	 * tmp1.getFirstChild()) == null) { if (tmp1 == SGMLElement.this) { break
+	 * outer; } else { tmp2 = tmp1.getNextSibling(); } } while (tmp2 == null &&
+	 * tmp1 != null) { tmp1 = tmp2 = tmp1.getParentNode(); if (tmp1 !=
+	 * SGMLElement.this) { tmp2 = tmp1.getNextSibling(); } else { break outer; }
+	 * } tmp1 = tmp2; } return ret; }
+	 * 
+	 * public Node item(int index) { Node tmp1, tmp2; tmp1 =
+	 * SGMLElement.this.firstChild; outer: while (tmp1 != null) { if (tmp1
+	 * instanceof Element && (all || targetName.equalsIgnoreCase(tmp1
+	 * .getNodeName())) && tmp1 != SGMLElement.this) { if (index == 0) { return
+	 * tmp1; } else { index--; } } if ((tmp2 = tmp1.getFirstChild()) == null) {
+	 * if (tmp1 == SGMLElement.this) { break outer; } else { tmp2 =
+	 * tmp1.getNextSibling(); } } while (tmp2 == null && tmp1 != null) { tmp1 =
+	 * tmp2 = tmp1.getParentNode(); if (tmp1 != SGMLElement.this) { tmp2 =
+	 * tmp1.getNextSibling(); } else { break outer; } } tmp1 = tmp2; } return
+	 * null; } };
+	 * 
+	 * }
+	 */
 
 	public String getNodeName() {
 		return tagName;
@@ -467,10 +426,10 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 			throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, newAttr
 					+ "is not SGMLAttribute") {
 
-						/**
+				/**
 						 * 
 						 */
-						private static final long serialVersionUID = -2574702797917329018L;
+				private static final long serialVersionUID = -2574702797917329018L;
 			};
 		}
 		for (int i = attrNum - 1; i >= 0; i--) {
@@ -494,10 +453,10 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 		throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
 				"can't set value in " + this) {
 
-					/**
+			/**
 					 * 
 					 */
-					private static final long serialVersionUID = 159616090913212538L;
+			private static final long serialVersionUID = 159616090913212538L;
 		};
 	}
 
