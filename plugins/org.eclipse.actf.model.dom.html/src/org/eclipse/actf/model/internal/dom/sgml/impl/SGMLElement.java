@@ -257,6 +257,9 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 						}
 					}
 				}
+				if(s<list.size() && list.get(s).get() == SGMLElement.this){
+					s++;
+				}
 				e = list.size();
 				Node next = SGMLElement.this.getNextSibling();
 				Node p = SGMLElement.this.getParentNode();
@@ -278,8 +281,6 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 					} else {
 						e = 0;
 					}
-				} else {
-					e = 0;
 				}
 				lastupdated = getNodeListUpdatedAt(ownerDocument, name);
 			}
