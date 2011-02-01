@@ -120,6 +120,10 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 				return attr.getNodeValue();
 			}
 		}
+		if(getDefaultValue(name) != null){
+			return(getDefaultValue(name));
+		}
+		
 		return "";
 	}
 
