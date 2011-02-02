@@ -49,6 +49,8 @@ public class CurrentStylesImpl implements ICurrentStyles {
 	private static final String A_BACKGROUND_REPEAT = "backgroundRepeat";
 
 	private static final String A_BACKGROUND_COLOR = "backgroundColor";
+	
+	private static final String A_BACKGROUND_IMAGE = "backgroundImage";
 
 	private static final String HREF = "href";
 
@@ -63,6 +65,8 @@ public class CurrentStylesImpl implements ICurrentStyles {
 	private final String backgroundColor;
 
 	private final String backgroundRepeat;
+	
+	private final String backgroundImage;
 
 	private final String color;
 
@@ -129,6 +133,7 @@ public class CurrentStylesImpl implements ICurrentStyles {
 		}
 
 		IStyle style = element.getStyle();
+		backgroundImage = (String) style.get(A_BACKGROUND_IMAGE);
 		backgroundColor = (String) style.get(A_BACKGROUND_COLOR);
 		backgroundRepeat = (String) style.get(A_BACKGROUND_REPEAT);
 		color = (String) style.get(A_COLOR);
@@ -161,6 +166,15 @@ public class CurrentStylesImpl implements ICurrentStyles {
 	 */
 	public String getBackgroundRepeat() {
 		return backgroundRepeat;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getBackgroundImage()
+	 */
+	public String getBackgroundImage() {
+		return backgroundImage;
 	}
 
 	/*
