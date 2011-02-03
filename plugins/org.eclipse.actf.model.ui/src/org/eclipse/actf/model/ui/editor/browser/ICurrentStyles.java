@@ -13,6 +13,7 @@ package org.eclipse.actf.model.ui.editor.browser;
 import java.net.URL;
 
 import org.eclipse.swt.graphics.Rectangle;
+import org.w3c.dom.Element;
 
 /**
  * Interface for current style information of the Element
@@ -58,17 +59,17 @@ public interface ICurrentStyles {
 	 * @return background image
 	 */
 	public String getBackgroundImage();
-	
+
 	/**
 	 * @return foreground color
 	 */
 	public abstract String getColor();
-	
+
 	// /**
 	// * @return
 	// */
 	// public abstract String getCssText(); //style
-	//	
+	//
 	// /**
 	// * @return
 	// */
@@ -128,5 +129,45 @@ public interface ICurrentStyles {
 	 * @return visibility
 	 */
 	public abstract String getVisibility();
+
+	/**
+	 * @return target Element
+	 */
+	public abstract Element getElement();
+
+	/**
+	 * @return computed foreground color
+	 */
+	public String getComputedColor();
+
+	/**
+	 * @return computed background color
+	 */
+	public String getComputedBackgroundColor();
+
+	/**
+	 * @return computed background image (considering transparent background color)
+	 */
+	public String getComputedBackgroundImage();
+
+	/**
+	 * @return has text directly under the element
+	 */
+	public boolean hasChildText();
+
+	/**
+	 * @return has text descendant that may be affected by the background image of this style
+	 */
+	public boolean hasDescendantTextWithBGImage();
+
+	/**
+	 * @return texts directly under the element
+	 */
+	public String[] getChildTexts();
+
+	/**
+	 * @return descendant texts under the element
+	 */
+	public String[] getDescendantTextsWithBGImage();
 
 }
