@@ -192,6 +192,7 @@ public class NodeImpl implements Node {
 
 	private NodeListNextSiblingImpl cachedChildNodes;
 
+	@SuppressWarnings("unused")
 	public NodeList getChildNodes() {
 		if (cachedChildNodes != null) {
 			cachedChildNodes.initialize();
