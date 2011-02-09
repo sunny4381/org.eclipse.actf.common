@@ -45,7 +45,7 @@ public class DomByCom {
 
 	public static final int BORDER_MODE = STYLE_BORDER2;
 
-	public static final String BORDER_STYLE_STRING = "border: 3px solid #071; background: #fdd;"; //$NON-NLS-1$
+	public static final String BORDER_STYLE_STRING = "border: 4px inset yellow;"; //$NON-NLS-1$
 
 	private void addStyles(DocumentImpl doc) {
 		StyleSheetImpl style = doc.createStyleSheet();
@@ -86,11 +86,14 @@ public class DomByCom {
 	}
 
 	private void initialize(DocumentImpl doc) {
-		if (BORDER_MODE == STYLE_BORDER) {
+		switch (BORDER_MODE) {
+		case STYLE_BORDER:
 			addStyles(doc);
-		} else if (BORDER_MODE == DIV_BORDER) {
+			break;
+		case DIV_BORDER:
 			addDivs(doc);
-		} else if (BORDER_MODE == STYLE_BORDER2) {
+		case STYLE_BORDER2:
+		default:
 			// do nothing;
 		}
 	}

@@ -40,6 +40,9 @@ import org.w3c.dom.TypeInfo;
 
 @SuppressWarnings("nls")
 public class ElementImpl extends NodeImpl implements IElementEx {
+
+	boolean isHighlighted = false;
+
 	protected ElementImpl(NodeImpl baseNode, IDispatch inode) {
 		super(baseNode, inode, Node.ELEMENT_NODE);
 	}
@@ -101,8 +104,8 @@ public class ElementImpl extends NodeImpl implements IElementEx {
 			Helper.notSupported();
 		}
 		AttrImpl a = (AttrImpl) newAttr;
-		IDispatch r = (IDispatch) inode.invoke1("setAttributeNode", a
-				.getINode());
+		IDispatch r = (IDispatch) inode.invoke1("setAttributeNode",
+				a.getINode());
 		if (r == null)
 			return null;
 		return (Attr) newNode(r, Node.ATTRIBUTE_NODE);
@@ -113,8 +116,8 @@ public class ElementImpl extends NodeImpl implements IElementEx {
 			Helper.notSupported();
 		}
 		AttrImpl a = (AttrImpl) oldAttr;
-		IDispatch r = (IDispatch) inode.invoke1("removeAttributeNode", a
-				.getINode());
+		IDispatch r = (IDispatch) inode.invoke1("removeAttributeNode",
+				a.getINode());
 		if (r == null)
 			return null;
 		return (Attr) newNode(r, Node.ATTRIBUTE_NODE);
@@ -231,38 +234,58 @@ public class ElementImpl extends NodeImpl implements IElementEx {
 	private String originalBorder;
 
 	public boolean highlight() {
-		if (DomByCom.BORDER_MODE == DomByCom.STYLE_BORDER) {
-			String className = (String) Helper.get(inode, "className");
-			if (className == null)
-				return false;
-			className += " CSStoHighlight";
-			Helper.put(inode, "className", className);
-		} else if (DomByCom.BORDER_MODE == DomByCom.DIV_BORDER) {
-			Element div = getOwnerDocument().getElementById(DomByCom.ID_DIV);
-			IStyle style = ((IElementEx) div).getStyle();
+		if (!isHighlighted) {
+			switch (DomByCom.BORDER_MODE) {
+			case DomByCom.STYLE_BORDER:
+				String className = (String) Helper.get(inode, "className");
+				if (className == null)
+					return false;
+				className += " CSStoHighlight";
+				Helper.put(inode, "className", className);
+				isHighlighted = true;
+				break;
+			case DomByCom.DIV_BORDER:
+				Element div = getOwnerDocument()
+						.getElementById(DomByCom.ID_DIV);
+				IStyle style = ((IElementEx) div).getStyle();
 
-			Rectangle r = Helper.getLocation(inode);
+				Rectangle r = Helper.getLocation(inode);
 
-			String compatMode = ((IDocumentEx) getOwnerDocument())
-					.getCompatMode();
-			int w = 0;
-			if (compatMode.equals(IDocumentEx.CSS1_COMPAT)) {
-				w = 0;
-			} else if (compatMode.equals(IDocumentEx.BACK_COMPAT)) {
-				w = DomByCom.DIV_BORDER_WIDTH * 2;
+				String compatMode = ((IDocumentEx) getOwnerDocument())
+						.getCompatMode();
+				int w = 0;
+				if (compatMode.equals(IDocumentEx.CSS1_COMPAT)) {
+					w = 0;
+				} else if (compatMode.equals(IDocumentEx.BACK_COMPAT)) {
+					w = DomByCom.DIV_BORDER_WIDTH * 2;
+				}
+
+				style.put("left", (r.x - DomByCom.DIV_BORDER_WIDTH) + "px");
+				style.put("top", (r.y - DomByCom.DIV_BORDER_WIDTH) + "px");
+				style.put("width", (r.width + w) + "px");
+				style.put("height", (r.height + w) + "px");
+				isHighlighted = true;
+				break;
+			case DomByCom.STYLE_BORDER2:
+				IDispatch styleD = (IDispatch) Helper.get(inode, "style");
+				if (styleD == null)
+					return false;
+				originalBorder = ((String) Helper.get(styleD, "cssText"))
+						.trim();
+				String border;
+				if (originalBorder.length() > 0
+						&& !originalBorder.endsWith(";")) {
+					border = originalBorder + ";"
+							+ DomByCom.BORDER_STYLE_STRING;
+				} else {
+					border = originalBorder + DomByCom.BORDER_STYLE_STRING;
+				}
+				Helper.put(styleD, "cssText", border);
+				isHighlighted = true;
+				break;
+			default:
+				// do nothing
 			}
-
-			style.put("left", (r.x - DomByCom.DIV_BORDER_WIDTH) + "px");
-			style.put("top", (r.y - DomByCom.DIV_BORDER_WIDTH) + "px");
-			style.put("width", (r.width + w) + "px");
-			style.put("height", (r.height + w) + "px");
-		} else if (DomByCom.BORDER_MODE == DomByCom.STYLE_BORDER2) {
-			IDispatch style = (IDispatch) Helper.get(inode, "style");
-			if (style == null)
-				return false;
-			originalBorder = (String) Helper.get(style, "cssText");
-			String border = originalBorder + DomByCom.BORDER_STYLE_STRING;
-			Helper.put(style, "cssText", border);
 		}
 
 		try {
@@ -275,28 +298,41 @@ public class ElementImpl extends NodeImpl implements IElementEx {
 	}
 
 	public boolean unhighlight() {
-		if (DomByCom.BORDER_MODE == DomByCom.STYLE_BORDER) {
-			String className = (String) Helper.get(inode, "className");
-			if (className == null)
-				return false;
-			String newClassName = className.replaceAll(" CSStoHighlight", "");
-			Helper.put(inode, "className", newClassName);
-		} else if (DomByCom.BORDER_MODE == DomByCom.DIV_BORDER) {
-			Element div = getOwnerDocument().getElementById(DomByCom.ID_DIV);
-			IStyle style = ((IElementEx) div).getStyle();
-			style.put("left", "-1000px");
-			style.put("top", "-1000px");
-			style.put("width", "100px");
-			style.put("height", "100px");
-		} else if (DomByCom.BORDER_MODE == DomByCom.STYLE_BORDER2) {
-			IDispatch style = (IDispatch) Helper.get(inode, "style");
-			if (style == null)
-				return false;
-			Helper.put(style, "cssText", originalBorder);
+		if (isHighlighted) {
+			switch (DomByCom.BORDER_MODE) {
+			case DomByCom.STYLE_BORDER:
+				String className = (String) Helper.get(inode, "className");
+				if (className == null)
+					return false;
+				String newClassName = className.replaceAll(" CSStoHighlight",
+						"");
+				Helper.put(inode, "className", newClassName);
+				break;
+			case DomByCom.DIV_BORDER:
+				Element div = getOwnerDocument()
+						.getElementById(DomByCom.ID_DIV);
+				IStyle style = ((IElementEx) div).getStyle();
+				style.put("left", "-1000px");
+				style.put("top", "-1000px");
+				style.put("width", "100px");
+				style.put("height", "100px");
+				break;
+			case DomByCom.STYLE_BORDER2:
+				IDispatch styleD = (IDispatch) Helper.get(inode, "style");
+				if (styleD == null)
+					return false;
+				Helper.put(styleD, "cssText", originalBorder);
+				break;
+			default:
+				// do nothing
+			}
 		}
+
+		isHighlighted = false;
 
 		try {
 			inode.invoke0("onmouseout");
+			return true;
 		} catch (DispatchException e) {
 		}
 		return false;
@@ -410,6 +446,7 @@ public class ElementImpl extends NodeImpl implements IElementEx {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public String extractString() {
 		String name = getLocalName();
 		if ("IMG".equals(name)) {
