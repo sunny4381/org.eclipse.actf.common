@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.actf.model.ui;
 
+import org.eclipse.swt.graphics.Rectangle;
+import org.w3c.dom.Element;
+
 /**
  * ImagePositionInfo stores position information of images
  */
@@ -19,6 +22,7 @@ public class ImagePositionInfo {
 	int width = 0;
 	int height = 0;
 	String url = ""; //$NON-NLS-1$
+	Element element = null;
 
 	/**
 	 * Constructor of {@link ImagePositionInfo}
@@ -40,6 +44,15 @@ public class ImagePositionInfo {
 		this.width = width;
 		this.height = height;
 		this.url = url;
+	}
+	
+	public ImagePositionInfo(Rectangle rect, String url, Element image){
+		this.x = rect.x;
+		this.y = rect.y;
+		this.width = rect.width;
+		this.height = rect.height;
+		this.url = url;
+		this.element = image;		
 	}
 
 	/**
@@ -115,6 +128,10 @@ public class ImagePositionInfo {
 	 */
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public Element getElement(){
+		return element;
 	}
 
 }

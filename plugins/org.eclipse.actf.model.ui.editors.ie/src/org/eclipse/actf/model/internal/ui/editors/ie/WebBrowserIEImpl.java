@@ -14,8 +14,10 @@ package org.eclipse.actf.model.internal.ui.editors.ie;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 import org.eclipse.actf.model.dom.dombycom.DomByCom;
+import org.eclipse.actf.model.dom.dombycom.IElementEx;
 import org.eclipse.actf.model.dom.html.HTMLParserFactory;
 import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.internal.ui.editors.ie.events.BeforeNavigate2Parameters;
@@ -47,6 +49,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 
@@ -326,8 +329,9 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		if (null != color) {
 			try {
 				String[] strArray = color.split(","); //$NON-NLS-1$
-				return new RGB(Integer.parseInt(strArray[0]), Integer
-						.parseInt(strArray[1]), Integer.parseInt(strArray[2]));
+				return new RGB(Integer.parseInt(strArray[0]),
+						Integer.parseInt(strArray[1]),
+						Integer.parseInt(strArray[2]));
 			} catch (Exception e) {
 			}
 		}
@@ -444,8 +448,8 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 				_inReload = false;
 			}
 		}
-		WebBrowserEventUtil.beforeNavigate(this, target, param
-				.getTargetFrameName(), _inNavigation);
+		WebBrowserEventUtil.beforeNavigate(this, target,
+				param.getTargetFrameName(), _inNavigation);
 
 	}
 
@@ -592,7 +596,20 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 	}
 
 	public ImagePositionInfo[] getAllImagePosition() {
-		return browserComposite.getAllImagePosition();
+		NodeList tmpNL = getLiveDocument().getElementsByTagName("img");
+		ArrayList<ImagePositionInfo> list = new ArrayList<ImagePositionInfo>();
+		for (int i = 0; i < tmpNL.getLength(); i++) {
+			try {
+				IElementEx tmpE = ((IElementEx) tmpNL.item(i));
+				list.add(new ImagePositionInfo(tmpE.getLocation(), tmpE.getAttribute("src"), tmpE));
+			} catch (Exception e) {
+			}
+		}
+		ImagePositionInfo[] result = new ImagePositionInfo[list.size()];
+		list.toArray(result);
+		return result;
+		
+		// return browserComposite.getAllImagePosition();
 	}
 
 	/*
