@@ -63,7 +63,7 @@ public class DummyEditorInput implements IEditorInput {
 		return ""; //$NON-NLS-1$
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Class adapter) {
 		return null;
 	}
