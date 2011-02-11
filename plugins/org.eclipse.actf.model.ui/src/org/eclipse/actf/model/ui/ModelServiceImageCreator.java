@@ -170,13 +170,39 @@ public class ModelServiceImageCreator {
 
 		int wholeSize = wholeImgData[0].data.length;
 
-		for (int j = 0; j < yCnt; j++) {
-			for (int i = 0; i < xCnt; i++) {
-				if (j < yCnt - 1) {
-					yBegin = 0;
-				} else {
-					yBegin = size[1] * yCnt - size[3];
+		if (yCnt > 1) {
+			for (int j = 0; j < yCnt; j++) {
+				for (int i = 0; i < xCnt; i++) {
+					if (j < yCnt - 1) {
+						yBegin = 0;
+					} else {
+						yBegin = size[1] * yCnt - size[3];
+					}
+
+					if (i < xCnt - 1) {
+						xBegin = 0;
+					} else {
+						xBegin = size[0] * xCnt - size[2];
+					}
+					xBegin += 2;
+
+					for (int k = yBegin; k < size[1]; k++) {
+						// System.out.println("i:" + i + " j:" + j + " k:" + k);
+						int wholeBegin = (j * size[1] + (k - yBegin))
+								* wholeRowBytes + i * size[0] * depth;
+						int copySize = partRowBytes - xBegin * depth;
+						if (wholeSize < wholeBegin + copySize) {
+							copySize = wholeSize - wholeBegin;
+						}
+						System.arraycopy(imgData[i][j].data, (k + 2)
+								* partRowBytes + xBegin * depth,
+								wholeImgData[0].data, wholeBegin, copySize);
+					}
 				}
+			}
+		} else {
+			for (int i = 0; i < xCnt; i++) {
+				yBegin = 0;
 
 				if (i < xCnt - 1) {
 					xBegin = 0;
@@ -185,15 +211,15 @@ public class ModelServiceImageCreator {
 				}
 				xBegin += 2;
 
-				for (int k = yBegin; k < size[1]; k++) {
+				for (int k = yBegin; k < size[3]; k++) {
 					// System.out.println("i:" + i + " j:" + j + " k:" + k);
-					int wholeBegin = (j * size[1] + (k - yBegin))
-							* wholeRowBytes + i * size[0] * depth;
+					int wholeBegin = (k - yBegin) * wholeRowBytes + i * size[0]
+							* depth;
 					int copySize = partRowBytes - xBegin * depth;
 					if (wholeSize < wholeBegin + copySize) {
 						copySize = wholeSize - wholeBegin;
 					}
-					System.arraycopy(imgData[i][j].data, (k + 2) * partRowBytes
+					System.arraycopy(imgData[i][0].data, (k + 2) * partRowBytes
 							+ xBegin * depth, wholeImgData[0].data, wholeBegin,
 							copySize);
 				}
