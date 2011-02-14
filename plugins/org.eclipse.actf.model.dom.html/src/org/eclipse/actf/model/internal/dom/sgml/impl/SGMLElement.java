@@ -367,6 +367,8 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 					}
 					attrNum--;
 				}
+
+				processIdForOptimization(this);
 				return;
 			}
 		}
@@ -405,6 +407,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 			}
 		}
 		((SGMLAttribute) oldAttr).setOwnerElement(this);
+		processIdForOptimization(this);
 		return oldAttr;
 	}
 
@@ -414,6 +417,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 			attr = attributes[i];
 			if (attr.getName().equalsIgnoreCase(name)) {
 				attr.setValue(value);
+				processIdForOptimization(this);
 				return;
 			}
 		}
@@ -424,6 +428,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 			expandAttrBuf();
 		}
 		attributes[attrNum++] = attr;
+		processIdForOptimization(this);
 	}
 
 	public Attr setAttributeNode(Attr newAttr) throws DOMException {
@@ -443,6 +448,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 				attr.setOwnerElement(null);
 				attributes[i] = (SGMLAttribute) newAttr;
 				attributes[i].setOwnerElement(this);
+				processIdForOptimization(this);
 				return attr;
 			}
 		}
@@ -451,6 +457,7 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 		}
 		attributes[attrNum] = (SGMLAttribute) newAttr;
 		attributes[attrNum++].setOwnerElement(this);
+		processIdForOptimization(this);
 		return null;
 	}
 
@@ -655,17 +662,20 @@ public class SGMLElement extends SGMLParentNode implements ISGMLElement {
 	public void setIdAttribute(String name, boolean isId) throws DOMException {
 		// TODO Auto-generated method stub
 
+		processIdForOptimization(this);
 	}
 
 	public void setIdAttributeNS(String namespaceURI, String localName,
 			boolean isId) throws DOMException {
 		// TODO Auto-generated method stub
 
+		processIdForOptimization(this);
 	}
 
 	public void setIdAttributeNode(Attr idAttr, boolean isId)
 			throws DOMException {
 		// TODO Auto-generated method stub
 
+		processIdForOptimization(this);
 	}
 }

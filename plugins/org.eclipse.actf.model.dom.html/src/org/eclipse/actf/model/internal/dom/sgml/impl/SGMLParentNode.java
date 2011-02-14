@@ -378,23 +378,7 @@ public abstract class SGMLParentNode extends SGMLNode {
 	}
 	
 	private void addNodeForOptimization(Element element) {
-		String id = element.getAttribute("id");
-		HashMap<String,WeakReference<Element>> idMap = getIdMap(ownerDocument);
-		if (id != null) {
-			WeakReference<Element> wr = idMap.get(id);
-			if (wr == null) {
-				idMap.put(id, wr = new WeakReference<Element>(element));
-			}
-		} else {
-			if (idMap.containsValue(element)) {
-				for (String key: idMap.keySet()) {
-					if (idMap.get(key).get() == element) {
-						idMap.remove(key);
-						break;
-					}
-				}
-			}
-		}
+		processIdForOptimization(element);
 
 		String name = element.getNodeName().toLowerCase();
 		if (name != null) {
@@ -440,6 +424,25 @@ public abstract class SGMLParentNode extends SGMLNode {
 				addNodeForOptimization((Element) f);
 			}
 			f = f.getNextSibling();
+		}
+	}
+	
+	protected void processIdForOptimization(Element element) {
+		String id = element.getAttribute("id");
+		HashMap<String,WeakReference<Element>> idMap = getIdMap(ownerDocument);
+		
+		for (String key: idMap.keySet()) {
+			if (idMap.get(key).get() == element) {
+				idMap.remove(key);
+				break;
+			}
+		}
+		
+		if (id != null && id.length() > 0) {
+			WeakReference<Element> wr = idMap.get(id);
+			if (wr == null) {
+				idMap.put(id, wr = new WeakReference<Element>(element));
+			}
 		}
 	}
 
