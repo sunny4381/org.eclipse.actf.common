@@ -96,7 +96,7 @@ public class DomPrintUtil {
 		if (null == attrFilter || attrFilter.acceptNode(element, attr)) {
 			String value = getXMLString(attr.getNodeValue());
 			String quat = QUAT;
-			if (value.indexOf(QUAT) > 0) {
+			if (value.contains(QUAT)) {
 				quat = SINGLE_QUAT;
 			}
 			return " " + attr.getNodeName() + "=" + quat + value + quat;
