@@ -14,6 +14,8 @@ package org.eclipse.actf.model.internal.dom.sgml.impl;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.WeakHashMap;
 
 import org.w3c.dom.DOMException;
@@ -347,9 +349,16 @@ public abstract class SGMLParentNode extends SGMLNode {
 	
 	private void removeNodeForOptimization(Element element) {
 		String id = element.getAttribute("id");
-		HashMap<String,WeakReference<Element>> idMap = getIdMap(ownerDocument);
+		HashMap<String,List<WeakReference<Element>>> idMap = getIdMap(ownerDocument);
 		if (id != null) {
-			idMap.remove(id);
+			List<WeakReference<Element>> list = idMap.get(id);
+			if (list != null) {
+				for(Iterator<WeakReference<Element>> i = list.iterator(); i.hasNext();) {
+					if (i.next().get() == element) {
+						i.remove();
+					}
+				}
+			}
 		}
 
 		String name = element.getNodeName().toLowerCase();
@@ -429,19 +438,33 @@ public abstract class SGMLParentNode extends SGMLNode {
 	
 	protected void processIdForOptimization(Element element) {
 		String id = element.getAttribute("id");
-		HashMap<String,WeakReference<Element>> idMap = getIdMap(ownerDocument);
+		HashMap<String,List<WeakReference<Element>>> idMap = getIdMap(ownerDocument);
 		
 		for (String key: idMap.keySet()) {
-			if (idMap.get(key).get() == element) {
-				idMap.remove(key);
-				break;
+			List<WeakReference<Element>> list = idMap.get(key);
+			if (list != null) {
+				for(Iterator<WeakReference<Element>> i = list.iterator(); i.hasNext();) {
+					if (i.next().get() == element) {
+						i.remove();
+					}
+				}
 			}
 		}
 		
 		if (id != null && id.length() > 0) {
-			WeakReference<Element> wr = idMap.get(id);
-			if (wr == null) {
-				idMap.put(id, wr = new WeakReference<Element>(element));
+			List<WeakReference<Element>> list = idMap.get(id);
+			if (list == null) {
+				list = new ArrayList<WeakReference<Element>>();
+				idMap.put(id, list);
+			}
+			boolean flag = true;
+			for(Iterator<WeakReference<Element>> i = list.iterator(); i.hasNext();) {
+				if (i.next().get() == element) {
+					flag = false;
+				}
+			}
+			if (flag) {
+				list.add(new WeakReference<Element>(element));
 			}
 		}
 	}
@@ -490,12 +513,12 @@ public abstract class SGMLParentNode extends SGMLNode {
 		return nodeList;
 	}
 	
-	private static WeakHashMap<Document,HashMap<String,WeakReference<Element>>> documentIdMap = new WeakHashMap<Document,HashMap<String,WeakReference<Element>>>();
+	private static WeakHashMap<Document,HashMap<String,List<WeakReference<Element>>>> documentIdMap = new WeakHashMap<Document,HashMap<String,List<WeakReference<Element>>>>();
 	
-	protected static HashMap<String,WeakReference<Element>> getIdMap(Document doc) {
-		HashMap<String,WeakReference<Element>> idMap = documentIdMap.get(doc);
+	protected static HashMap<String,List<WeakReference<Element>>> getIdMap(Document doc) {
+		HashMap<String,List<WeakReference<Element>>> idMap = documentIdMap.get(doc);
 		if (idMap == null) {
-			idMap = new HashMap<String,WeakReference<Element>>();
+			idMap = new HashMap<String,List<WeakReference<Element>>>();
 			documentIdMap.put(doc, idMap);
 		}
 		return idMap;
