@@ -231,6 +231,17 @@ public class CurrentStylesImpl implements ICurrentStyles {
 				}
 			}
 		}
+		if (!flag) {
+			if ("input".equalsIgnoreCase(element.getTagName())) {
+				String type = element.getAttribute("type");
+				if (type != null && type.matches("(button)|(submit)|(reset)")) {
+					if (element.getText().trim().length() > 0) {
+						flag = true;
+						childs.add(element.getText());
+					}
+				}
+			}
+		}
 		hasChildText = flag;
 		childTexts = new String[childs.size()];
 		childs.toArray(childTexts);
@@ -271,7 +282,7 @@ public class CurrentStylesImpl implements ICurrentStyles {
 			}
 			descendantTextsWithBGImage = new String[descendants.size()];
 			descendants.toArray(descendantTextsWithBGImage);
-			
+
 		}
 
 	}
