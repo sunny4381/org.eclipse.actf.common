@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ACTF Win32 COM Clutch Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.util.win32.comclutch
-Bundle-Version: 0.9.0.qualifier
+Bundle-Version: 0.9.1.qualifier
 Bundle-Activator: org.eclipse.actf.util.win32.comclutch.ComPlugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.core.runtime,
