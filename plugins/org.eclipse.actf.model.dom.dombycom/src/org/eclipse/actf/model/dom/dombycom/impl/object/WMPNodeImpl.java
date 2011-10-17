@@ -78,7 +78,11 @@ class WMPNodeImpl extends MediaObjectImpl {
 		}
 		return 0;
 	}
-
+	
+	public boolean setCurrentPosition(double pos) {
+		return putSettings("currentPosition", new Double(pos));
+	}
+		
 	public double getTotalLength() {
 		return -1;
 	}

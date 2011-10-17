@@ -75,6 +75,11 @@ public interface INodeExVideo {
 	double getCurrentPosition();
 
 	/**
+	 * @return whether the operation is succeeded or not.
+	 */
+	boolean setCurrentPosition(double pos);
+
+	/**
 	 * @return the total media length in seconds.
 	 */
 	double getTotalLength();

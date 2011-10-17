@@ -92,7 +92,12 @@ class QTNodeImpl extends MediaObjectImpl {
 		else
 			return 0;
 	}
-
+	
+	public boolean setCurrentPosition(double pos) {
+		//
+		return false;
+	}
+		
 	public VideoState getCurrentState() {
 		return currentState;
 	}

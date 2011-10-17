@@ -109,7 +109,12 @@ class RPNodeImpl extends MediaObjectImpl {
 		else
 			return 0;
 	}
-
+	
+	public boolean setCurrentPosition(double pos) {
+		//
+		return false;
+	}
+		
 	public VideoState getCurrentState() {
 		Object state = exec0("GetPlayState");
 
