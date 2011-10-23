@@ -80,7 +80,15 @@ class WMPNodeImpl extends MediaObjectImpl {
 	}
 	
 	public boolean setCurrentPosition(double pos) {
-		return putSettings("currentPosition", new Double(pos));
+		Object o = Helper.get(inode, "currentPosition");
+		if (o instanceof Double) {
+			return putSettings("currentPosition", new Double(pos));
+		} else if (o instanceof Float) {
+			return putSettings("currentPosition", new Float((float)pos));
+		} else if (o instanceof Integer) {
+			return putSettings("currentPosition", new Integer((int)pos));
+		}
+		return false;
 	}
 		
 	public double getTotalLength() {
