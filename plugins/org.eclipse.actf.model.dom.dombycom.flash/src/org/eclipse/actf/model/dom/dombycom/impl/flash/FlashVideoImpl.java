@@ -94,4 +94,9 @@ class FlashVideoImpl implements INodeExVideo, IFlashConst {
 		// Returns the top node (maybe a makeshift).
 		return swf;
 	}
+
+	public boolean setCurrentPosition(double pos) {
+		// TODO
+		return false;
+	}
 }
