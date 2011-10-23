@@ -401,6 +401,8 @@ class FlashNodeImpl implements IFlashNode, IFlashConst {
 			}
 			if (true)
 				break;
+			
+			@SuppressWarnings("unused")
 			int idx = current.lastIndexOf('.');
 			if (idx <= 0)
 				break;
