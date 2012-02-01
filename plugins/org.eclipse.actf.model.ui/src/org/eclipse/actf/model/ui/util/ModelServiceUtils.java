@@ -198,7 +198,7 @@ public class ModelServiceUtils {
 						return (IEditorPart) part;
 					if (modelService instanceof IWebBrowserACTF
 							&& ("about:blank".equals(modelService.getURL()) || ("" //$NON-NLS-1$ //$NON-NLS-2$
-									.equals(modelService.getURL()))))
+							.equals(modelService.getURL()))))
 						return (IEditorPart) part;
 				}
 			}
@@ -291,8 +291,10 @@ public class ModelServiceUtils {
 			return (IModelServiceHolder) editor;
 		}
 
-		DebugPrintUtil.devOrDebugPrintln("ModelServiceUtils: " + editor //$NON-NLS-1$
-				+ " isn't IModelServiceHolder"); //$NON-NLS-1$
+		if (editor != null) {
+			DebugPrintUtil.devOrDebugPrintln("ModelServiceUtils: " + editor //$NON-NLS-1$
+					+ " isn't IModelServiceHolder"); //$NON-NLS-1$
+		}
 
 		return null;
 	}
