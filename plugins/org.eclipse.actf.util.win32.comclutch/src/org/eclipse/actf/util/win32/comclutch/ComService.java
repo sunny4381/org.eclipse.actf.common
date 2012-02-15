@@ -149,6 +149,9 @@ public class ComService {
 	static public IUnknown coCreateInstance(ResourceManager rm, String rclsid,
 			int dwClsContext) {
 		long ptr = _coCreateInstance(rclsid, dwClsContext);
+		if (ptr == 0) {
+			throw new NullPointerException();
+		}
 		return new IUnknownImpl(rm, ptr, false);
 	}
 

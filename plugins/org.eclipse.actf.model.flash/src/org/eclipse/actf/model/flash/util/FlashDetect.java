@@ -43,7 +43,7 @@ public class FlashDetect {
 				strVersion = rawVersion.substring(sep + 1);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -52,7 +52,7 @@ public class FlashDetect {
 	 */
 	public static void showDialog() {
 		if (null == strVersion)
-			return;
+			return; //TODO no flash player
 		int sep = strVersion.indexOf(',');
 		if (sep > 0) {
 			try {
