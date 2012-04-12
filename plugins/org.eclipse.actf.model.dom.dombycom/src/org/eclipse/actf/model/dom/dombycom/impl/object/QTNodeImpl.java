@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2012 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Daisuke SATO - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.dom.dombycom.impl.object;
@@ -104,7 +105,14 @@ class QTNodeImpl extends MediaObjectImpl {
 	}
 
 	public double getTotalLength() {
-		// TODO Auto-generated method stub
+		Object length = exec0("GetDuration");
+		Object scale = exec0("GetTimeScale");
+
+		if (length != null) {
+			return ((Integer) length).doubleValue()
+					/ ((Integer) scale).doubleValue();
+		}
+
 		return 0;
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2012 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Hisashi MIYASHITA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.dom.dombycom.impl.object;
@@ -84,7 +85,15 @@ class WMP64NodeImpl extends MediaObjectImpl {
 	}
 
 	public double getTotalLength() {
-		return -1;
+		Object o = Helper.get(inode, "Duration");
+		if (o instanceof Double) {
+			return ((Double) o).doubleValue();
+		} else if (o instanceof Float) {
+			return ((Float) o).floatValue();
+		} else if (o instanceof Integer) {
+			return ((Integer) o).doubleValue();
+		}
+		return 0;
 	}
 
 	public boolean nextTrack() {

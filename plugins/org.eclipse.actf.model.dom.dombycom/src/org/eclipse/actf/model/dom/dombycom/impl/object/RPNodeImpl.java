@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2012 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Daisuke SATO - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.model.dom.dombycom.impl.object;
@@ -28,6 +29,9 @@ class RPNodeImpl extends MediaObjectImpl {
 	private boolean stop = false;
 
 	private boolean mute = false;
+
+	private double tmpLength = 0; // realplayer returns 0 length just after
+									// playMedia after stopMedia
 
 	RPNodeImpl(NodeImpl baseNode, IDispatch inode) {
 		super(baseNode, inode);
@@ -150,7 +154,16 @@ class RPNodeImpl extends MediaObjectImpl {
 	}
 
 	public double getTotalLength() {
-		// TODO Auto-generated method stub
+		Object length = exec0("GetLength");
+
+		if (length != null) {
+			double lengthV = ((Integer) length).doubleValue() / 1000;
+			if (lengthV != 0) {
+				tmpLength = lengthV;
+			}
+			return tmpLength;
+		}
+
 		return 0;
 	}
 
@@ -181,6 +194,9 @@ class RPNodeImpl extends MediaObjectImpl {
 	public boolean stopMedia() {
 		exec0("DoStop");
 		stop = true;
+
+		tmpLength = getTotalLength();
+
 		return true;
 	}
 }
