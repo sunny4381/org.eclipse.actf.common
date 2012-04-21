@@ -153,7 +153,7 @@ class RPNodeImpl extends MediaObjectImpl {
 		return VideoState.STATE_UNKNOWN;
 	}
 
-	public double getTotalLength() {
+	public double getTotalLength() {		
 		Object length = exec0("GetLength");
 
 		if (length != null) {
@@ -198,5 +198,13 @@ class RPNodeImpl extends MediaObjectImpl {
 		tmpLength = getTotalLength();
 
 		return true;
+	}
+
+	public String getVideoURL() {
+		Object url = exec0("GetSource");
+		if(url instanceof String){
+			return (String)url;
+		}
+		return null;
 	}
 }

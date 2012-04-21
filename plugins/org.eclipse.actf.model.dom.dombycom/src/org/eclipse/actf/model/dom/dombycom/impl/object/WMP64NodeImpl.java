@@ -183,4 +183,12 @@ class WMP64NodeImpl extends MediaObjectImpl {
 			return VideoState.STATE_UNKNOWN;
 		}
 	}
+
+	public String getVideoURL() {
+		Object url = Helper.get(inode, "FileName");
+		if(url instanceof String){
+			return (String)url;
+		}
+		return null;
+	}
 }

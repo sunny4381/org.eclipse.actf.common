@@ -99,4 +99,9 @@ class FlashVideoImpl implements INodeExVideo, IFlashConst {
 		// TODO
 		return false;
 	}
+
+	public String getVideoURL() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

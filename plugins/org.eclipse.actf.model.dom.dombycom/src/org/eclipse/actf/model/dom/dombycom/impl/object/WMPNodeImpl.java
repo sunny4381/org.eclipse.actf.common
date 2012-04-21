@@ -175,4 +175,12 @@ class WMPNodeImpl extends MediaObjectImpl {
 			return false;
 		return ((Boolean) o).booleanValue();
 	}
+
+	public String getVideoURL() {
+		Object url = Helper.get(inode, "FileName");
+		if(url instanceof String){
+			return (String)url;
+		}
+		return null;
+	}
 }

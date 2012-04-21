@@ -146,4 +146,13 @@ class QTNodeImpl extends MediaObjectImpl {
 		currentState = VideoState.STATE_STOP;
 		return true;
 	}
+
+	public String getVideoURL() {
+		Object url = exec0("GetURL");
+		System.out.println(url);
+		if(url instanceof String){
+			return (String)url;
+		}
+		return null;
+	}
 }

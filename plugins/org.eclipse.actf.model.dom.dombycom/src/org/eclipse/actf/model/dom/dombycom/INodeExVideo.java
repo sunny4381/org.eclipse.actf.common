@@ -88,4 +88,9 @@ public interface INodeExVideo {
 	 * @return the HTML element corresponding to the video object.
 	 */
 	INodeEx getReferenceNode();
+	
+	/**
+	 * @return the URL of the video object, or null if URL can't be obtained.
+	 */
+	String getVideoURL();
 }
