@@ -43,6 +43,7 @@ import org.eclipse.actf.model.ui.editor.browser.WebBrowserEventUtil;
 import org.eclipse.actf.model.ui.util.ScrollBarSizeUtil;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -98,6 +99,24 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		gridLayout.marginWidth = 0;
 		parent.setLayout(gridLayout);
 
+		//dummySwtBrowser to use IE8 component
+		//To avoid conflict, we embed dummy SWT browser to control registry.
+		Composite dummyComp = new Composite(parent, SWT.NONE);
+		gridLayout = new GridLayout();
+		gridLayout.marginBottom = 0;
+		gridLayout.verticalSpacing = 0;
+		gridLayout.marginWidth = 0;
+		gridLayout.marginHeight = 0;
+		gridLayout.horizontalSpacing = 0;
+		gridLayout.numColumns = 1;
+		dummyComp.setLayout(gridLayout);
+		dummyComp.setSize(0, 0);
+		dummyComp.redraw();
+		dummyComp.setVisible(false);
+		dummyComp.setLayoutData(new GridData(0, 0));
+		Browser browser = new Browser(dummyComp, SWT.NONE);
+		browser.setVisible(false);
+
 		toolbar = new WebBrowserToolbar(this, parent, SWT.NONE);
 		browserComposite = new WebBrowserIEComposite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
@@ -113,7 +132,7 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		}
 		toolbar.setAddressTextString(startURL);
 
-		browserComposite.setDisableScriptDebugger(true);
+		setDisableScriptDebugger(true);
 
 		browserComposite.addBrowserEventListener(this);
 
@@ -601,14 +620,15 @@ public class WebBrowserIEImpl implements IWebBrowserACTF, BrowserEventListener {
 		for (int i = 0; i < tmpNL.getLength(); i++) {
 			try {
 				IElementEx tmpE = ((IElementEx) tmpNL.item(i));
-				list.add(new ImagePositionInfo(tmpE.getLocation(), tmpE.getAttribute("src"), tmpE));
+				list.add(new ImagePositionInfo(tmpE.getLocation(), tmpE
+						.getAttribute("src"), tmpE));
 			} catch (Exception e) {
 			}
 		}
 		ImagePositionInfo[] result = new ImagePositionInfo[list.size()];
 		list.toArray(result);
 		return result;
-		
+
 		// return browserComposite.getAllImagePosition();
 	}
 

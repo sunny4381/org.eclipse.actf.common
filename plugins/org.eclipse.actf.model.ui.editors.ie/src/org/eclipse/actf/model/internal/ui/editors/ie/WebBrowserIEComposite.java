@@ -127,6 +127,7 @@ public class WebBrowserIEComposite extends Composite {
 		/*
 		 * Misc settings
 		 */
+		setBrowserBoolean("RegisterAsBrowser", true); //$NON-NLS-1$
 		setBrowserBoolean("RegisterAsDropTarget", true); //$NON-NLS-1$
 
 		/*
@@ -622,7 +623,7 @@ public class WebBrowserIEComposite extends Composite {
 
 	protected void onWindowClosing(WindowClosingParameters param) {
 		// param.setCancel(true);
-		//        
+		//
 		for (int i = 0; i < eventListeners.length; i++) {
 			eventListeners[i].windowClosing(param);
 		}
@@ -657,8 +658,8 @@ public class WebBrowserIEComposite extends Composite {
 	 */
 
 	private Set<BrowserEventListener> getEventListeners() {
-		return new LinkedHashSet<BrowserEventListener>(Arrays
-				.asList(eventListeners));
+		return new LinkedHashSet<BrowserEventListener>(
+				Arrays.asList(eventListeners));
 	}
 
 	private void setEventListeners(Set<BrowserEventListener> set) {

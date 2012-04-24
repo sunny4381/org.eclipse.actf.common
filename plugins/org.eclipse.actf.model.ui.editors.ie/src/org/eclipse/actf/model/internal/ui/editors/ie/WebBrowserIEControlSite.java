@@ -255,21 +255,22 @@ public class WebBrowserIEControlSite extends OleControlSite {
 		GUID guid = new GUID();
 		COM.MoveMemory(guid, riid, GUID.sizeof);
 		if (COM.IsEqualGUID(guid, COM.IIDIDocHostUIHandler)) {
-			MemoryUtil.MoveMemory(ppvObject, new int[] { iDocHostUIHandler
-					.getAddress() }, 4);
+			MemoryUtil.MoveMemory(ppvObject,
+					new int[] { iDocHostUIHandler.getAddress() }, OS.PTR_SIZEOF);
 			AddRef();
 			return S_OK;
 		}
 		if (COM.IsEqualGUID(guid, COM.IIDIOleCommandTarget)) {
-			MemoryUtil.MoveMemory(ppvObject, new int[] { iOleCommandTarget
-					.getAddress() }, 4);
+			MemoryUtil.MoveMemory(ppvObject,
+					new int[] { iOleCommandTarget.getAddress() }, OS.PTR_SIZEOF);
 			AddRef();
 			return S_OK;
 		}
 
 		if (COM.IsEqualGUID(guid, COM.IIDIServiceProvider)) {
-			COM.MoveMemory(ppvObject, new int /* long */[] { iServiceProvider
-					.getAddress() }, OS.PTR_SIZEOF);
+			COM.MoveMemory(ppvObject,
+					new int /* long */[] { iServiceProvider.getAddress() },
+					OS.PTR_SIZEOF);
 			AddRef();
 			return COM.S_OK;
 		}
@@ -442,8 +443,11 @@ public class WebBrowserIEControlSite extends OleControlSite {
 	}
 
 	int MapUrlToZone(int /* long */pwszUrl, int /* long */pdwZone, int dwFlags) {
-		COM.MoveMemory(pdwZone, new int[] { URLZONE_INTRANET }, 4);
-		return COM.S_OK;
+		// TODO about:blank and non trusted text case
+		// COM.MoveMemory(pdwZone, new int[] { URLZONE_INTRANET }, 4);
+		// return COM.S_OK;
+		
+		return INET_E_DEFAULT_ACTION;
 	}
 
 	int GetSecurityId(int /* long */pwszUrl, int /* long */pbSecurityId,
