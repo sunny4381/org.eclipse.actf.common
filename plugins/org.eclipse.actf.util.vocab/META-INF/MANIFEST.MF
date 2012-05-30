@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ACTF Vocab Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.util.vocab;singleton:=true
-Bundle-Version: 0.9.2.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.actf.util.internal.vocab.VocabPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
