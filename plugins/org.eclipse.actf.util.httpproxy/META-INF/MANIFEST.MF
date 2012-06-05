@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ACTF HTTP Proxy Plug-in (Incubation)
+Bundle-Name: ACTF HTTP Proxy Plug-in
 Bundle-SymbolicName: org.eclipse.actf.util.httpproxy;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ACTF Win32 Toolkit (Incubation)
+Bundle-Name: ACTF Win32 Toolkit
 Bundle-SymbolicName: org.eclipse.actf.util.win32
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org

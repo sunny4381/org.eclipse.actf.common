@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ACTF DomByCom Plug-in (Incubation)
+Bundle-Name: ACTF DomByCom Plug-in
 Bundle-SymbolicName: org.eclipse.actf.model.dom.dombycom;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.actf.model.dom.dombycom.DombycomPlugin

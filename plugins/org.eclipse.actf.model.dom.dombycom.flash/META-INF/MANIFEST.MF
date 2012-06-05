@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ACTF DomByCom Flash Fragment (Incubation)
+Bundle-Name: ACTF DomByCom Flash Fragment
 Bundle-SymbolicName: org.eclipse.actf.model.dom.dombycom.flash;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org
