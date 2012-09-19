@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and Others
+ * Copyright (c) 2008, 2012 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -122,5 +122,10 @@ public interface IParserError {
 	 * Error code for token-level error of tag name.
 	 */
 	public static final int TAG_NAME = 13;
+
+	/*
+	 * Error code for Byte-Order Mark (BOM) found in UTF-8 HTML file
+	 */
+	public static final int BOM = 14;
 
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2007 IBM Corporation and Others
+ * Copyright (c) 2004, 2012 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -172,6 +172,8 @@ public class JapaneseEncodingDetector {
 	private int errorEUC;
 
 	private InputStream is;
+	
+	private boolean hasBOM = false;
 
 	private Vector<Integer> eucRemoveV = new Vector<Integer>();
 
@@ -214,9 +216,7 @@ public class JapaneseEncodingDetector {
 			byte bytebuf[] = new byte[length - 2];
 			int index = (eucRemoveV.get(i)).intValue();
 			System.arraycopy(buf, 0, bytebuf, 0, index);
-			System
-					.arraycopy(buf, index + 2, bytebuf, index, length - index
-							- 2);
+			System.arraycopy(buf, index + 2, bytebuf, index, length - index - 2);
 			buf = bytebuf;
 			// length = index;
 			length = length - 2;
@@ -453,6 +453,18 @@ public class JapaneseEncodingDetector {
 			}
 			len = is.read(buf, length, buf.length - length);
 		}
+
+		if (length > 3) {
+			if (buf[0] == (byte) 0xef && buf[1] == (byte) 0xbb
+					&& buf[2] == (byte) 0xbf) {
+				byte newBuf[] = new byte[length];
+				System.arraycopy(buf, 3, newBuf, 0, length - 3);
+				buf = newBuf;
+				length -= 3;
+				hasBOM = true;
+			}
+		}
+
 		// byte c, d, e;
 		int ret = J_SJIS;
 
@@ -606,6 +618,10 @@ public class JapaneseEncodingDetector {
 		return (U_PAYLOAD_BEGIN <= c && c <= U_PAYLOAD_END);
 	}
 
+	public boolean hasBOM(){
+		return hasBOM;
+	}
+	
 	public static void main(String args[]) {
 		String target = "tmp/jed.html";
 
@@ -618,5 +634,5 @@ public class JapaneseEncodingDetector {
 			e2.printStackTrace();
 		}
 	}
-
+	
 }
