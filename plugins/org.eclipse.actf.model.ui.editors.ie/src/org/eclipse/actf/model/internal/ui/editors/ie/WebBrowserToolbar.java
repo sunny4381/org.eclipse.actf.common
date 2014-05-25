@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2014 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,10 @@
 
 package org.eclipse.actf.model.internal.ui.editors.ie;
 
+import org.eclipse.actf.model.ui.editor.actions.GoBackAction;
+import org.eclipse.actf.model.ui.editor.actions.GoForwardAction;
+import org.eclipse.actf.model.ui.editor.actions.RefreshAction;
+import org.eclipse.actf.model.ui.editor.actions.StopAction;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editor.browser.WebBrowserEventUtil;
 import org.eclipse.actf.model.ui.util.ModelServiceMessages;
@@ -29,7 +33,6 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 
@@ -63,9 +66,20 @@ public class WebBrowserToolbar extends Composite {
 	}
 
 	private void initLayout() {
+		
+		ToolBar toolBarL = new ToolBar(this, SWT.LEFT);
+		ToolBarManager toolBarManagerL = new ToolBarManager(toolBarL);
+		toolBarManagerL.add(new GoBackAction());
+		toolBarManagerL.add(new GoForwardAction());
+		toolBarManagerL.add(new StopAction());
+		toolBarManagerL.add(new RefreshAction());
+		
+		toolBarManagerL.update(true);		
+		
+		/*
 		Label addressLabel = new Label(this, SWT.NONE);
 		addressLabel.setLayoutData(new GridData());
-		addressLabel.setText(" " + ModelServiceMessages.WebBrowser_Address); //$NON-NLS-1$
+		addressLabel.setText(" " + ModelServiceMessages.WebBrowser_Address); //$NON-NLS-1$		
 		addressLabel.addTraverseListener(new TraverseListener() {
 			public void keyTraversed(TraverseEvent arg0) {
 				if (arg0.stateMask == SWT.ALT
@@ -75,6 +89,7 @@ public class WebBrowserToolbar extends Composite {
 				}
 			}
 		});
+		*/
 
 		this._addressText = new Text(this, SWT.SINGLE | SWT.BORDER);
 		GridData gridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
@@ -95,6 +110,17 @@ public class WebBrowserToolbar extends Composite {
 				}
 			}
 		});
+		
+		_addressText.addTraverseListener(new TraverseListener() {
+			public void keyTraversed(TraverseEvent arg0) {
+				if (arg0.stateMask == SWT.ALT
+						&& (arg0.character == 'd' || arg0.character == 'D')) {
+					_addressText.setFocus();
+					_addressText.selectAll();
+				}
+			}
+		});
+
 
 		this._addressText.addMouseListener(new MouseAdapter() {
 			public void mouseUp(MouseEvent arg0) {

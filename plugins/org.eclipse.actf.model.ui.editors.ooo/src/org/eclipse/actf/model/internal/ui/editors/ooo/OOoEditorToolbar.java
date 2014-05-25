@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * Copyright (c) 2007, 2014 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,11 +7,13 @@
  *
  * Contributors:
  *    Norimasa HAYASHIDA - initial API and implementation
+ *    Kentarou FUKUDA (IBM) - [383882] - Eclipse 4.2 adaptation
  *******************************************************************************/
 
 package org.eclipse.actf.model.internal.ui.editors.ooo;
 
 import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.editors.ooo.actions.OpenODFAction;
 import org.eclipse.actf.model.ui.util.ModelServiceMessages;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -28,7 +30,6 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 
@@ -61,6 +62,12 @@ public class OOoEditorToolbar extends Composite {
 
 	private void initLayout(boolean isEditor) {
 
+		ToolBar toolBarL = new ToolBar(this, SWT.LEFT);
+		ToolBarManager toolBarManagerL = new ToolBarManager(toolBarL);
+		toolBarManagerL.add(new OpenODFAction());
+		toolBarManagerL.update(true);
+
+		/*
 		Label addressLabel = new Label(this, SWT.NONE);
 		addressLabel.setLayoutData(new GridData());
 		addressLabel.setText(" " + ModelServiceMessages.WebBrowser_Address); //$NON-NLS-1$
@@ -73,6 +80,7 @@ public class OOoEditorToolbar extends Composite {
 				}
 			}
 		});
+		*/
 
 		this._addressText = new Text(this, SWT.SINGLE | SWT.BORDER);
 		GridData gridData = new GridData(SWT.FILL, SWT.CENTER, true, false);
@@ -85,6 +93,16 @@ public class OOoEditorToolbar extends Composite {
 
 			public void focusGained(FocusEvent arg0) {
 				_addressText.selectAll();
+			}
+		});
+		
+		_addressText.addTraverseListener(new TraverseListener() {
+			public void keyTraversed(TraverseEvent arg0) {
+				if (arg0.stateMask == SWT.ALT
+						&& (arg0.character == 'd' || arg0.character == 'D')) {
+					_addressText.setFocus();
+					_addressText.selectAll();
+				}
 			}
 		});
 
