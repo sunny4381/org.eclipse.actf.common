@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2015 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,16 +53,8 @@ public class HighlightStringListener implements LineStyleListener {
 			return bgColor;
 		}
 
-		public void setBgColor(Color bgColor) {
-			this.bgColor = bgColor;
-		}
-
 		public Color getFgColor() {
 			return fgColor;
-		}
-
-		public void setFgColor(Color fgColor) {
-			this.fgColor = fgColor;
 		}
 
 		public int getStyle() {
@@ -77,9 +69,6 @@ public class HighlightStringListener implements LineStyleListener {
 			return targetS;
 		}
 
-		public void setTargetS(String targetS) {
-			this.targetS = targetS;
-		}
 	};
 
 	private Vector<HighlightInfo> highlightInfoV;

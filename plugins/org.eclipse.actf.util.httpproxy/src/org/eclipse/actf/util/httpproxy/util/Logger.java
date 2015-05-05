@@ -39,7 +39,7 @@ public class Logger {
 	 * @param clazz
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public static Logger getLogger(Class clazz) {
 		return new Logger(clazz);
 	}
@@ -131,7 +131,7 @@ public class Logger {
 
 	private final java.util.logging.Logger fDelegate;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private Logger(Class clazz) {
 		fDelegate = java.util.logging.Logger.getLogger(clazz.getName());
 	}

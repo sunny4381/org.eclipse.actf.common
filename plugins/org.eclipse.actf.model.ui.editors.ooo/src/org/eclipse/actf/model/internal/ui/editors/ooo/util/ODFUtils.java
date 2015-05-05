@@ -209,6 +209,7 @@ public class ODFUtils {
 		System.load(openOfficeProgramPath + "..\\URE\\bin\\jpipe.dll");
 
 		ClassLoader javaClassLoader = null;
+		//TODO replace with toURI().toURL()
 		try {
 			URL[] jarList = new URL[] {
 					new File(openOfficeProgramPath + "..\\URE\\java\\juh.jar")
