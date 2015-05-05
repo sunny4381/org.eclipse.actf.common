@@ -58,14 +58,14 @@ class XPathServiceImpl extends XPathService {
         }
     }
 
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public NodeList evalForNodeList(Object compiled, Node base) {
         CompiledExpression ce = (CompiledExpression) compiled;
         JXPathContext bctx = JXPathContext.newContext(base.getOwnerDocument());
         Pointer ptr = new DOMExNodePointer(base, null);
         JXPathContext ctx = bctx.getRelativeContext(ptr);
-        Iterator it = ce.iteratePointers(ctx);
+        @SuppressWarnings("rawtypes")
+		Iterator it = ce.iteratePointers(ctx);
         if (!it.hasNext()) return EmptyNodeListImpl.getInstance();
         List<Node> result = new ArrayList<Node>();
         do {
