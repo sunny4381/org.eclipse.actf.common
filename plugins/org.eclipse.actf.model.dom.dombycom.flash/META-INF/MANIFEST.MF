@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ACTF DomByCom Flash Fragment
 Bundle-SymbolicName: org.eclipse.actf.model.dom.dombycom.flash;singleton:=true
-Bundle-Version: 1.2.0.qualifier
-Bundle-Vendor: Eclipse.org
+Bundle-Version: 1.3.0.qualifier
+Bundle-Vendor: Eclipse ACTF Project
 Fragment-Host: org.eclipse.actf.model.dom.dombycom;bundle-version="0.0.1"
 Require-Bundle: org.eclipse.actf.model.flash,
  org.eclipse.actf.util.win32

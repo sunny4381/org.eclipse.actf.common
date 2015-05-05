@@ -12,7 +12,7 @@
 //  Common Bridge Initialization Module
 // --------------------------------------------------------------------------------
 _root.Eclipse_ACTF_is_available = "true";
-_root.Eclipse_ACTF_SWF_Bridge_version = "1.2.0";
+_root.Eclipse_ACTF_SWF_Bridge_version = "1.1.0";
 
 // Used by RequestServer.
 _root.Eclipse_ACTF_request_args = "";

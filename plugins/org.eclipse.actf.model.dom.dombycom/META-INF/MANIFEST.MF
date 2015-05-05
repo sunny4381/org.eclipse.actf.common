@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ACTF DomByCom Plug-in
 Bundle-SymbolicName: org.eclipse.actf.model.dom.dombycom;singleton:=true
-Bundle-Version: 1.2.0.qualifier
+Bundle-Version: 1.3.0.qualifier
 Bundle-Activator: org.eclipse.actf.model.dom.dombycom.DombycomPlugin
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: Eclipse ACTF Project
 Require-Bundle: org.eclipse.swt,
  org.eclipse.ui,
  org.eclipse.core.runtime,
