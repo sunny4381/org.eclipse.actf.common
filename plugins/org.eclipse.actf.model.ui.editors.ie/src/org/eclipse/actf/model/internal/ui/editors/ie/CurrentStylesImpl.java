@@ -225,9 +225,13 @@ public class CurrentStylesImpl implements ICurrentStyles {
 		for (int i = 0; i < tmpNL.getLength(); i++) {
 			Node tmpN2 = tmpNL.item(i);
 			if (tmpN2 instanceof Text) {
-				if (tmpN2.getNodeValue().trim().length() > 0) {
-					flag = true;
-					childs.add(tmpN2.getNodeValue());
+				if ("#text".equals(tmpN2.getNodeName())) {
+					if (tmpN2.getNodeValue().trim().length() > 0) {
+						flag = true;
+						childs.add(tmpN2.getNodeValue());
+					}
+				} else {
+					System.out.println("unkonwn node: "+ tmpN2.getNodeName());
 				}
 			}
 		}
