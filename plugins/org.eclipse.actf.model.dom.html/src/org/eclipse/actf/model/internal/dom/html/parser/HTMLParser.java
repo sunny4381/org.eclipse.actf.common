@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 1998, 2012 IBM Corporation and Others
+ * Copyright (c) 1998, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import java.io.Reader;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.eclipse.actf.model.dom.html.DocumentTypeUtil;
 import org.eclipse.actf.model.dom.html.IErrorLogListener;
 import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.dom.html.IParser;
@@ -82,7 +83,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 			try {
 				map.load(is);
 				// pubEntityMap.putAll(map);
-				Enumeration keys = map.keys(); // CRS
+				Enumeration<Object> keys = map.keys(); // CRS
 				while (keys.hasMoreElements()) { // CRS
 					String aKey = (String) keys.nextElement(); // CRS
 					String replaceKey = aKey.replace('@', ' '); // CRS
@@ -104,12 +105,13 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 
 	/**
 	 * Constructs HTMLParser instance whose defaultDTD is
-	 * <code>"-//W3C//DTD HTML 4.0 Transitional//EN"</code>. And also,
+	 * <code>"-//W3C//DTD HTML 4.01 Transitional//EN"</code>. And also,
 	 * {@link HTMLErrorHandler} and {@link FramesetErrorHandler} instances are
 	 * added.
 	 */
+	@SuppressWarnings("deprecation")
 	public HTMLParser() {
-		defaultDTD = "-//W3C//DTD HTML 4.0 Transitional//EN"; //$NON-NLS-1$
+		defaultDTD = "-//W3C//DTD HTML 4.01 Transitional//EN"; //$NON-NLS-1$
 		addErrorHandler(new FramesetErrorHandler());
 		addErrorHandler(new HTMLErrorHandler());
 		setDocumentHandler(new PREHandler(this));
@@ -129,26 +131,25 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 		}
 	}
 
-/**
+	/**
 	 * Reads files and print their top elements. This method is just for test.
 	 * usage: java org.eclipse.actf.model.dom.html.HTMLParser [options] files...
 	 * <br>
 	 * options:
 	 * <DL>
-	 * <DT> -e encoding
-	 * <DD> specify character encoding to <code>encoding</code>
-	 * <DT> -c
-	 * <DD> If it meets
+	 * <DT>-e encoding
+	 * <DD>specify character encoding to <code>encoding</code>
+	 * <DT>-c
+	 * <DD>If it meets
 	 * <code> &lt;META http-equiv="Content-Type" content="text/html;
-	 * charset=xxx"&gt;</code>
-	 * tag, change encoding to <code>xxx</code>
-	 * <DT> -d
-	 * <DD> Dump results.
-	 * <DT> -o output file
-	 * <DT> -x [dtd]
-	 * <DD> Dump as xml format.
-	 * <DT> -w?
-	 * <DD> warning
+	 * charset=xxx"&gt;</code> tag, change encoding to <code>xxx</code>
+	 * <DT>-d
+	 * <DD>Dump results.
+	 * <DT>-o output file
+	 * <DT>-x [dtd]
+	 * <DD>Dump as xml format.
+	 * <DT>-w?
+	 * <DD>warning
 	 * 
 	 * @param args
 	 *            command line argument.
@@ -261,6 +262,10 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 						System.out.println("Encoding: " + parser.getEncoding());
 					} else {
 						parser.parse(is, encoding);
+						System.err.println("Doctype:" + parser.getDocument().getDoctype());
+						System.err.println(
+								"Org Doctype:" + DocumentTypeUtil.getOriginalID(parser.getDocument().getDoctype()));
+						System.err.println();
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -273,21 +278,17 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 					OutputStream os = targetFileName == null ? (OutputStream) System.out
 							: new FileOutputStream(targetFileName);
 					if (encoding != null) {
-						pw = new PrintWriter(new OutputStreamWriter(os,
-								encoding));
+						pw = new PrintWriter(new OutputStreamWriter(os, encoding));
 					} else {
 						pw = new PrintWriter(os);
 					}
 					if (!xml) {
-						((SHDocument) parser.getDocument()).printAsSGML(pw,
-								indent);
+						((SHDocument) parser.getDocument()).printAsSGML(pw, indent);
 					} else {
-						((SHDocument) parser.getDocument()).printAsXHTML(pw,
-								indent, encoding);
+						((SHDocument) parser.getDocument()).printAsXHTML(pw, indent, encoding);
 					}
 				} else if (list != null) {
-					NodeList nodeList = parser.getDocument()
-							.getElementsByTagName(list);
+					NodeList nodeList = parser.getDocument().getElementsByTagName(list);
 					for (i = 0; i < nodeList.getLength(); i++) {
 						System.out.println(nodeList.item(i));
 					}
@@ -308,14 +309,14 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 	 *                If unrecoverable syntax or token error occurred, thrown
 	 * @exception IOException
 	 */
-	public Node parse(InputStream is) throws ParseException, IOException,
-			SAXException {
+	public Node parse(InputStream is) throws ParseException, IOException, SAXException {
 
 		JapaneseEncodingDetector JED = new JapaneseEncodingDetector(is);
 		try {
 			encoding = JED.detect();
-			if(JED.hasBOM()){
-				error(IParserError.BOM,"Byte-Order Mark (BOM) found in UTF-8 HTML file.");
+			// TODO check if html5 or not
+			if (JED.hasBOM()) {
+				error(IParserError.BOM, "Byte-Order Mark (BOM) found in UTF-8 HTML file.");
 			}
 		} catch (IOException e) {
 			throw (e);
@@ -349,8 +350,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 	 *                If unrecoverable syntax or token error occurred, throwed
 	 * @exception IOException
 	 */
-	public Node parse(InputStream is, String charEncoding) throws SAXException,
-			ParseException, IOException {
+	public Node parse(InputStream is, String charEncoding) throws SAXException, ParseException, IOException {
 		if (charEncoding == null) {
 			isReader = new InputStreamReader(is);
 		} else {
@@ -379,8 +379,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 	 *                If unrecoverable syntax or token error occurred, throwed
 	 * @exception IOException
 	 */
-	public Node parseSwitchEnc(InputStream is) throws ParseException,
-			IOException, SAXException {
+	public Node parseSwitchEnc(InputStream is) throws ParseException, IOException, SAXException {
 		return parseSwitchEnc(is, null);
 	}
 
@@ -440,8 +439,7 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 		} catch (Error e) {
 			return super.createDocument(docType);
 		}
-		Document ret = ((HTMLDOMImplementation) domImpl)
-				.createHTMLDocument("dummy"); //$NON-NLS-1$
+		Document ret = ((HTMLDOMImplementation) domImpl).createHTMLDocument("dummy"); //$NON-NLS-1$
 		if (ret.getDocumentElement() != null) {
 			ret.removeChild(ret.getDocumentElement());
 		}
@@ -470,8 +468,8 @@ public class HTMLParser extends SGMLParser implements IHTMLParser {
 	}
 
 	private static void usage() {
-		System.out
-				.println("usage java org.eclipse.actf.model.dom.html.parser.HTMLParser [-w[#]] [-d] [-e encoding] [-c] files..."); //$NON-NLS-1$
+		System.out.println(
+				"usage java org.eclipse.actf.model.dom.html.parser.HTMLParser [-w[#]] [-d] [-ku] [-e encoding] [-c] files..."); //$NON-NLS-1$
 		System.exit(1);
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 1998, 2008 IBM Corporation and Others
+ * Copyright (c) 1998, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,8 +17,7 @@ import org.w3c.dom.html.HTMLTableCellElement;
 import org.w3c.dom.html.HTMLTableRowElement;
 
 @SuppressWarnings("nls")
-public class SHTableCellElement extends SHElement implements
-		HTMLTableCellElement {
+public class SHTableCellElement extends SHElement implements HTMLTableCellElement {
 	/**
 	 * 
 	 */
@@ -32,15 +31,13 @@ public class SHTableCellElement extends SHElement implements
 		Node parent = getParentNode();
 		if (parent instanceof HTMLTableRowElement) {
 			int ret = 0;
-			for (Node prev = getPreviousSibling(); prev != null; prev = prev
-					.getPreviousSibling())
+			for (Node prev = getPreviousSibling(); prev != null; prev = prev.getPreviousSibling())
 				ret++;
 			return ret;
 		} else { // error.
 			int ret = 0;
 			for (Node prev = getPreviousSibling(); prev != null
-					&& !(prev instanceof HTMLTableRowElement); prev = prev
-					.getPreviousSibling())
+					&& !(prev instanceof HTMLTableRowElement); prev = prev.getPreviousSibling())
 				ret++;
 			return ret;
 		}
@@ -60,12 +57,11 @@ public class SHTableCellElement extends SHElement implements
 			}
 		} else { // error.
 			Node leftMost = this;
-			int currentIndex = 0;
+			// int currentIndex = 0;
 			for (Node prev = getPreviousSibling(); prev != null
-					&& !(prev instanceof HTMLTableRowElement); prev = prev
-					.getPreviousSibling()) {
+					&& !(prev instanceof HTMLTableRowElement); prev = prev.getPreviousSibling()) {
 				leftMost = prev;
-				currentIndex++;
+				// currentIndex++;
 			}
 			parent.removeChild(this);
 			Node before = leftMost;

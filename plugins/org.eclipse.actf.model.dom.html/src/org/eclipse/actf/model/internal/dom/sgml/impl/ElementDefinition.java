@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 1998, 2008 IBM Corporation and Others
+ * Copyright (c) 1998, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,8 +58,7 @@ public class ElementDefinition implements IModelGroup {
 				attributeDefHashes = newHashes;
 			}
 			attributeDefs[attrNum] = def;
-			attributeDefHashes[attrNum++] = hashCode(def.getName()
-					.toCharArray());
+			attributeDefHashes[attrNum++] = hashCode(def.getName().toCharArray());
 		}
 	}
 
@@ -73,20 +72,17 @@ public class ElementDefinition implements IModelGroup {
 	}
 
 	/**
-	 * Matches <code>child</code> to <code>parent</code> by
-	 * <code>parser</code>.
+	 * Matches <code>child</code> to <code>parent</code> by <code>parser</code>.
 	 * 
 	 * @return <code>true</code> if succeeded. Otherwise, <code>false</code>
 	 */
 	public boolean match(ISGMLParser parser, Node parent, Node child) {
-		if (child instanceof Element
-				&& child.getNodeName().equalsIgnoreCase(name)) {
+		if (child instanceof Element && child.getNodeName().equalsIgnoreCase(name)) {
 			parent.appendChild(child);
 			return true;
 		}
 		if (start) {
-			Element tmp = parser.getDocument().createElement(
-					parser.changeDefaultTagCase(name));
+			Element tmp = parser.getDocument().createElement(parser.changeDefaultTagCase(name));
 			// check excepiton
 			if (child instanceof Element) {
 				Element ec = (Element) child;
@@ -119,9 +115,9 @@ public class ElementDefinition implements IModelGroup {
 	}
 
 	/**
-	 * Matches <code>child</code> to <code>parent</code> by
-	 * <code>parser</code> as a conent. Suppose this instance is a definition
-	 * derived from <code>&lt;!ELEMENT TBODY O O (TR)+&gt;,
+	 * Matches <code>child</code> to <code>parent</code> by <code>parser</code>
+	 * as a conent. Suppose this instance is a definition derived from
+	 * <code>&lt;!ELEMENT TBODY O O (TR)+&gt;,
 	 * &lt;TR&gt; doesn't match &lt;TBODY&gt; in this method but in the {@link
 	 * #match(ISGMLParser,org.w3c.dom.Node,org.w3c.dom.Node)} method.
 	 * @return <code>true</code> if succeeded. Otherwise, <code>false</code>
@@ -183,8 +179,7 @@ public class ElementDefinition implements IModelGroup {
 	}
 
 	final boolean instance(Node node) {
-		return node instanceof Element
-				&& node.getNodeName().equalsIgnoreCase(name);
+		return node instanceof Element && node.getNodeName().equalsIgnoreCase(name);
 	}
 
 	/**
@@ -234,8 +229,7 @@ public class ElementDefinition implements IModelGroup {
 	public AttributeDefinition getAttributeDef(String attrName) {
 		int hash = hashCode(attrName.toCharArray());
 		for (int i = attrNum - 1; i >= 0; i--) {
-			if (attributeDefHashes[i] == hash
-					&& attributeDefs[i].getName().equalsIgnoreCase(attrName)) {
+			if (attributeDefHashes[i] == hash && attributeDefs[i].getName().equalsIgnoreCase(attrName)) {
 				return attributeDefs[i];
 			}
 		}
@@ -257,7 +251,7 @@ public class ElementDefinition implements IModelGroup {
 		return false;
 	}
 
-	private int refercount = 0;
+	// private int refercount = 0;
 
 	/**
 	 * Sets reference flag.
@@ -270,7 +264,7 @@ public class ElementDefinition implements IModelGroup {
 		if (infinite) {
 			this.infinite = infinite;
 		} else {
-			refercount++;
+			//refercount++;
 		}
 		if (inclusions != null) {
 			for (int i = 0; i < inclusions.length; i++) {
@@ -305,11 +299,11 @@ public class ElementDefinition implements IModelGroup {
 	}
 
 	/**
-	 * Just checks a node with <code>number</code> as Magic Number can match
-	 * to a parent defined by this instance. Rather than {@link
-	 * #match(SGMLParser,org.w3c.dom.Node,org.w3c.dom.Node)} or {@link
-	 * #contentMatch(SGMLParser,org.w3c.dom.Node,org.w3c.dom.Node)}, this has no
-	 * side effects.
+	 * Just checks a node with <code>number</code> as Magic Number can match to
+	 * a parent defined by this instance. Rather than
+	 * {@link #match(SGMLParser,org.w3c.dom.Node,org.w3c.dom.Node)} or
+	 * {@link #contentMatch(SGMLParser,org.w3c.dom.Node,org.w3c.dom.Node)}, this
+	 * has no side effects.
 	 */
 	public boolean match(int number) {
 		return hash[number];
@@ -365,8 +359,7 @@ public class ElementDefinition implements IModelGroup {
 				contentModelHash = new boolean[totalSize];
 			}
 			for (int i = totalSize - 1; i >= 0; i--) {
-				hash[i] = (inclusionVector[i] | contentModelHash[i])
-						& !exclusionVector[i];
+				hash[i] = (inclusionVector[i] | contentModelHash[i]) & !exclusionVector[i];
 			}
 		}
 		hash[this.number] = true;

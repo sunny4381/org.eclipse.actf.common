@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and Others
+ * Copyright (c) 2008, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,6 +56,7 @@ public class DomPrintUtil {
 
 	private boolean indent = true;
 	private boolean escapeTagBracket = false;
+	private boolean isHTML5 = false;
 
 	private AttributeFilter attrFilter = null;
 
@@ -88,8 +89,7 @@ public class DomPrintUtil {
 	}
 
 	private String getXMLString(String targetS) {
-		return targetS.replaceAll(AMP, ESC_AMP).replaceAll(LT, ESC_LT)
-				.replaceAll(GT, ESC_GT);
+		return targetS.replaceAll(AMP, ESC_AMP).replaceAll(LT, ESC_LT).replaceAll(GT, ESC_GT);
 	}
 
 	private String getAttributeString(Element element, Node attr) {
@@ -123,8 +123,7 @@ public class DomPrintUtil {
 	public String toXMLString() {
 		StringBuffer tmpSB = new StringBuffer(8192);
 
-		TreeWalkerImpl treeWalker = new TreeWalkerImpl(document, whatToShow,
-				nodeFilter, entityReferenceExpansion);
+		TreeWalkerImpl treeWalker = new TreeWalkerImpl(document, whatToShow, nodeFilter, entityReferenceExpansion);
 
 		String lt = escapeTagBracket ? ESC_LT : LT;
 		String gt = escapeTagBracket ? ESC_GT : GT;
@@ -133,9 +132,19 @@ public class DomPrintUtil {
 		Node tmpN = treeWalker.nextNode();
 		boolean prevIsText = false;
 
+		boolean isFirst = true;
+
 		String indentS = EMPTY_STR;
 		while (tmpN != null) {
 			short type = tmpN.getNodeType();
+
+			if (isFirst) {
+				if (type != Node.PROCESSING_INSTRUCTION_NODE && type != Node.DOCUMENT_TYPE_NODE && isHTML5) {
+					tmpSB.append("<!DOCTYPE html SYSTEM \"about:legacy-compat\">" + line_sep);
+				}
+				isFirst = false;
+			}
+
 			switch (type) {
 			case Node.ELEMENT_NODE:
 				if (prevIsText) {
@@ -176,58 +185,54 @@ public class DomPrintUtil {
 				} else {
 					comment = tmpN.getNodeValue();
 				}
-				tmpSB.append(line_sep + indentS + lt + "!--" + comment + "--"
-						+ gt + line_sep);
+				tmpSB.append(line_sep + indentS + lt + "!--" + comment + "--" + gt + line_sep);
 				prevIsText = false;
 				break;
 			case Node.CDATA_SECTION_NODE:
-				tmpSB.append(line_sep + indentS + lt + "!CDATA["
-						+ tmpN.getNodeValue() + "]]" + line_sep);
+				tmpSB.append(line_sep + indentS + lt + "!CDATA[" + tmpN.getNodeValue() + "]]" + line_sep);
 				break;
 			case Node.DOCUMENT_TYPE_NODE:
-				if (tmpN instanceof DocumentType) {
+				if (isHTML5) {
+					tmpSB.append("<!DOCTYPE html SYSTEM \"about:legacy-compat\">" + line_sep);
+				} else if (tmpN instanceof DocumentType) {
 					DocumentType docType = (DocumentType) tmpN;
+
 					String pubId = docType.getPublicId();
 					String sysId = docType.getSystemId();
 					if (null != pubId && pubId.length() > 0) {
 						if (null != sysId && sysId.length() > 0) {
-							tmpSB.append(lt + "!DOCTYPE " + docType.getName()
-									+ " PUBLIC \"" + pubId + " \"" + sysId
+							tmpSB.append(lt + "!DOCTYPE " + docType.getName() + " PUBLIC \"" + pubId + " \"" + sysId
 									+ "\">" + line_sep);
 						} else {
-							tmpSB.append(lt + "!DOCTYPE " + docType.getName()
-									+ " PUBLIC \"" + pubId + "\">" + line_sep);
+							tmpSB.append(
+									lt + "!DOCTYPE " + docType.getName() + " PUBLIC \"" + pubId + "\">" + line_sep);
 						}
 					} else {
-						tmpSB.append(lt + "!DOCTYPE " + docType.getName()
-								+ " SYSTEM \"" + docType.getSystemId() + "\">"
+						tmpSB.append(lt + "!DOCTYPE " + docType.getName() + " SYSTEM \"" + docType.getSystemId() + "\">"
 								+ line_sep);
 
 					}
 				} else {
-					System.out
-							.println("Document Type node does not implement DocumentType: "
-									+ tmpN);
+					System.out.println("Document Type node does not implement DocumentType: " + tmpN);
 				}
 				break;
 			case Node.PROCESSING_INSTRUCTION_NODE:
-				if(tmpN instanceof ProcessingInstruction){
+				if (tmpN instanceof ProcessingInstruction) {
 					String tmpS = ((ProcessingInstruction) tmpN).getData();
-					if(tmpS.startsWith("?")){
+					if (tmpS.startsWith("?")) {
 						tmpSB.append(lt);
-					}else{
-						tmpSB.append(lt+"?");
+					} else {
+						tmpSB.append(lt + "?");
 					}
-					if(tmpS.endsWith("?")){
-						tmpSB.append(tmpS+">"+LINE_SEP);
-					}else{
-						tmpSB.append(tmpS+"?>"+LINE_SEP);						
+					if (tmpS.endsWith("?")) {
+						tmpSB.append(tmpS + ">" + LINE_SEP);
+					} else {
+						tmpSB.append(tmpS + "?>" + LINE_SEP);
 					}
 				}
 				break;
 			default:
-				System.out.println(tmpN.getNodeType() + " : "
-						+ tmpN.getNodeName());
+				System.out.println(tmpN.getNodeType() + " : " + tmpN.getNodeName());
 			}
 
 			Node next = treeWalker.firstChild();
@@ -258,12 +263,10 @@ public class DomPrintUtil {
 						if (indentS.length() > 0) {
 							indentS = indentS.substring(1);
 						} else {
-							System.err.println("indent: " + next.getNodeName()
-									+ " " + next);
+							System.err.println("indent: " + next.getNodeName() + " " + next);
 						}
 					}
-					tmpSB.append(line_sep + indentS + lt + "/"
-							+ next.getNodeName() + gt + line_sep);
+					tmpSB.append(line_sep + indentS + lt + "/" + next.getNodeName() + gt + line_sep);
 					prevIsText = false;
 				}
 				next = treeWalker.nextSibling();
@@ -339,7 +342,8 @@ public class DomPrintUtil {
 	 * want to print out DOM into &lt;pre&gt; section of HTML.
 	 * 
 	 * @param escapeTagBracket
-	 *            if true, print Tag bracket as escaped format ({@literal '&lt;',
+	 *            if true, print Tag bracket as escaped format (
+	 *            {@literal '&lt;',
 	 *            '&gt;'})
 	 * 
 	 */
@@ -356,6 +360,15 @@ public class DomPrintUtil {
 	 */
 	public void setAttrFilter(AttributeFilter attrFilter) {
 		this.attrFilter = attrFilter;
+	}
+
+	/**
+	 * Set true if the document is HTML5.
+	 * 
+	 * @param isHTML5
+	 */
+	public void setHTML5(boolean isHTML5) {
+		this.isHTML5 = isHTML5;
 	}
 
 	/**
@@ -403,8 +416,7 @@ public class DomPrintUtil {
 	 * @throws IOException
 	 */
 	public void writeToFile(File file, String encode) throws IOException {
-		PrintWriter tmpPW = new PrintWriter(new OutputStreamWriter(
-				new FileOutputStream(file), encode));
+		PrintWriter tmpPW = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), encode));
 		tmpPW.println(toXMLString());
 		tmpPW.flush();
 		tmpPW.close();

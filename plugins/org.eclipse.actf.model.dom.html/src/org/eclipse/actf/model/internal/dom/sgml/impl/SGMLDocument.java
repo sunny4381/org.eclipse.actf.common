@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.eclipse.actf.model.dom.html.DocumentTypeUtil;
 import org.eclipse.actf.model.internal.dom.sgml.ISGMLDocument;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
@@ -73,13 +74,13 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 
 	void check(Node node) throws DOMException {
 		if (node.getOwnerDocument() != this && !(node instanceof SGMLDocType)) {
-			throw new DOMException(DOMException.WRONG_DOCUMENT_ERR, node
-					+ " created from " + node.getOwnerDocument() + " this.") {
+			throw new DOMException(DOMException.WRONG_DOCUMENT_ERR,
+					node + " created from " + node.getOwnerDocument() + " this.") {
 
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = -6949628537817157229L;
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -6949628537817157229L;
 			};
 		}
 		switch (node.getNodeType()) {
@@ -87,13 +88,12 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 			if (documentElement == null) {
 				documentElement = (Element) node;
 			} else {
-				throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,
-						" document cannot have roots.") {
+				throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, " document cannot have roots.") {
 
-							/**
-							 * 
-							 */
-							private static final long serialVersionUID = -8867384684522317782L;
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -8867384684522317782L;
 				};
 			}
 			break;
@@ -105,13 +105,12 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 			((SGMLNode) node).ownerDocument = this;
 			break;
 		default:
-			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, node
-					+ " is not allowed as a child of " + this) {
+			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR, node + " is not allowed as a child of " + this) {
 
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 7083250644035192730L;
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 7083250644035192730L;
 			};
 		}
 	}
@@ -119,8 +118,7 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	public Node cloneNode(boolean deep) {
 		SGMLDocument ret = (SGMLDocument) super.cloneNode(true);
 		setOwnerDocument(ret, ret);
-		for (Node child = ret.firstChild; child != null; child = child
-				.getNextSibling()) {
+		for (Node child = ret.firstChild; child != null; child = child.getNextSibling()) {
 			if (child instanceof Element) {
 				ret.documentElement = (Element) child;
 			} else if (child instanceof DocumentType) {
@@ -130,17 +128,17 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 		processNodeDeepForOptimization(ret.documentElement);
 		return ret;
 	}
-	
+
 	private void processNodeDeepForOptimization(Element element) {
 		Node f = element.getFirstChild();
-		while(f != null) {
+		while (f != null) {
 			if (f instanceof Element) {
 				processNodeDeepForOptimization((Element) f);
 			}
 			f = f.getNextSibling();
 		}
 		if (element instanceof SGMLElement) {
-			((SGMLElement)element).processNodeForOptimization(element);
+			((SGMLElement) element).processNodeForOptimization(element);
 		}
 	}
 
@@ -174,18 +172,16 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	}
 
 	public EntityReference createEntityReference(String a) throws DOMException {
-		throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
-				"cannot create Entity Ref.") {
+		throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "cannot create Entity Ref.") {
 
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = -4581301359508117945L;
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -4581301359508117945L;
 		};
 	}
 
-	public ProcessingInstruction createProcessingInstruction(String target,
-			String data) {
+	public ProcessingInstruction createProcessingInstruction(String target, String data) {
 		return new SGMLPI(target, data, this);
 	}
 
@@ -210,77 +206,76 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 		// replaced for performance reason @2009/06/25 by dsato@jp.ibm.com
 		return documentElement.getElementsByTagName(tagname);
 	}
-	
-	/* very slow
-	public NodeList getElementsByTagName(String tagname) {
-		final boolean all = tagname.equals("*");
-		final String targetName = tagname;
-		return new NodeList() {
-			public int getLength() {
-				int ret = 0;
-				Node tmp1, tmp2;
-				tmp1 = documentElement;
-				outer: while (tmp1 != null) {
-					if (tmp1 instanceof Element
-							&& (all || targetName.equalsIgnoreCase(tmp1
-									.getNodeName()))) {
-						ret++;
-					}
-					if ((tmp2 = tmp1.getFirstChild()) == null) {
-						if (tmp1 == documentElement) {
-							break outer;
-						} else {
-							tmp2 = tmp1.getNextSibling();
-						}
-					}
-					while (tmp2 == null && tmp1 != null) {
-						tmp1 = tmp2 = tmp1.getParentNode();
-						if (tmp1 != documentElement) {
-							tmp2 = tmp1.getNextSibling();
-						} else {
-							break outer;
-						}
-					}
-					tmp1 = tmp2;
-				}
-				return ret;
-			}
 
-			public Node item(int index) {
-				Node tmp1, tmp2;
-				tmp1 = documentElement;
-				outer: while (tmp1 != null) {
-					if (tmp1 instanceof Element
-							&& (all || targetName.equalsIgnoreCase(tmp1
-									.getNodeName()))) {
-						if (index == 0) {
-							return tmp1;
-						} else {
-							index--;
-						}
-					}
-					if ((tmp2 = tmp1.getFirstChild()) == null) {
-						if (tmp1 == documentElement) {
-							break outer;
-						} else {
-							tmp2 = tmp1.getNextSibling();
-						}
-					}
-					while (tmp2 == null && tmp1 != null) {
-						tmp1 = tmp2 = tmp1.getParentNode();
-						if (tmp1 != documentElement) {
-							tmp2 = tmp1.getNextSibling();
-						} else {
-							break outer;
-						}
-					}
-					tmp1 = tmp2;
-				}
-				return null;
-			}
-		};
-	}
-	*/
+	// very slow
+	// public NodeList getElementsByTagName(String tagname) {
+	// final boolean all = tagname.equals("*");
+	// final String targetName = tagname;
+	// return new NodeList() {
+	// public int getLength() {
+	// int ret = 0;
+	// Node tmp1, tmp2;
+	// tmp1 = documentElement;
+	// outer: while (tmp1 != null) {
+	// if (tmp1 instanceof Element
+	// && (all || targetName.equalsIgnoreCase(tmp1
+	// .getNodeName()))) {
+	// ret++;
+	// }
+	// if ((tmp2 = tmp1.getFirstChild()) == null) {
+	// if (tmp1 == documentElement) {
+	// break outer;
+	// } else {
+	// tmp2 = tmp1.getNextSibling();
+	// }
+	// }
+	// while (tmp2 == null && tmp1 != null) {
+	// tmp1 = tmp2 = tmp1.getParentNode();
+	// if (tmp1 != documentElement) {
+	// tmp2 = tmp1.getNextSibling();
+	// } else {
+	// break outer;
+	// }
+	// }
+	// tmp1 = tmp2;
+	// }
+	// return ret;
+	// }
+	//
+	// public Node item(int index) {
+	// Node tmp1, tmp2;
+	// tmp1 = documentElement;
+	// outer: while (tmp1 != null) {
+	// if (tmp1 instanceof Element
+	// && (all || targetName.equalsIgnoreCase(tmp1
+	// .getNodeName()))) {
+	// if (index == 0) {
+	// return tmp1;
+	// } else {
+	// index--;
+	// }
+	// }
+	// if ((tmp2 = tmp1.getFirstChild()) == null) {
+	// if (tmp1 == documentElement) {
+	// break outer;
+	// } else {
+	// tmp2 = tmp1.getNextSibling();
+	// }
+	// }
+	// while (tmp2 == null && tmp1 != null) {
+	// tmp1 = tmp2 = tmp1.getParentNode();
+	// if (tmp1 != documentElement) {
+	// tmp2 = tmp1.getNextSibling();
+	// } else {
+	// break outer;
+	// }
+	// }
+	// tmp1 = tmp2;
+	// }
+	// return null;
+	// }
+	// };
+	// }
 
 	public DOMImplementation getImplementation() {
 		return this.domImpl;
@@ -337,18 +332,16 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	}
 
 	public void setNodeValue(String nodeValue) throws DOMException {
-		throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
-				"#document is always null") {
+		throw new DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR, "#document is always null") {
 
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 6689389325290139309L;
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 6689389325290139309L;
 		};
 	}
 
-	public void printAsXML(String publicID, URL location, PrintWriter pw,
-			boolean indent) throws IOException {
+	public void printAsXML(String publicID, URL location, PrintWriter pw, boolean indent) throws IOException {
 		printAsXML(publicID, location, pw, indent, null);
 	}
 
@@ -365,16 +358,15 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	 *            indent if true. Otherwise, not indent.
 	 * @param enc
 	 */
-	public void printAsXML(String publicID, URL location, PrintWriter pw,
-			boolean indent, String enc) throws IOException {
+	public void printAsXML(String publicID, URL location, PrintWriter pw, boolean indent, String enc)
+			throws IOException {
 		if (enc == null) {
 			pw.println("<?xml version=\"1.0\"?>");
 		} else {
 			pw.println("<?xml version=\"1.0\" encoding=\"" + enc + "\"?>");
 		}
 		if (publicID != null) {
-			pw.print("<!DOCTYPE " + documentElement.getTagName() + " PUBLIC \""
-					+ publicID + '"');
+			pw.print("<!DOCTYPE " + documentElement.getTagName() + " PUBLIC \"" + publicID + '"');
 			if (location != null) {
 				pw.println(" \"" + location + "\">");
 			} else {
@@ -387,15 +379,14 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 		// charEntities4Xml = null;
 	}
 
-	public void printAsXML(PrintWriter pw, boolean indent, String enc)
-			throws IOException {
+	public void printAsXML(PrintWriter pw, boolean indent, String enc) throws IOException {
 		printAsXML(null, null, pw, indent, enc);
 	}
 
 	/**
 	 * Print Document as SGML. starttag's string in this document are from the
-	 * original document (see {@link SGMLElement#toString()}. Even if
-	 * attributes in elements are modified, starttag's string does not change.
+	 * original document (see {@link SGMLElement#toString()}. Even if attributes
+	 * in elements are modified, starttag's string does not change.
 	 * 
 	 * @param DTD's
 	 *            location
@@ -404,7 +395,14 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	 */
 	public void printAsSGML(PrintWriter pw, boolean indent) throws IOException {
 		if (doctype != null) {
-			pw.println(doctype.toString());
+			String orgDoctype = DocumentTypeUtil.getOriginalID(doctype);
+			if (orgDoctype.isEmpty()) {
+				pw.println("<!DOCTYPE html>");
+			} else if (orgDoctype.equalsIgnoreCase("about:legacy-compat")) {
+				pw.println("<!DOCTYPE html SYSTEM \"about:legacy-compat\">");
+			} else {
+				pw.println(doctype.toString());
+			}
 		}
 		if (documentElement != null)
 			((SGMLElement) documentElement).printAsSGML(pw, 0, indent);
@@ -415,11 +413,11 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	/**
 	 * @serial
 	 */
-//	private Hashtable charEntities4Xml;
-//
-//	String getEntityOrigin4Xml(String entity) {
-//		return (String) charEntities4Xml.get(entity);
-//	}
+	// private Hashtable charEntities4Xml;
+	//
+	// String getEntityOrigin4Xml(String entity) {
+	// return (String) charEntities4Xml.get(entity);
+	// }
 
 	private transient SGMLDocTypeDef dtd;
 
@@ -483,61 +481,55 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 			ret = createProcessingInstruction(pi.getTarget(), pi.getData());
 			break;
 		case Node.ENTITY_REFERENCE_NODE:
-			throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
-					"ENTITY_REFERENCE: " + importedNode) {
+			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "ENTITY_REFERENCE: " + importedNode) {
 
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1578579363722608207L;
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1578579363722608207L;
 			};
 		case Node.ENTITY_NODE:
-			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "ENTITY: "
-					+ importedNode) {
+			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "ENTITY: " + importedNode) {
 
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = -450181572985174561L;
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -450181572985174561L;
 			};
 		case Node.DOCUMENT_NODE:
-			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "DOCUMENT: "
-					+ importedNode) {
+			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "DOCUMENT: " + importedNode) {
 
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 8785157203267073381L;
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 8785157203267073381L;
 			};
 		case Node.DOCUMENT_TYPE_NODE:
-			throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
-					"DOCUMENT_TYPE: " + importedNode) {
+			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "DOCUMENT_TYPE: " + importedNode) {
 
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 5629745929750604049L;
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 5629745929750604049L;
 			};
 		case Node.DOCUMENT_FRAGMENT_NODE:
 			ret = createDocumentFragment();
 			break;
 		case Node.NOTATION_NODE:
-			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "NOTATION: "
-					+ importedNode) {
+			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "NOTATION: " + importedNode) {
 
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1787799543281735366L;
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1787799543281735366L;
 			};
 		default:
-			throw new DOMException(DOMException.NOT_SUPPORTED_ERR,
-					"Unknown node type: " + importedNode.getNodeType()) {
+			throw new DOMException(DOMException.NOT_SUPPORTED_ERR, "Unknown node type: " + importedNode.getNodeType()) {
 
-						/**
-						 * 
-						 */
-						private static final long serialVersionUID = -9119985548894040858L;
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -9119985548894040858L;
 			};
 		}
 		if (deep) {
@@ -554,8 +546,7 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	 *            always ignored.
 	 * @return same as <code>createElement(qualifiedName)</code>
 	 */
-	public Element createElementNS(String namespaceURI, String qualifiedName)
-			throws DOMException {
+	public Element createElementNS(String namespaceURI, String qualifiedName) throws DOMException {
 		return createElement(qualifiedName);
 	}
 
@@ -564,8 +555,7 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 	 *            always ignored.
 	 * @return same as <code>createAttribute(qualifiedName)</code>
 	 */
-	public Attr createAttributeNS(String namespaceURI, String qualifiedName)
-			throws DOMException {
+	public Attr createAttributeNS(String namespaceURI, String qualifiedName) throws DOMException {
 		return createAttribute(qualifiedName);
 	}
 
@@ -580,9 +570,8 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 
 	/**
 	 * Returns the <code>Element</code> whose <code>ID</code> is given by
-	 * <code>elementId</code>. If more than one element has this
-	 * <code>ID</code> The first element in the depth-first and pre-order
-	 * traversal is returned.
+	 * <code>elementId</code>. If more than one element has this <code>ID</code>
+	 * The first element in the depth-first and pre-order traversal is returned.
 	 */
 	public Element getElementById(String elementID) {
 		// replaced for performance reason @2009/06/25 by dsato@jp.ibm.com
@@ -599,23 +588,13 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 		// return getElementById(documentElement, elementID);
 	}
 	/*
-	private Element getElementById(Element el, String elementID) {
-		if (el.getAttribute("id").equals(elementID)) {
-			return el;
-		} else {
-			for (Node child = el.getFirstChild(); child != null; child = child
-					.getNextSibling()) {
-				if (child instanceof Element) {
-					Element ret = getElementById((Element) child, elementID);
-					if (ret != null) {
-						return ret;
-					}
-				}
-			}
-			return null;
-		}
-	}
-	*/
+	 * private Element getElementById(Element el, String elementID) { if
+	 * (el.getAttribute("id").equals(elementID)) { return el; } else { for (Node
+	 * child = el.getFirstChild(); child != null; child = child
+	 * .getNextSibling()) { if (child instanceof Element) { Element ret =
+	 * getElementById((Element) child, elementID); if (ret != null) { return
+	 * ret; } } } return null; } }
+	 */
 
 	/**
 	 * DOM Level 3
@@ -666,8 +645,7 @@ public class SGMLDocument extends SGMLParentNode implements ISGMLDocument {
 
 	}
 
-	public Node renameNode(Node n, String namespaceURI, String qualifiedName)
-			throws DOMException {
+	public Node renameNode(Node n, String namespaceURI, String qualifiedName) throws DOMException {
 		// TODO Auto-generated method stub
 		return null;
 	}

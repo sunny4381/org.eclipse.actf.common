@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 1998, 2008 IBM Corporation and Others
+ * Copyright (c) 1998, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Goh KONDOH - initial API and implementation
+ *    Kentarou FUKUDA - html5 support
  *******************************************************************************/
 
 package org.eclipse.actf.model.internal.dom.sgml.impl;
@@ -60,17 +61,16 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 
 	private DOMImplementation domImpl;
 
-	private static Class createDocumentMethodParamTypes[] = { String.class,
-			String.class, DocumentType.class };
+	private static Class<?> createDocumentMethodParamTypes[] = { String.class, String.class, DocumentType.class };
 
 	/**
 	 * @return <code>null</code> if failed.
 	 */
 	public DOMImplementation setDOMImplementation(DOMImplementation domImpl) {
-		Class domImpleInterface = DOMImplementation.class;
+		Class<DOMImplementation> domImpleInterface = DOMImplementation.class;
 		try {
-			java.lang.reflect.Method createDocumentMethod = domImpleInterface
-					.getMethod("createDocument", createDocumentMethodParamTypes);
+			java.lang.reflect.Method createDocumentMethod = domImpleInterface.getMethod("createDocument",
+					createDocumentMethodParamTypes);
 			if (createDocumentMethod != null) {
 				this.domImpl = domImpl;
 				doc = null;
@@ -124,8 +124,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 * Adds an ErrorHandler instance. An errorHandler added later is invoked
 	 * earlier by this parser instance than errorHandlers added earlier. If one
 	 * errorHandler handles error (eg. returns <code>
-	 * true</code>), no more
-	 * errorHandlers are invoked.
+	 * true</code>), no more errorHandlers are invoked.
 	 * 
 	 * @param errorHandler
 	 *            errorHandler instance to be added to this parser
@@ -145,8 +144,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 * Adds an ErrorHandler instance. An errorHandler added later is invoked
 	 * earlier by this parser instance than errorHandlers added earlier. If one
 	 * errorHandler handles error (eg. returns <code>
-	 * true</code>), no more
-	 * errorHandlers are invoked.
+	 * true</code>), no more errorHandlers are invoked.
 	 * 
 	 * @param errorHandler
 	 *            errorHandler instance to be added to this parser
@@ -488,8 +486,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			}
 		} else {
 			String attName = changeAttrNameCase(tokenizer.sval);
-			AttributeDefinition ad = ed != null ? ed.getAttributeDef(attName)
-					: null;
+			AttributeDefinition ad = ed != null ? ed.getAttributeDef(attName) : null;
 			String attValue = attName;
 			if (tokenizer.nextToken() == EQ) {
 				attValue = tokenizer.readAttributeValue(ad, ed);
@@ -508,13 +505,11 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 						ret = attribute(ed, attrlist);
 					} else {
 						error(IParserError.ILLEGAL_ATTRIBUTE,
-								"Illegal attribute '" + attName + "' for "
-										+ ed.getName());
+								"Illegal attribute '" + attName + "' for " + ed.getName());
 					}
 				}
 			} else if (attrlist != null) {
-				attrlist.addAttribute(attName, ad.getDeclaredTypeStr(),
-						attValue);
+				attrlist.addAttribute(attName, ad.getDeclaredTypeStr(), attValue);
 			}
 		}
 		return ret;
@@ -533,8 +528,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	public final void error(int code, String msg) {
 		for (int i = 0; i < errorLogListenerNum; i++) {
 			if (tokenizer != null) {
-				errorLogListeners[i].errorLog(code, tokenizer.getCurrentLine()
-						+ ": " + msg);
+				errorLogListeners[i].errorLog(code, tokenizer.getCurrentLine() + ": " + msg);
 			} else {
 				errorLogListeners[i].errorLog(code, msg);
 			}
@@ -738,8 +732,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			}
 			break;
 		case PI:
-			currentNode = ret = doc.createProcessingInstruction(null,
-					tokenizer.sval);
+			currentNode = ret = doc.createProcessingInstruction(null, tokenizer.sval);
 			if (docHandler != null) {
 				docHandler.processingInstruction(null, tokenizer.sval);
 			}
@@ -748,8 +741,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			ret = null;
 			break;
 		case MDO:
-			error(IParserError.ILLEGAL_DOCTYPE,
-					"Illegal Declaration. Discarding to next '>'");
+			error(IParserError.ILLEGAL_DOCTYPE, "Illegal Declaration. Discarding to next '>'");
 			if (tokenizer.nextToken() != '>') {
 				// consume '>'
 				tokenizer.consumeUntil('>');
@@ -757,8 +749,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			}
 			return node();
 		default:
-			error(IParserError.MISC_ERR,
-					"Internal Parser Error: character encoding may be wrong.");
+			error(IParserError.MISC_ERR, "Internal Parser Error: character encoding may be wrong.");
 			return node();
 		}
 		return ret;
@@ -796,11 +787,9 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		lastDef = dtd.getElementDefinition(getDefaultTopElement());
 		pcdataNumber = dtd.getElementCount();
 		for (int i = depth - 1; i >= 0; i--) {
-			ancesterElementDefs[i] = dtd
-					.getElementDefinition(ancesterElementDefs[i].getName());
+			ancesterElementDefs[i] = dtd.getElementDefinition(ancesterElementDefs[i].getName());
 			if (ancesterElementDefs[i] == null) {
-				error(IParserError.UNKNOWN_ELEMENT, ancesters[i].getNodeName()
-						+ " is not defined in " + publicID);
+				error(IParserError.UNKNOWN_ELEMENT, ancesters[i].getNodeName() + " is not defined in " + publicID);
 				ancesterElementDefs[i] = anonymousElementDef;
 			}
 		}
@@ -824,8 +813,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 *                If unrecoverable syntax or token error occured, throwed
 	 * @exception IOException
 	 */
-	public Node parse(Reader reader) throws ParseException, IOException,
-			SAXException {
+	public Node parse(Reader reader) throws ParseException, IOException, SAXException {
 		if (domImpl == null && doc == null) {
 			throw new ParseException("No factory instance.");
 		}
@@ -840,8 +828,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		DocumentType docType = readDocType();
 		if (docType == null) {
 			error(IParserError.DOCTYPE_MISSED,
-					"<!DOCTYPE ...> is missing.  Try to use \"" + defaultDTD
-							+ "\" as document type");
+					"<!DOCTYPE ...> is missing.  Try to use \"" + defaultDTD + "\" as document type");
 			setupDTD(defaultDTD);
 		}
 		tokenizer.extractNumEntity(extractNum);
@@ -849,8 +836,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		tokenizer.setPreserveWhitespace(preserveWhitespace);
 		if (doc == null) {
 			doc = createDocument(docType);
-			if (doc instanceof SGMLDocument
-					&& ((SGMLDocument) doc).getDTD() == null) {
+			if (doc instanceof SGMLDocument && ((SGMLDocument) doc).getDTD() == null) {
 				((SGMLDocument) doc).setDTD(this.dtd);
 			}
 			while (!commentsBeforeDoctype.isEmpty()) {
@@ -946,8 +932,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			bufSize = bufSize * 2;
 		}
 		if (eHandleLogical && docHandler != null) {
-			for (Node down = context.getLastChild(); down instanceof Element; down = down
-					.getLastChild()) {
+			for (Node down = context.getLastChild(); down instanceof Element; down = down.getLastChild()) {
 				if (down == element) {
 					ancesters[depth] = element;
 					ancesterElementDefs[depth] = lastElementDef;
@@ -958,19 +943,16 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 					return;
 				} else {
 					ancesters[depth] = (Element) down;
-					ancesterElementDefs[depth] = ed = dtd
-							.getElementDefinition(down.getNodeName());
+					ancesterElementDefs[depth] = ed = dtd.getElementDefinition(down.getNodeName());
 					if (ed == null) {
 						ancesterElementDefs[depth] = anonymousElementDef;
 					}
-					docHandler.startElement(down.getNodeName(),
-							nullAttributeList);
+					docHandler.startElement(down.getNodeName(), nullAttributeList);
 					depth++;
 				}
 			}
 		} else {
-			for (Node down = context.getLastChild(); down instanceof Element; down = down
-					.getLastChild()) {
+			for (Node down = context.getLastChild(); down instanceof Element; down = down.getLastChild()) {
 				if (down == element) {
 					ancesters[depth] = element;
 					ancesterElementDefs[depth] = lastElementDef;
@@ -980,8 +962,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 					return;
 				} else {
 					ancesters[depth] = (Element) down;
-					ancesterElementDefs[depth] = ed = dtd
-							.getElementDefinition(down.getNodeName());
+					ancesterElementDefs[depth] = ed = dtd.getElementDefinition(down.getNodeName());
 					if (ed == null) {
 						ancesterElementDefs[depth] = anonymousElementDef;
 					}
@@ -1024,20 +1005,16 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 				return;
 			}
 			int forwardPathLen = 0;
-			for (Node down = up.getLastChild(); down instanceof Element; down = down
-					.getLastChild()) {
+			for (Node down = up.getLastChild(); down instanceof Element; down = down.getLastChild()) {
 				if (down == element) {
 					if (eHandleLogical && docHandler != null) {
 						for (int j = depth - 1; j > i; j--) {
 							docHandler.endElement(ancesters[j].getNodeName());
 						}
 						for (int j = 0; j < forwardPathLen; j++) {
-							docHandler.startElement(forwardPath[j]
-									.getNodeName(), nullAttributeList);
+							docHandler.startElement(forwardPath[j].getNodeName(), nullAttributeList);
 							ancesters[i + j + 1] = forwardPath[j];
-							ancesterElementDefs[i + j + 1] = dtd
-									.getElementDefinition(forwardPath[j]
-											.getNodeName());
+							ancesterElementDefs[i + j + 1] = dtd.getElementDefinition(forwardPath[j].getNodeName());
 							if (ancesterElementDefs[i + j + 1] == null) {
 								ancesterElementDefs[i + j + 1] = anonymousElementDef;
 							}
@@ -1046,9 +1023,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 					} else {
 						for (int j = 0; j < forwardPathLen; j++) {
 							ancesters[i + j + 1] = forwardPath[j];
-							ancesterElementDefs[i + j + 1] = dtd
-									.getElementDefinition(forwardPath[j]
-											.getNodeName());
+							ancesterElementDefs[i + j + 1] = dtd.getElementDefinition(forwardPath[j].getNodeName());
 							if (ancesterElementDefs[i + j + 1] == null) {
 								ancesterElementDefs[i + j + 1] = anonymousElementDef;
 							}
@@ -1084,15 +1059,13 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 						docHandler.endElement(ancesters[j].getNodeName());
 					}
 					for (int j = i; j < newDepth - 1; j++) {
-						docHandler.startElement(newAncesters[j].getNodeName(),
-								nullAttributeList);
+						docHandler.startElement(newAncesters[j].getNodeName(), nullAttributeList);
 					}
 					docHandler.startElement(element.getNodeName(), attrlist);
 				}
 				while (i < newDepth - 1) {
 					ancesters[i] = newAncesters[i];
-					ancesterElementDefs[i] = dtd
-							.getElementDefinition(newAncesters[i].getNodeName());
+					ancesterElementDefs[i] = dtd.getElementDefinition(newAncesters[i].getNodeName());
 				}
 				ancesters[newDepth - 1] = element;
 				ancesterElementDefs[newDepth - 1] = lastElementDef;
@@ -1134,8 +1107,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		}
 		context = element;
 		if (docHandler != null && eHandleLogical) {
-			AttributeListImpl al = attrlist != null ? attrlist
-					: nullAttributeList;
+			AttributeListImpl al = attrlist != null ? attrlist : nullAttributeList;
 			docHandler.startElement(element.getNodeName(), al);
 			attrlist = null;
 		}
@@ -1146,13 +1118,11 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 
 	private Vector<EndTag> missedEndtags = new Vector<EndTag>();
 
-	private Node readInstances() throws ParseException, IOException,
-			SAXException {
+	private Node readInstances() throws ParseException, IOException, SAXException {
 		Node node = getNode();
 		if (node == null)
 			return doc;
-		while (node.getNodeType() == Node.COMMENT_NODE
-				|| node.getNodeType() == Node.PROCESSING_INSTRUCTION_NODE) {
+		while (node.getNodeType() == Node.COMMENT_NODE || node.getNodeType() == Node.PROCESSING_INSTRUCTION_NODE) {
 			if (keepComment)
 				doc.appendChild(node);
 			node = getNode();
@@ -1165,8 +1135,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 				if (eHandleLogical && docHandler != null) {
 					docHandler.ignorableWhitespace(saxch, begin, len);
 				}
-				error(IParserError.FLOATING_ENDTAG, "Illegal end tag: " + node
-						+ ".  Ignore it.");
+				error(IParserError.FLOATING_ENDTAG, "Illegal end tag: " + node + ".  Ignore it.");
 			}
 			return readInstances();
 		case Node.ELEMENT_NODE:
@@ -1175,20 +1144,17 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			} else {
 				AttributeListImpl attrlisttmp = attrlist;
 				attrlist = null;
-				setTopElement(doc.createElement(changeDefaultTagCase(lastDef
-						.getName())));
+				setTopElement(doc.createElement(changeDefaultTagCase(lastDef.getName())));
 				attrlist = attrlisttmp;
 				addAutoGenerated(context);
 				if (lastDef.getContentModel().match(this, context, node)) {
 					if (!lastDef.startTagOmittable()) {
-						error(IParserError.ILLEGAL_TOP_ELEMENT, node
-								+ " can't be a top element.");
+						error(IParserError.ILLEGAL_TOP_ELEMENT, node + " can't be a top element.");
 					}
 					setContextForward((Element) node);
 				} else if (!handleError(IParserError.ILLEGAL_CHILD, node)) {
 					addErrorNode(context);
-					error(IParserError.ILLEGAL_CHILD, node
-							+ " is not allowed as a child of " + context);
+					error(IParserError.ILLEGAL_CHILD, node + " is not allowed as a child of " + context);
 					context.appendChild(node);
 					setContextForward((Element) node);
 				}
@@ -1199,22 +1165,19 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			if (preserveWhitespace && whitespaceText((Text) node)) {
 				return readInstances();
 			}
-			error(IParserError.ILLEGAL_TOP_ELEMENT,
-					"#text can't be a top element");
-			setTopElement(doc.createElement(changeDefaultTagCase(lastDef
-					.getName())));
+			error(IParserError.ILLEGAL_TOP_ELEMENT, "#text can't be a top element");
+			setTopElement(doc.createElement(changeDefaultTagCase(lastDef.getName())));
 			addAutoGenerated(context);
 			context.appendChild(node);
 			break;
 		default:
-			throw new ParseException(tokenizer.getCurrentLine()
-					+ ": Internal Parser Error " + node);
+			throw new ParseException(tokenizer.getCurrentLine() + ": Internal Parser Error " + node);
 		}
 		return readInstances2();
 	}
 
-	private Node readInstances2() throws ParseException, IOException,
-			SAXException {
+	@SuppressWarnings("unused")
+	private Node readInstances2() throws ParseException, IOException, SAXException {
 		ElementDefinition ed;
 		Node node;
 		outer: for (node = getNode(); node != null; node = getNode()) {
@@ -1231,16 +1194,12 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			case ENDTAG:
 
 				missedEndtags.removeAllElements();
-				if (_DEBUG
-						&& node.getNodeName().equalsIgnoreCase(
-								System.getProperty("DEBUG_ENDTAG"))) {
+				if (_DEBUG && node.getNodeName().equalsIgnoreCase(System.getProperty("DEBUG_ENDTAG"))) {
 					System.err.println("DEBUG: " + node);
 				}
 				for (int i = depth - 1; i >= 0; i--) {
-					if (ancesterElementDefs[i].number == lastElementNumber
-							&& (lastElementNumber != pcdataNumber + 1 || ancesters[i]
-									.getNodeName().equalsIgnoreCase(
-											node.getNodeName()))) {
+					if (ancesterElementDefs[i].number == lastElementNumber && (lastElementNumber != pcdataNumber + 1
+							|| ancesters[i].getNodeName().equalsIgnoreCase(node.getNodeName()))) {
 
 						if (!missedEndtags.isEmpty()) {
 
@@ -1250,9 +1209,8 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 								break node_sel;
 							}
 							extraErrInfo = null;
-							error(IParserError.SUDDEN_ENDTAG, missedEndtags
-									+ " have been forced to be inserted by "
-									+ node);
+							error(IParserError.SUDDEN_ENDTAG,
+									missedEndtags + " have been forced to be inserted by " + node);
 						}
 						/*
 						 * if (ancesterElementDefs[depth - 1].number ==
@@ -1270,8 +1228,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 						break node_sel;
 					} else {
 						if (!ancesterElementDefs[i].endTagOmittable()) {
-							missedEndtags.insertElementAt(new EndTag(
-									ancesters[i].getNodeName()), 0);
+							missedEndtags.insertElementAt(new EndTag(ancesters[i].getNodeName()), 0);
 						}
 					}
 
@@ -1280,16 +1237,13 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 					if (eHandleLogical && docHandler != null) {
 						docHandler.ignorableWhitespace(saxch, begin, len);
 					}
-					error(IParserError.FLOATING_ENDTAG, "Illegal end tag: "
-							+ node + ".  Ignore it");
+					error(IParserError.FLOATING_ENDTAG, "Illegal end tag: " + node + ".  Ignore it");
 				}
 				break;
 			case Node.ELEMENT_NODE:
 				Element element = (Element) node;
 				Element exParent = null;
-				if (_DEBUG
-						&& element.getTagName().equalsIgnoreCase(
-								System.getProperty("DEBUG_STARTTAG"))) {
+				if (_DEBUG && element.getTagName().equalsIgnoreCase(System.getProperty("DEBUG_STARTTAG"))) {
 					System.err.println("DEBUG: " + element);
 				}
 
@@ -1307,14 +1261,10 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 						if (exParent != null) {
 							if (!handleError(IParserError.ILLEGAL_CHILD, node)) {
 								addErrorNode(context);
-								error(IParserError.ILLEGAL_CHILD, node
-										+ " is an exception uner "
-										+ ancesters[i]);
+								error(IParserError.ILLEGAL_CHILD, node + " is an exception uner " + ancesters[i]);
 							} else {
-								if (context != node && eHandleLogical
-										&& docHandler != null) {
-									docHandler.startElement(node.getNodeName(),
-											attrlist);
+								if (context != node && eHandleLogical && docHandler != null) {
+									docHandler.startElement(node.getNodeName(), attrlist);
 								}
 								postElement(element);
 								break node_sel;
@@ -1338,8 +1288,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 				IModelGroup contentModel = ed.getContentModel();
 
 				// TODO correct this
-				if (contentModel.match(lastElementNumber)
-						&& contentModel.match(this, context, node)) {
+				if (contentModel.match(lastElementNumber) && contentModel.match(this, context, node)) {
 
 					// System.out.println("model: fow");
 
@@ -1353,9 +1302,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 						ed = ancesterElementDefs[i];
 						contentModel = ed.getContentModel();
 						if (contentModel.match(lastElementNumber)
-								&& (found = contentModel.match(this,
-										ancesters[i], node))
-								|| !ed.endTagOmittable()) {
+								&& (found = contentModel.match(this, ancesters[i], node)) || !ed.endTagOmittable()) {
 							break;
 						}
 					}
@@ -1370,8 +1317,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 
 						context.appendChild(element);
 						addErrorNode(context);
-						error(IParserError.ILLEGAL_CHILD, node
-								+ " is not allowed as a child of " + context);
+						error(IParserError.ILLEGAL_CHILD, node + " is not allowed as a child of " + context);
 
 						setContextForward(element);
 					} else if (element.getParentNode() != null) {
@@ -1391,8 +1337,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 					// TODO ???
 					context.appendChild(element);
 					addErrorNode(context);
-					error(IParserError.ILLEGAL_CHILD, node
-							+ " is not allowed as a child of " + context);
+					error(IParserError.ILLEGAL_CHILD, node + " is not allowed as a child of " + context);
 					// System.out.println(node.getNodeName()+context);
 					setContextForward(element);
 				}
@@ -1411,15 +1356,13 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 				}
 				ed = ancesterElementDefs[depth - 1];
 				contentModel = ed.getContentModel();
-				if (contentModel.match(pcdataNumber)
-						&& contentModel.match(this, context, node)) {
+				if (contentModel.match(pcdataNumber) && contentModel.match(this, context, node)) {
 					break;
 				} else if (ed.endTagOmittable()) {
 					for (int i = depth - 2; i >= 0; i--) {
 						ed = ancesterElementDefs[i];
 						contentModel = ed.getContentModel();
-						if (contentModel.match(pcdataNumber)
-								&& contentModel.match(this, ancesters[i], node)) {
+						if (contentModel.match(pcdataNumber) && contentModel.match(this, ancesters[i], node)) {
 							break node_sel;
 						} else if (!ed.endTagOmittable()) {
 							break;
@@ -1429,13 +1372,11 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 				if (handleError(IParserError.ILLEGAL_CHILD, node))
 					break node_sel;
 				addErrorNode(context);
-				error(IParserError.ILLEGAL_CHILD, "#text(" + node
-						+ ") is not allowed as a child of " + context);
+				error(IParserError.ILLEGAL_CHILD, "#text(" + node + ") is not allowed as a child of " + context);
 				context.appendChild(node);
 				break;
 			default:
-				throw new ParseException(tokenizer.getCurrentLine()
-						+ ": Internal parser error " + node);
+				throw new ParseException(tokenizer.getCurrentLine() + ": Internal parser error " + node);
 			}
 		}
 
@@ -1452,8 +1393,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		if ((node = getNode()) != null) {
 			this.context = doc.getDocumentElement();
 			if (docHandler != null && eHandleLogical) {
-				docHandler.startElement(this.context.getNodeName(),
-						nullAttributeList);
+				docHandler.startElement(this.context.getNodeName(), nullAttributeList);
 			}
 			// System.out.println("SGMLParser: pushback");
 
@@ -1476,8 +1416,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		return true;
 	}
 
-	private void postElement(Element element) throws ParseException,
-			IOException, SAXException {
+	private void postElement(Element element) throws ParseException, IOException, SAXException {
 		IModelGroup mg = lastElementDef.getContentModel();
 
 		if (mg == cdata) {
@@ -1508,8 +1447,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		}
 	}
 
-	private CDATASection readCDATA(String arg) throws ParseException,
-			IOException, SAXException {
+	private CDATASection readCDATA(String arg) throws ParseException, IOException, SAXException {
 		if (lexHandler != null) {
 			lexHandler.startCDATA();
 		}
@@ -1539,8 +1477,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		String str;
 	}
 
-	private DocumentType readDocType() throws ParseException, IOException,
-			SAXException {
+	private DocumentType readDocType() throws ParseException, IOException, SAXException {
 		if (lastDef != null) {
 			throw new ParseException("Already read DOCTYPE declaration");
 		}
@@ -1567,8 +1504,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 					catb.str = tokenizer.sval;
 					commentsBeforeDoctype.addElement(catb);
 				} else {
-					currentNode = doc.createProcessingInstruction(null,
-							tokenizer.sval);
+					currentNode = doc.createProcessingInstruction(null, tokenizer.sval);
 					doc.appendChild(currentNode);
 				}
 				if (docHandler != null) {
@@ -1583,94 +1519,165 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			}
 		}
 
-		if (tokenizer.nextToken() != NAME_CHAR
-				&& !tokenizer.sval.equals("DOCTYPE")) {
-			throw new ParseException("Unknown declaration at "
-					+ tokenizer.getCurrentLine());
+		if (tokenizer.nextToken() != NAME_CHAR && !tokenizer.sval.equals("DOCTYPE")) {
+			throw new ParseException("Unknown declaration at " + tokenizer.getCurrentLine());
 		}
+
+		String docTypeName = "";
 		/*
 		 * Only supports initially setted public entity. For example, <!DOCTYPE
 		 * HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+		 * 
+		 * 2016: added support for html5 doctype
 		 */
 		if (tokenizer.nextToken() == NAME_CHAR) {
-			String docTypeName = tokenizer.sval;
+			docTypeName = tokenizer.sval;
 			this.defaultTopElement = docTypeName;
-			if (tokenizer.nextToken() == NAME_CHAR
-					&& tokenizer.sval.equalsIgnoreCase("PUBLIC")) {
-				if (tokenizer.nextToken() == '"') {
-					String publicID = tokenizer.eatUntil('"');
-					String orgId = publicID;
-					if (enforcedDoctype != null) {
-						publicID = enforcedDoctype;
-					}
-					if (lexHandler != null) {
-						lexHandler.startDTD(docTypeName, publicID, null);
-					}
-					String entityFileName = pubEntityMap.get(publicID);
-					if (entityFileName == null) {
-						if (defaultDTD != null) {
-							error(IParserError.ILLEGAL_DOCTYPE, "Instead of \""
-									+ publicID + "\" use \"" + defaultDTD
-									+ "\" as a DTD.");
-							entityFileName = pubEntityMap.get(defaultDTD);
+			if (tokenizer.nextToken() == NAME_CHAR) {
+				String type = tokenizer.sval;
+				if (type.equalsIgnoreCase("PUBLIC") || type.equalsIgnoreCase("SYSTEM")) {
+					// to cover html5
+					// (<!DOCTYPE html SYSTEM "about:legacy-compat">)
+
+					if (tokenizer.nextToken() == '"') {
+						String id = tokenizer.eatUntil('"');
+						String orgId = id;
+						if (enforcedDoctype != null) {
+							id = enforcedDoctype;
 						}
+						if (lexHandler != null) {
+							lexHandler.startDTD(docTypeName, id, null);
+						}
+
+						// TODO consider to use pseudo DTD for html5
+						String entityFileName = pubEntityMap.get(id);
 						if (entityFileName == null) {
-							throw new ParseException(tokenizer.getCurrentLine()
-									+ ": this parser does not support "
-									+ publicID);
+							if (defaultDTD != null) {
+								if (type.equalsIgnoreCase("PUBLIC")) {
+									error(IParserError.ILLEGAL_DOCTYPE,
+											"Instead of \"" + id + "\" use \"" + defaultDTD + "\" as a DTD.");
+								} else {
+									// for SYSTEM
+
+									if (orgId.equalsIgnoreCase("about:legacy-compat")) {
+										error(IParserError.ILLEGAL_DOCTYPE, "Instead of SYSTEM \"" + id
+												+ "\" use PUBLIC \"" + defaultDTD + "\" as a DTD.");
+									} else {
+										error(IParserError.ILLEGAL_DOCTYPE,
+												"Invalid DOCTYPE declaration. Use " + defaultDTD);
+									}
+								}
+
+								entityFileName = pubEntityMap.get(defaultDTD);
+							}
+							if (entityFileName == null) {
+								throw new ParseException(
+										tokenizer.getCurrentLine() + ": this parser does not support " + id);
+							}
+							id = defaultDTD;
 						}
-						publicID = defaultDTD;
-					}
-					setupDTD(publicID);
-					if (domImpl == null) {
-						domImpl = doc.getImplementation();
-					}
-					DocumentType ret = null;
-					if (domImpl != null) {
-						currentNode = ret = createDocType(domImpl, docTypeName,
-								publicID);
-						if(!publicID.equals(orgId) && ret instanceof SGMLDocType){
-							((SGMLDocType)ret).setOrgId(orgId);
+						setupDTD(id);
+						if (domImpl == null) {
+							domImpl = doc.getImplementation();
 						}
+						DocumentType ret = null;
+						if (domImpl != null) {
+							currentNode = ret = createDocType(domImpl, docTypeName, id);
+							if (!id.equals(orgId) && ret instanceof SGMLDocType) {
+								((SGMLDocType) ret).setOrgId(orgId);
+							}
+						}
+						// consume '>'
+						tokenizer.consumeUntil('>');
+						tokenizer.switchTo(DEFAULT);
+						lastDef = dtd.getElementDefinition(docTypeName);
+						if (lastDef == null) {
+							String topElementName = getDefaultTopElement();
+							error(IParserError.ILLEGAL_DOCTYPE,
+									docTypeName + " is not defined as a root element.  Use " + topElementName + '.');
+							lastDef = dtd.getElementDefinition(topElementName);
+						}
+						if (lexHandler != null) {
+							lexHandler.endDTD();
+						}
+						return ret;
 					}
-					// consume '>'
-					tokenizer.consumeUntil('>');
-					tokenizer.switchTo(DEFAULT);
-					lastDef = dtd.getElementDefinition(docTypeName);
-					if (lastDef == null) {
-						String topElementName = getDefaultTopElement();
-						error(IParserError.ILLEGAL_DOCTYPE, docTypeName
-								+ " is not defined as a root element.  Use "
-								+ topElementName + '.');
-						lastDef = dtd.getElementDefinition(topElementName);
-					}
-					if (lexHandler != null) {
-						lexHandler.endDTD();
-					}
-					return ret;
 				}
+
 			}
 		}
+
+		// for html5
+		if (docTypeName.equalsIgnoreCase("html")) {
+
+			// TODO consider to use pseudo DTD for html5
+			String systemID = "about:legacy-compat";// temp for html5
+			if (enforcedDoctype != null) {
+				systemID = enforcedDoctype;
+			}
+			// if (lexHandler != null) {
+			// lexHandler.startDTD(docTypeName, systemID, null);
+			// }
+			String entityFileName = pubEntityMap.get(systemID);
+			if (entityFileName == null) {
+				if (defaultDTD != null) {
+					error(IParserError.ILLEGAL_DOCTYPE,
+							"For html5 document use PUBLIC \"" + defaultDTD + "\" as a DTD.");
+					entityFileName = pubEntityMap.get(defaultDTD);
+				}
+				if (entityFileName == null) {
+					throw new ParseException(tokenizer.getCurrentLine() + ": this parser does not support " + systemID);
+				}
+				systemID = defaultDTD;
+			}
+			setupDTD(systemID);
+			if (domImpl == null) {
+				domImpl = doc.getImplementation();
+			}
+			DocumentType ret = null;
+			if (domImpl != null) {
+				currentNode = ret = createDocType(domImpl, docTypeName, systemID);
+				((SGMLDocType) ret).setOrgId(""); // use empty string
+			}
+
+			// if current sval is not '>' then consume '>'
+			if (!tokenizer.sval.equals(">")) {
+				tokenizer.consumeUntil('>');
+				error(IParserError.ILLEGAL_DOCTYPE, "Invalid DOCTYPE declaration. Use " + defaultDTD);
+			}
+			tokenizer.switchTo(DEFAULT);
+			lastDef = dtd.getElementDefinition(docTypeName);
+			if (lastDef == null) {
+				String topElementName = getDefaultTopElement();
+				error(IParserError.ILLEGAL_DOCTYPE,
+						docTypeName + " is not defined as a root element.  Use " + topElementName + '.');
+				lastDef = dtd.getElementDefinition(topElementName);
+			}
+			// if (lexHandler != null) {
+			// lexHandler.endDTD();
+			// }
+			return ret;
+		}
+
 		tokenizer.consumeUntil('>');
-		error(IParserError.ILLEGAL_DOCTYPE, "Invalid DOCTYPE declaration. Use "
-				+ defaultDTD);
+
+		// others
+		error(IParserError.ILLEGAL_DOCTYPE, "Invalid DOCTYPE declaration. Use " + defaultDTD);
 		setupDTD(defaultDTD);
 		lastDef = dtd.getElementDefinition(getDefaultTopElement());
 		return null;
 	}
 
-	private DocumentType createDocType(DOMImplementation domImpl,
-			String docTypeName, String publicID) {
+	private DocumentType createDocType(DOMImplementation domImpl, String docTypeName, String publicID) {
 		/*
 		 * For compatibility to DOM level 1
 		 */
-		Class domImplClass = domImpl.getClass();
-		Class stringClass = docTypeName.getClass();
-		Class parameterTypes[] = { stringClass, stringClass, stringClass };
+		Class<? extends DOMImplementation> domImplClass = domImpl.getClass();
+		Class<? extends String> stringClass = docTypeName.getClass();
+		Class<?> parameterTypes[] = { stringClass, stringClass, stringClass };
 		java.lang.reflect.Method method;
 		try {
-			method = domImplClass.getMethod("createDocumentType",
-					parameterTypes);
+			method = domImplClass.getMethod("createDocumentType", parameterTypes);
 		} catch (NoSuchMethodException e) {
 			return null;
 		}
@@ -1696,8 +1703,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 
 	private void expandNodesWithIllegalChildren() {
 		Node newNodes[] = new Node[nodeWithIllegalChildNum * 2];
-		System.arraycopy(nodesWithIllegalChildren, 0, newNodes, 0,
-				nodeWithIllegalChildNum);
+		System.arraycopy(nodesWithIllegalChildren, 0, newNodes, 0, nodeWithIllegalChildNum);
 		nodesWithIllegalChildren = newNodes;
 	}
 
@@ -1744,15 +1750,13 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		if (getDOMImplementation() != null) {
 			setDOMImplementation(getDOMImplementation());
 		} else {
-			for (Node child = doc.getFirstChild(); child != null; child = doc
-					.getFirstChild()) {
+			for (Node child = doc.getFirstChild(); child != null; child = doc.getFirstChild()) {
 				doc.removeChild(child);
 			}
 		}
 	}
 
-	int getCharEntity(String entity) throws IOException, ParseException,
-			SAXException {
+	int getCharEntity(String entity) throws IOException, ParseException, SAXException {
 		SGMLEntityReference er = null;
 		try {
 			er = dtd.getEntityReference(entity);
@@ -1764,15 +1768,13 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		if (ch != -1) {
 			return ch;
 		}
-		InsTokenizer tokenizer2 = new InsTokenizer(ed.getReplacementReader(),
-				this);
+		InsTokenizer tokenizer2 = new InsTokenizer(ed.getReplacementReader(), this);
 		if (tokenizer2.nextToken() == PCDATA && tokenizer2.sval.length() == 1) {
 			char ret = tokenizer2.sval.charAt(0);
 			ed.setReplacementChar(ret);
 			return ret;
 		} else {
-			throw new ParseException("Internal Parser Error: " + entity
-					+ " not defined.");
+			throw new ParseException("Internal Parser Error: " + entity + " not defined.");
 		}
 	}
 
@@ -1806,8 +1808,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			if (handleError(IParserError.TAG_NAME, tokenizer.sval)) {
 				return stag();
 			}
-			error(IParserError.STARTTAG_SYNTAX_ERR,
-					"Perhaps character encoding may not be correct.");
+			error(IParserError.STARTTAG_SYNTAX_ERR, "Perhaps character encoding may not be correct.");
 			while (tokenizer.nextToken() != NAME_CHAR) {
 				if (tokenizer.ttype == EOF || tokenizer.ttype == TAGC) {
 					return null;
@@ -1819,8 +1820,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		if (ed != null) {
 			lastElementNumber = ed.number;
 			lastElementDef = ed;
-			isEmptyElement = ed.getContentModel().toString().equalsIgnoreCase(
-					"EMPTY");
+			isEmptyElement = ed.getContentModel().toString().equalsIgnoreCase("EMPTY");
 		} else if (keepUnknowns) {
 			lastElementNumber = pcdataNumber + 1;
 			ed = lastElementDef = anonymousElementDef;
@@ -1843,8 +1843,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 				if (handleError(IParserError.BEFORE_ATTRNAME, tokenizer.sval)) {
 					continue;
 				}
-				error(IParserError.STARTTAG_SYNTAX_ERR,
-						"requires an attribute in " + ret);
+				error(IParserError.STARTTAG_SYNTAX_ERR, "requires an attribute in " + ret);
 				tokenizer.pushBack();
 				break;
 			} else if (tokenizer.ttype == EOF) {
@@ -1869,11 +1868,12 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			// }
 		}
 
+		// TODO html5 support
+
 		if (ed == null) {
 
 			if (!handleError(IParserError.UNKNOWN_ELEMENT, ret)) {
-				error(IParserError.UNKNOWN_ELEMENT, "Unknown Element: "
-						+ ret.getTagName() + ".  Ignore it.");
+				error(IParserError.UNKNOWN_ELEMENT, "Unknown Element: " + ret.getTagName() + ".  Ignore it.");
 			}
 			return null;
 		} else if (ed == anonymousElementDef) {
@@ -1881,10 +1881,8 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			if (handleError(IParserError.UNKNOWN_ELEMENT, ret)) {
 				return null;
 			} else {
-				error(IParserError.UNKNOWN_ELEMENT, "Unknown Element: "
-						+ ret.getTagName()
-						+ ".  Define its definition as <!ELEMENT "
-						+ ret.getNodeName().toUpperCase() + " - - ANY>");
+				error(IParserError.UNKNOWN_ELEMENT, "Unknown Element: " + ret.getTagName()
+						+ ".  Define its definition as <!ELEMENT " + ret.getNodeName().toUpperCase() + " - - ANY>");
 			}
 		}
 
@@ -1900,8 +1898,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	}
 
 	public String makeUnique(String id) {
-		for (Enumeration<String> e = pubEntityMap.elements(); e
-				.hasMoreElements();) {
+		for (Enumeration<String> e = pubEntityMap.elements(); e.hasMoreElements();) {
 			String ret = e.nextElement();
 			if (id.equals(ret))
 				return ret;
@@ -1940,8 +1937,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		if (defaultTopElement != null) {
 			return defaultTopElement;
 		}
-		throw new ParseException(
-				"doesn't know which element must be at the top.");
+		throw new ParseException("doesn't know which element must be at the top.");
 	}
 
 	private String defaultTopElement = null;
@@ -1990,8 +1986,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 *            otherwise, ignore.
 	 */
 	public void setTagCase(int tagCase) {
-		if (tagCase == IParser.UPPER_CASE || tagCase == IParser.LOWER_CASE
-				|| tagCase == IParser.ORIGINAL_CASE) {
+		if (tagCase == IParser.UPPER_CASE || tagCase == IParser.LOWER_CASE || tagCase == IParser.ORIGINAL_CASE) {
 			this.tagCase = tagCase;
 		}
 	}
@@ -2021,8 +2016,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 *            otherwise, ignore.
 	 */
 	public void setAttrNameCase(int attrCase) {
-		if (attrCase == IParser.UPPER_CASE || attrCase == IParser.LOWER_CASE
-				|| attrCase == IParser.ORIGINAL_CASE) {
+		if (attrCase == IParser.UPPER_CASE || attrCase == IParser.LOWER_CASE || attrCase == IParser.ORIGINAL_CASE) {
 			this.attrCase = attrCase;
 		}
 	}
@@ -2071,8 +2065,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		return extraErrInfo;
 	}
 
-	private boolean handleError(int code, Node node) throws ParseException,
-			IOException, SAXException {
+	private boolean handleError(int code, Node node) throws ParseException, IOException, SAXException {
 		for (int i = errorHandlerNum - 1; i >= 0; i--) {
 			if (errorHandlers[i].handleError(code, this, node)) {
 				return true;
@@ -2081,8 +2074,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		return false;
 	}
 
-	boolean handleError(int code, String errorStr) throws ParseException,
-			IOException {
+	boolean handleError(int code, String errorStr) throws ParseException, IOException {
 		for (int i = tokenErrorHandlerNum - 1; i >= 0; i--) {
 			if (tokenErrorHandlers[i].handleError(code, this, errorStr)) {
 				return true;
@@ -2150,12 +2142,11 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 * {@link org.xml.sax.DocumentHandler#startElement(java.lang.String, org.xml.sax.AttributeList)}
 	 * and {@link org.xml.sax.DocumentHandler#endElement(java.lang.String)}
 	 * <code>logically</code> or <code>physically</code>.<code>
-	 * Logical</code> means
-	 * that if a start or end tag of a element is omitted, a parser invokes each
-	 * method. <code>Physical</code> means that parsers invokes each method if
-	 * and only if their tag appearently exist. If <code>physical</code>, a
-	 * parser does not care if the tag is illegal or not. Default is
-	 * <code>physical</code>
+	 * Logical</code> means that if a start or end tag of a element is omitted,
+	 * a parser invokes each method. <code>Physical</code> means that parsers
+	 * invokes each method if and only if their tag appearently exist. If
+	 * <code>physical</code>, a parser does not care if the tag is illegal or
+	 * not. Default is <code>physical</code>
 	 * 
 	 * @param logical
 	 *            if true, deal with tags as logical. Otherwise, as physical
@@ -2179,10 +2170,9 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 * 
 	 * <PRE>
 	 * 
-	 * &#064;param an
-	 *            element node to be checked
-	 * &#064;return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;element&lt;/code&gt; is automatically
-	 * generated by this. Otherwise false.
+	 * &#064;param an element node to be checked &#064;return
+	 * &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;element&lt;/code&gt; is
+	 * automatically generated by this. Otherwise false.
 	 */
 	public boolean autoGenerated(Element element) {
 		return autoGenerated.contains(element);
@@ -2207,6 +2197,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		return new AttributeListImpl();
 	}
 
+	// TODO to track this boolean
 	private boolean keepUnknowns;
 
 	/*
@@ -2259,7 +2250,8 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 * Determines if this parser keeps comments and processing instructions in
 	 * the tree or not. By default, it keeps.
 	 * 
-	 * @param <code>true</code> if it keeps, Otherwise <code>false</code>
+	 * @param <code>true</code>
+	 *            if it keeps, Otherwise <code>false</code>
 	 */
 	public void setKeepComment(boolean keep) {
 		this.keepComment = keep;
@@ -2304,8 +2296,7 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 		if (!eHandleLogical || docHandler == null)
 			return;
 		for (int j = depth; j < i; j++) {
-			docHandler.startElement(ancesters[j].getNodeName(),
-					nullAttributeList);
+			docHandler.startElement(ancesters[j].getNodeName(), nullAttributeList);
 		}
 	}
 
@@ -2319,15 +2310,13 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 * Parses a fragment under specified context.
 	 * 
 	 */
-	public void parseFragment(Element parent, Reader reader)
-			throws IOException, ParseException, SAXException {
+	public void parseFragment(Element parent, Reader reader) throws IOException, ParseException, SAXException {
 		if (dtd == null) {
 			throw new ParseException("Can't parse without DTD");
 		} else if (doc == null) {
 			throw new ParseException("Can't parse without a Document");
 		}
-		this.ancesterElementDefs[0] = dtd.getElementDefinition(parent
-				.getNodeName());
+		this.ancesterElementDefs[0] = dtd.getElementDefinition(parent.getNodeName());
 		if (this.ancesterElementDefs[0] == null) {
 			this.ancesterElementDefs[0] = anonymousElementDef;
 		}
@@ -2349,13 +2338,11 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 	 * Parses a fragment. As a side effect, wastes a element node.
 	 * 
 	 */
-	public DocumentFragment parseFragment(Reader reader) throws IOException,
-			ParseException, SAXException {
+	public DocumentFragment parseFragment(Reader reader) throws IOException, ParseException, SAXException {
 		Element dummy = doc != null ? doc.createElement("dummy") : null;
 		parseFragment(dummy, reader);
 		DocumentFragment ret = doc.createDocumentFragment();
-		for (Node child = dummy.getFirstChild(); child != null; child = dummy
-				.getFirstChild()) {
+		for (Node child = dummy.getFirstChild(); child != null; child = dummy.getFirstChild()) {
 			dummy.removeChild(child);
 			ret.appendChild(child);
 		}
