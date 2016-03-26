@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and Others
+ * Copyright (c) 2008, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,6 +97,7 @@ public class ASBridgeImplV8 implements IASBridge {
 	}
 
 	private Object invoke(Object[] args) {
+		@SuppressWarnings("unused")
 		int counter = 0;
 		try {
 			if (!initSecret()) {

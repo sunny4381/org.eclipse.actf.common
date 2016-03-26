@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -106,6 +106,7 @@ public abstract class ServerConnection implements Runnable {
 	private static class Status {
 		private int fStat = STAT_INIT;
 
+		@SuppressWarnings("unused")
 		private int fNumWaiters = 0;
 
 		Status() {
@@ -593,7 +594,10 @@ public abstract class ServerConnection implements Runnable {
 		// long lastActivityTime = System.currentTimeMillis();
 		try {
 			boolean serverError = false;
+
+			@SuppressWarnings("unused")
 			int counter = 0;
+			
 			while (!Thread.interrupted() && !serverError) {
 				counter += 1;
 				IHTTPRequestMessage request = nextRequest();

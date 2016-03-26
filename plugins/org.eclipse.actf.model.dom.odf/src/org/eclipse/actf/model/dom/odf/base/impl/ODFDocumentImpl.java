@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * Copyright (c) 2007, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,25 +59,18 @@ import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
 public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
-	private static final long serialVersionUID = 1L;
-
 	private static final Map<String, Class<? extends AbstractODFNodeFactory>> factoryMap = new HashMap<String, Class<? extends AbstractODFNodeFactory>>();
+
 	static {
-		factoryMap.put(ChartConstants.CHART_NAMESPACE_URI,
-				ChartNodeFactory.class);
+		factoryMap.put(ChartConstants.CHART_NAMESPACE_URI, ChartNodeFactory.class);
 		factoryMap.put(Dr3dConstants.DR3D_NAMESPACE_URI, Dr3dNodeFactory.class);
 		factoryMap.put(DrawConstants.DRAW_NAMESPACE_URI, DrawNodeFactory.class);
 		factoryMap.put(FormConstants.FORM_NAMESPACE_URI, FormNodeFactory.class);
-		factoryMap.put(NumberConstants.NUMBER_NAMESPACE_URI,
-				NumberNodeFactory.class);
-		factoryMap.put(OfficeConstants.OFFICE_NAMESPACE_URI,
-				OfficeNodeFactory.class);
-		factoryMap.put(PresentationConstants.PRESENTATION_NAMESPACE_URI,
-				PresentationNodeFactory.class);
-		factoryMap.put(StyleConstants.STYLE_NAMESPACE_URI,
-				StyleNodeFactory.class);
-		factoryMap.put(TableConstants.TABLE_NAMESPACE_URI,
-				TableNodeFactory.class);
+		factoryMap.put(NumberConstants.NUMBER_NAMESPACE_URI, NumberNodeFactory.class);
+		factoryMap.put(OfficeConstants.OFFICE_NAMESPACE_URI, OfficeNodeFactory.class);
+		factoryMap.put(PresentationConstants.PRESENTATION_NAMESPACE_URI, PresentationNodeFactory.class);
+		factoryMap.put(StyleConstants.STYLE_NAMESPACE_URI, StyleNodeFactory.class);
+		factoryMap.put(TableConstants.TABLE_NAMESPACE_URI, TableNodeFactory.class);
 		factoryMap.put(TextConstants.TEXT_NAMESPACE_URI, TextNodeFactory.class);
 		factoryMap.put(SVGConstants.SVG_NAMESPACE_URI, SVGNodeFactory.class);
 	}
@@ -103,8 +96,7 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 		return null;
 	}
 
-	public Attr createAttributeNS(String namespaceURI, String qualifiedName)
-			throws DOMException {
+	public Attr createAttributeNS(String namespaceURI, String qualifiedName) throws DOMException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -130,31 +122,26 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 
 	public Element createElement(String tagName) throws DOMException {
 		if (iNode instanceof Document) {
-			return (Element) getODFNode(((Document) iNode)
-					.createElement(tagName));
+			return (Element) getODFNode(((Document) iNode).createElement(tagName));
 		}
 		return null;
 	}
 
-	public Element createElementNS(String namespaceURI, String qualifiedName)
-			throws DOMException {
+	public Element createElementNS(String namespaceURI, String qualifiedName) throws DOMException {
 		if (iNode instanceof Document) {
-			return (Element) getODFNode(((Document) iNode).createElementNS(
-					namespaceURI, qualifiedName));
+			return (Element) getODFNode(((Document) iNode).createElementNS(namespaceURI, qualifiedName));
 		}
 		return null;
 	}
 
-	public EntityReference createEntityReference(String name)
-			throws DOMException {
+	public EntityReference createEntityReference(String name) throws DOMException {
 		if (iNode instanceof Document) {
 			return ((Document) iNode).createEntityReference(name);
 		}
 		return null;
 	}
 
-	public ProcessingInstruction createProcessingInstruction(String target,
-			String data) throws DOMException {
+	public ProcessingInstruction createProcessingInstruction(String target, String data) throws DOMException {
 		if (iNode instanceof Document) {
 			return ((Document) iNode).createProcessingInstruction(target, data);
 		}
@@ -212,8 +199,7 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 
 	public NodeList getElementsByTagName(String tagname) {
 		if (iNode instanceof Document) {
-			NodeList iNodeList = ((Document) iNode)
-					.getElementsByTagName(tagname);
+			NodeList iNodeList = ((Document) iNode).getElementsByTagName(tagname);
 			if (iNodeList == null)
 				return null;
 			return new ODFNodeListImpl(this, iNodeList);
@@ -223,8 +209,7 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 
 	public NodeList getElementsByTagNameNS(String namespaceURI, String localName) {
 		if (iNode instanceof Document) {
-			NodeList iNodeList = ((Document) iNode).getElementsByTagNameNS(
-					namespaceURI, localName);
+			NodeList iNodeList = ((Document) iNode).getElementsByTagNameNS(namespaceURI, localName);
 			if (iNodeList == null)
 				return null;
 			return new ODFNodeListImpl(this, iNodeList);
@@ -284,8 +269,7 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 
 	}
 
-	public Node renameNode(Node n, String namespaceURI, String qualifiedName)
-			throws DOMException {
+	public Node renameNode(Node n, String namespaceURI, String qualifiedName) throws DOMException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -323,8 +307,7 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 		for (int i = 0; i < methods.length; i++) {
 			if ("createElement".equals(methods[i].getName())) { //$NON-NLS-1$
 				Class<?>[] parms = methods[i].getParameterTypes();
-				if (parms.length == 3 && parms[0].equals(ODFDocument.class)
-						&& parms[1].equals(String.class)
+				if (parms.length == 3 && parms[0].equals(ODFDocument.class) && parms[1].equals(String.class)
 						&& parms[2].equals(Element.class)) {
 					return methods[i];
 				}
@@ -338,15 +321,13 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 		if (result != null)
 			return result;
 
-		Class<? extends AbstractODFNodeFactory> factory = factoryMap.get(node
-				.getNamespaceURI());
+		Class<? extends AbstractODFNodeFactory> factory = factoryMap.get(node.getNamespaceURI());
 		if (factory != null) {
 			if (node instanceof Element) {
 				Method createElemMethod = findCreateElementMethod(factory);
 				try {
 					result = (ODFNode) createElemMethod.invoke(factory,
-							new Object[] { this, node.getLocalName(),
-									(Element) node });
+							new Object[] { this, node.getLocalName(), (Element) node });
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
@@ -368,8 +349,7 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 			} else if (node instanceof CharacterData) {
 				result = new ODFCharacterDataImpl(this, (CharacterData) node);
 			} else if (node instanceof ProcessingInstruction) {
-				result = new ODFProcessingInstructionImpl(this,
-						(ProcessingInstruction) node);
+				result = new ODFProcessingInstructionImpl(this, (ProcessingInstruction) node);
 			} else {
 				result = new ODFNodeImpl(this, node);
 			}
@@ -388,8 +368,8 @@ public class ODFDocumentImpl extends ODFNodeImpl implements ODFDocument {
 
 	public void setODFVersion(double version) {
 		Element root = this.getDocumentElement();
-		root.setAttributeNS(OfficeConstants.OFFICE_NAMESPACE_URI,
-				OfficeConstants.ATTR_VERSION, new Double(version).toString());
+		root.setAttributeNS(OfficeConstants.OFFICE_NAMESPACE_URI, OfficeConstants.ATTR_VERSION,
+				new Double(version).toString());
 	}
 
 	public double getODFVersion() {
