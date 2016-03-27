@@ -49,7 +49,8 @@ public class DomPrintUtil {
 	private static final String ESC_GT = "&gt;";
 	private static final String ESC_AMP = "&amp;";
 
-	private Document document;
+	private Document document = null;
+	private Node rootNode = null;
 	private int whatToShow = NodeFilter.SHOW_ALL;
 	private NodeFilter nodeFilter = null;
 	private boolean entityReferenceExpansion = false;
@@ -88,6 +89,16 @@ public class DomPrintUtil {
 		this.document = document;
 	}
 
+	/**
+	 * Constructor of DOM print utility.
+	 * 
+	 * @param root
+	 *            Node the target root Node
+	 */
+	public DomPrintUtil(Node rootNode) {
+		this.rootNode = rootNode;
+	}
+
 	private String getXMLString(String targetS) {
 		return targetS.replaceAll(AMP, ESC_AMP).replaceAll(LT, ESC_LT).replaceAll(GT, ESC_GT);
 	}
@@ -123,7 +134,12 @@ public class DomPrintUtil {
 	public String toXMLString() {
 		StringBuffer tmpSB = new StringBuffer(8192);
 
-		TreeWalkerImpl treeWalker = new TreeWalkerImpl(document, whatToShow, nodeFilter, entityReferenceExpansion);
+		TreeWalkerImpl treeWalker;
+		if (document != null) {
+			treeWalker = new TreeWalkerImpl(document, whatToShow, nodeFilter, entityReferenceExpansion);
+		} else {
+			treeWalker = new TreeWalkerImpl(rootNode, whatToShow, nodeFilter, entityReferenceExpansion);
+		}
 
 		String lt = escapeTagBracket ? ESC_LT : LT;
 		String gt = escapeTagBracket ? ESC_GT : GT;
@@ -416,7 +432,14 @@ public class DomPrintUtil {
 	 * @throws IOException
 	 */
 	public void writeToFile(File file, String encode) throws IOException {
-		PrintWriter tmpPW = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), encode));
+		FileOutputStream FOS = new FileOutputStream(file);
+		PrintWriter tmpPW = new PrintWriter(new OutputStreamWriter(FOS, encode));
+		//BOM
+		if (isHTML5 && encode.equals(UTF8)) {
+			FOS.write(0xef);
+			FOS.write(0xbb);
+			FOS.write(0xbf);
+		}
 		tmpPW.println(toXMLString());
 		tmpPW.flush();
 		tmpPW.close();
