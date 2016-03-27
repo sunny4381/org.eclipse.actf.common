@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2009 IBM Corporation and Others
+ * Copyright (c) 2007, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,8 +59,7 @@ public class ModelServiceUtils {
 			for (int i = 0; i < editorRefs.length; i++) {
 				IEditorPart part = editorRefs[i].getEditor(false);
 				if (part instanceof IModelServiceHolder) {
-					IModelService modelService = ((IModelServiceHolder) part)
-							.getModelService();
+					IModelService modelService = ((IModelServiceHolder) part).getModelService();
 					if (targetUrl.equals(modelService.getURL())) {
 						activePage.activate(part);
 						modelService.open(targetUrl);
@@ -78,6 +77,33 @@ public class ModelServiceUtils {
 		return null;
 	}
 
+	/**
+	 * Find and launch a new Editor associated with the target URL
+	 * 
+	 * @param targetUrl
+	 *            target URL
+	 * @return {@link IEditorPart} implements {@link IModelServiceHolder}, or
+	 *         null if not available
+	 */
+	public static IEditorPart launchNew(String targetUrl) {
+		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
+		if (activePage == null) {
+			return null;
+		}
+
+		if (targetUrl != null && targetUrl.length() != 0) {
+			targetUrl = targetUrl.trim();
+
+			try {
+				return (launchNew(targetUrl, getEditorId(targetUrl)));
+			} catch (EditorNotFoundException e) {
+				System.err.println("Editor not found: " + targetUrl); //$NON-NLS-1$
+			}
+		}
+		return null;
+	}
+
+	
 	private static boolean isModelService(IEditorDescriptor desc) {
 		if (desc == null) {
 			return false;
@@ -85,8 +111,7 @@ public class ModelServiceUtils {
 		return desc.getId().indexOf("actf.model.ui") >= 0; //$NON-NLS-1$
 	}
 
-	private static String getEditorId(String targetUrl)
-			throws EditorNotFoundException {
+	private static String getEditorId(String targetUrl) throws EditorNotFoundException {
 		// TODO support multiple editor, dialog, preference
 		IEditorRegistry editors = PlatformUI.getWorkbench().getEditorRegistry();
 		IEditorDescriptor[] candidates;
@@ -145,8 +170,7 @@ public class ModelServiceUtils {
 		if (blankEditorPart != null) {
 			activePage.activate(blankEditorPart);
 			if (targetUrl != null) {
-				((IModelServiceHolder) blankEditorPart).getModelService().open(
-						targetUrl);
+				((IModelServiceHolder) blankEditorPart).getModelService().open(targetUrl);
 				return blankEditorPart;
 			}
 		} else {
@@ -155,8 +179,7 @@ public class ModelServiceUtils {
 				if (editorRefs[i].getId().equals(id)) {
 					IWorkbenchPart part = editorRefs[i].getPart(false);
 					if (part instanceof IModelServiceHolder) {
-						IModelService modelService = ((IModelServiceHolder) part)
-								.getModelService();
+						IModelService modelService = ((IModelServiceHolder) part).getModelService();
 						if (targetUrl.equals(modelService.getURL())) {
 							activePage.activate(part);
 							return (IEditorPart) part;
@@ -167,13 +190,11 @@ public class ModelServiceUtils {
 
 			try {
 				String editorName = ""; //$NON-NLS-1$
-				IEditorRegistry editors = PlatformUI.getWorkbench()
-						.getEditorRegistry();
+				IEditorRegistry editors = PlatformUI.getWorkbench().getEditorRegistry();
 				IEditorDescriptor editorDesc = editors.findEditor(id);
 				if (editorDesc != null) {
 					editorName = editorDesc.getLabel();
-					return activePage.openEditor(new DummyEditorInput(
-							targetUrl, editorName), id);
+					return activePage.openEditor(new DummyEditorInput(targetUrl, editorName), id);
 				} else {
 					System.err.println("Editor not found: " + id); //$NON-NLS-1$
 				}
@@ -183,21 +204,56 @@ public class ModelServiceUtils {
 		}
 		return null;
 	}
+	
+	
+	/**
+	 * Launch a new Editor
+	 * 
+	 * @param targetUrl
+	 *            target URL
+	 * @param id
+	 *            ID of target Editor
+	 * @return {@link IEditorPart}, or null if not available
+	 */
+	public static IEditorPart launchNew(String targetUrl, String id) {
+
+		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
+		if (activePage == null) {
+			return null;
+		}
+		if (targetUrl != null) {
+			targetUrl = targetUrl.trim();
+		} else {
+			targetUrl = ""; //$NON-NLS-1$
+		}
+
+		try {
+			String editorName = ""; //$NON-NLS-1$
+			IEditorRegistry editors = PlatformUI.getWorkbench().getEditorRegistry();
+			IEditorDescriptor editorDesc = editors.findEditor(id);
+			if (editorDesc != null) {
+				editorName = editorDesc.getLabel();
+				return activePage.openEditor(new DummyEditorInput(targetUrl, editorName), id);
+			} else {
+				System.err.println("Editor not found: " + id); //$NON-NLS-1$
+			}
+		} catch (PartInitException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	private static IEditorPart getBlankBrowserEditorPart(String id) {
-		IEditorReference[] editors = PlatformUIUtil.getActivePage()
-				.getEditorReferences();
+		IEditorReference[] editors = PlatformUIUtil.getActivePage().getEditorReferences();
 		for (int i = 0; i < editors.length; i++) {
 			if (editors[i].getId().equals(id)) {
 				IWorkbenchPart part = editors[i].getPart(false);
 				if (part instanceof IModelServiceHolder) {
-					IModelService modelService = ((IModelServiceHolder) part)
-							.getModelService();
+					IModelService modelService = ((IModelServiceHolder) part).getModelService();
 					// System.out.println(modelService.getURL());
 					if (modelService.getURL() == null)
 						return (IEditorPart) part;
-					if (modelService instanceof IWebBrowserACTF
-							&& ("about:blank".equals(modelService.getURL()) || ("" //$NON-NLS-1$ //$NON-NLS-2$
+					if (modelService instanceof IWebBrowserACTF && ("about:blank".equals(modelService.getURL()) || ("" //$NON-NLS-1$ //$NON-NLS-2$
 							.equals(modelService.getURL()))))
 						return (IEditorPart) part;
 				}
@@ -234,8 +290,7 @@ public class ModelServiceUtils {
 		if (activateEditorPart(editorId)) {
 			IEditorPart editor = activePage.getActiveEditor();
 			if (editor instanceof IModelServiceHolder) {
-				((IModelServiceHolder) editor).getModelService()
-						.open(targetUrl);
+				((IModelServiceHolder) editor).getModelService().open(targetUrl);
 			} else {
 				launch(targetUrl);
 			}
@@ -320,8 +375,7 @@ public class ModelServiceUtils {
 	 *         null if not available
 	 */
 	public static IEditorPart reopenInACTFBrowser() {
-		String url = WebBrowserUtilForACTF.getUrl(PlatformUIUtil
-				.getActiveEditor());
+		String url = WebBrowserUtilForACTF.getUrl(PlatformUIUtil.getActiveEditor());
 		if (url != null) {
 			return ModelServiceUtils.launch(url);
 		}

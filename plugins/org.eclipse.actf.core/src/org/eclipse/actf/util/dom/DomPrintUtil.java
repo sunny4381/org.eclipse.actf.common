@@ -135,17 +135,19 @@ public class DomPrintUtil {
 		StringBuffer tmpSB = new StringBuffer(8192);
 
 		TreeWalkerImpl treeWalker;
+		Node tmpN;
 		if (document != null) {
 			treeWalker = new TreeWalkerImpl(document, whatToShow, nodeFilter, entityReferenceExpansion);
+			tmpN = treeWalker.nextNode();
 		} else {
 			treeWalker = new TreeWalkerImpl(rootNode, whatToShow, nodeFilter, entityReferenceExpansion);
+			tmpN = rootNode;
 		}
 
 		String lt = escapeTagBracket ? ESC_LT : LT;
 		String gt = escapeTagBracket ? ESC_GT : GT;
 		String line_sep = indent ? LINE_SEP : EMPTY_STR;
 
-		Node tmpN = treeWalker.nextNode();
 		boolean prevIsText = false;
 
 		boolean isFirst = true;
