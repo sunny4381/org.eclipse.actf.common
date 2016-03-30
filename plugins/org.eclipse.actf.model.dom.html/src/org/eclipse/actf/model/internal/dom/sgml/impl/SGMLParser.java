@@ -18,6 +18,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import org.eclipse.actf.model.dom.html.DocumentTypeUtil;
 import org.eclipse.actf.model.dom.html.IErrorHandler;
 import org.eclipse.actf.model.dom.html.IErrorLogListener;
 import org.eclipse.actf.model.dom.html.IParser;
@@ -495,6 +496,10 @@ public class SGMLParser implements ISGMLConstants, ISGMLParser {
 			} else {
 				tokenizer.pushBack();
 				ret = doc.createAttribute(attName);
+				//HTML5 allows to omit attr val
+				if (DocumentTypeUtil.isOriginalHTML5(doc.getDoctype())) {
+					ret.setValue("");
+				}
 			}
 			if (ad == null) {
 				if (attrlist != null) {
