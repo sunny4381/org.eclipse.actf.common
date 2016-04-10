@@ -45,7 +45,6 @@ public class DocumentTypeUtil {
 		}
 
 		String orgID = getOriginalID(docType);
-		DocumentTypeUtil.getOriginalID(docType);
 		if (orgID.indexOf("XHTML") > 0) {
 			return true;
 		}
