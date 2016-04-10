@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -180,34 +180,30 @@ public class CurrentStylesImpl implements ICurrentStyles {
 
 		boolean fgFlag = "transparent".equalsIgnoreCase(cascadeColor);
 		boolean bgFlag = "transparent".equalsIgnoreCase(cascadeBackgroundColor);
-		boolean bgImgFlag = bgFlag
-				&& "none".equalsIgnoreCase(cascadeBackgroundImage);
+		boolean bgImgFlag = bgFlag && "none".equalsIgnoreCase(cascadeBackgroundImage);
+
 		Node tmpN = element.getParentNode();
-		if ((tmpN != null && !(tmpN instanceof Document)) && (fgFlag || bgFlag)) {
+		while ((tmpN != null && !(tmpN instanceof Document)) && (fgFlag || bgFlag)) {
 			try {
 				if (tmpN instanceof IElementEx) {
 					IElementEx tmpE = (IElementEx) tmpN;
 					if (fgFlag) {
 						String tmpStr = (String) tmpE.getStyle().get(A_COLOR);
-						if (tmpStr != null
-								&& !tmpStr.equalsIgnoreCase("transparent")) {
+						if (tmpStr != null && !tmpStr.equalsIgnoreCase("transparent")) {
 							cascadeColor = tmpStr;
 							fgFlag = false;
 						}
 					}
 					if (bgImgFlag) {
-						String tmpStr = (String) tmpE.getStyle().get(
-								A_BACKGROUND_IMAGE);
+						String tmpStr = (String) tmpE.getStyle().get(A_BACKGROUND_IMAGE);
 						if (tmpStr != null && !tmpStr.equalsIgnoreCase("none")) {
 							cascadeBackgroundImage = tmpStr;
 							bgImgFlag = false;
 						}
 					}
 					if (bgFlag) {
-						String tmpStr = (String) tmpE.getStyle().get(
-								A_BACKGROUND_COLOR);
-						if (tmpStr != null
-								&& !tmpStr.equalsIgnoreCase("transparent")) {
+						String tmpStr = (String) tmpE.getStyle().get(A_BACKGROUND_COLOR);
+						if (tmpStr != null && !tmpStr.equalsIgnoreCase("transparent")) {
 							cascadeBackgroundColor = tmpStr;
 							bgFlag = false;
 							bgImgFlag = false;
@@ -231,7 +227,7 @@ public class CurrentStylesImpl implements ICurrentStyles {
 						childs.add(tmpN2.getNodeValue());
 					}
 				} else {
-					System.out.println("unkonwn node: "+ tmpN2.getNodeName());
+					System.out.println("unkonwn node: " + tmpN2.getNodeName());
 				}
 			}
 		}
@@ -250,8 +246,7 @@ public class CurrentStylesImpl implements ICurrentStyles {
 		childTexts = new String[childs.size()];
 		childs.toArray(childTexts);
 
-		if (backgroundImage != null
-				&& !"none".equalsIgnoreCase(backgroundImage)) {
+		if (backgroundImage != null && !"none".equalsIgnoreCase(backgroundImage)) {
 			NodeFilter tmpNF = new NodeFilter() {
 				public short acceptNode(Node n) {
 					if (n instanceof Text) {
@@ -263,11 +258,8 @@ public class CurrentStylesImpl implements ICurrentStyles {
 					}
 					if (n instanceof IElementEx) {
 						IStyle tmpStyle = ((IElementEx) n).getStyle();
-						if (tmpStyle != null
-								&& (!"none".equalsIgnoreCase((String) tmpStyle
-										.get(A_BACKGROUND_IMAGE)) || !"transparent"
-										.equalsIgnoreCase((String) tmpStyle
-												.get(A_BACKGROUND_COLOR)))) {
+						if (tmpStyle != null && (!"none".equalsIgnoreCase((String) tmpStyle.get(A_BACKGROUND_IMAGE))
+								|| !"transparent".equalsIgnoreCase((String) tmpStyle.get(A_BACKGROUND_COLOR)))) {
 							return NodeFilter.FILTER_REJECT;
 						}
 					}
@@ -276,8 +268,7 @@ public class CurrentStylesImpl implements ICurrentStyles {
 			};
 			ArrayList<String> descendants = new ArrayList<String>();
 
-			TreeWalkerImpl twi = new TreeWalkerImpl(element,
-					NodeFilter.SHOW_ALL, tmpNF, false);
+			TreeWalkerImpl twi = new TreeWalkerImpl(element, NodeFilter.SHOW_ALL, tmpNF, false);
 			Node tmpText = twi.nextNode();
 			hasDescendantTextWithBGImage = (tmpText != null);
 			while (tmpText != null) {
@@ -294,9 +285,8 @@ public class CurrentStylesImpl implements ICurrentStyles {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getBackgroundColor
-	 * ()
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#
+	 * getBackgroundColor ()
 	 */
 	public String getBackgroundColor() {
 		return backgroundColor;
@@ -305,9 +295,8 @@ public class CurrentStylesImpl implements ICurrentStyles {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getBackgroundRepeat
-	 * ()
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#
+	 * getBackgroundRepeat ()
 	 */
 	public String getBackgroundRepeat() {
 		return backgroundRepeat;
@@ -316,9 +305,8 @@ public class CurrentStylesImpl implements ICurrentStyles {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#getBackgroundImage
-	 * ()
+	 * @see org.eclipse.actf.model.ui.editor.browser.ICurrentStyles#
+	 * getBackgroundImage ()
 	 */
 	public String getBackgroundImage() {
 		return backgroundImage;
