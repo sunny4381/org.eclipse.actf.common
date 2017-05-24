@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ACTF Flash Model Plug-in
 Bundle-SymbolicName: org.eclipse.actf.model.flash
-Bundle-Version: 1.4.0.qualifier
+Bundle-Version: 1.5.0.qualifier
 Bundle-Activator: org.eclipse.actf.model.internal.flash.FlashModelPlugin
 Bundle-Vendor: Eclipse ACTF Project
 Require-Bundle: org.eclipse.core.runtime,
