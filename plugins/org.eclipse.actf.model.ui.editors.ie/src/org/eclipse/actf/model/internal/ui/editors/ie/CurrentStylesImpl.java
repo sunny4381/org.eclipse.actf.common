@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2016 IBM Corporation and Others
+ * Copyright (c) 2007, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,6 +59,8 @@ public class CurrentStylesImpl implements ICurrentStyles {
 	private static final String A_BACKGROUND_COLOR = "backgroundColor";
 
 	private static final String A_BACKGROUND_IMAGE = "backgroundImage";
+	
+	private static final String A_OPACITY = "opacity";
 
 	private static final String HREF = "href";
 
@@ -77,6 +79,8 @@ public class CurrentStylesImpl implements ICurrentStyles {
 	private final String backgroundImage;
 
 	private final String color;
+	
+	private final String opacity;
 
 	private final String fontFamily;
 
@@ -165,6 +169,7 @@ public class CurrentStylesImpl implements ICurrentStyles {
 		cascadeColor = color;
 		cascadeBackgroundColor = backgroundColor;
 		cascadeBackgroundImage = backgroundImage;
+		opacity = (String) style.get(A_OPACITY);
 
 		display = (String) style.get(A_DISPLAY);
 		fontFamily = (String) style.get(A_FONT_FAMILY);
@@ -526,4 +531,8 @@ public class CurrentStylesImpl implements ICurrentStyles {
 		return descendantTextsWithBGImage;
 	}
 
+	public String getOpacity() {
+		return opacity;
+	}	
+	
 }
