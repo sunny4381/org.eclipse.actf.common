@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.eclipse.actf.common</groupId>
+    <artifactId>org.eclipse.actf.common</artifactId>
+    <version>1.5.1</version>
+    <relativePath>../../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>org.eclipse.actf.model.ui</artifactId>
+  <name>org.eclipse.actf.model.ui</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.actf.common</groupId>
+      <artifactId>org.eclipse.actf.core</artifactId>
+      <version>${version}</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/../org.eclipse.actf.core/target/org.eclipse.actf.core-${version}.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.actf.common</groupId>
+      <artifactId>org.eclipse.actf.ui</artifactId>
+      <version>${version}</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/../org.eclipse.actf.ui/target/org.eclipse.actf.ui-${version}.jar</systemPath>
+    </dependency>
+  </dependencies>
+</project>
