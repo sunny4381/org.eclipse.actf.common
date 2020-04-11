@@ -21,8 +21,7 @@
     <module>plugins/org.eclipse.actf.util.win32</module>
     <module>plugins/org.eclipse.actf.model.dom.html</module>
     <module>plugins/org.eclipse.actf.model.dom.dombycom</module>
-
-    <!-- <module>plugins/org.eclipse.actf.model.ui.editors.ie</module> -->
+    <module>plugins/org.eclipse.actf.model.ui.editors.ie</module>
   </modules>
 
   <properties>
