@@ -12,4 +12,23 @@
 
   <artifactId>org.eclipse.actf.util.vocab</artifactId>
   <name>org.eclipse.actf.util.vocab</name>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+          <include>plugin.properties</include>
+          <include>plugin.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src</directory>
+        <includes>
+          <include>*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>

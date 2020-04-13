@@ -13,6 +13,18 @@
   <artifactId>org.eclipse.actf.model.dom.dombycom</artifactId>
   <name>org.eclipse.actf.model.dom.dombycom</name>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+          <include>plugin.xml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.eclipse.actf.common</groupId>

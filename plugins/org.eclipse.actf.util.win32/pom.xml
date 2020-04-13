@@ -13,6 +13,18 @@
   <artifactId>org.eclipse.actf.util.win32</artifactId>
   <name>org.eclipse.actf.util.win32</name>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+          <include>AccessibiltyWin32Library.dll</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.eclipse.actf.common</groupId>

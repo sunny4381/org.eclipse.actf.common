@@ -12,4 +12,15 @@
 
   <artifactId>org.eclipse.actf.model.dom.html</artifactId>
   <name>org.eclipse.actf.model.dom.html</name>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>

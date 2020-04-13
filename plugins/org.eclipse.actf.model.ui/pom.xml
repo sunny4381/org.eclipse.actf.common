@@ -13,6 +13,31 @@
   <artifactId>org.eclipse.actf.model.ui</artifactId>
   <name>org.eclipse.actf.model.ui</name>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+          <include>plugin.xml</include>
+          <include>config/favorites.pref</include>
+          <include>icons/browser/go.png</include>
+          <include>icons/toolbar/reload.png</include>
+          <include>icons/toolbar/scriptDebug.png</include>
+          <include>icons/toolbar/stop.png</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src</directory>
+        <includes>
+          <include>messages.properties</include>
+          <include>messages_ja.properties</include>
+          <include>messages_zh.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.eclipse.actf.common</groupId>

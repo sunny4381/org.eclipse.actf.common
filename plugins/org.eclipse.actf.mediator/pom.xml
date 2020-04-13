@@ -13,6 +13,17 @@
   <artifactId>org.eclipse.actf.mediator</artifactId>
   <name>org.eclipse.actf.mediator</name>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.eclipse.actf.common</groupId>

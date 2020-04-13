@@ -12,4 +12,17 @@
 
   <artifactId>org.eclipse.actf.core</artifactId>
   <name>org.eclipse.actf.core</name>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+          <include>logging.properties</include>
+          <include>plugin.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>
