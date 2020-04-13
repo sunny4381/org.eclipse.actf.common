@@ -2,7 +2,7 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Osmorc" name="OSGi">
-      <configuration manifestGenerationMode="Manually" manifestLocation="META-INF/MANIFEST.MF" jarfileLocation="org.eclipse.actf.model.ui.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="" bundleVersion="1.0.0" ignoreFilePattern="" useProjectDefaultManifestFileLocation="false" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
+      <configuration manifestGenerationMode="Manually" manifestLocation="META-INF/MANIFEST.MF" jarfileLocation="org.eclipse.actf.util.win32.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="" bundleVersion="1.0.0" ignoreFilePattern="" useProjectDefaultManifestFileLocation="false" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
         <additionalProperties />
         <additionalJARContents />
       </configuration>
@@ -17,8 +17,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="org.eclipse.actf.core" />
-    <orderEntry type="module" module-name="org.eclipse.actf.ui" />
+    <orderEntry type="module" module-name="org.eclipse.actf.util.win32.comclutch" />
     <orderEntry type="library" name="Maven: org.eclipse.platform:org.eclipse.core.runtime:3.17.100" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.platform:org.eclipse.osgi:3.15.200" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.platform:org.eclipse.equinox.common:3.11.0" level="project" />

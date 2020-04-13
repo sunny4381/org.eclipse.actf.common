@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="org.eclipse.actf.util.win32" />
+        <module name="org.eclipse.actf.model.dom.html" />
+        <module name="org.eclipse.actf.core" />
+        <module name="org.eclipse.actf.model.ui" />
+        <module name="org.eclipse.actf.model.dom.dombycom" />
+        <module name="org.eclipse.actf.util.vocab" />
+        <module name="org.eclipse.actf.util.win32.comclutch" />
+        <module name="org.eclipse.actf.model.ui.editors.ie" />
+        <module name="org.eclipse.actf.mediator" />
+        <module name="org.eclipse.actf.ui" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="org.eclipse.actf.core" target="1.8" />
+      <module name="org.eclipse.actf.mediator" target="1.8" />
+      <module name="org.eclipse.actf.model.dom.dombycom" target="1.8" />
+      <module name="org.eclipse.actf.model.dom.html" target="1.8" />
+      <module name="org.eclipse.actf.model.ui" target="1.8" />
+      <module name="org.eclipse.actf.model.ui.editors.ie" target="1.8" />
+      <module name="org.eclipse.actf.ui" target="1.8" />
+      <module name="org.eclipse.actf.util.vocab" target="1.8" />
+      <module name="org.eclipse.actf.util.win32" target="1.8" />
+      <module name="org.eclipse.actf.util.win32.comclutch" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

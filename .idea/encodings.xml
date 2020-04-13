@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.core/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.core/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.mediator/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.model.dom.dombycom/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.model.dom.html/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.model.ui.editors.ie/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.model.ui/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.ui/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.util.vocab/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.util.win32.comclutch/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.util.win32/src" charset="UTF-8" />
+  </component>
+</project>

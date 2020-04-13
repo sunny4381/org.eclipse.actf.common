@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.ui/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.core/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.mediator/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.model.ui/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.util.vocab/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.util.win32.comclutch/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.util.win32/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.model.dom.html/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.model.dom.dombycom/pom.xml" />
+        <option value="$PROJECT_DIR$/plugins/org.eclipse.actf.model.ui.editors.ie/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

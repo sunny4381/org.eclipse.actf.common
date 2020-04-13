@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.core/org.eclipse.actf.core.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.core/org.eclipse.actf.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.mediator/org.eclipse.actf.mediator.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.mediator/org.eclipse.actf.mediator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.model.dom.dombycom/org.eclipse.actf.model.dom.dombycom.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.model.dom.dombycom/org.eclipse.actf.model.dom.dombycom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.model.dom.html/org.eclipse.actf.model.dom.html.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.model.dom.html/org.eclipse.actf.model.dom.html.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.model.ui/org.eclipse.actf.model.ui.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.model.ui/org.eclipse.actf.model.ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.model.ui.editors.ie/org.eclipse.actf.model.ui.editors.ie.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.model.ui.editors.ie/org.eclipse.actf.model.ui.editors.ie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.ui/org.eclipse.actf.ui.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.ui/org.eclipse.actf.ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.util.vocab/org.eclipse.actf.util.vocab.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.util.vocab/org.eclipse.actf.util.vocab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.util.win32/org.eclipse.actf.util.win32.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.util.win32/org.eclipse.actf.util.win32.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.util.win32.comclutch/org.eclipse.actf.util.win32.comclutch.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.util.win32.comclutch/org.eclipse.actf.util.win32.comclutch.iml" />
+    </modules>
+  </component>
+</project>
